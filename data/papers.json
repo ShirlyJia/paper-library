@@ -1,44 +1,524 @@
 {
-  "version": 1,
+  "version": 2,
   "title": "Shirly 的研究书架",
   "updatedAt": "2026-10-12",
-  "description": "表格基础模型、结构化决策与相关方法。",
+  "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
       "id": 1,
-      "name": "业界与评测",
+      "name": "结构化数据模型的业界进展",
       "fullName": "结构化数据模型的业界进展",
-      "description": "模型路线、行业实证与评测基准。"
+      "description": "跟踪表格基础模型与结构化决策模型的能力、产品形态和应用证据。通过技术报告、独立评测和行业案例，比较模型路线、数据条件与实际使用成本。",
+      "questions": [
+        "模型提供哪些结构化数据能力？",
+        "评测设置是否接近真实数据？",
+        "行业应用中的收益来自哪里？"
+      ],
+      "children": [
+        {
+          "id": "industry-models",
+          "name": "模型与产品动态",
+          "description": "整理已有模型的能力范围、输入输出和推理方式，比较单表、关系表等路线，以及开源、微调和部署形态。",
+          "children": [
+            {
+              "id": "tabular-releases",
+              "name": "通用表格模型",
+              "description": "收录单表预测及通用结构化数据模型的技术报告，关注表征方式、上下文规模与能力扩展。",
+              "code": "01.01.01"
+            },
+            {
+              "id": "relational-releases",
+              "name": "关系数据模型",
+              "description": "关注多张关联表上的预测能力，包括表间连接、时间约束和任务信息的组织方式。",
+              "code": "01.01.02"
+            }
+          ],
+          "code": "01.01"
+        },
+        {
+          "id": "industry-applications",
+          "name": "结构化数据应用",
+          "description": "按业务场景观察模型的实际表现，记录数据规模、切分方式、对比方法，以及预测或决策环节中的适用条件。",
+          "children": [
+            {
+              "id": "credit-risk",
+              "name": "金融风控与信用预测",
+              "description": "研究违约概率、损失率和不平衡数据，比较上下文采样、模型选择与传统方法。",
+              "code": "01.02.01"
+            },
+            {
+              "id": "engineering-applications",
+              "name": "工业与工程预测",
+              "description": "关注道路、汽车等真实业务数据中的预测任务，观察缺失、少样本和弱语义字段的影响。",
+              "code": "01.02.02"
+            },
+            {
+              "id": "decision-evaluation",
+              "name": "文本判断与结构化决策",
+              "description": "比较将文本转成标签、量表和固定判断的实际效果，关注准确率、概率校准及成本。",
+              "code": "01.02.03"
+            }
+          ],
+          "code": "01.02"
+        },
+        {
+          "id": "industry-benchmarks",
+          "name": "技术路线与生态",
+          "description": "通过综述和评测理解不同路线的比较基础，关注数据覆盖、实验协议、计算预算与结论的可迁移性。",
+          "children": [
+            {
+              "id": "tabular-surveys",
+              "name": "路线综述",
+              "description": "梳理表格基础模型的方法谱系、共同模块与发展方向，为跨模型比较提供背景。",
+              "code": "01.03.01"
+            },
+            {
+              "id": "general-benchmarks",
+              "name": "通用评测与分布泛化",
+              "description": "关注随机、时间和分组切分，以及大表、高维和预算变化下的模型比较。",
+              "code": "01.03.02"
+            },
+            {
+              "id": "semantic-relational-benchmarks",
+              "name": "语义与关系数据评测",
+              "description": "评估字符串、表格嵌入和关系数据库任务，比较不同粒度的表示与预测能力。",
+              "code": "01.03.03"
+            }
+          ],
+          "code": "01.03"
+        }
+      ],
+      "code": "01",
+      "shortName": "业界与评测"
     },
     {
       "id": 2,
-      "name": "预测与决策",
+      "name": "表格预测与决策优化",
       "fullName": "表格预测与决策优化",
-      "description": "复杂数据、概率分布与结构化决策。"
+      "description": "研究真实表格任务中的预测质量，以及如何把模型输出用于判断和行动。覆盖缺失与异常、概率和分布预测、置信度校准，以及决策反馈带来的数据变化。",
+      "questions": [
+        "复杂数据条件下能否稳定预测？",
+        "概率与预测区间是否可信？",
+        "预测结果如何转成具体决策？"
+      ],
+      "children": [
+        {
+          "id": "prediction-quality",
+          "name": "复杂数据下的预测优化",
+          "description": "针对数据缺失、噪声及异常，研究清洗、补全和检测方法，以及它们与表格预测器的配合方式。",
+          "children": [
+            {
+              "id": "missing-noisy-data",
+              "name": "缺失补全与噪声清洗",
+              "description": "处理缺失模式和低质量记录，考察补全或清洗是否改善下游预测。",
+              "code": "02.01.01"
+            },
+            {
+              "id": "anomaly-detection",
+              "name": "表格异常检测",
+              "description": "利用已有表格模型识别异常样本，关注正常样本建模、近邻选择和异常分数。",
+              "code": "02.01.02"
+            }
+          ],
+          "code": "02.01"
+        },
+        {
+          "id": "prediction-distributions",
+          "name": "预测概率与分布优化",
+          "description": "从单个预测值进一步考察概率、条件分布和区间质量，区分排序准确性、概率校准与不确定性表达。",
+          "children": [
+            {
+              "id": "probability-calibration",
+              "name": "概率校准与预测一致性",
+              "description": "研究标签比例变化、集成及输入变换下的概率偏差和预测一致性。",
+              "code": "02.02.01"
+            },
+            {
+              "id": "predictive-distributions",
+              "name": "条件分布与不确定性分解",
+              "description": "关注回归分布、概率评分规则，以及模型不确定性和数据噪声的区分。",
+              "code": "02.02.02"
+            },
+            {
+              "id": "prediction-intervals",
+              "name": "预测区间与覆盖率",
+              "description": "通过分位数和保形预测等方法构造区间，检验不同数据条件下的覆盖率。",
+              "code": "02.02.03"
+            }
+          ],
+          "code": "02.02"
+        },
+        {
+          "id": "prediction-decisions",
+          "name": "结构化输出与决策优化",
+          "description": "研究评分、选项和概率如何支持具体判断，同时考察被预测对象对决策规则的响应。",
+          "children": [
+            {
+              "id": "scores-routing",
+              "name": "评分、固定选项与路由",
+              "description": "关注受约束的评分或判断任务，以及置信度能否支持复核和模型路由。",
+              "code": "02.03.01"
+            },
+            {
+              "id": "strategic-feedback",
+              "name": "策略响应与反馈分布",
+              "description": "研究个体根据决策规则改变特征后，模型的预测质量与适配方法。",
+              "code": "02.03.02"
+            }
+          ],
+          "code": "02.03"
+        }
+      ],
+      "code": "02",
+      "shortName": "预测与决策"
     },
     {
       "id": 3,
-      "name": "因果分析",
+      "name": "结构化数据的因果分析与决策",
       "fullName": "结构化数据的因果分析与决策",
-      "description": "因果发现、干预效应与因果模型适配。"
+      "description": "从结构化观测或实验数据中研究变量关系、干预效果和决策策略。分别跟踪因果图发现、效应与分布估计，以及因果知识和表格基础模型的结合方式。",
+      "questions": [
+        "变量之间的因果结构是什么？",
+        "改变一个变量会带来什么结果？",
+        "因果信息如何支持模型与策略？"
+      ],
+      "children": [
+        {
+          "id": "causal-discovery",
+          "name": "表格数据的因果发现",
+          "description": "输入观测或干预样本，识别变量之间的因果连接和方向；关注不同机制、数据条件与结构约束下的图恢复。",
+          "children": [
+            {
+              "id": "causal-graphs",
+              "name": "因果图结构恢复",
+              "description": "研究从多个数据集学习图恢复能力，以直接推断或摊销推断替代逐表搜索。",
+              "code": "03.01.01"
+            },
+            {
+              "id": "causal-mechanisms",
+              "name": "异质机制与结构推理",
+              "description": "研究不同因果机制下的结构恢复，以及节点排序、父节点选择和无环约束。",
+              "code": "03.01.02"
+            }
+          ],
+          "code": "03.01"
+        },
+        {
+          "id": "causal-estimation",
+          "name": "基于结构化数据的因果推断",
+          "description": "在明确因果识别条件的前提下，估计平均或个体处理效应、干预分布与策略价值，覆盖二元和连续处理。",
+          "children": [
+            {
+              "id": "treatment-effects",
+              "name": "处理效应与干预分布",
+              "description": "关注平均处理效应、异质效应及干预结果分布，以及支持这些估计的识别条件。",
+              "code": "03.02.01"
+            },
+            {
+              "id": "continuous-iv",
+              "name": "连续处理与工具变量",
+              "description": "研究剂量变化下的响应曲线，以及利用工具变量处理未观测混杂的方法。",
+              "code": "03.02.02"
+            },
+            {
+              "id": "experimental-regimes",
+              "name": "观测与实验数据融合",
+              "description": "组合观测数据和不同干预实验，研究跨实验条件的信息利用与因果查询。",
+              "code": "03.02.03"
+            },
+            {
+              "id": "causal-policy",
+              "name": "干预分配与策略学习",
+              "description": "把因果效应估计转为干预分配规则，在预算或规则复杂度等约束下评估策略价值。",
+              "code": "03.02.04"
+            }
+          ],
+          "code": "03.02"
+        },
+        {
+          "id": "causal-models",
+          "name": "因果与表格模型结合",
+          "description": "研究统一因果模型、已有知识注入和目标任务适配，并通过去偏及误差诊断检查估计的可靠性。",
+          "children": [
+            {
+              "id": "causal-unified",
+              "name": "统一因果模型与路线",
+              "description": "收录覆盖结构、结果和反事实查询的统一模型，以及因果基础模型的路线综述。",
+              "code": "03.03.01"
+            },
+            {
+              "id": "causal-knowledge",
+              "name": "因果知识与生成约束",
+              "description": "把已知或部分已知的因果关系用于条件化模型、约束数据生成和减少伪相关。",
+              "code": "03.03.02"
+            },
+            {
+              "id": "causal-adaptation",
+              "name": "因果适配器与目标微调",
+              "description": "通过冻结模型的适配器、干预任务微调或因果数据增强，迁移已有表格模型能力。",
+              "code": "03.03.03"
+            },
+            {
+              "id": "causal-reliability",
+              "name": "效应去偏与可靠性",
+              "description": "研究因果估计偏差、区间覆盖和场景敏感性，包含去偏校准与真实条件模拟评测。",
+              "code": "03.03.04"
+            }
+          ],
+          "code": "03.03"
+        }
+      ],
+      "code": "03",
+      "shortName": "因果分析"
     },
     {
       "id": 4,
-      "name": "语义与特征",
+      "name": "语义结构化与表格特征构建",
       "fullName": "语义结构化与表格特征构建",
-      "description": "文本结构化、字段整合与语义表征。"
+      "description": "研究从文本、文档和业务知识到结构化数据的转换过程。覆盖字段与特征生成、跨表信息整合，以及语义表示与数值、类别特征的联合建模。",
+      "questions": [
+        "语义信息怎样变成可用字段？",
+        "不同来源的数据怎样对齐？",
+        "文本语义怎样进入表格预测？"
+      ],
+      "children": [
+        {
+          "id": "semantic-features",
+          "name": "语义结构化与任务驱动特征生成",
+          "description": "将非结构化内容提取为记录、标签或特征，并依据任务反馈优化字段定义和特征程序。",
+          "children": [
+            {
+              "id": "text-structure",
+              "name": "文本到字段与记录",
+              "description": "从长文本中抽取表格，或定义有明确取值范围的语义字段并逐条填充。",
+              "code": "04.01.01"
+            },
+            {
+              "id": "knowledge-features",
+              "name": "知识驱动特征构建",
+              "description": "利用业务规范、专家材料和字段元数据，生成有来源、可解释的预测特征。",
+              "code": "04.01.02"
+            },
+            {
+              "id": "feature-search",
+              "name": "任务反馈与特征搜索",
+              "description": "利用验证集反馈迭代生成、筛选和演化特征程序，检查其对预测的实际贡献。",
+              "code": "04.01.03"
+            }
+          ],
+          "code": "04.01"
+        },
+        {
+          "id": "semantic-integration",
+          "name": "字段、实体对齐与跨表整合",
+          "description": "对齐不同来源的字段含义与实体记录，处理表示差异和冲突，将多个表组织为一致的数据结构。",
+          "children": [
+            {
+              "id": "schema-matching",
+              "name": "字段匹配与模式整合",
+              "description": "研究列含义匹配、统一字段体系，以及异构表的关系结构整理。",
+              "code": "04.02.01"
+            },
+            {
+              "id": "entity-matching",
+              "name": "实体匹配与记录对齐",
+              "description": "判断不同记录是否对应同一实体，并权衡候选检索、模型调用和匹配成本。",
+              "code": "04.02.02"
+            },
+            {
+              "id": "data-integration",
+              "name": "端到端数据整合",
+              "description": "联合考察字段匹配、值归一、实体对齐与冲突融合后的最终数据质量。",
+              "code": "04.02.03"
+            }
+          ],
+          "code": "04.02"
+        },
+        {
+          "id": "semantic-fusion",
+          "name": "语义与表格特征融合",
+          "description": "让文本语义与数值、类别及其他模态一起参与预测，比较外部嵌入和表格模型原生融合方式。",
+          "children": [
+            {
+              "id": "semantic-embeddings",
+              "name": "语义嵌入与特征拼接",
+              "description": "将带任务或上下文信息的文本表示作为特征，接入已有表格预测器。",
+              "code": "04.03.01"
+            },
+            {
+              "id": "text-tabular-models",
+              "name": "文本与表格联合建模",
+              "description": "在表格模型内部结合列名、文本单元格及统计关系，形成面向任务的表示。",
+              "code": "04.03.02"
+            },
+            {
+              "id": "multimodal-schema",
+              "name": "跨字段体系与多模态融合",
+              "description": "研究不同字段体系之间的表示迁移，以及表格、文本和图像信息的结合。",
+              "code": "04.03.03"
+            }
+          ],
+          "code": "04.03"
+        }
+      ],
+      "code": "04",
+      "shortName": "语义与特征"
     },
     {
       "id": 5,
-      "name": "上下文与推理",
+      "name": "表格模型的上下文学习与推理优化",
       "fullName": "表格模型的上下文学习与推理优化",
-      "description": "样本选择、推理策略与大表效率。"
+      "description": "研究已有表格基础模型如何利用上下文样本完成预测。围绕样本选择、推理策略和计算效率，比较有限上下文与有限预算下的性能收益。",
+      "questions": [
+        "哪些样本值得放入上下文？",
+        "额外推理计算应该用在哪里？",
+        "如何处理大样本和多特征？"
+      ],
+      "children": [
+        {
+          "id": "context-selection",
+          "name": "上下文样本优化",
+          "description": "在模型可处理的上下文预算内选择、组织和更新样本，研究局部相关性、代表性和数据分布的作用。",
+          "children": [
+            {
+              "id": "retrieval-shots",
+              "name": "检索与近邻选择",
+              "description": "为查询选择相似样本与示例数量，考察局部上下文、检索空间及微调的配合。",
+              "code": "05.01.01"
+            },
+            {
+              "id": "representative-context",
+              "name": "代表性选择与上下文优化",
+              "description": "通过原型、样本优化或分布匹配批次，保留有限上下文中的关键信息。",
+              "code": "05.01.02"
+            },
+            {
+              "id": "stream-context",
+              "name": "流式更新与记忆管理",
+              "description": "在持续到达的数据上更新有限上下文，关注记忆预算与新旧样本的利用。",
+              "code": "05.01.03"
+            }
+          ],
+          "code": "05.01"
+        },
+        {
+          "id": "inference-strategies",
+          "name": "表格推理策略与机制",
+          "description": "考察推理时处理、集成和流程选择，并通过机制分析理解模型利用特征与上下文的方式。",
+          "children": [
+            {
+              "id": "test-time-compute",
+              "name": "推理时计算与组合策略",
+              "description": "比较适配、集成和上下文构造等额外计算方式，以及不同策略的组合收益。",
+              "code": "05.02.01"
+            },
+            {
+              "id": "pipeline-search",
+              "name": "自动管线与策略搜索",
+              "description": "依据任务验证反馈选择或改进预处理、推理和适配管线。",
+              "code": "05.02.02"
+            },
+            {
+              "id": "inference-mechanisms",
+              "name": "模型机制与行为分析",
+              "description": "研究表格模型的内部表征和预测行为，为推理优化提供机制层面的线索。",
+              "code": "05.02.03"
+            }
+          ],
+          "code": "05.02"
+        },
+        {
+          "id": "inference-efficiency",
+          "name": "大表推理与部署效率",
+          "description": "减少上下文、注意力和中间状态的开销，研究准确率、延迟、内存与可处理数据规模之间的取舍。",
+          "children": [
+            {
+              "id": "context-compression",
+              "name": "上下文压缩与信息迁移",
+              "description": "将完整上下文的信息压缩或迁移到短上下文，考察可恢复的预测能力。",
+              "code": "05.03.01"
+            },
+            {
+              "id": "memory-quantization",
+              "name": "内存优化与注意力量化",
+              "description": "研究注意力计算、中间状态和数值精度的优化，以降低大表推理资源需求。",
+              "code": "05.03.02"
+            }
+          ],
+          "code": "05.03"
+        }
+      ],
+      "code": "05",
+      "shortName": "上下文与推理"
     },
     {
       "id": 6,
-      "name": "微调与蒸馏",
+      "name": "表格基础模型的微调与蒸馏",
       "fullName": "表格基础模型的微调与蒸馏",
-      "description": "目标数据适配、分布变化与轻量预测器。"
+      "description": "关注已有表格基础模型在目标数据上的进一步优化。比较参数更新、输入适配、分布鲁棒性和知识蒸馏，考察预测收益、过拟合风险及部署成本。",
+      "questions": [
+        "目标数据适合更新哪些部分？",
+        "分布变化时怎样保持稳定？",
+        "能力能否迁移到轻量预测器？"
+      ],
+      "children": [
+        {
+          "id": "adaptation-target",
+          "name": "目标表格数据微调与轻量适配",
+          "description": "对已有基础模型进行目标任务适配，比较更新参数与修改输入两类方式，以及样本量和验证策略的影响。",
+          "children": [
+            {
+              "id": "parameter-finetuning",
+              "name": "参数微调与训练策略",
+              "description": "比较监督式、元学习式和参数高效微调，并检查小样本与不平衡条件下的收益。",
+              "code": "06.01.01"
+            },
+            {
+              "id": "input-adapters",
+              "name": "输入空间与冻结模型适配",
+              "description": "冻结基础模型，通过输入端的小型修正模块完成适配，并控制无收益时的退化。",
+              "code": "06.01.02"
+            }
+          ],
+          "code": "06.01"
+        },
+        {
+          "id": "adaptation-distribution",
+          "name": "数据分布适配",
+          "description": "研究目标数据的人群组成或统计分布变化，关注整体表现与弱势子群表现的平衡。",
+          "children": [
+            {
+              "id": "subpopulation-shift",
+              "name": "子群变化与分布鲁棒性",
+              "description": "通过少量参数更新和鲁棒目标，应对人群比例改变造成的性能下降。",
+              "code": "06.02.01"
+            }
+          ],
+          "code": "06.02"
+        },
+        {
+          "id": "adaptation-distillation",
+          "name": "表格预测能力蒸馏",
+          "description": "用基础模型生成的预测或软标签训练轻量学生，比较教师组合、查询数据和学生结构。",
+          "children": [
+            {
+              "id": "distillation-recipes",
+              "name": "教师信号与学生比较",
+              "description": "研究监督信号、合成查询及不同学生模型，比较蒸馏效果和推理成本。",
+              "code": "06.03.01"
+            },
+            {
+              "id": "tree-distillation",
+              "name": "树模型蒸馏与 CPU 部署",
+              "description": "将基础模型预测迁移到梯度提升树等轻量模型，关注折外监督与部署效率。",
+              "code": "06.03.02"
+            }
+          ],
+          "code": "06.03"
+        }
+      ],
+      "code": "06",
+      "shortName": "微调与蒸馏"
     }
   ],
   "papers": [
@@ -62,7 +542,9 @@
       "code": null,
       "keywords": [
         "Jev"
-      ]
+      ],
+      "section": "industry-applications",
+      "topicId": "decision-evaluation"
     },
     {
       "id": "paper-83f7d5c950",
@@ -84,7 +566,9 @@
       "pdf": null,
       "code": null,
       "keywords": [],
-      "dateNote": "SSRN 公开日期 2026-09-30"
+      "dateNote": "SSRN 公开日期 2026-09-30",
+      "section": "industry-benchmarks",
+      "topicId": "tabular-surveys"
     },
     {
       "id": "arxiv-2609.22866",
@@ -104,7 +588,9 @@
       "url": "https://arxiv.org/abs/2609.22866",
       "pdf": "https://arxiv.org/pdf/2609.22866",
       "code": "https://github.com/nums-ai/causilo",
-      "keywords": []
+      "keywords": [],
+      "section": "industry-models",
+      "topicId": "tabular-releases"
     },
     {
       "id": "arxiv-2609.17488",
@@ -127,7 +613,9 @@
       "code": null,
       "keywords": [
         "LimiX"
-      ]
+      ],
+      "section": "industry-models",
+      "topicId": "tabular-releases"
     },
     {
       "id": "arxiv-2609.17895",
@@ -150,7 +638,9 @@
       "code": "https://github.com/PriorLabs/TabPFN",
       "keywords": [
         "TabPFN"
-      ]
+      ],
+      "section": "industry-models",
+      "topicId": "tabular-releases"
     },
     {
       "id": "arxiv-2609.04540",
@@ -172,7 +662,9 @@
       "code": null,
       "keywords": [
         "Mitra"
-      ]
+      ],
+      "section": "industry-models",
+      "topicId": "tabular-releases"
     },
     {
       "id": "arxiv-2609.03880",
@@ -191,7 +683,9 @@
       "url": "https://arxiv.org/abs/2609.03880",
       "pdf": "https://arxiv.org/pdf/2609.03880",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "industry-models",
+      "topicId": "tabular-releases"
     },
     {
       "id": "paper-baf74a758c",
@@ -211,7 +705,9 @@
       "pdf": null,
       "code": null,
       "keywords": [],
-      "dateNote": "期次月份；在线首发日待核"
+      "dateNote": "期次月份；在线首发日待核",
+      "section": "industry-applications",
+      "topicId": "engineering-applications"
     },
     {
       "id": "arxiv-2608.25774",
@@ -233,7 +729,9 @@
       "code": null,
       "keywords": [
         "EXAONE"
-      ]
+      ],
+      "section": "industry-models",
+      "topicId": "tabular-releases"
     },
     {
       "id": "arxiv-2606.30410",
@@ -255,7 +753,9 @@
       "url": "https://arxiv.org/abs/2606.30410",
       "pdf": "https://arxiv.org/pdf/2606.30410",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks"
     },
     {
       "id": "arxiv-2606.15314",
@@ -274,7 +774,9 @@
       "url": "https://arxiv.org/abs/2606.15314",
       "pdf": "https://arxiv.org/pdf/2606.15314",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "industry-applications",
+      "topicId": "engineering-applications"
     },
     {
       "id": "arxiv-2605.18635",
@@ -294,7 +796,9 @@
       "url": "https://arxiv.org/abs/2605.18635",
       "pdf": "https://arxiv.org/pdf/2605.18635",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "industry-applications",
+      "topicId": "credit-risk"
     },
     {
       "id": "arxiv-2605.18147",
@@ -313,7 +817,9 @@
       "url": "https://arxiv.org/abs/2605.18147",
       "pdf": "https://arxiv.org/pdf/2605.18147",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "industry-applications",
+      "topicId": "credit-risk"
     },
     {
       "id": "arxiv-2605.13986",
@@ -337,7 +843,9 @@
       "code": null,
       "keywords": [
         "TabPFN"
-      ]
+      ],
+      "section": "industry-models",
+      "topicId": "tabular-releases"
     },
     {
       "id": "arxiv-2605.12292",
@@ -358,7 +866,9 @@
       "url": "https://arxiv.org/abs/2605.12292",
       "pdf": "https://arxiv.org/pdf/2605.12292",
       "code": "https://github.com/soda-inria/strable",
-      "keywords": []
+      "keywords": [],
+      "section": "industry-benchmarks",
+      "topicId": "semantic-relational-benchmarks"
     },
     {
       "id": "arxiv-2604.21696",
@@ -377,7 +887,9 @@
       "url": "https://arxiv.org/abs/2604.21696",
       "pdf": "https://arxiv.org/pdf/2604.21696",
       "code": "https://github.com/IBM/table-representation-evals",
-      "keywords": []
+      "keywords": [],
+      "section": "industry-benchmarks",
+      "topicId": "semantic-relational-benchmarks"
     },
     {
       "id": "arxiv-2604.12596",
@@ -400,7 +912,9 @@
       "code": null,
       "keywords": [
         "Kumo"
-      ]
+      ],
+      "section": "industry-models",
+      "topicId": "relational-releases"
     },
     {
       "id": "arxiv-2602.11139",
@@ -422,7 +936,9 @@
       "code": "https://github.com/soda-inria/tabicl",
       "keywords": [
         "TabICL"
-      ]
+      ],
+      "section": "industry-models",
+      "topicId": "tabular-releases"
     },
     {
       "id": "arxiv-2506.16791",
@@ -443,7 +959,9 @@
       "url": "https://arxiv.org/abs/2506.16791",
       "pdf": "https://arxiv.org/pdf/2506.16791",
       "code": "https://tabarena.ai",
-      "keywords": []
+      "keywords": [],
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks"
     },
     {
       "id": "paper-612809da03",
@@ -466,7 +984,9 @@
       "code": null,
       "keywords": [
         "TabPFN"
-      ]
+      ],
+      "section": "industry-models",
+      "topicId": "tabular-releases"
     },
     {
       "id": "arxiv-2407.20060",
@@ -486,7 +1006,9 @@
       "url": "https://arxiv.org/abs/2407.20060",
       "pdf": "https://arxiv.org/pdf/2407.20060",
       "code": "https://github.com/stanford-star/relbench",
-      "keywords": []
+      "keywords": [],
+      "section": "industry-benchmarks",
+      "topicId": "semantic-relational-benchmarks"
     },
     {
       "id": "arxiv-2406.19380",
@@ -506,7 +1028,9 @@
       "url": "https://arxiv.org/abs/2406.19380",
       "pdf": "https://arxiv.org/pdf/2406.19380",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks"
     },
     {
       "id": "arxiv-2610.06693",
@@ -528,7 +1052,9 @@
       "code": "https://github.com/Maximilianb1/zen-focus-tabular-anomaly-detection",
       "keywords": [
         "TabPFN"
-      ]
+      ],
+      "section": "prediction-quality",
+      "topicId": "anomaly-detection"
     },
     {
       "id": "arxiv-2609.29769",
@@ -550,7 +1076,9 @@
       "code": null,
       "keywords": [
         "Jev"
-      ]
+      ],
+      "section": "prediction-decisions",
+      "topicId": "scores-routing"
     },
     {
       "id": "arxiv-2608.06004",
@@ -569,7 +1097,9 @@
       "url": "https://arxiv.org/abs/2608.06004",
       "pdf": "https://arxiv.org/pdf/2608.06004",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "prediction-distributions",
+      "topicId": "probability-calibration"
     },
     {
       "id": "arxiv-2605.19662",
@@ -588,7 +1118,9 @@
       "url": "https://arxiv.org/abs/2605.19662",
       "pdf": "https://arxiv.org/pdf/2605.19662",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "prediction-decisions",
+      "topicId": "strategic-feedback"
     },
     {
       "id": "arxiv-2605.18696",
@@ -608,7 +1140,9 @@
       "url": "https://arxiv.org/abs/2605.18696",
       "pdf": "https://arxiv.org/pdf/2605.18696",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "prediction-distributions",
+      "topicId": "probability-calibration"
     },
     {
       "id": "arxiv-2605.04363",
@@ -627,7 +1161,9 @@
       "url": "https://arxiv.org/abs/2605.04363",
       "pdf": "https://arxiv.org/pdf/2605.04363",
       "code": "https://github.com/seunghan96/DistPFN",
-      "keywords": []
+      "keywords": [],
+      "section": "prediction-distributions",
+      "topicId": "probability-calibration"
     },
     {
       "id": "arxiv-2604.25154",
@@ -647,7 +1183,9 @@
       "url": "https://arxiv.org/abs/2604.25154",
       "pdf": "https://arxiv.org/pdf/2604.25154",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "prediction-quality",
+      "topicId": "missing-noisy-data"
     },
     {
       "id": "arxiv-2603.29928",
@@ -667,7 +1205,9 @@
       "url": "https://arxiv.org/abs/2603.29928",
       "pdf": "https://arxiv.org/pdf/2603.29928",
       "code": "https://github.com/jonaslandsgesell/ScoringBench",
-      "keywords": []
+      "keywords": [],
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions"
     },
     {
       "id": "arxiv-2603.26611",
@@ -687,7 +1227,9 @@
       "url": "https://arxiv.org/abs/2603.26611",
       "pdf": "https://arxiv.org/pdf/2603.26611",
       "code": "https://github.com/rizbicki/tabDensityComparisons",
-      "keywords": []
+      "keywords": [],
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions"
     },
     {
       "id": "arxiv-2602.04596",
@@ -708,7 +1250,9 @@
       "code": "https://github.com/weiyaw/ud4pfn",
       "keywords": [
         "TabPFN"
-      ]
+      ],
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions"
     },
     {
       "id": "arxiv-2510.02625",
@@ -727,7 +1271,9 @@
       "url": "https://arxiv.org/abs/2510.02625",
       "pdf": "https://arxiv.org/pdf/2510.02625",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "prediction-quality",
+      "topicId": "missing-noisy-data"
     },
     {
       "id": "paper-3b87eab6aa",
@@ -748,7 +1294,9 @@
       "code": "https://github.com/Fdvanleeuwen/TabPFN_CP-MDA",
       "keywords": [
         "TabPFN"
-      ]
+      ],
+      "section": "prediction-distributions",
+      "topicId": "prediction-intervals"
     },
     {
       "id": "paper-dd682e2bac",
@@ -765,7 +1313,9 @@
       "url": "https://proceedings.neurips.cc/paper_files/paper/2019/hash/5103c3584b063c431bd1268e9b5e76fb-Abstract.html",
       "pdf": "https://proceedings.neurips.cc/paper_files/paper/2019/file/5103c3584b063c431bd1268e9b5e76fb-Paper.pdf",
       "code": "https://github.com/yromano/cqr",
-      "keywords": []
+      "keywords": [],
+      "section": "prediction-distributions",
+      "topicId": "prediction-intervals"
     },
     {
       "id": "arxiv-2609.39523",
@@ -784,7 +1334,9 @@
       "url": "https://arxiv.org/abs/2609.39523",
       "pdf": "https://arxiv.org/pdf/2609.39523",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "causal-estimation",
+      "topicId": "experimental-regimes"
     },
     {
       "id": "arxiv-2609.03003",
@@ -809,7 +1361,9 @@
         "CausalPFN",
         "Do-PFN",
         "CausalFM"
-      ]
+      ],
+      "section": "causal-models",
+      "topicId": "causal-unified"
     },
     {
       "id": "arxiv-2607.11510",
@@ -828,7 +1382,9 @@
       "url": "https://arxiv.org/abs/2607.11510",
       "pdf": "https://arxiv.org/pdf/2607.11510",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "causal-discovery",
+      "topicId": "causal-mechanisms"
     },
     {
       "id": "arxiv-2606.26467",
@@ -850,7 +1406,9 @@
       "code": null,
       "keywords": [
         "TabPFN"
-      ]
+      ],
+      "section": "causal-models",
+      "topicId": "causal-unified"
     },
     {
       "id": "arxiv-2605.15133",
@@ -870,7 +1428,9 @@
       "url": "https://arxiv.org/abs/2605.15133",
       "pdf": "https://arxiv.org/pdf/2605.15133",
       "code": "https://github.com/layer6ai-labs/CCPFN-inference",
-      "keywords": []
+      "keywords": [],
+      "section": "causal-estimation",
+      "topicId": "continuous-iv"
     },
     {
       "id": "arxiv-2605.05993",
@@ -890,7 +1450,9 @@
       "url": "https://arxiv.org/abs/2605.05993",
       "pdf": "https://arxiv.org/pdf/2605.05993",
       "code": "https://github.com/GepingChen/TabCF",
-      "keywords": []
+      "keywords": [],
+      "section": "causal-estimation",
+      "topicId": "continuous-iv"
     },
     {
       "id": "arxiv-2603.15928",
@@ -913,7 +1475,9 @@
       "keywords": [
         "TabPFN",
         "CausalPFN"
-      ]
+      ],
+      "section": "causal-models",
+      "topicId": "causal-reliability"
     },
     {
       "id": "arxiv-2603.12037",
@@ -933,7 +1497,9 @@
       "url": "https://arxiv.org/abs/2603.12037",
       "pdf": "https://arxiv.org/pdf/2603.12037",
       "code": "https://github.com/Valentyn1997/freq-cons-pfns",
-      "keywords": []
+      "keywords": [],
+      "section": "causal-models",
+      "topicId": "causal-reliability"
     },
     {
       "id": "paper-8380790f74",
@@ -954,7 +1520,9 @@
       "code": "https://github.com/DavideTugnoli/tabpfn-causal-synthetic",
       "keywords": [
         "TabPFN"
-      ]
+      ],
+      "section": "causal-models",
+      "topicId": "causal-knowledge"
     },
     {
       "id": "paper-a15b9c81ae",
@@ -973,7 +1541,9 @@
       "url": "https://proceedings.mlr.press/v306/reuter26a.html",
       "pdf": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/reuter26a/reuter26a.pdf",
       "code": "https://github.com/ArikReuter/Graphs4CausalFoundationModels",
-      "keywords": []
+      "keywords": [],
+      "section": "causal-models",
+      "topicId": "causal-knowledge"
     },
     {
       "id": "paper-d00034280f",
@@ -994,7 +1564,9 @@
       "pdf": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/wang26fl/wang26fl.pdf",
       "code": null,
       "keywords": [],
-      "dateNote": "已确认 2026 年会议版；首发月份待核"
+      "dateNote": "已确认 2026 年会议版；首发月份待核",
+      "section": "causal-models",
+      "topicId": "causal-adaptation"
     },
     {
       "id": "arxiv-2511.07236",
@@ -1015,7 +1587,9 @@
       "code": null,
       "keywords": [
         "TabPFN"
-      ]
+      ],
+      "section": "causal-models",
+      "topicId": "causal-adaptation"
     },
     {
       "id": "paper-9fd1ee8bbf",
@@ -1036,7 +1610,9 @@
       "code": "https://github.com/yccm/CausalFM-toolkit",
       "keywords": [
         "CausalFM"
-      ]
+      ],
+      "section": "causal-estimation",
+      "topicId": "treatment-effects"
     },
     {
       "id": "paper-e5eafe3ccc",
@@ -1058,7 +1634,9 @@
       "code": "https://github.com/vdblm/CausalPFN",
       "keywords": [
         "CausalPFN"
-      ]
+      ],
+      "section": "causal-estimation",
+      "topicId": "treatment-effects"
     },
     {
       "id": "paper-93cf6a538b",
@@ -1080,7 +1658,9 @@
       "code": "https://github.com/jr2021/Do-PFN",
       "keywords": [
         "Do-PFN"
-      ]
+      ],
+      "section": "causal-estimation",
+      "topicId": "treatment-effects"
     },
     {
       "id": "arxiv-2601.04110",
@@ -1100,7 +1680,9 @@
       "pdf": "https://arxiv.org/pdf/2601.04110",
       "code": null,
       "keywords": [],
-      "dateNote": "2025 Workshop 已公开；arXiv 于 2026-01-07 提交"
+      "dateNote": "2025 Workshop 已公开；arXiv 于 2026-01-07 提交",
+      "section": "causal-models",
+      "topicId": "causal-adaptation"
     },
     {
       "id": "arxiv-2205.12934",
@@ -1119,7 +1701,9 @@
       "url": "https://arxiv.org/abs/2205.12934",
       "pdf": "https://arxiv.org/pdf/2205.12934",
       "code": "https://github.com/larslorch/avici",
-      "keywords": []
+      "keywords": [],
+      "section": "causal-discovery",
+      "topicId": "causal-graphs"
     },
     {
       "id": "paper-dee7306e6b",
@@ -1138,7 +1722,9 @@
       "url": "https://doi.org/10.3982/ECTA15732",
       "pdf": "https://arxiv.org/pdf/1702.02896",
       "code": "https://github.com/grf-labs/policytree/tree/master/experiments/athey_wager_2021",
-      "keywords": []
+      "keywords": [],
+      "section": "causal-estimation",
+      "topicId": "causal-policy"
     },
     {
       "id": "paper-af13c15dd9",
@@ -1157,7 +1743,9 @@
       "url": "https://doi.org/10.1111/ectj.12097",
       "pdf": "https://arxiv.org/pdf/1608.00060",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "causal-models",
+      "topicId": "causal-reliability"
     },
     {
       "id": "arxiv-2609.21894",
@@ -1176,7 +1764,9 @@
       "url": "https://arxiv.org/abs/2609.21894",
       "pdf": "https://arxiv.org/pdf/2609.21894",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "semantic-features",
+      "topicId": "text-structure"
     },
     {
       "id": "arxiv-2609.03529",
@@ -1195,7 +1785,9 @@
       "url": "https://arxiv.org/abs/2609.03529",
       "pdf": "https://arxiv.org/pdf/2609.03529",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "semantic-features",
+      "topicId": "knowledge-features"
     },
     {
       "id": "arxiv-2607.24492",
@@ -1212,7 +1804,9 @@
       "url": "https://arxiv.org/abs/2607.24492",
       "pdf": "https://arxiv.org/pdf/2607.24492",
       "code": "https://github.com/wbsg-uni-mannheim/SINT-Flow",
-      "keywords": []
+      "keywords": [],
+      "section": "semantic-integration",
+      "topicId": "schema-matching"
     },
     {
       "id": "arxiv-2607.01548",
@@ -1231,7 +1825,9 @@
       "url": "https://arxiv.org/abs/2607.01548",
       "pdf": "https://arxiv.org/pdf/2607.01548",
       "code": "https://github.com/egetaga/EFE",
-      "keywords": []
+      "keywords": [],
+      "section": "semantic-features",
+      "topicId": "feature-search"
     },
     {
       "id": "arxiv-2608.03565",
@@ -1254,7 +1850,9 @@
       "keywords": [
         "TabICL"
       ],
-      "dateNote": "日期按 2026 年 7 月 Workshop 版本"
+      "dateNote": "日期按 2026 年 7 月 Workshop 版本",
+      "section": "semantic-fusion",
+      "topicId": "semantic-embeddings"
     },
     {
       "id": "paper-20e0758264",
@@ -1273,7 +1871,9 @@
       "url": "https://aclanthology.org/2026.acl-long.1258/",
       "pdf": "https://aclanthology.org/2026.acl-long.1258.pdf",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "semantic-integration",
+      "topicId": "entity-matching"
     },
     {
       "id": "arxiv-2606.30371",
@@ -1292,7 +1892,9 @@
       "url": "https://arxiv.org/abs/2606.30371",
       "pdf": "https://arxiv.org/pdf/2606.30371",
       "code": "https://github.com/wbsg-uni-mannheim/MaDI-Bench",
-      "keywords": []
+      "keywords": [],
+      "section": "semantic-integration",
+      "topicId": "data-integration"
     },
     {
       "id": "arxiv-2606.08800",
@@ -1311,7 +1913,9 @@
       "url": "https://arxiv.org/abs/2606.08800",
       "pdf": "https://arxiv.org/pdf/2606.08800",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "semantic-features",
+      "topicId": "knowledge-features"
     },
     {
       "id": "arxiv-2605.12411",
@@ -1333,7 +1937,9 @@
       "code": null,
       "keywords": [
         "TabPFN"
-      ]
+      ],
+      "section": "semantic-fusion",
+      "topicId": "semantic-embeddings"
     },
     {
       "id": "arxiv-2604.11835",
@@ -1352,7 +1958,9 @@
       "url": "https://arxiv.org/abs/2604.11835",
       "pdf": "https://arxiv.org/pdf/2604.11835",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "semantic-fusion",
+      "topicId": "multimodal-schema"
     },
     {
       "id": "arxiv-2506.10707",
@@ -1374,7 +1982,9 @@
       "code": "https://github.com/SAP-samples/sap-rpt-1-oss",
       "keywords": [
         "ConTextTab"
-      ]
+      ],
+      "section": "semantic-fusion",
+      "topicId": "text-tabular-models"
     },
     {
       "id": "arxiv-2505.18125",
@@ -1396,7 +2006,9 @@
       "code": "https://github.com/alanarazi7/TabSTAR",
       "keywords": [
         "TabSTAR"
-      ]
+      ],
+      "section": "semantic-fusion",
+      "topicId": "text-tabular-models"
     },
     {
       "id": "arxiv-2412.08194",
@@ -1413,7 +2025,9 @@
       "url": "https://arxiv.org/abs/2412.08194",
       "pdf": "https://arxiv.org/pdf/2412.08194",
       "code": "https://github.com/VIDA-NYU/magneto-matcher",
-      "keywords": []
+      "keywords": [],
+      "section": "semantic-integration",
+      "topicId": "schema-matching"
     },
     {
       "id": "arxiv-2305.03403",
@@ -1432,7 +2046,9 @@
       "url": "https://arxiv.org/abs/2305.03403",
       "pdf": "https://arxiv.org/pdf/2305.03403",
       "code": "https://github.com/noahho/CAAFE",
-      "keywords": []
+      "keywords": [],
+      "section": "semantic-features",
+      "topicId": "feature-search"
     },
     {
       "id": "paper-62f5871d79",
@@ -1449,7 +2065,9 @@
       "url": "https://aclanthology.org/2022.acl-long.180/",
       "pdf": "https://aclanthology.org/2022.acl-long.180.pdf",
       "code": "https://github.com/shirley-wu/text_to_table",
-      "keywords": []
+      "keywords": [],
+      "section": "semantic-features",
+      "topicId": "text-structure"
     },
     {
       "id": "arxiv-2610.12005",
@@ -1469,7 +2087,9 @@
       "url": "https://arxiv.org/abs/2610.12005",
       "pdf": "https://arxiv.org/pdf/2610.12005",
       "code": "https://github.com/kanghui-learning/test-time-compute-for-tabular-foundation-models",
-      "keywords": []
+      "keywords": [],
+      "section": "inference-strategies",
+      "topicId": "test-time-compute"
     },
     {
       "id": "arxiv-2610.06679",
@@ -1488,7 +2108,9 @@
       "url": "https://arxiv.org/abs/2610.06679",
       "pdf": "https://arxiv.org/pdf/2610.06679",
       "code": "https://github.com/yoel-zeldes/tabalign",
-      "keywords": []
+      "keywords": [],
+      "section": "inference-efficiency",
+      "topicId": "context-compression"
     },
     {
       "id": "arxiv-2609.37989",
@@ -1511,7 +2133,9 @@
       "code": null,
       "keywords": [
         "TabFM"
-      ]
+      ],
+      "section": "inference-strategies",
+      "topicId": "pipeline-search"
     },
     {
       "id": "arxiv-2609.13031",
@@ -1530,7 +2154,9 @@
       "url": "https://arxiv.org/abs/2609.13031",
       "pdf": "https://arxiv.org/pdf/2609.13031",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "inference-efficiency",
+      "topicId": "memory-quantization"
     },
     {
       "id": "arxiv-2608.17856",
@@ -1547,7 +2173,9 @@
       "url": "https://arxiv.org/abs/2608.17856",
       "pdf": "https://arxiv.org/pdf/2608.17856",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "context-selection",
+      "topicId": "retrieval-shots"
     },
     {
       "id": "arxiv-2608.12989",
@@ -1568,7 +2196,9 @@
       "code": null,
       "keywords": [
         "TabPFN"
-      ]
+      ],
+      "section": "context-selection",
+      "topicId": "representative-context"
     },
     {
       "id": "arxiv-2608.16429",
@@ -1590,7 +2220,9 @@
       "keywords": [
         "TabICL"
       ],
-      "dateNote": "日期按 2026 年 7 月 Workshop 版本"
+      "dateNote": "日期按 2026 年 7 月 Workshop 版本",
+      "section": "context-selection",
+      "topicId": "retrieval-shots"
     },
     {
       "id": "arxiv-2607.27546",
@@ -1612,7 +2244,9 @@
       "keywords": [
         "TabPFN"
       ],
-      "dateNote": "日期按 2026 年 7 月 Workshop 版本"
+      "dateNote": "日期按 2026 年 7 月 Workshop 版本",
+      "section": "inference-efficiency",
+      "topicId": "memory-quantization"
     },
     {
       "id": "arxiv-2606.18677",
@@ -1631,7 +2265,9 @@
       "url": "https://arxiv.org/abs/2606.18677",
       "pdf": "https://arxiv.org/pdf/2606.18677",
       "code": "https://github.com/morcellinus/CURE-ICML-FMSD",
-      "keywords": []
+      "keywords": [],
+      "section": "context-selection",
+      "topicId": "stream-context"
     },
     {
       "id": "arxiv-2606.11473",
@@ -1648,7 +2284,9 @@
       "url": "https://arxiv.org/abs/2606.11473",
       "pdf": "https://arxiv.org/pdf/2606.11473",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "context-selection",
+      "topicId": "representative-context"
     },
     {
       "id": "arxiv-2605.27254",
@@ -1665,7 +2303,9 @@
       "url": "https://arxiv.org/abs/2605.27254",
       "pdf": "https://arxiv.org/pdf/2605.27254",
       "code": "https://github.com/ari-dasci/S-LUCoS",
-      "keywords": []
+      "keywords": [],
+      "section": "context-selection",
+      "topicId": "retrieval-shots"
     },
     {
       "id": "arxiv-2605.21288",
@@ -1685,7 +2325,9 @@
       "url": "https://arxiv.org/abs/2605.21288",
       "pdf": "https://arxiv.org/pdf/2605.21288",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "inference-strategies",
+      "topicId": "inference-mechanisms"
     },
     {
       "id": "arxiv-2605.12904",
@@ -1704,7 +2346,9 @@
       "url": "https://arxiv.org/abs/2605.12904",
       "pdf": "https://arxiv.org/pdf/2605.12904",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "context-selection",
+      "topicId": "representative-context"
     },
     {
       "id": "arxiv-2602.05649",
@@ -1723,7 +2367,9 @@
       "url": "https://arxiv.org/abs/2602.05649",
       "pdf": "https://arxiv.org/pdf/2602.05649",
       "code": "https://github.com/machinelearningnuremberg/TACO",
-      "keywords": []
+      "keywords": [],
+      "section": "inference-efficiency",
+      "topicId": "context-compression"
     },
     {
       "id": "arxiv-2406.05207",
@@ -1744,7 +2390,9 @@
       "code": null,
       "keywords": [
         "TabPFN"
-      ]
+      ],
+      "section": "context-selection",
+      "topicId": "retrieval-shots"
     },
     {
       "id": "arxiv-2402.11137",
@@ -1764,7 +2412,9 @@
       "url": "https://arxiv.org/abs/2402.11137",
       "pdf": "https://arxiv.org/pdf/2402.11137",
       "code": "https://github.com/penfever/TuneTables",
-      "keywords": []
+      "keywords": [],
+      "section": "inference-efficiency",
+      "topicId": "context-compression"
     },
     {
       "id": "arxiv-2610.01435",
@@ -1784,7 +2434,9 @@
       "url": "https://arxiv.org/abs/2610.01435",
       "pdf": "https://arxiv.org/pdf/2610.01435",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "adaptation-distillation",
+      "topicId": "distillation-recipes"
     },
     {
       "id": "arxiv-2610.01143",
@@ -1804,7 +2456,9 @@
       "url": "https://arxiv.org/abs/2610.01143",
       "pdf": "https://arxiv.org/pdf/2610.01143",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "adaptation-distribution",
+      "topicId": "subpopulation-shift"
     },
     {
       "id": "arxiv-2605.18654",
@@ -1824,7 +2478,9 @@
       "url": "https://arxiv.org/abs/2605.18654",
       "pdf": "https://arxiv.org/pdf/2605.18654",
       "code": "https://github.com/Lexsi-Labs/TabTune",
-      "keywords": []
+      "keywords": [],
+      "section": "adaptation-distillation",
+      "topicId": "tree-distillation"
     },
     {
       "id": "arxiv-2605.06047",
@@ -1843,7 +2499,9 @@
       "url": "https://arxiv.org/abs/2605.06047",
       "pdf": "https://arxiv.org/pdf/2605.06047",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "adaptation-target",
+      "topicId": "input-adapters"
     },
     {
       "id": "arxiv-2601.09654",
@@ -1862,7 +2520,9 @@
       "url": "https://arxiv.org/abs/2601.09654",
       "pdf": "https://arxiv.org/pdf/2601.09654",
       "code": null,
-      "keywords": []
+      "keywords": [],
+      "section": "adaptation-target",
+      "topicId": "parameter-finetuning"
     },
     {
       "id": "arxiv-2506.08982",
@@ -1883,7 +2543,9 @@
       "code": "https://github.com/yandex-research/tabpfn-finetuning",
       "keywords": [
         "TabPFN"
-      ]
+      ],
+      "section": "adaptation-target",
+      "topicId": "parameter-finetuning"
     }
   ]
 }

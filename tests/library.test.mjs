@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { filterPapers, readState, stateSearch, sixMonthsAgo, safeURL, toCSV } from '../library.js';
+import { filterPapers, readState, stateSearch, sixMonthsAgo, safeURL, toCSV, scopePath, paperPath, normalizeScope, belongsTo } from '../library.js';
 const catalogue = JSON.parse(await readFile(new URL('../data/papers.json', import.meta.url), 'utf8'));
 const { papers, categories } = catalogue;
 const options = { categories, now: new Date('2026-10-12T12:00:00Z') };
@@ -30,10 +30,46 @@ test('category, publication, code and saved filters intersect', () => {
   assert.deepEqual(filterPapers(papers, { ...readState(), savedOnly: true }, options), []);
 });
 test('shareable filters round-trip, invalid input falls back safely', () => {
-  const original = { ...readState(), query: '因果 TabPFN', category: 3, status: 'published', period: '2026', codeOnly: true, page: 2 };
+  const original = { ...readState(), query: '因果 TabPFN', category: 3, section: 'causal-estimation', topic: 'continuous-iv', status: 'published', period: '2026', codeOnly: true, page: 2 };
   assert.deepEqual(readState(stateSearch(original)), original);
   const invalid = readState('?category=NaN&status=anything&sort=no&page=-100');
   assert.equal(invalid.category, 0); assert.equal(invalid.status, 'all'); assert.equal(invalid.page, 1);
+});
+
+test('all papers have exactly one complete path and child counts sum to their parent', () => {
+  assert.ok(papers.every(p => paperPath(p, categories).length === 3));
+  for (const category of categories) {
+    const parents = papers.filter(p => belongsTo(p, category));
+    assert.equal(category.children.reduce((n, s) => n + papers.filter(p => belongsTo(p, s)).length, 0), parents.length);
+    for (const section of category.children) {
+      assert.equal(section.children.reduce((n, t) => n + papers.filter(p => belongsTo(p, t)).length, 0), papers.filter(p => belongsTo(p, section)).length);
+    }
+  }
+});
+
+test('topic scope narrows its parent and respects other filters', () => {
+  const state = { ...readState(), category: 3, section: 'causal-estimation', topic: 'continuous-iv' };
+  const result = filterPapers(papers, state, options);
+  assert.deepEqual(new Set(result.map(p => p.id)), new Set(['arxiv-2605.15133', 'arxiv-2605.05993']));
+  assert.ok(filterPapers(papers, { ...state, codeOnly: true }, options).every(p => p.code));
+  const path = scopePath(categories, state);
+  assert.deepEqual(path.map(n => n.name), ['结构化数据的因果分析与决策', '基于结构化数据的因果推断', '连续处理与工具变量']);
+  assert.ok(toCSV(result, categories).includes('基于结构化数据的因果推断'));
+});
+
+test('invalid child links fall back to the nearest valid ancestor', () => {
+  const state = { ...readState(), category: 3, section: 'causal-estimation', topic: 'schema-matching', query: '因果' };
+  const fixed = normalizeScope(state, categories);
+  assert.equal(fixed.topic, ''); assert.equal(fixed.section, 'causal-estimation'); assert.equal(fixed.query, '因果');
+  const wrongBranch = normalizeScope({ ...state, section: 'industry-models' }, categories);
+  assert.equal(wrongBranch.category, 3); assert.equal(wrongBranch.section, ''); assert.equal(wrongBranch.topic, '');
+});
+
+test('category titles retain the original paper list wording', () => {
+  assert.deepEqual(categories.map(c => c.name), [
+    '结构化数据模型的业界进展', '表格预测与决策优化', '结构化数据的因果分析与决策',
+    '语义结构化与表格特征构建', '表格模型的上下文学习与推理优化', '表格基础模型的微调与蒸馏',
+  ]);
 });
 test('external links reject executable schemes; CSV preserves quotes and blocks formula execution', () => {
   assert.equal(safeURL('javascript:alert(1)'), null);

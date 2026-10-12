@@ -21,9 +21,12 @@ export function sixMonthsAgo(now = new Date()) {
 export function readState(search = '') {
   const params = new URLSearchParams(search);
   const category = Number(params.get('category'));
+  const slug = key => /^[a-z0-9-]{1,80}$/.test(params.get(key) || '') ? params.get(key) : '';
   return {
     query: (params.get('q') || '').slice(0, 300),
     category: Number.isInteger(category) && category >= 1 && category <= 6 ? category : 0,
+    section: slug('section'),
+    topic: slug('topic'),
     period: /^(all|6m|\d{4})$/.test(params.get('period') || '') ? params.get('period') : 'all',
     status: VALID_STATUS.has(params.get('status')) ? params.get('status') : 'all',
     sort: VALID_SORT.has(params.get('sort')) ? params.get('sort') : 'newest',
@@ -37,6 +40,8 @@ export function stateSearch(state) {
   const params = new URLSearchParams();
   if (state.query.trim()) params.set('q', state.query.trim());
   if (state.category) params.set('category', state.category);
+  if (state.section) params.set('section', state.section);
+  if (state.topic) params.set('topic', state.topic);
   if (state.period !== 'all') params.set('period', state.period);
   if (state.status !== 'all') params.set('status', state.status);
   if (state.sort !== 'newest') params.set('sort', state.sort);
@@ -46,9 +51,34 @@ export function stateSearch(state) {
   return params.toString();
 }
 
+export function scopePath(categories, state) {
+  const category = categories.find(c => c.id === state.category);
+  if (!category) return [];
+  const section = category.children?.find(s => s.id === state.section);
+  if (!section) return [category];
+  const topic = section.children?.find(t => t.id === state.topic);
+  return topic ? [category, section, topic] : [category, section];
+}
+
+export function scopeValues(path) {
+  return { category: path[0]?.id || 0, section: path[1]?.id || '', topic: path[2]?.id || '' };
+}
+
+export function normalizeScope(state, categories) {
+  return { ...state, ...scopeValues(scopePath(categories, state)) };
+}
+
+export function paperPath(paper, categories) {
+  return scopePath(categories, { category: paper.category, section: paper.section, topic: paper.topicId });
+}
+
+export function belongsTo(paper, node) {
+  return paper.category === node.id || paper.section === node.id || paper.topicId === node.id;
+}
+
 export function searchText(paper, categories = []) {
   const names = [paper.category, ...(paper.related || [])].map(id => categories.find(c => c.id === id)?.name || '');
-  return normalize([paper.title, paper.summary, paper.evidence, paper.topic, paper.venue, ...(paper.keywords || []), ...names].join(' '));
+  return normalize([paper.title, paper.summary, paper.evidence, paper.topic, paper.venue, ...(paper.keywords || []), ...names, ...paperPath(paper, categories).map(n => n.name)].join(' '));
 }
 
 export function filterPapers(papers, state, { saved = new Set(), categories = [], now = new Date() } = {}) {
@@ -57,6 +87,8 @@ export function filterPapers(papers, state, { saved = new Set(), categories = []
   const today = now.toISOString().slice(0, 10);
   const result = papers.filter(paper => {
     if (state.category && paper.category !== state.category) return false;
+    if (state.section && paper.section !== state.section) return false;
+    if (state.topic && paper.topicId !== state.topic) return false;
     if (state.status !== 'all' && paper.status !== state.status) return false;
     if (state.codeOnly && !paper.code) return false;
     if (state.savedOnly && !saved.has(paper.id)) return false;
@@ -84,7 +116,10 @@ export function toCSV(papers, categories) {
     if (/^[=+\-@\t\r]/.test(text)) text = "'" + text;
     return `"${text.replaceAll('"', '""')}"`;
   };
-  const rows = [['标题', '公开时间', '最近修订', '研究方向', '发表状态', '研究内容', '验证与边界', '论文链接', 'PDF', '代码']];
-  for (const p of papers) rows.push([p.title, p.date, p.updated, categories.find(c => c.id === p.category)?.name, p.venue, p.summary, p.evidence, p.url, p.pdf, p.code]);
+  const rows = [['标题', '公开时间', '最近修订', '研究领域', '子方向', '具体议题', '发表状态', '研究内容', '验证与边界', '论文链接', 'PDF', '代码']];
+  for (const p of papers) {
+    const path = paperPath(p, categories);
+    rows.push([p.title, p.date, p.updated, ...[0,1,2].map(i => path[i]?.name || ''), p.venue, p.summary, p.evidence, p.url, p.pdf, p.code]);
+  }
   return '\uFEFF' + rows.map(row => row.map(cell).join(',')).join('\r\n');
 }

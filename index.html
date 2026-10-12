@@ -13,7 +13,8 @@
     <title>研究书架 — Shirly</title>
     <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./styles.css">
-    <script type="module" src="./app.js"></script>
+    <link rel="stylesheet" href="./hierarchy.css">
+    <script type="module" src="./app.js?v=2"></script>
   </head>
   <body>
     <a class="skip-link" href="#catalogue">跳至论文列表</a>
@@ -33,7 +34,8 @@
 
     <div class="workspace">
       <aside class="sidebar" aria-label="研究方向">
-        <div class="shelf-label"><span>目录</span><span>INDEX</span></div>
+        <div class="shelf-label"><span>研究目录</span><button id="collapse-tree" type="button">收起全部</button></div>
+        <button id="mobile-directory" type="button" aria-expanded="false" aria-controls="categories"><span>浏览完整研究目录</span><span aria-hidden="true">＋</span></button>
         <nav id="categories" class="category-list" aria-label="按研究方向筛选"></nav>
         <div class="sidebar-bottom">
           <div class="shelf-drawing" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -43,14 +45,16 @@
       </aside>
 
       <main id="catalogue" tabindex="-1">
+        <nav id="breadcrumbs" class="breadcrumbs" aria-label="当前位置"></nav>
         <section class="intro">
           <div>
-            <p class="eyebrow">PERSONAL RESEARCH LIBRARY</p>
-            <h1 id="view-title">结构化智能<br><span>论文索引</span></h1>
-            <p class="intro-description" id="view-description">表格基础模型、结构化决策与相关方法。</p>
+            <p class="eyebrow" id="view-level">RESEARCH LIBRARY</p>
+            <h1 id="view-title" tabindex="-1">结构化数据模型<br><span>研究论文清单</span></h1>
+            <p class="intro-description" id="view-description">按研究领域、子方向和具体议题整理相关论文。</p>
           </div>
-          <div class="collection-counter" aria-label="总收录数量"><span id="total-count">—</span><span>篇论文 / PAPERS</span></div>
+          <div class="collection-counter" aria-label="当前目录收录数量"><span id="total-count">—</span><span id="count-label">篇论文 / PAPERS</span></div>
         </section>
+        <div class="scope-questions" id="scope-questions" hidden></div>
 
         <section class="controls" aria-label="搜索与筛选">
           <div class="search-wrap">
@@ -75,6 +79,11 @@
           </div>
         </section>
 
+        <section class="directory-panel" id="directory-panel" aria-labelledby="directory-title">
+          <div class="section-heading"><h2 id="directory-title">研究领域</h2><span id="directory-count"></span></div>
+          <div id="directory-cards" class="directory-cards"></div>
+        </section>
+        <div class="section-heading paper-section-heading"><h2 id="paper-section-title">全部论文</h2><span id="paper-scope-label"></span></div>
         <div class="results-heading">
           <p id="result-count" role="status" aria-live="polite">正在加载论文…</p>
           <button id="reset" hidden>清除筛选 <span aria-hidden="true">×</span></button>

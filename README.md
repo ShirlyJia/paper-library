@@ -2,7 +2,7 @@
 
 公开站点：**https://shirlyjia.github.io/paper-library/**
 
-表格基础模型、结构化决策及相关方法的论文索引。无需登录；支持搜索、六类筛选、时间与发表状态筛选、浏览器本地收藏、CSV 导出，以及原文、PDF 和代码跳转。
+表格基础模型、结构化决策及相关方法的论文索引。按研究领域 → 子方向 → 具体议题 → 论文浏览，每层附研究范围说明。无需登录；支持搜索、目录与时间筛选、浏览器本地收藏、CSV 导出，以及原文、PDF 和代码跳转。
 
 ## 更新论文
 
@@ -19,6 +19,8 @@
   "date": "2026-10-12",
   "updated": "2026-10-12",
   "category": 5,
+  "section": "context-selection",
+  "topicId": "retrieval-shots",
   "related": [6],
   "topic": "上下文优化",
   "status": "preprint",
@@ -32,7 +34,11 @@
 }
 ```
 
-`category`：1 业界与评测；2 预测与决策；3 因果分析；4 语义与特征；5 上下文与推理；6 微调与蒸馏。`status`：`published` 正式会议/期刊、`workshop`、`preprint`、`report` 技术报告。综述的发表状态按实际来源填写。
+`category` 为六个领域的编号，`section` 为该领域下的子方向 ID，`topicId` 为该子方向下的具体议题 ID。可选值见同一文件的 `categories → children → children`。每篇论文只计入一个完整主路径，`related` 保留其他相关领域的编号。`topic` 是对论文研究问题的补充描述，不用于目录归属。
+
+目录节点的 `name`、`description`、`code` 分别是标题、范围说明和层级编号。新增议题时，在所属子方向的 `children` 中添加节点；保持已有 ID 稳定，以保留分享链接。目录数量和论文数量均根据数据自动汇总。旧版 `?category=3` 链接仍然有效，子目录可通过 URL 直接分享。
+
+`status`：`published` 正式会议/期刊、`workshop`、`preprint`、`report` 技术报告。综述的发表状态按实际来源填写。
 
 `date` 使用最早已核实的公开时间；月份或日期缺失时仅填 `YYYY` / `YYYY-MM`，可加 `dateNote`。更新日期不替代首发日期。没有核实 PDF 或代码时填 `null`。只记录可由论文及其一手来源支持的信息，不赋予未经验证的质量分数。
 
