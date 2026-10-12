@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f2">
+    <meta name="description" content="Shirly 的研究书架：表格基础模型、结构化决策、因果分析与相关方法的论文索引。提供中文概览、实验背景、原文与 PDF 入口。">
+    <meta property="og:title" content="Shirly 的研究书架">
+    <meta property="og:description" content="表格基础模型、结构化决策与相关方法的论文索引。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shirlyjia.github.io/paper-library/">
+    <meta name="color-scheme" content="light">
+    <title>研究书架 — Shirly</title>
+    <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#catalogue">跳至论文列表</a>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="研究书架首页">
+        <img src="./assets/mark.svg" width="34" height="34" alt="">
+        <span>研究书架<span class="brand-note">SHIRLY’S LIBRARY</span></span>
+      </a>
+      <nav class="header-nav" aria-label="站点导航">
+        <button class="saved-button" id="saved-toggle" aria-pressed="false">
+          <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4V3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          我的收藏 <span id="saved-count">0</span>
+        </button>
+        <a class="source-link" href="https://github.com/ShirlyJia/paper-library" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <div class="workspace">
+      <aside class="sidebar" aria-label="研究方向">
+        <div class="shelf-label"><span>目录</span><span>INDEX</span></div>
+        <nav id="categories" class="category-list" aria-label="按研究方向筛选"></nav>
+        <div class="sidebar-bottom">
+          <div class="shelf-drawing" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <p>收录记录</p>
+          <span id="last-updated">更新于 —</span>
+        </div>
+      </aside>
+
+      <main id="catalogue" tabindex="-1">
+        <section class="intro">
+          <div>
+            <p class="eyebrow">PERSONAL RESEARCH LIBRARY</p>
+            <h1 id="view-title">结构化智能<br><span>论文索引</span></h1>
+            <p class="intro-description" id="view-description">表格基础模型、结构化决策与相关方法。</p>
+          </div>
+          <div class="collection-counter" aria-label="总收录数量"><span id="total-count">—</span><span>篇论文 / PAPERS</span></div>
+        </section>
+
+        <section class="controls" aria-label="搜索与筛选">
+          <div class="search-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <label class="sr-only" for="search">搜索论文、模型或关键词</label>
+            <input id="search" type="search" placeholder="搜索论文、模型或关键词" autocomplete="off" spellcheck="false">
+            <kbd aria-hidden="true">/</kbd>
+          </div>
+          <div class="filter-row">
+            <div class="filter-group">
+              <label class="sr-only" for="period">时间范围</label>
+              <select id="period"><option value="all">全部时间</option><option value="6m">近 6 个月</option></select>
+              <label class="sr-only" for="status">发表状态</label>
+              <select id="status"><option value="all">全部发表状态</option><option value="published">会议 / 期刊</option><option value="workshop">Workshop</option><option value="preprint">预印本</option><option value="report">技术报告</option></select>
+              <label class="check-filter"><input type="checkbox" id="code-only"><span>有代码</span></label>
+            </div>
+            <div class="sort-group">
+              <label class="sr-only" for="sort">排列顺序</label>
+              <select id="sort"><option value="newest">公开时间 ↓</option><option value="oldest">公开时间 ↑</option><option value="updated">最近修订 ↓</option><option value="title">标题 A–Z</option></select>
+              <button class="export-button" id="export-csv" title="导出当前筛选结果为 CSV">导出索引 <span aria-hidden="true">↓</span></button>
+            </div>
+          </div>
+        </section>
+
+        <div class="results-heading">
+          <p id="result-count" role="status" aria-live="polite">正在加载论文…</p>
+          <button id="reset" hidden>清除筛选 <span aria-hidden="true">×</span></button>
+        </div>
+        <section id="papers" class="paper-grid" aria-label="论文列表" aria-busy="true"></section>
+        <div id="empty-state" class="empty-state" hidden>
+          <span class="empty-index" aria-hidden="true">[ 0 ]</span>
+          <h2>暂时没有匹配的论文</h2>
+          <p id="empty-description">换一个关键词，或放宽筛选条件。</p>
+          <button id="empty-reset" class="button-primary">查看全部论文</button>
+        </div>
+        <nav id="pagination" class="pagination" aria-label="论文分页"></nav>
+        <noscript><p>请启用 JavaScript 以浏览和筛选论文，或<a href="./data/papers.json">下载完整索引</a>。</p></noscript>
+        <footer class="site-footer"><span>SHIRLY’S LIBRARY</span><a href="./data/papers.json" download="paper-library.json">JSON 索引 ↓</a></footer>
+      </main>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

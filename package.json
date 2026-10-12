@@ -1,0 +1,11 @@
+{
+  "name": "shirly-paper-library",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "check": "node scripts/validate.mjs && node --test tests/*.test.mjs"
+  },
+  "engines": { "node": ">=20" }
+}
