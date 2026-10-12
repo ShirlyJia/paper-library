@@ -1,0 +1,36 @@
+{
+  "arxivQueries": [
+    {
+      "id": "models-and-families",
+      "query": "all:\"tabular foundation\" OR all:\"table foundation\" OR all:\"structured-data model\" OR all:TabPFN OR all:TabICL OR all:LimiX OR all:TabDPT OR all:TAFFY OR all:TabSwift OR all:TabH2O OR all:RefineICL"
+    },
+    {
+      "id": "methods-and-causal",
+      "query": "all:\"prior-data fitted\" OR all:\"prior fitted network\" OR (all:tabular AND (all:\"in-context\" OR all:distillation OR all:\"test-time\" OR all:\"fine-tuning\")) OR all:\"causal foundation\""
+    },
+    {
+      "id": "semantics-and-integration",
+      "query": "(all:tabular AND (all:\"semantic embedding\" OR all:\"feature engineering\" OR all:\"text fields\")) OR (all:\"language model\" AND (all:\"schema matching\" OR all:\"entity matching\" OR all:\"text-to-table\"))"
+    }
+  ],
+  "proceedingsPattern": "tabular|tabpfn|tabicl|limix|prior.data.fitted|tabdpt|tabflex|\\btarte\\b|ingestables|schema matching|entity matching",
+  "proceedings": [
+    {"name": "ICML 2026", "url": "https://proceedings.mlr.press/v306/"},
+    {"name": "ICML 2025", "url": "https://proceedings.mlr.press/v267/"}
+  ],
+  "referenceSources": [
+    {"name": "TAFFY references", "url": "https://arxiv.org/html/2610.07559v1"},
+    {"name": "LimiX-2M references", "url": "https://arxiv.org/html/2606.04485v2"},
+    {"name": "LimiX official releases", "url": "https://github.com/limix-ldm-ai/LimiX"},
+    {"name": "TabPFN official releases", "url": "https://github.com/PriorLabs/TabPFN"},
+    {"name": "Structured-data workshop", "url": "https://icml-structured-fm-workshop.github.io/accepted-papers/"}
+  ],
+  "manualSources": [
+    {"name": "NeurIPS proceedings", "url": "https://proceedings.neurips.cc/"},
+    {"name": "ICLR / TMLR decisions", "url": "https://openreview.net/"},
+    {"name": "ACL Anthology", "url": "https://aclanthology.org/"},
+    {"name": "Google Research releases", "url": "https://research.google/blog/"},
+    {"name": "NVIDIA model cards", "url": "https://huggingface.co/nvidia"},
+    {"name": "PFN community index (discovery only)", "url": "https://github.com/Cloudy1225/Awesome-Prior-Data-Fitted-Networks"}
+  ]
+}

@@ -6,9 +6,9 @@
 
 ## 更新论文
 
-1. 编辑 [`data/papers.json`](data/papers.json)：新增或修改 `papers` 条目；保留已有条目的 `id`，避免收藏失效。
-2. 将顶层 `updatedAt` 改为本次内容更新日期，运行 `npm run check`。
-3. 提交并推送到 `main`，GitHub Pages 自动更新。没有构建或数据库步骤。
+1. 按[检索与收录规则](research/COLLECTION.md)运行 `npm run collect`，结合会议、模型家族、作者发布与引用追溯核验候选。
+2. 编辑 [`data/papers.json`](data/papers.json)，并更新[模型家族与版本登记](research/model-families.json)；保留已有条目的 `id`，避免收藏失效。
+3. 将顶层 `updatedAt` 改为更新日期，运行 `npm run check`，验证页面后推送到 `main`，GitHub Pages 自动发布。
 
 也可以直接在 GitHub 网页编辑此 JSON 文件并提交。管理仓库需要所有者登录，访问站点不需要。
 
@@ -29,7 +29,9 @@
   "url": "https://arxiv.org/abs/YYMM.NNNNN",
   "pdf": "https://arxiv.org/pdf/YYMM.NNNNN",
   "code": null,
-  "keywords": ["TabPFN", "ICL"]
+  "keywords": ["TabPFN", "ICL"],
+  "aliases": ["论文中的模型简称"],
+  "sources": ["https://arxiv.org/abs/YYMM.NNNNN"]
 }
 ```
 
@@ -43,9 +45,11 @@
 
 `date` 使用最早已核实的公开时间；月份或日期缺失时仅填 `YYYY` / `YYYY-MM`，可加 `dateNote`。更新日期不替代首发日期。没有核实 PDF 或代码时填 `null`。只记录可由论文及其一手来源支持的信息，不赋予未经验证的质量分数。
 
+`aliases` 让站内检索覆盖模型简称、版本写法和原题名；`sources` 保存核验来源，并帮助合并同一论文的 arXiv、OpenReview 和会议版本。模型包含预训练部分、首发早于半年、所在主题已有代表作，都不构成自动排除理由。
+
 ## 本地预览
 
-需要 Node.js 20 或更新版本，无第三方依赖。
+需要 Node.js 20 或更新版本；采集和完整检查另需 Python 3.9 或更新版本。均无第三方依赖。
 
 ```sh
 npm run dev

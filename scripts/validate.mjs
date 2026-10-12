@@ -1,9 +1,24 @@
 import { readFile } from 'node:fs/promises';
 import { safeURL, paperPath } from '../library.js';
 const catalogue = JSON.parse(await readFile(new URL('../data/papers.json', import.meta.url), 'utf8'));
+const registry = JSON.parse(await readFile(new URL('../research/model-families.json', import.meta.url), 'utf8'));
 const categories = new Set(catalogue.categories.map(c => c.id));
 const ids = new Set(), urls = new Set();
 const errors = [];
+const identities = new Map();
+function identitiesOf(paper) {
+  const result = [];
+  for (const value of [paper.id, paper.url, ...(paper.sources || [])]) {
+    const arxiv = value.match(/(?:arxiv-|arxiv\.org\/(?:abs|pdf|html)\/)(\d{4}\.\d{4,5})(?:v\d+)?/i);
+    if (arxiv) result.push(`arxiv:${arxiv[1]}`);
+    if (/^https:\/\/openreview\.net\/(?:forum|pdf)\?/.test(value)) {
+      const id = new URL(value).searchParams.get('id');
+      if (id) result.push(`openreview:${id}`);
+    }
+    if (/^https:\/\/proceedings\.mlr\.press\/v\d+\/.+\.html$/.test(value)) result.push(value);
+  }
+  return new Set(result);
+}
 const nodeIds = new Set();
 let sections = 0, topics = 0;
 for (const category of catalogue.categories) {
@@ -35,7 +50,19 @@ for (const p of catalogue.papers) {
     if (!safeURL(p.recognition.source) || !/^\d{4}-\d{2}-\d{2}$/.test(p.recognition.verifiedAt || '')) errors.push(`${p.id} 会议标记缺少来源或核实日期`);
   }
   for (const key of ['url','pdf','code']) if ((p[key] || key === 'url') && !safeURL(p[key])) errors.push(`${p.id} 链接无效: ${key}`);
+  for (const key of ['aliases','sources']) if (p[key] !== undefined && (!Array.isArray(p[key]) || p[key].some(v => typeof v !== 'string' || !v.trim()))) errors.push(`${p.id} ${key} 格式无效`);
+  for (const url of p.sources || []) if (!safeURL(url)) errors.push(`${p.id} 核验来源无效`);
+  for (const key of identitiesOf(p)) {
+    if (identities.has(key) && identities.get(key) !== p.id) errors.push(`同一论文重复收录: ${identities.get(key)} / ${p.id} (${key})`);
+    identities.set(key,p.id);
+  }
   for (const word of ['优先阅读', '本轮', 'needs supplement', 'cross_core']) if (JSON.stringify(p).includes(word)) errors.push(`${p.id} 含过程性文字: ${word}`);
+}
+for (const family of registry.families) {
+  if (!family.name || !family.paperIds?.length || !family.sources?.length) errors.push('模型家族缺少名称、论文或来源');
+  for (const id of family.paperIds || []) if (!ids.has(id)) errors.push(`已知版本漏收: ${family.name} / ${id}`);
+  for (const source of family.sources || []) if (!safeURL(source)) errors.push(`${family.name} 来源无效`);
 }
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
 console.log(`索引通过：${ids.size} 篇论文，${categories.size} 个领域 → ${sections} 个子方向 → ${topics} 个议题，${catalogue.papers.filter(p => p.pdf).length} 个 PDF 入口。`);
+console.log(`覆盖检查通过：${registry.families.length} 个已登记模型家族，${registry.families.reduce((n,f) => n + f.paperIds.length,0)} 项论文版本。`);

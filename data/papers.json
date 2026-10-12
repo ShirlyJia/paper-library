@@ -57,6 +57,12 @@
               "name": "文本判断与结构化决策",
               "description": "比较将文本转成标签、量表和固定判断的实际效果，关注准确率、概率校准及成本。",
               "code": "01.02.03"
+            },
+            {
+              "id": "biomedical-applications",
+              "code": "01.02.04",
+              "name": "生命科学与医疗预测",
+              "description": "将基因表达、临床字段与删失结果转为结构化预测，关注领域模型与通用表格模型的适用差异。"
             }
           ],
           "code": "01.02"
@@ -523,6 +529,130 @@
   ],
   "papers": [
     {
+      "id": "arxiv-2610.10321",
+      "title": "Estimating Uncoded Crash Factors with Tabular Foundation and System One Models: Kumo Tabular and Jev",
+      "date": "2026-10-07",
+      "updated": "2026-10-07",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "related": [
+        2,
+        4
+      ],
+      "topic": "工业与工程预测",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "结合 Kumo Tabular 读取事故结构化字段、Jev 读取叙述文本和人工概率抽样校准，估计编码记录遗漏的事故因素，并生成复核名单与阅读预算。",
+      "url": "https://arxiv.org/abs/2610.10321",
+      "pdf": "https://arxiv.org/pdf/2610.10321",
+      "code": "https://github.com/pozapas/kumo-jev-crash-records",
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "Kumo Tabular Jev",
+        "JEV crash records"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.10321"
+      ]
+    },
+    {
+      "id": "arxiv-2610.10317",
+      "title": "Thinking in Depth: Retrospective Inference for Tabular Foundation Models",
+      "date": "2026-10-07",
+      "updated": "2026-10-07",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "Retro 让后续层重新读取、组合早期中间表示，结合注意力残差和查询条件门控，研究表格模型如何更充分利用网络深度完成预测修正。",
+      "url": "https://arxiv.org/abs/2610.10317",
+      "pdf": "https://arxiv.org/pdf/2610.10317",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "Retro"
+      ],
+      "aliases": [
+        "Retro",
+        "Retrospective Inference"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.10317"
+      ]
+    },
+    {
+      "id": "arxiv-2610.08694",
+      "title": "GeneICL: A Tabular Foundation Model for Bulk Transcriptomics",
+      "date": "2026-10-06",
+      "updated": "2026-10-06",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "biomedical-applications",
+      "related": [
+        2,
+        5
+      ],
+      "topic": "生命科学与医疗预测",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "GeneICL 将转录组结构先验与参数共享的循环架构结合，用上下文完成基因表达相关预测，并通过回归任务转换支持含删失的生存预测。",
+      "url": "https://arxiv.org/abs/2610.08694",
+      "pdf": "https://arxiv.org/pdf/2610.08694",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "GeneICL"
+      ],
+      "aliases": [
+        "GeneICL"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.08694"
+      ]
+    },
+    {
+      "id": "arxiv-2610.07559",
+      "title": "TAFFY: A Task-Adaptive Tabular Foundation Model with In-Context Diversity",
+      "date": "2026-10-06",
+      "updated": "2026-10-06",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "TAFFY 将相关环境中的上下文对比与共享 Transformer 的多轮计算结合，并用任务统计量调节最后一轮更新，研究模型如何随新表格调整上下文利用方式。",
+      "url": "https://arxiv.org/abs/2610.07559",
+      "pdf": "https://arxiv.org/pdf/2610.07559",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "TAFFY"
+      ],
+      "aliases": [
+        "TAFFY",
+        "Taffy-4L"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.07559"
+      ]
+    },
+    {
       "id": "arxiv-2610.06625",
       "title": "JEV versus LLMs: Accuracy, Cost and Calibration on Seven Political Science Replications",
       "date": "2026-10-05",
@@ -544,6 +674,27 @@
       ],
       "section": "industry-applications",
       "topicId": "decision-evaluation"
+    },
+    {
+      "id": "paper-baf74a758c",
+      "title": "Pavement performance prediction via a tabular foundation model",
+      "date": "2026-09",
+      "updated": "2026-09",
+      "category": 1,
+      "related": [
+        2
+      ],
+      "topic": "结构化数据应用",
+      "status": "published",
+      "venue": "Computer-Aided Civil and Infrastructure Engineering · 2026",
+      "summary": "用道路巡检与资产字段预测下一巡检周期的路面状态，考察小样本、缺失与少数类别。",
+      "url": "https://doi.org/10.1016/j.cacaie.2026.100097",
+      "pdf": null,
+      "code": null,
+      "keywords": [],
+      "dateNote": "期次月份；在线首发日待核",
+      "section": "industry-applications",
+      "topicId": "engineering-applications"
     },
     {
       "id": "paper-83f7d5c950",
@@ -569,6 +720,101 @@
       "topicId": "tabular-surveys"
     },
     {
+      "id": "report-nvidia-kumo-tabular",
+      "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
+      "date": "2026-09-29",
+      "updated": "2026-09-29",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        2,
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "report",
+      "venue": "NVIDIA 官方技术说明",
+      "summary": "Kumo Tabular 结合诱导式列注意力、行压缩与上下文 KV 缓存，提供分类和分位数回归；官方技术说明披露其架构、推理路径及基准配置。",
+      "url": "https://huggingface.co/blog/nvidia/kumo-tabular",
+      "pdf": null,
+      "code": "https://github.com/NVIDIA/structured-data-models",
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "Kumo Tabular"
+      ],
+      "aliases": [
+        "Kumo Tabular",
+        "Kumo-Tabular",
+        "NVIDIA Kumo"
+      ],
+      "sources": [
+        "https://huggingface.co/blog/nvidia/kumo-tabular",
+        "https://huggingface.co/nvidia/Kumo-Tabular"
+      ]
+    },
+    {
+      "id": "arxiv-2609.36108",
+      "title": "LoopICL: Looping a single transformer block to solve tabular tasks",
+      "date": "2026-09-28",
+      "updated": "2026-09-28",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "LoopICL 反复使用同一个 Transformer 块，联合更新单元格流与样本流，并用退出门控制循环次数，将参数规模与推理深度分开调整。",
+      "url": "https://arxiv.org/abs/2609.36108",
+      "pdf": "https://arxiv.org/pdf/2609.36108",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "LoopICL"
+      ],
+      "aliases": [
+        "LoopICL"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.36108"
+      ]
+    },
+    {
+      "id": "arxiv-2609.27679",
+      "title": "What Do Tabular Foundation Models Compute In Context? In-Situ Representation Refinement through Attention-Gated Updates",
+      "date": "2026-09-23",
+      "updated": "2026-09-25",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "RefineICL 把上下文学习解释为支持样本标签引导的表示修正，采用注意力门控、低秩特征交互和类型化记忆，研究无需更新权重的前向学习机制。",
+      "url": "https://arxiv.org/abs/2609.27679",
+      "pdf": "https://arxiv.org/pdf/2609.27679",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "RefineICL"
+      ],
+      "aliases": [
+        "RefineICL",
+        "RefineICL-L24"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.27679"
+      ]
+    },
+    {
       "id": "arxiv-2609.22866",
       "title": "Causilo Technical Report",
       "date": "2026-09-19",
@@ -585,9 +831,13 @@
       "url": "https://arxiv.org/abs/2609.22866",
       "pdf": "https://arxiv.org/pdf/2609.22866",
       "code": "https://github.com/nums-ai/causilo",
-      "keywords": [],
+      "keywords": [
+        "TFM",
+        "Causilo"
+      ],
       "section": "industry-models",
-      "topicId": "tabular-releases"
+      "topicId": "tabular-releases",
+      "aliases": []
     },
     {
       "id": "arxiv-2609.17488",
@@ -608,10 +858,16 @@
       "pdf": "https://arxiv.org/pdf/2609.17488",
       "code": null,
       "keywords": [
-        "LimiX"
+        "LimiX",
+        "TFM"
       ],
       "section": "industry-models",
-      "topicId": "tabular-releases"
+      "topicId": "tabular-releases",
+      "aliases": [
+        "LimiX-2",
+        "LimiX2",
+        "LimiX 2"
+      ]
     },
     {
       "id": "arxiv-2609.17895",
@@ -632,10 +888,15 @@
       "pdf": "https://arxiv.org/pdf/2609.17895",
       "code": "https://github.com/PriorLabs/TabPFN",
       "keywords": [
-        "TabPFN"
+        "TabPFN",
+        "TFM"
       ],
       "section": "industry-models",
-      "topicId": "tabular-releases"
+      "topicId": "tabular-releases",
+      "aliases": [
+        "TabPFN-3.5",
+        "TabPFN3.5"
+      ]
     },
     {
       "id": "arxiv-2609.04540",
@@ -655,10 +916,15 @@
       "pdf": "https://arxiv.org/pdf/2609.04540",
       "code": null,
       "keywords": [
-        "Mitra"
+        "Mitra",
+        "TFM"
       ],
       "section": "industry-models",
-      "topicId": "tabular-releases"
+      "topicId": "tabular-releases",
+      "aliases": [
+        "Mitra-v2",
+        "Mitra v2"
+      ]
     },
     {
       "id": "arxiv-2609.03880",
@@ -676,30 +942,13 @@
       "url": "https://arxiv.org/abs/2609.03880",
       "pdf": "https://arxiv.org/pdf/2609.03880",
       "code": null,
-      "keywords": [],
-      "section": "industry-models",
-      "topicId": "tabular-releases"
-    },
-    {
-      "id": "paper-baf74a758c",
-      "title": "Pavement performance prediction via a tabular foundation model",
-      "date": "2026-09",
-      "updated": "2026-09",
-      "category": 1,
-      "related": [
-        2
+      "keywords": [
+        "TFM",
+        "Xiaomi-TabLDM"
       ],
-      "topic": "结构化数据应用",
-      "status": "published",
-      "venue": "Computer-Aided Civil and Infrastructure Engineering · 2026",
-      "summary": "用道路巡检与资产字段预测下一巡检周期的路面状态，考察小样本、缺失与少数类别。",
-      "url": "https://doi.org/10.1016/j.cacaie.2026.100097",
-      "pdf": null,
-      "code": null,
-      "keywords": [],
-      "dateNote": "期次月份；在线首发日待核",
-      "section": "industry-applications",
-      "topicId": "engineering-applications"
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "aliases": []
     },
     {
       "id": "arxiv-2608.25774",
@@ -719,10 +968,83 @@
       "pdf": "https://arxiv.org/pdf/2608.25774",
       "code": null,
       "keywords": [
-        "EXAONE"
+        "EXAONE",
+        "TFM",
+        "EXAONE Tabular"
       ],
       "section": "industry-models",
-      "topicId": "tabular-releases"
+      "topicId": "tabular-releases",
+      "aliases": []
+    },
+    {
+      "id": "arxiv-2608.01400",
+      "title": "TabDPT-Turbo: Efficient In-Context Learning for Tabular Prediction",
+      "date": "2026-07",
+      "updated": "2026-08-25",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "workshop",
+      "venue": "ICML 2026 FMSD Workshop",
+      "summary": "TabDPT-Turbo 保留行级注意力，用长上下文训练替代逐查询近邻检索，研究真实数据训练的 TFM 如何降低预测延迟；论文对应 TabDPT v1.2。",
+      "url": "https://arxiv.org/abs/2608.01400",
+      "pdf": "https://arxiv.org/pdf/2608.01400",
+      "code": "https://github.com/layer6ai-labs/TabDPT-inference",
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "TabDPT"
+      ],
+      "aliases": [
+        "TabDPT-Turbo",
+        "TabDPT v1.2",
+        "TabDPT 1.2"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.01400",
+        "https://icml-structured-fm-workshop.github.io/accepted-papers/"
+      ],
+      "dateNote": "2026-07 Workshop 版本；arXiv 首次提交 2026-08-02。"
+    },
+    {
+      "id": "arxiv-2609.37959",
+      "title": "TabFM: A Zero-Shot Foundation Model for Tabular Data",
+      "date": "2026-06-30",
+      "updated": "2026-09-29",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        2,
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "report",
+      "venue": "Google Research 技术报告",
+      "summary": "Google TabFM 先交替处理行列信息，再压缩为行向量并进行上下文预测；官方说明同时介绍单次推理与带特征处理、集成和校准的增强方案。",
+      "url": "https://arxiv.org/abs/2609.37959",
+      "pdf": "https://arxiv.org/pdf/2609.37959",
+      "code": "https://github.com/google-research/tabfm",
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "Google TabFM"
+      ],
+      "aliases": [
+        "Google TabFM",
+        "TabFM",
+        "TabFM+",
+        "TabFM Plus"
+      ],
+      "sources": [
+        "https://research.google/blog/introducing-tabfm-a-zero-shot-foundation-model-for-tabular-data/",
+        "https://arxiv.org/abs/2609.37959"
+      ],
+      "dateNote": "模型技术说明于 2026-06-30 公开；论文于 2026-09-29 提交 arXiv。"
     },
     {
       "id": "arxiv-2606.30410",
@@ -768,6 +1090,76 @@
       "topicId": "engineering-applications"
     },
     {
+      "id": "arxiv-2606.07345",
+      "title": "TabSwift: An Efficient Tabular Foundation Model with Row-Wise Attention",
+      "date": "2026-06-05",
+      "updated": "2026-06-05",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "published",
+      "venue": "ICML 2026",
+      "summary": "TabSwift 采用轻量的行级注意力、门控和全局 register token 进行分类与回归，并通过逐样本提前退出机制调整推理深度，面向低延迟预测。",
+      "url": "https://arxiv.org/abs/2606.07345",
+      "pdf": "https://arxiv.org/pdf/2606.07345",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "TabSwift"
+      ],
+      "aliases": [
+        "TabSwift"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.07345",
+        "https://proceedings.mlr.press/v306/liu26fm.html"
+      ],
+      "recognition": {
+        "label": "Spotlight",
+        "source": "https://arxiv.org/abs/2606.07345",
+        "verifiedAt": "2026-10-12"
+      }
+    },
+    {
+      "id": "arxiv-2606.04485",
+      "title": "LimiX-2M: Mitigating Low-Rank Collapse and Attention Bottlenecks in Tabular Foundation Models",
+      "date": "2026-06-03",
+      "updated": "2026-06-04",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "published",
+      "venue": "ICML 2026",
+      "summary": "LimiX-2M 针对数值编码的低秩退化和注意力路径浪费，用局部径向基函数展开数值，并重排样本与特征交互，以 200 万参数研究精度与计算效率的取舍。",
+      "url": "https://arxiv.org/abs/2606.04485",
+      "pdf": "https://arxiv.org/pdf/2606.04485",
+      "code": "https://github.com/limix-ldm-ai/LimiX",
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "LimiX"
+      ],
+      "aliases": [
+        "LimiX-2M",
+        "LimiX2M",
+        "LimiX 2M",
+        "RaBEL"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.04485",
+        "https://proceedings.mlr.press/v306/wang26kw.html"
+      ]
+    },
+    {
       "id": "arxiv-2605.18635",
       "title": "Data Presentation Over Architecture: Resampling Strategies for Credit Risk Prediction with Tabular Foundation Models",
       "date": "2026-05-18",
@@ -809,6 +1201,39 @@
       "topicId": "credit-risk"
     },
     {
+      "id": "arxiv-2605.18383",
+      "title": "TabH2O: A Unified Foundation Model for Tabular Prediction",
+      "date": "2026-05-18",
+      "updated": "2026-08-13",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        2,
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "report",
+      "venue": "H2O.ai 技术报告",
+      "summary": "TabH2O 在 TabICL 路线上使用分类／回归双输出头、训练稳定化和无关特征噪声建模，以单个模型处理两类任务，便于比较统一模型与分任务模型。",
+      "url": "https://arxiv.org/abs/2605.18383",
+      "pdf": "https://arxiv.org/pdf/2605.18383",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "TabH2O"
+      ],
+      "aliases": [
+        "TabH2O",
+        "TabH2O v1.1"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.18383",
+        "https://tabh2o.h2oai.com/"
+      ]
+    },
+    {
       "id": "arxiv-2605.13986",
       "title": "TabPFN-3: Technical Report",
       "date": "2026-05-13",
@@ -828,10 +1253,16 @@
       "pdf": "https://arxiv.org/pdf/2605.13986",
       "code": null,
       "keywords": [
-        "TabPFN"
+        "TabPFN",
+        "TFM"
       ],
       "section": "industry-models",
-      "topicId": "tabular-releases"
+      "topicId": "tabular-releases",
+      "aliases": [
+        "TabPFN-3",
+        "TabPFN v3",
+        "TabPFN3"
+      ]
     },
     {
       "id": "arxiv-2605.12292",
@@ -894,10 +1325,16 @@
       "pdf": "https://arxiv.org/pdf/2604.12596",
       "code": null,
       "keywords": [
-        "Kumo"
+        "Kumo",
+        "TFM",
+        "KumoRFM"
       ],
       "section": "industry-models",
-      "topicId": "relational-releases"
+      "topicId": "relational-releases",
+      "aliases": [
+        "KumoRFM-2",
+        "Kumo RFM 2"
+      ]
     },
     {
       "id": "arxiv-2602.11139",
@@ -917,10 +1354,149 @@
       "pdf": "https://arxiv.org/pdf/2602.11139",
       "code": "https://github.com/soda-inria/tabicl",
       "keywords": [
-        "TabICL"
+        "TabICL",
+        "TFM"
       ],
       "section": "industry-models",
-      "topicId": "tabular-releases"
+      "topicId": "tabular-releases",
+      "sources": [
+        "https://arxiv.org/abs/2602.11139",
+        "https://proceedings.mlr.press/v306/qu26a.html"
+      ],
+      "aliases": [
+        "TabICLv2",
+        "TabICL v2",
+        "TabICL2"
+      ]
+    },
+    {
+      "id": "arxiv-2511.08667",
+      "title": "TabPFN-2.5: Advancing the State of the Art in Tabular Foundation Models",
+      "date": "2025-11-11",
+      "updated": "2026-02-05",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5,
+        6
+      ],
+      "topic": "通用表格模型",
+      "status": "report",
+      "venue": "Prior Labs 技术报告",
+      "summary": "TabPFN-2.5 扩展可处理的表格规模，并引入将模型预测能力蒸馏为 MLP 或树集成的部署方案，连接表格基础模型演进与低成本推理。",
+      "url": "https://arxiv.org/abs/2511.08667",
+      "pdf": "https://arxiv.org/pdf/2511.08667",
+      "code": "https://github.com/PriorLabs/TabPFN",
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "TabPFN"
+      ],
+      "aliases": [
+        "TabPFN-2.5",
+        "TabPFN2.5",
+        "TabPFN v2.5"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2511.08667"
+      ]
+    },
+    {
+      "id": "arxiv-2511.02818",
+      "title": "Orion-MSP: Multi-Scale Sparse Attention for Tabular In-Context Learning",
+      "date": "2025-11-04",
+      "updated": "2025-11-07",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "Orion-MSP 将多尺度特征处理、块稀疏注意力与 Perceiver 式记忆结合，研究宽表中局部／全局特征交互和计算规模的取舍。",
+      "url": "https://arxiv.org/abs/2511.02818",
+      "pdf": "https://arxiv.org/pdf/2511.02818",
+      "code": "https://github.com/Lexsi-Labs/Orion-MSP",
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "Orion-MSP"
+      ],
+      "aliases": [
+        "Orion-MSP",
+        "Orion MSP"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2511.02818"
+      ]
+    },
+    {
+      "id": "arxiv-2510.21204",
+      "title": "Mitra: Mixed Synthetic Priors for Enhancing Tabular Foundation Models",
+      "date": "2025-10-24",
+      "updated": "2025-10-24",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "published",
+      "venue": "NeurIPS 2025",
+      "summary": "Mitra 研究不同合成先验如何互补，将多类数据生成机制组合为上下文预测模型，为 Mitra-v2 及混合先验路线提供基础参照。",
+      "url": "https://arxiv.org/abs/2510.21204",
+      "pdf": "https://arxiv.org/pdf/2510.21204",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "Mitra"
+      ],
+      "aliases": [
+        "Mitra",
+        "Mitra v1"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2510.21204"
+      ]
+    },
+    {
+      "id": "arxiv-2509.03505",
+      "title": "LimiX: Unleashing Structured-Data Modeling Capability for Generalist Intelligence",
+      "date": "2025-09-03",
+      "updated": "2025-11-07",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        2,
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "report",
+      "venue": "LimiX 技术报告",
+      "summary": "LimiX 原始报告通过上下文条件化的联合分布建模，将分类、回归、缺失补全和数据生成统一为条件查询，是理解 LimiX-2M 与 LimiX-2 后续路线的前作。",
+      "url": "https://arxiv.org/abs/2509.03505",
+      "pdf": "https://arxiv.org/pdf/2509.03505",
+      "code": "https://github.com/limix-ldm-ai/LimiX",
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "LimiX"
+      ],
+      "aliases": [
+        "LimiX",
+        "LimiX-16M",
+        "LimiX 16M",
+        "LDM"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2509.03505"
+      ]
     },
     {
       "id": "arxiv-2506.16791",
@@ -950,6 +1526,70 @@
       }
     },
     {
+      "id": "arxiv-2506.05584",
+      "title": "TabFlex: Scaling Tabular Learning to Millions with Linear Attention",
+      "date": "2025-06-05",
+      "updated": "2025-06-05",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "published",
+      "venue": "ICML 2025",
+      "summary": "TabFlex 用线性注意力替代表格 ICL 中的二次复杂度注意力，扩展可处理的样本、特征及类别规模，是长上下文推理架构的对照路线。",
+      "url": "https://arxiv.org/abs/2506.05584",
+      "pdf": "https://arxiv.org/pdf/2506.05584",
+      "code": "https://github.com/microsoft/ticl",
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "TabFlex"
+      ],
+      "aliases": [
+        "TabFlex"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2506.05584",
+        "https://proceedings.mlr.press/v267/zeng25b.html"
+      ]
+    },
+    {
+      "id": "arxiv-2502.05564",
+      "title": "TabICL: A Tabular Foundation Model for In-Context Learning on Large Data",
+      "date": "2025-02-08",
+      "updated": "2025-05-24",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "published",
+      "venue": "ICML 2025",
+      "summary": "TabICL 先通过列编码与行压缩构建定长样本表示，再进行跨样本上下文学习，以降低大表分类的推理成本；该原版论文与后续 v2 分别记录。",
+      "url": "https://arxiv.org/abs/2502.05564",
+      "pdf": "https://arxiv.org/pdf/2502.05564",
+      "code": "https://github.com/soda-inria/tabicl",
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "TabICL"
+      ],
+      "aliases": [
+        "TabICL",
+        "TabICLv1",
+        "TabICL v1"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2502.05564",
+        "https://proceedings.mlr.press/v267/qu25d.html"
+      ]
+    },
+    {
       "id": "paper-612809da03",
       "title": "Accurate predictions on small data with a tabular foundation model",
       "date": "2025-01-08",
@@ -968,10 +1608,47 @@
       "pdf": "https://www.nature.com/articles/s41586-024-08328-6.pdf",
       "code": null,
       "keywords": [
-        "TabPFN"
+        "TabPFN",
+        "TFM"
       ],
       "section": "industry-models",
-      "topicId": "tabular-releases"
+      "topicId": "tabular-releases",
+      "aliases": [
+        "TabPFN-v2",
+        "TabPFN v2",
+        "TabPFN2"
+      ]
+    },
+    {
+      "id": "arxiv-2410.18164",
+      "title": "TabDPT: Scaling Tabular Foundation Models on Real Data",
+      "date": "2024-10-23",
+      "updated": "2026-01-17",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "published",
+      "venue": "NeurIPS 2025",
+      "summary": "TabDPT 将真实表格上的自监督学习与近邻上下文检索结合，支持新表格的分类和回归，是对照纯合成先验路线及理解 Turbo 版本变化的基础论文。",
+      "url": "https://arxiv.org/abs/2410.18164",
+      "pdf": "https://arxiv.org/pdf/2410.18164",
+      "code": "https://github.com/layer6ai-labs/TabDPT-inference",
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "TabDPT"
+      ],
+      "aliases": [
+        "TabDPT",
+        "TabDPT v1"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2410.18164"
+      ]
     },
     {
       "id": "arxiv-2407.20060",
@@ -1016,6 +1693,100 @@
       "topicId": "general-benchmarks"
     },
     {
+      "id": "arxiv-2402.14335",
+      "title": "HyperFast: Instant Classification for Tabular Data",
+      "date": "2024-02-22",
+      "updated": "2024-02-22",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5,
+        6
+      ],
+      "topic": "通用表格模型",
+      "status": "published",
+      "venue": "AAAI 2024",
+      "summary": "HyperFast 让元训练超网络读取新数据集并生成任务专用分类器，随后用生成的小网络预测；提供上下文反复推理之外的部署路线。",
+      "url": "https://arxiv.org/abs/2402.14335",
+      "pdf": "https://arxiv.org/pdf/2402.14335",
+      "code": "https://github.com/AI-sandbox/HyperFast",
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "HyperFast"
+      ],
+      "aliases": [
+        "HyperFast"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2402.14335"
+      ]
+    },
+    {
+      "id": "arxiv-2207.01848",
+      "title": "TabPFN: A Transformer That Solves Small Tabular Classification Problems in a Second",
+      "date": "2022-07-05",
+      "updated": "2023-09-16",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5,
+        6
+      ],
+      "topic": "通用表格模型",
+      "status": "published",
+      "venue": "ICLR 2023",
+      "summary": "TabPFN 原始工作在合成任务上训练 Transformer，以带标签样本为上下文直接完成小型数值表格分类，是后续 PFN、表格 ICL 和目标微调研究的起点。",
+      "url": "https://arxiv.org/abs/2207.01848",
+      "pdf": "https://arxiv.org/pdf/2207.01848",
+      "code": "https://github.com/PriorLabs/TabPFN",
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "TabPFN"
+      ],
+      "aliases": [
+        "TabPFN",
+        "TabPFN v1",
+        "TabPFNv1"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2207.01848",
+        "https://openreview.net/forum?id=cp5PvcI6w8_"
+      ]
+    },
+    {
+      "id": "arxiv-2610.13654",
+      "title": "TabReliBench: Evaluating Tabular Foundation Models Beyond Predictive Accuracy",
+      "date": "2026-10-09",
+      "updated": "2026-10-09",
+      "category": 2,
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions",
+      "related": [
+        1
+      ],
+      "topic": "条件分布与不确定性分解",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "TabReliBench 同时评估点预测、分布质量、边际／子群校准与区间效率，检验高预测排名是否对应可靠的不确定性，并分析集成与保形后处理的作用。",
+      "url": "https://arxiv.org/abs/2610.13654",
+      "pdf": "https://arxiv.org/pdf/2610.13654",
+      "code": "https://github.com/Tianqi-Zhao/TabReliBench",
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "TabReliBench"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.13654"
+      ]
+    },
+    {
       "id": "arxiv-2610.06693",
       "title": "Adapting prior-data fitted networks for tabular anomaly detection",
       "date": "2026-10-05",
@@ -1037,6 +1808,68 @@
       ],
       "section": "prediction-quality",
       "topicId": "anomaly-detection"
+    },
+    {
+      "id": "arxiv-2610.07406",
+      "title": "Evaluation of Active Feature Acquisition Policies with Tabular Foundation Models",
+      "date": "2026-10-05",
+      "updated": "2026-10-05",
+      "category": 2,
+      "section": "prediction-decisions",
+      "topicId": "scores-routing",
+      "related": [
+        4,
+        5
+      ],
+      "topic": "评分、固定选项与路由",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用 PFN 的预测分布评估逐步获取特征的策略，区分数据不足造成的认知不确定性与特征本身的信息量，减少离线覆盖不均导致的策略估值偏差。",
+      "url": "https://arxiv.org/abs/2610.07406",
+      "pdf": "https://arxiv.org/pdf/2610.07406",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "Active Feature Acquisition",
+        "AFA"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.07406"
+      ]
+    },
+    {
+      "id": "arxiv-2610.06751",
+      "title": "MatrixFormer: A Foundation Model for Matrix Completion",
+      "date": "2026-10-05",
+      "updated": "2026-10-05",
+      "category": 2,
+      "section": "prediction-quality",
+      "topicId": "missing-noisy-data",
+      "related": [
+        1,
+        3
+      ],
+      "topic": "缺失补全与噪声清洗",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "MatrixFormer 保留矩阵的二维结构，一次前向传播为所有缺失位置输出预测分布，覆盖表格补全、推荐矩阵和因果面板数据等任务。",
+      "url": "https://arxiv.org/abs/2610.06751",
+      "pdf": "https://arxiv.org/pdf/2610.06751",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型",
+        "MatrixFormer"
+      ],
+      "aliases": [
+        "MatrixFormer"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.06751"
+      ]
     },
     {
       "id": "arxiv-2609.29769",
@@ -1082,6 +1915,34 @@
       "topicId": "probability-calibration"
     },
     {
+      "id": "arxiv-2605.31272",
+      "title": "Algorithmic Recourse of In-Context Learning for Tabular Data",
+      "date": "2026-05-29",
+      "updated": "2026-07-15",
+      "category": 2,
+      "section": "prediction-decisions",
+      "topicId": "strategic-feedback",
+      "related": [
+        5
+      ],
+      "topic": "策略响应与反馈分布",
+      "status": "published",
+      "venue": "ICML 2026",
+      "summary": "ASR-ICL 面向使用上下文学习的表格决策模型，通过黑盒查询寻找稀疏的特征修改建议，研究上下文规模如何影响建议的稳定性和查询成本。",
+      "url": "https://arxiv.org/abs/2605.31272",
+      "pdf": "https://arxiv.org/pdf/2605.31272",
+      "code": null,
+      "keywords": [],
+      "aliases": [
+        "ASR-ICL",
+        "Algorithmic Recourse"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.31272",
+        "https://proceedings.mlr.press/v306/dong26n.html"
+      ]
+    },
+    {
       "id": "arxiv-2605.19662",
       "title": "When Tabular Foundation Models Meet Strategic Tabular Data: A Prior Alignment Approach",
       "date": "2026-05-19",
@@ -1099,7 +1960,11 @@
       "code": null,
       "keywords": [],
       "section": "prediction-decisions",
-      "topicId": "strategic-feedback"
+      "topicId": "strategic-feedback",
+      "sources": [
+        "https://arxiv.org/abs/2605.19662",
+        "https://proceedings.mlr.press/v306/lv26g.html"
+      ]
     },
     {
       "id": "arxiv-2605.18696",
@@ -1140,7 +2005,11 @@
       "code": "https://github.com/seunghan96/DistPFN",
       "keywords": [],
       "section": "prediction-distributions",
-      "topicId": "probability-calibration"
+      "topicId": "probability-calibration",
+      "sources": [
+        "https://arxiv.org/abs/2605.04363",
+        "https://proceedings.mlr.press/v306/lee26aw.html"
+      ]
     },
     {
       "id": "arxiv-2604.25154",
@@ -1228,24 +2097,70 @@
       "topicId": "predictive-distributions"
     },
     {
-      "id": "arxiv-2510.02625",
-      "title": "One Pipeline, Many Transformers: Pattern-Specific Imputation Specialists for Tabular Missing Data",
-      "date": "2025-10-03",
-      "updated": "2026-08-28",
+      "id": "arxiv-2602.03018",
+      "title": "From Zero to Hero: Advancing Zero-Shot Foundation Models for Tabular Outlier Detection",
+      "date": "2026-02-03",
+      "updated": "2026-05-29",
       "category": 2,
+      "section": "prediction-quality",
+      "topicId": "anomaly-detection",
       "related": [
+        1,
         5
       ],
-      "topic": "复杂数据下的预测优化",
-      "status": "preprint",
-      "venue": "预印本",
-      "summary": "TabImpute 将缺失单元格转成带行列上下文的预测问题，并研究针对不同缺失模式的插补模型。",
-      "url": "https://arxiv.org/abs/2510.02625",
-      "pdf": "https://arxiv.org/pdf/2510.02625",
-      "code": null,
+      "topic": "表格异常检测",
+      "status": "published",
+      "venue": "ICML 2026",
+      "summary": "OUTFORMER 使用混合合成先验和课程训练，把表格异常检测转为上下文预测，在新任务上无需标注异常或重新训练异常检测器。",
+      "url": "https://arxiv.org/abs/2602.03018",
+      "pdf": "https://arxiv.org/pdf/2602.03018",
+      "code": "https://github.com/psorus/Outformer.git",
+      "keywords": [
+        "TFM",
+        "OUTFORMER"
+      ],
+      "aliases": [
+        "OUTFORMER"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2602.03018",
+        "https://proceedings.mlr.press/v306/ding26s.html"
+      ]
+    },
+    {
+      "id": "arxiv-2601.22371",
+      "title": "FIRE: Multi-fidelity Regression with Distribution-conditioned In-context Learning using Tabular Foundation Models",
+      "date": "2026-01-29",
+      "updated": "2026-01-29",
+      "category": 2,
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions",
+      "related": [
+        1,
+        5
+      ],
+      "topic": "条件分布与不确定性分解",
+      "status": "published",
+      "venue": "ICML 2026",
+      "summary": "FIRE 用低保真模型的预测分布作为高保真修正模型的上下文，把两个表格基础模型连接起来进行多保真回归，研究无需重训练的信息迁移与不确定性估计。",
+      "url": "https://arxiv.org/abs/2601.22371",
+      "pdf": "https://arxiv.org/pdf/2601.22371",
+      "code": "https://github.com/rosenyu304/FIRE",
       "keywords": [],
-      "section": "prediction-quality",
-      "topicId": "missing-noisy-data"
+      "aliases": [
+        "FIRE",
+        "Fidelity-aware In-context REgression"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2601.22371",
+        "https://decode.mit.edu/projects/fire/",
+        "https://proceedings.mlr.press/v306/yu26au.html"
+      ],
+      "recognition": {
+        "label": "Spotlight",
+        "source": "https://decode.mit.edu/projects/fire/",
+        "verifiedAt": "2026-10-12"
+      }
     },
     {
       "id": "paper-3b87eab6aa",
@@ -1275,6 +2190,54 @@
       }
     },
     {
+      "id": "arxiv-2510.25154",
+      "title": "TabMGP: Martingale Posterior with TabPFN",
+      "date": "2025-10-29",
+      "updated": "2026-05-28",
+      "category": 2,
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions",
+      "related": [
+        3
+      ],
+      "topic": "条件分布与不确定性分解",
+      "status": "published",
+      "venue": "ICML 2026",
+      "summary": "TabMGP 将 TabPFN 的预测规则接入鞅后验框架，为特定统计量构造后验分布和可信集合，将单次预测扩展到科学分析中的参数不确定性。",
+      "url": "https://arxiv.org/abs/2510.25154",
+      "pdf": "https://arxiv.org/pdf/2510.25154",
+      "code": "https://github.com/weiyaw/tabmgp",
+      "keywords": [],
+      "aliases": [
+        "TabMGP",
+        "Martingale Posterior"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2510.25154",
+        "https://proceedings.mlr.press/v306/ng26a.html"
+      ]
+    },
+    {
+      "id": "arxiv-2510.02625",
+      "title": "One Pipeline, Many Transformers: Pattern-Specific Imputation Specialists for Tabular Missing Data",
+      "date": "2025-10-03",
+      "updated": "2026-08-28",
+      "category": 2,
+      "related": [
+        5
+      ],
+      "topic": "复杂数据下的预测优化",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "TabImpute 将缺失单元格转成带行列上下文的预测问题，并研究针对不同缺失模式的插补模型。",
+      "url": "https://arxiv.org/abs/2510.02625",
+      "pdf": "https://arxiv.org/pdf/2510.02625",
+      "code": null,
+      "keywords": [],
+      "section": "prediction-quality",
+      "topicId": "missing-noisy-data"
+    },
+    {
       "id": "paper-dd682e2bac",
       "title": "Conformalized Quantile Regression",
       "date": "2019-05-08",
@@ -1291,6 +2254,60 @@
       "keywords": [],
       "section": "prediction-distributions",
       "topicId": "prediction-intervals"
+    },
+    {
+      "id": "paper-d00034280f",
+      "title": "Unveiling Prior-Data Fitted Networks on Causal Effect Estimation: Pre-Training or Fine-Tuning?",
+      "date": "2026",
+      "updated": "2026",
+      "category": 3,
+      "related": [
+        5,
+        6
+      ],
+      "topic": "因果效应模型的目标微调",
+      "status": "published",
+      "venue": "ICML 2026",
+      "summary": "分析 PFN 先验未覆盖干预分布时的偏差，提出针对单个干预的 PWF 与预算约束下选择干预任务的 MSF 微调。",
+      "url": "https://proceedings.mlr.press/v306/wang26fl.html",
+      "pdf": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/wang26fl/wang26fl.pdf",
+      "code": null,
+      "keywords": [],
+      "dateNote": "已确认 2026 年会议版；首发月份待核",
+      "section": "causal-models",
+      "topicId": "causal-adaptation",
+      "sources": [
+        "https://proceedings.mlr.press/v306/wang26fl.html"
+      ]
+    },
+    {
+      "id": "arxiv-2610.12537",
+      "title": "Market Impact Estimation via Causal Foundation Models",
+      "date": "2026-10-08",
+      "updated": "2026-10-08",
+      "category": 3,
+      "section": "causal-estimation",
+      "topicId": "treatment-effects",
+      "related": [
+        1
+      ],
+      "topic": "处理效应与干预分布",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "将交易造成的价格变化表述为反事实问题，用因果 PFN 估计市场冲击并研究保形重校准；真实市场上的迁移结果仍属于概念验证。",
+      "url": "https://arxiv.org/abs/2610.12537",
+      "pdf": "https://arxiv.org/pdf/2610.12537",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "Causal Market Simulator"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.12537"
+      ]
     },
     {
       "id": "arxiv-2609.39523",
@@ -1466,7 +2483,11 @@
       "code": "https://github.com/Valentyn1997/freq-cons-pfns",
       "keywords": [],
       "section": "causal-models",
-      "topicId": "causal-reliability"
+      "topicId": "causal-reliability",
+      "sources": [
+        "https://arxiv.org/abs/2603.12037",
+        "https://proceedings.mlr.press/v306/melnychuk26a.html"
+      ]
     },
     {
       "id": "paper-8380790f74",
@@ -1508,29 +2529,36 @@
       "code": "https://github.com/ArikReuter/Graphs4CausalFoundationModels",
       "keywords": [],
       "section": "causal-models",
-      "topicId": "causal-knowledge"
+      "topicId": "causal-knowledge",
+      "sources": [
+        "https://proceedings.mlr.press/v306/reuter26a.html"
+      ]
     },
     {
-      "id": "paper-d00034280f",
-      "title": "Unveiling Prior-Data Fitted Networks on Causal Effect Estimation: Pre-Training or Fine-Tuning?",
-      "date": "2026",
-      "updated": "2026",
+      "id": "arxiv-2601.04110",
+      "title": "Causal Data Augmentation for Robust Fine-Tuning of Tabular Foundation Models",
+      "date": "2025",
+      "updated": "2025",
       "category": 3,
       "related": [
-        5,
         6
       ],
-      "topic": "因果效应模型的目标微调",
-      "status": "published",
-      "venue": "ICML 2026",
-      "summary": "分析 PFN 先验未覆盖干预分布时的偏差，提出针对单个干预的 PWF 与预算约束下选择干预任务的 MSF 微调。",
-      "url": "https://proceedings.mlr.press/v306/wang26fl.html",
-      "pdf": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/wang26fl/wang26fl.pdf",
+      "topic": "因果数据增强辅助微调",
+      "status": "workshop",
+      "venue": "EurIPS 2025 Tabular Data Workshop",
+      "summary": "CausalMixFT 在目标数据上拟合 SCM，生成保留特征依赖的样本，改善小数据微调和验证集早停的稳定性。",
+      "url": "https://arxiv.org/abs/2601.04110",
+      "pdf": "https://arxiv.org/pdf/2601.04110",
       "code": null,
       "keywords": [],
-      "dateNote": "已确认 2026 年会议版；首发月份待核",
+      "dateNote": "2025 Workshop 已公开；arXiv 于 2026-01-07 提交",
       "section": "causal-models",
-      "topicId": "causal-adaptation"
+      "topicId": "causal-adaptation",
+      "recognition": {
+        "label": "Oral",
+        "source": "https://sites.google.com/view/eurips25-ai-td/home",
+        "verifiedAt": "2026-10-12"
+      }
     },
     {
       "id": "arxiv-2511.07236",
@@ -1623,32 +2651,6 @@
       "topicId": "treatment-effects"
     },
     {
-      "id": "arxiv-2601.04110",
-      "title": "Causal Data Augmentation for Robust Fine-Tuning of Tabular Foundation Models",
-      "date": "2025",
-      "updated": "2025",
-      "category": 3,
-      "related": [
-        6
-      ],
-      "topic": "因果数据增强辅助微调",
-      "status": "workshop",
-      "venue": "EurIPS 2025 Tabular Data Workshop",
-      "summary": "CausalMixFT 在目标数据上拟合 SCM，生成保留特征依赖的样本，改善小数据微调和验证集早停的稳定性。",
-      "url": "https://arxiv.org/abs/2601.04110",
-      "pdf": "https://arxiv.org/pdf/2601.04110",
-      "code": null,
-      "keywords": [],
-      "dateNote": "2025 Workshop 已公开；arXiv 于 2026-01-07 提交",
-      "section": "causal-models",
-      "topicId": "causal-adaptation",
-      "recognition": {
-        "label": "Oral",
-        "source": "https://sites.google.com/view/eurips25-ai-td/home",
-        "verifiedAt": "2026-10-12"
-      }
-    },
-    {
       "id": "arxiv-2205.12934",
       "title": "Amortized Inference for Causal Structure Learning",
       "date": "2022-05-25",
@@ -1709,6 +2711,67 @@
       "topicId": "causal-reliability"
     },
     {
+      "id": "arxiv-2610.01725",
+      "title": "RelICL: Training-free Relational Learning with Tabular Foundation Models",
+      "date": "2026-10-01",
+      "updated": "2026-10-01",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "data-integration",
+      "related": [
+        1,
+        5
+      ],
+      "topic": "端到端数据整合",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "RelICL 沿数据库模式图逐步传播与融合信息，用同一个冻结 TFM 完成跨表特征构建和最终预测，缓解深度特征合成的特征膨胀与交互缺失。",
+      "url": "https://arxiv.org/abs/2610.01725",
+      "pdf": "https://arxiv.org/pdf/2610.01725",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "RelICL"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.01725"
+      ]
+    },
+    {
+      "id": "arxiv-2609.23574",
+      "title": "PACE: Plug-and-Play Contextual Embedding for Feature Screening with Pretrained Tabular Foundation Models",
+      "date": "2026-09-20",
+      "updated": "2026-09-20",
+      "category": 4,
+      "section": "semantic-features",
+      "topicId": "feature-search",
+      "related": [
+        2,
+        5
+      ],
+      "topic": "任务反馈与特征搜索",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "PACE 将冻结 TFM 的列编码器接到已有特征评分方法之前，用上下文化表示捕获非线性依赖，研究无需微调的特征筛选及其下游预测收益。",
+      "url": "https://arxiv.org/abs/2609.23574",
+      "pdf": "https://arxiv.org/pdf/2609.23574",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "PACE",
+        "PACE-DC"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.23574"
+      ]
+    },
+    {
       "id": "arxiv-2609.21894",
       "title": "LLMs as Feature Engineers for Text-and-Tabular Prediction",
       "date": "2026-09-18",
@@ -1749,6 +2812,50 @@
       "topicId": "knowledge-features"
     },
     {
+      "id": "paper-20e0758264",
+      "title": "CaRL-EM: Cost-Aware Reinforcement Learning for Entity Matching with LLMs",
+      "date": "2026-07",
+      "updated": "2026-07",
+      "category": 4,
+      "related": [
+        1
+      ],
+      "topic": "表格字段、实体对齐与跨表整合",
+      "status": "published",
+      "venue": "ACL 2026",
+      "summary": "把多候选实体匹配转为考虑成本的序列决策，用强化学习控制器选择匹配、比较、筛选或最终判断操作，以及调用的模型大小。",
+      "url": "https://aclanthology.org/2026.acl-long.1258/",
+      "pdf": "https://aclanthology.org/2026.acl-long.1258.pdf",
+      "code": null,
+      "keywords": [],
+      "section": "semantic-integration",
+      "topicId": "entity-matching"
+    },
+    {
+      "id": "arxiv-2608.03565",
+      "title": "Enhancing Tabular Learners with Context-Aware Semantic Embeddings",
+      "date": "2026-07",
+      "updated": "2026-10-09",
+      "category": 4,
+      "related": [
+        1,
+        5
+      ],
+      "topic": "语义与表格特征融合",
+      "status": "workshop",
+      "venue": "ICML 2026 FMSD Workshop",
+      "summary": "CASE 用表内有标签样本预填语言模型的 KV 缓存，使后续行嵌入带上任务与数据集语境；压缩后与原始表格特征一起交给 TabICL 等预测器。",
+      "url": "https://arxiv.org/abs/2608.03565",
+      "pdf": "https://arxiv.org/pdf/2608.03565",
+      "code": "https://github.com/SAP-samples/case",
+      "keywords": [
+        "TabICL"
+      ],
+      "dateNote": "日期按 2026 年 7 月 Workshop 版本",
+      "section": "semantic-fusion",
+      "topicId": "semantic-embeddings"
+    },
+    {
       "id": "arxiv-2607.24492",
       "title": "SINT-Flow: Schema Integration using Large Language Model Workflows",
       "date": "2026-07-27",
@@ -1785,50 +2892,6 @@
       "keywords": [],
       "section": "semantic-features",
       "topicId": "feature-search"
-    },
-    {
-      "id": "arxiv-2608.03565",
-      "title": "Enhancing Tabular Learners with Context-Aware Semantic Embeddings",
-      "date": "2026-07",
-      "updated": "2026-10-09",
-      "category": 4,
-      "related": [
-        1,
-        5
-      ],
-      "topic": "语义与表格特征融合",
-      "status": "workshop",
-      "venue": "ICML 2026 FMSD Workshop",
-      "summary": "CASE 用表内有标签样本预填语言模型的 KV 缓存，使后续行嵌入带上任务与数据集语境；压缩后与原始表格特征一起交给 TabICL 等预测器。",
-      "url": "https://arxiv.org/abs/2608.03565",
-      "pdf": "https://arxiv.org/pdf/2608.03565",
-      "code": "https://github.com/SAP-samples/case",
-      "keywords": [
-        "TabICL"
-      ],
-      "dateNote": "日期按 2026 年 7 月 Workshop 版本",
-      "section": "semantic-fusion",
-      "topicId": "semantic-embeddings"
-    },
-    {
-      "id": "paper-20e0758264",
-      "title": "CaRL-EM: Cost-Aware Reinforcement Learning for Entity Matching with LLMs",
-      "date": "2026-07",
-      "updated": "2026-07",
-      "category": 4,
-      "related": [
-        1
-      ],
-      "topic": "表格字段、实体对齐与跨表整合",
-      "status": "published",
-      "venue": "ACL 2026",
-      "summary": "把多候选实体匹配转为考虑成本的序列决策，用强化学习控制器选择匹配、比较、筛选或最终判断操作，以及调用的模型大小。",
-      "url": "https://aclanthology.org/2026.acl-long.1258/",
-      "pdf": "https://aclanthology.org/2026.acl-long.1258.pdf",
-      "code": null,
-      "keywords": [],
-      "section": "semantic-integration",
-      "topicId": "entity-matching"
     },
     {
       "id": "arxiv-2606.30371",
@@ -1931,7 +2994,8 @@
       "pdf": "https://arxiv.org/pdf/2506.10707",
       "code": "https://github.com/SAP-samples/sap-rpt-1-oss",
       "keywords": [
-        "ConTextTab"
+        "ConTextTab",
+        "TFM"
       ],
       "section": "semantic-fusion",
       "topicId": "text-tabular-models",
@@ -1939,7 +3003,12 @@
         "label": "Spotlight",
         "source": "https://arxiv.org/abs/2506.10707",
         "verifiedAt": "2026-10-12"
-      }
+      },
+      "aliases": [
+        "ConTextTab",
+        "SAP-RPT-1-OSS",
+        "SAP RPT 1 OSS"
+      ]
     },
     {
       "id": "arxiv-2505.18125",
@@ -1959,10 +3028,43 @@
       "pdf": "https://arxiv.org/pdf/2505.18125",
       "code": "https://github.com/alanarazi7/TabSTAR",
       "keywords": [
-        "TabSTAR"
+        "TabSTAR",
+        "TFM"
       ],
       "section": "semantic-fusion",
-      "topicId": "text-tabular-models"
+      "topicId": "text-tabular-models",
+      "aliases": []
+    },
+    {
+      "id": "arxiv-2505.14415",
+      "title": "Table Foundation Models: on knowledge pre-training for tabular learning",
+      "date": "2025-05-20",
+      "updated": "2025-06-30",
+      "category": 4,
+      "section": "semantic-fusion",
+      "topicId": "semantic-embeddings",
+      "related": [
+        1,
+        6
+      ],
+      "topic": "语义嵌入与特征拼接",
+      "status": "published",
+      "venue": "TMLR 2025",
+      "summary": "TARTE 将表格转换为包含字段语义的可复用向量，既能与下游学习器组合，也能进行目标任务微调，重点在知识表示如何迁移到预测任务。",
+      "url": "https://arxiv.org/abs/2505.14415",
+      "pdf": "https://arxiv.org/pdf/2505.14415",
+      "code": "https://github.com/soda-inria/tarte-ai",
+      "keywords": [
+        "TFM",
+        "TARTE"
+      ],
+      "aliases": [
+        "TARTE"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2505.14415",
+        "https://openreview.net/forum?id=QV4P8Csw17"
+      ]
     },
     {
       "id": "arxiv-2412.08194",
@@ -1981,6 +3083,37 @@
       "keywords": [],
       "section": "semantic-integration",
       "topicId": "schema-matching"
+    },
+    {
+      "id": "arxiv-2402.16785",
+      "title": "CARTE: Pretraining and Transfer for Tabular Learning",
+      "date": "2024-02-26",
+      "updated": "2024-05-31",
+      "category": 4,
+      "section": "semantic-fusion",
+      "topicId": "text-tabular-models",
+      "related": [
+        1,
+        6
+      ],
+      "topic": "文本与表格联合建模",
+      "status": "published",
+      "venue": "ICML 2024",
+      "summary": "CARTE 将列名、字段值与相邻字段组织成带语义的图表示，支持列结构不一致的表格迁移，连接语义表示、跨表学习和目标任务适配。",
+      "url": "https://arxiv.org/abs/2402.16785",
+      "pdf": "https://arxiv.org/pdf/2402.16785",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "CARTE"
+      ],
+      "aliases": [
+        "CARTE"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2402.16785",
+        "https://proceedings.mlr.press/v235/kim24d.html"
+      ]
     },
     {
       "id": "arxiv-2305.03403",
@@ -2021,6 +3154,65 @@
       "topicId": "text-structure"
     },
     {
+      "id": "arxiv-2610.13253",
+      "title": "Tabular Foundation Models Are Effectively Shallow",
+      "date": "2026-10-09",
+      "updated": "2026-10-09",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "inference-mechanisms",
+      "related": [
+        6
+      ],
+      "topic": "模型机制与行为分析",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用无需标签的仿射映射替换连续 Transformer 层，比较多种 TFM 的深度冗余与预测损失，为已有模型的压缩和缓存推理提供机制依据。",
+      "url": "https://arxiv.org/abs/2610.13253",
+      "pdf": "https://arxiv.org/pdf/2610.13253",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "Affine Translator"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.13253"
+      ]
+    },
+    {
+      "id": "arxiv-2610.11784",
+      "title": "Compile the Table: Query-Calibrated Operator Compression for Tabular In-Context Learning",
+      "date": "2026-10-08",
+      "updated": "2026-10-08",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "context-compression",
+      "related": [
+        6
+      ],
+      "topic": "上下文压缩与信息迁移",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "QCOC 把完整上下文的 KV 缓存一次性压缩为共享原型，并校准原型取值，使后续查询复用紧凑记忆，减少动态检索和重复编码的成本。",
+      "url": "https://arxiv.org/abs/2610.11784",
+      "pdf": "https://arxiv.org/pdf/2610.11784",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "QCOC",
+        "Query-Calibrated Operator Compression"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.11784"
+      ]
+    },
+    {
       "id": "arxiv-2610.12005",
       "title": "Test-Time Compute for Tabular Foundation Models: Mechanisms, Gains, and Limits",
       "date": "2026-10-08",
@@ -2042,6 +3234,65 @@
       "topicId": "test-time-compute"
     },
     {
+      "id": "arxiv-2610.07996",
+      "title": "TICDA: Tabular In-Context Data Attribution",
+      "date": "2026-10-06",
+      "updated": "2026-10-06",
+      "category": 5,
+      "section": "context-selection",
+      "topicId": "representative-context",
+      "related": [
+        2
+      ],
+      "topic": "代表性选择与上下文优化",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "TICDA 在 TFM 的隐表示上拟合线性替代模型，估计每个上下文示例对预测的影响，支持标签错误检测、上下文精简和主动选样。",
+      "url": "https://arxiv.org/abs/2610.07996",
+      "pdf": "https://arxiv.org/pdf/2610.07996",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "TICDA"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.07996"
+      ]
+    },
+    {
+      "id": "arxiv-2610.08314",
+      "title": "The Standardization Trap: Certifying Joint Label Processing in Tabular Foundation Models",
+      "date": "2026-10-06",
+      "updated": "2026-10-06",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "inference-mechanisms",
+      "related": [
+        2
+      ],
+      "topic": "模型机制与行为分析",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "构造只依赖标准化标签下模型预测的检验，区分固定权重加和与标签间联合处理，避免把预处理引入的导数现象误判为模型机制。",
+      "url": "https://arxiv.org/abs/2610.08314",
+      "pdf": "https://arxiv.org/pdf/2610.08314",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "Standardization Trap",
+        "Joint Label Processing"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.08314"
+      ]
+    },
+    {
       "id": "arxiv-2610.06679",
       "title": "Closing the Context Gap: Activation Alignment for Tabular In-Context Learning",
       "date": "2026-10-05",
@@ -2060,6 +3311,36 @@
       "keywords": [],
       "section": "inference-efficiency",
       "topicId": "context-compression"
+    },
+    {
+      "id": "arxiv-2610.05352",
+      "title": "Rethinking Tabular Foundation Models On Data Streams",
+      "date": "2026-10-04",
+      "updated": "2026-10-04",
+      "category": 5,
+      "section": "context-selection",
+      "topicId": "stream-context",
+      "related": [
+        1,
+        2
+      ],
+      "topic": "流式更新与记忆管理",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "系统比较 TFM 在数据流中的上下文保留、概念漂移与标签延迟表现，揭示反复重编码近似不变上下文造成的服务成本。",
+      "url": "https://arxiv.org/abs/2610.05352",
+      "pdf": "https://arxiv.org/pdf/2610.05352",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "TFM Data Streams"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.05352"
+      ]
     },
     {
       "id": "arxiv-2609.37989",
@@ -2086,6 +3367,95 @@
       "topicId": "pipeline-search"
     },
     {
+      "id": "arxiv-2609.36337",
+      "title": "Adapting Linear-Time Architectures for Tabular In-Context Learning",
+      "date": "2026-09-28",
+      "updated": "2026-09-28",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "inference-mechanisms",
+      "related": [
+        1
+      ],
+      "topic": "模型机制与行为分析",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "比较线性时间序列结构在表格 ICL 中的表现，分析 DeltaNet 超出训练上下文长度时的状态漂移，并用写入率衰减和最终状态读出改善长度泛化。",
+      "url": "https://arxiv.org/abs/2609.36337",
+      "pdf": "https://arxiv.org/pdf/2609.36337",
+      "code": "https://github.com/schnurrd/ICL-Architectures",
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "DeltaNet",
+        "Linear-Time Tabular ICL"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.36337"
+      ]
+    },
+    {
+      "id": "arxiv-2609.31306",
+      "title": "Benchmarking Attention for Tabular Foundation Models",
+      "date": "2026-09-25",
+      "updated": "2026-10-09",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "memory-quantization",
+      "related": [
+        1
+      ],
+      "topic": "内存优化与注意力量化",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "针对表格的二维行列注意力，比较不同算子后端、序列形状与 GPU 上的前向／反向吞吐，解释为何行注意力和列注意力需要不同实现选择。",
+      "url": "https://arxiv.org/abs/2609.31306",
+      "pdf": "https://arxiv.org/pdf/2609.31306",
+      "code": "https://github.com/SAP-samples/tabular-attention-benchmark",
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "Tabular Attention Benchmark"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.31306"
+      ]
+    },
+    {
+      "id": "arxiv-2609.28208",
+      "title": "Support-Compiled Feature Folding: More Evidence at Lower Memory Across Tabular Foundation Models",
+      "date": "2026-09-23",
+      "updated": "2026-09-25",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "context-compression",
+      "related": [
+        4
+      ],
+      "topic": "上下文压缩与信息迁移",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "SCFF 将宽表特征分成核心与候选部分，通过有限宽度的冻结模型调用折叠并检查新增信息，研究在显存预算内保留更多特征证据的推理方法。",
+      "url": "https://arxiv.org/abs/2609.28208",
+      "pdf": "https://arxiv.org/pdf/2609.28208",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "SCFF",
+        "Support-Compiled Feature Folding"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.28208"
+      ]
+    },
+    {
       "id": "arxiv-2609.13031",
       "title": "Attention Quantization for Tabular Foundation Models",
       "date": "2026-09-11",
@@ -2104,6 +3474,36 @@
       "keywords": [],
       "section": "inference-efficiency",
       "topicId": "memory-quantization"
+    },
+    {
+      "id": "arxiv-2609.07956",
+      "title": "Streaming Hierarchical Inference with Tabular Foundation Models",
+      "date": "2026-09-07",
+      "updated": "2026-09-07",
+      "category": 5,
+      "section": "context-selection",
+      "topicId": "stream-context",
+      "related": [
+        1
+      ],
+      "topic": "流式更新与记忆管理",
+      "status": "workshop",
+      "venue": "ECML PKDD 2026 Streaming Continual Learning Workshop",
+      "summary": "HINT 在边缘侧维护近邻记忆，先处理高置信度样本，再把不确定样本及其上下文交给云端 TFM，研究预测质量、通信和延迟之间的取舍。",
+      "url": "https://arxiv.org/abs/2609.07956",
+      "pdf": "https://arxiv.org/pdf/2609.07956",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "HINT",
+        "Streaming Hierarchical Inference"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.07956"
+      ]
     },
     {
       "id": "arxiv-2608.17856",
@@ -2235,6 +3635,36 @@
       "topicId": "representative-context"
     },
     {
+      "id": "arxiv-2606.05441",
+      "title": "GOTabPFN: From Feature Ordering to Compact Tokenization for Tabular Foundation Models on High-Dimensional Data",
+      "date": "2026-06-03",
+      "updated": "2026-06-07",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "context-compression",
+      "related": [
+        2,
+        4
+      ],
+      "topic": "上下文压缩与信息迁移",
+      "status": "published",
+      "venue": "ICML 2026",
+      "summary": "GOTabPFN 先依据特征关系排序，再把局部相邻特征压缩为紧凑的元特征，使小型 TabPFN 在高维、小样本和有限 token 预算下进行预测。",
+      "url": "https://arxiv.org/abs/2606.05441",
+      "pdf": "https://arxiv.org/pdf/2606.05441",
+      "code": "https://github.com/zadid6pretam/GOTabPFN",
+      "keywords": [],
+      "aliases": [
+        "GOTabPFN",
+        "GO-LR",
+        "NSC"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.05441",
+        "https://proceedings.mlr.press/v306/habib26a.html"
+      ]
+    },
+    {
       "id": "arxiv-2605.27254",
       "title": "LUCoS: Latent Unsupervised Context Selection for Tabular Foundation Models",
       "date": "2026-05-26",
@@ -2294,6 +3724,35 @@
       "topicId": "representative-context"
     },
     {
+      "id": "arxiv-2605.06510",
+      "title": "Is One Layer Enough? Understanding Inference Dynamics in Tabular Foundation Models",
+      "date": "2026-05-07",
+      "updated": "2026-05-07",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "inference-mechanisms",
+      "related": [
+        1,
+        6
+      ],
+      "topic": "模型机制与行为分析",
+      "status": "published",
+      "venue": "ICML 2026",
+      "summary": "逐层分析六种表格基础模型的预测形成过程，识别深度上的重复计算，并用共享的单层循环模型检验减少参数后能否保留预测能力。",
+      "url": "https://arxiv.org/abs/2605.06510",
+      "pdf": "https://arxiv.org/pdf/2605.06510",
+      "code": "https://github.com/amirbalef/is_one_layer_enough",
+      "keywords": [],
+      "aliases": [
+        "Is One Layer Enough",
+        "Looped Single-Layer TFM"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.06510",
+        "https://proceedings.mlr.press/v306/balef26a.html"
+      ]
+    },
+    {
       "id": "arxiv-2602.05649",
       "title": "End-to-End Compression for Tabular Foundation Models",
       "date": "2026-02-05",
@@ -2316,7 +3775,11 @@
         "label": "Spotlight",
         "source": "https://arxiv.org/abs/2602.05649",
         "verifiedAt": "2026-10-12"
-      }
+      },
+      "sources": [
+        "https://arxiv.org/abs/2602.05649",
+        "https://proceedings.mlr.press/v306/zabergja26a.html"
+      ]
     },
     {
       "id": "arxiv-2406.05207",
@@ -2362,6 +3825,36 @@
       "topicId": "context-compression"
     },
     {
+      "id": "arxiv-2610.13818",
+      "title": "TabMF: Learning Dataset Representations with Tabular Foundation Models",
+      "date": "2026-10-09",
+      "updated": "2026-10-09",
+      "category": 6,
+      "section": "adaptation-target",
+      "topicId": "parameter-finetuning",
+      "related": [
+        4,
+        5
+      ],
+      "topic": "参数微调与训练策略",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "TabMF 为预训练 TFM 增加数据集级读出，并通过对比后训练获得整个数据集的表示，用于数据集检索、紧凑基准构建和分布漂移监测。",
+      "url": "https://arxiv.org/abs/2610.13818",
+      "pdf": "https://arxiv.org/pdf/2610.13818",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "TabMF"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.13818"
+      ]
+    },
+    {
       "id": "arxiv-2610.01435",
       "title": "Distillation of Tabular Foundation Models into Efficient Predictors",
       "date": "2026-10-01",
@@ -2402,6 +3895,37 @@
       "keywords": [],
       "section": "adaptation-distribution",
       "topicId": "subpopulation-shift"
+    },
+    {
+      "id": "arxiv-2609.04901",
+      "title": "Adaptation Interfaces for In-Context Tabular Foundation Models in Time-to-Event Prediction",
+      "date": "2026-09-04",
+      "updated": "2026-09-12",
+      "category": 6,
+      "section": "adaptation-target",
+      "topicId": "parameter-finetuning",
+      "related": [
+        1,
+        2
+      ],
+      "topic": "参数微调与训练策略",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "针对含删失的事件时间预测，比较任务重写、分类微调和冻结 TFM 加生存输出头，研究样本规模与统计任务结构如何决定适配接口。",
+      "url": "https://arxiv.org/abs/2609.04901",
+      "pdf": "https://arxiv.org/pdf/2609.04901",
+      "code": "https://github.com/kaylode/survival-fm",
+      "keywords": [
+        "TFM",
+        "表格基础模型"
+      ],
+      "aliases": [
+        "Survival FM",
+        "TabFM survival adaptation"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.04901"
+      ]
     },
     {
       "id": "arxiv-2605.18654",
@@ -2485,6 +4009,37 @@
       ],
       "section": "adaptation-target",
       "topicId": "parameter-finetuning"
+    },
+    {
+      "id": "arxiv-2405.13396",
+      "title": "Fine-tuned In-Context Learning Transformers are Excellent Tabular Data Classifiers",
+      "date": "2024-05-22",
+      "updated": "2025-01-23",
+      "category": 6,
+      "section": "adaptation-target",
+      "topicId": "parameter-finetuning",
+      "related": [
+        1,
+        5
+      ],
+      "topic": "参数微调与训练策略",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "TabForestPFN 将树生成任务与 PFN 先验结合，并研究目标数据微调如何改善复杂决策边界；区分零样本预测表现与微调后的收益。",
+      "url": "https://arxiv.org/abs/2405.13396",
+      "pdf": "https://arxiv.org/pdf/2405.13396",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "TabForestPFN"
+      ],
+      "aliases": [
+        "TabForestPFN",
+        "TabForest"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2405.13396"
+      ]
     }
   ]
 }

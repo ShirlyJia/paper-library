@@ -15,6 +15,16 @@ test('search combines English model names and Chinese concepts', () => {
   const result = filterPapers(fixtures, { ...readState(), query: 'tabpfn 微调' }, options);
   assert.deepEqual(result.map(p => p.id), ['both']);
 });
+test('search finds model aliases absent from the paper title within the requested scope', () => {
+  for (const query of ['LimiX2M', 'LimiX 2M', 'RaBEL']) {
+    const matches = filterPapers(papers, { ...readState(), query }, options);
+    assert.ok(matches.some(p => p.id === 'arxiv-2606.04485'));
+  }
+  const retro = filterPapers(papers, { ...readState(), query:'Retro' }, options);
+  assert.ok(retro.some(p => p.id === 'arxiv-2610.10317'));
+  const scoped = filterPapers(papers, { ...readState(), category:1, section:'industry-models', topic:'tabular-releases', period:'2026', query:'TAFFY' }, options);
+  assert.deepEqual(scoped.map(p=>p.id),['arxiv-2610.07559']);
+});
 test('recent filter uses first publication, not revisions or a year-only date', () => {
   const fixtures = [
     { id: 'recent', title: 'Recent', date: '2026-04-12', updated: '2026-04-12' },

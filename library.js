@@ -78,7 +78,7 @@ export function belongsTo(paper, node) {
 
 export function searchText(paper, categories = []) {
   const names = [paper.category, ...(paper.related || [])].map(id => categories.find(c => c.id === id)?.name || '');
-  return normalize([paper.title, paper.summary, paper.topic, paper.venue, paper.recognition?.label, ...(paper.keywords || []), ...names, ...paperPath(paper, categories).map(n => n.name)].join(' '));
+  return normalize([paper.title, ...(paper.aliases || []), paper.summary, paper.topic, paper.venue, paper.recognition?.label, ...(paper.keywords || []), ...names, ...paperPath(paper, categories).map(n => n.name)].join(' '));
 }
 
 export function filterPapers(papers, state, { saved = new Set(), categories = [], now = new Date() } = {}) {

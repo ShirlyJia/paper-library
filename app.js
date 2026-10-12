@@ -1,4 +1,4 @@
-import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo } from './library.js?v=3';
+import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo } from './library.js?v=4';
 
 const $ = id => document.getElementById(id);
 const STORE_KEY = 'shirly-paper-library:saved:v1';
@@ -344,7 +344,7 @@ function render({ push = false } = {}) {
 function reset() { Object.assign(state, readState('')); render(); }
 
 async function init() {
-  const response = await fetch(new URL('./data/papers.json?v=3', import.meta.url), { cache: 'no-cache' });
+  const response = await fetch(new URL('./data/papers.json?v=4', import.meta.url), { cache: 'no-cache' });
   if (!response.ok) throw new Error(`索引读取失败 (${response.status})`);
   catalog = await response.json();
   if (!Array.isArray(catalog.papers) || !Array.isArray(catalog.categories)) throw new Error('索引格式无效');

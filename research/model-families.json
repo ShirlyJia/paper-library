@@ -1,0 +1,290 @@
+{
+  "reviewedAt": "2026-10-12",
+  "description": "已知模型家族及需保留的独立论文版本；用于防止汇总丢失，不代表模型全集。",
+  "families": [
+    {
+      "name": "TabPFN",
+      "paperIds": [
+        "arxiv-2207.01848",
+        "paper-612809da03",
+        "arxiv-2511.08667",
+        "arxiv-2605.13986",
+        "arxiv-2609.17895"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2207.01848",
+        "https://www.nature.com/articles/s41586-024-08328-6",
+        "https://arxiv.org/abs/2511.08667",
+        "https://arxiv.org/abs/2605.13986",
+        "https://arxiv.org/abs/2609.17895",
+        "https://github.com/PriorLabs/TabPFN"
+      ]
+    },
+    {
+      "name": "TabICL",
+      "paperIds": [
+        "arxiv-2502.05564",
+        "arxiv-2602.11139"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2502.05564",
+        "https://arxiv.org/abs/2602.11139",
+        "https://github.com/soda-inria/tabicl"
+      ]
+    },
+    {
+      "name": "LimiX",
+      "paperIds": [
+        "arxiv-2509.03505",
+        "arxiv-2606.04485",
+        "arxiv-2609.17488"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2509.03505",
+        "https://arxiv.org/abs/2606.04485",
+        "https://arxiv.org/abs/2609.17488",
+        "https://github.com/limix-ldm-ai/LimiX"
+      ]
+    },
+    {
+      "name": "Mitra",
+      "paperIds": [
+        "arxiv-2510.21204",
+        "arxiv-2609.04540"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2510.21204",
+        "https://arxiv.org/abs/2609.04540"
+      ]
+    },
+    {
+      "name": "TabDPT",
+      "paperIds": [
+        "arxiv-2410.18164",
+        "arxiv-2608.01400"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2410.18164",
+        "https://arxiv.org/abs/2608.01400",
+        "https://github.com/layer6ai-labs/TabDPT-inference"
+      ]
+    },
+    {
+      "name": "Google TabFM",
+      "paperIds": [
+        "arxiv-2609.37959"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.37959",
+        "https://github.com/google-research/tabfm"
+      ]
+    },
+    {
+      "name": "Kumo Tabular",
+      "paperIds": [
+        "report-nvidia-kumo-tabular"
+      ],
+      "sources": [
+        "https://huggingface.co/blog/nvidia/kumo-tabular",
+        "https://github.com/NVIDIA/structured-data-models"
+      ]
+    },
+    {
+      "name": "Causilo",
+      "paperIds": [
+        "arxiv-2609.22866"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.22866",
+        "https://github.com/nums-ai/causilo"
+      ]
+    },
+    {
+      "name": "EXAONE Tabular",
+      "paperIds": [
+        "arxiv-2608.25774"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.25774"
+      ]
+    },
+    {
+      "name": "Xiaomi-TabLDM",
+      "paperIds": [
+        "arxiv-2609.03880"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.03880"
+      ]
+    },
+    {
+      "name": "KumoRFM",
+      "paperIds": [
+        "arxiv-2604.12596"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2604.12596"
+      ]
+    },
+    {
+      "name": "ConTextTab / SAP-RPT-1-OSS",
+      "paperIds": [
+        "arxiv-2506.10707"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2506.10707",
+        "https://github.com/SAP-samples/sap-rpt-1-oss"
+      ]
+    },
+    {
+      "name": "TabSTAR",
+      "paperIds": [
+        "arxiv-2505.18125"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2505.18125",
+        "https://github.com/alanarazi7/TabSTAR"
+      ]
+    },
+    {
+      "name": "TAFFY",
+      "paperIds": [
+        "arxiv-2610.07559"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.07559"
+      ]
+    },
+    {
+      "name": "Retro",
+      "paperIds": [
+        "arxiv-2610.10317"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.10317"
+      ]
+    },
+    {
+      "name": "RefineICL",
+      "paperIds": [
+        "arxiv-2609.27679"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.27679"
+      ]
+    },
+    {
+      "name": "LoopICL",
+      "paperIds": [
+        "arxiv-2609.36108"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.36108"
+      ]
+    },
+    {
+      "name": "TabSwift",
+      "paperIds": [
+        "arxiv-2606.07345"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.07345"
+      ]
+    },
+    {
+      "name": "TabH2O",
+      "paperIds": [
+        "arxiv-2605.18383"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.18383"
+      ]
+    },
+    {
+      "name": "TabFlex",
+      "paperIds": [
+        "arxiv-2506.05584"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2506.05584",
+        "https://github.com/microsoft/ticl"
+      ]
+    },
+    {
+      "name": "Orion-MSP",
+      "paperIds": [
+        "arxiv-2511.02818"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2511.02818",
+        "https://github.com/Lexsi-Labs/Orion-MSP"
+      ]
+    },
+    {
+      "name": "HyperFast",
+      "paperIds": [
+        "arxiv-2402.14335"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2402.14335",
+        "https://github.com/AI-sandbox/HyperFast"
+      ]
+    },
+    {
+      "name": "TabForestPFN",
+      "paperIds": [
+        "arxiv-2405.13396"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2405.13396"
+      ]
+    },
+    {
+      "name": "CARTE",
+      "paperIds": [
+        "arxiv-2402.16785"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2402.16785"
+      ]
+    },
+    {
+      "name": "TARTE",
+      "paperIds": [
+        "arxiv-2505.14415"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2505.14415",
+        "https://github.com/soda-inria/tarte-ai"
+      ]
+    },
+    {
+      "name": "GeneICL",
+      "paperIds": [
+        "arxiv-2610.08694"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.08694"
+      ]
+    },
+    {
+      "name": "MatrixFormer",
+      "paperIds": [
+        "arxiv-2610.06751"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.06751"
+      ]
+    },
+    {
+      "name": "OUTFORMER",
+      "paperIds": [
+        "arxiv-2602.03018"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2602.03018",
+        "https://github.com/psorus/Outformer.git"
+      ]
+    }
+  ]
+}

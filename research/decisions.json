@@ -1,0 +1,443 @@
+[
+  {
+    "id": "arxiv-2610.10321",
+    "title": "Estimating Uncoded Crash Factors with Tabular Foundation and System One Models: Kumo Tabular and Jev",
+    "url": "https://arxiv.org/abs/2610.10321",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-07",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2610.10317",
+    "title": "Thinking in Depth: Retrospective Inference for Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2610.10317",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-07",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2610.08694",
+    "title": "GeneICL: A Tabular Foundation Model for Bulk Transcriptomics",
+    "url": "https://arxiv.org/abs/2610.08694",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-06",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2610.07559",
+    "title": "TAFFY: A Task-Adaptive Tabular Foundation Model with In-Context Diversity",
+    "url": "https://arxiv.org/abs/2610.07559",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-06",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "report-nvidia-kumo-tabular",
+    "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
+    "url": "https://huggingface.co/blog/nvidia/kumo-tabular",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-09-29",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2609.36108",
+    "title": "LoopICL: Looping a single transformer block to solve tabular tasks",
+    "url": "https://arxiv.org/abs/2609.36108",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-09-28",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2609.27679",
+    "title": "What Do Tabular Foundation Models Compute In Context? In-Situ Representation Refinement through Attention-Gated Updates",
+    "url": "https://arxiv.org/abs/2609.27679",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-09-25",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2608.01400",
+    "title": "TabDPT-Turbo: Efficient In-Context Learning for Tabular Prediction",
+    "url": "https://arxiv.org/abs/2608.01400",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-08-25",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2609.37959",
+    "title": "TabFM: A Zero-Shot Foundation Model for Tabular Data",
+    "url": "https://arxiv.org/abs/2609.37959",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-09-29",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2606.07345",
+    "title": "TabSwift: An Efficient Tabular Foundation Model with Row-Wise Attention",
+    "url": "https://arxiv.org/abs/2606.07345",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-06-05",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2606.04485",
+    "title": "LimiX-2M: Mitigating Low-Rank Collapse and Attention Bottlenecks in Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2606.04485",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-06-04",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2605.18383",
+    "title": "TabH2O: A Unified Foundation Model for Tabular Prediction",
+    "url": "https://arxiv.org/abs/2605.18383",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-08-13",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2511.08667",
+    "title": "TabPFN-2.5: Advancing the State of the Art in Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2511.08667",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-02-05",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2511.02818",
+    "title": "Orion-MSP: Multi-Scale Sparse Attention for Tabular In-Context Learning",
+    "url": "https://arxiv.org/abs/2511.02818",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2025-11-07",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2510.21204",
+    "title": "Mitra: Mixed Synthetic Priors for Enhancing Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2510.21204",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2025-10-24",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2509.03505",
+    "title": "LimiX: Unleashing Structured-Data Modeling Capability for Generalist Intelligence",
+    "url": "https://arxiv.org/abs/2509.03505",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2025-11-07",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2506.05584",
+    "title": "TabFlex: Scaling Tabular Learning to Millions with Linear Attention",
+    "url": "https://arxiv.org/abs/2506.05584",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2025-06-05",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2502.05564",
+    "title": "TabICL: A Tabular Foundation Model for In-Context Learning on Large Data",
+    "url": "https://arxiv.org/abs/2502.05564",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2025-05-24",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2410.18164",
+    "title": "TabDPT: Scaling Tabular Foundation Models on Real Data",
+    "url": "https://arxiv.org/abs/2410.18164",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-01-17",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2402.14335",
+    "title": "HyperFast: Instant Classification for Tabular Data",
+    "url": "https://arxiv.org/abs/2402.14335",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2024-02-22",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2207.01848",
+    "title": "TabPFN: A Transformer That Solves Small Tabular Classification Problems in a Second",
+    "url": "https://arxiv.org/abs/2207.01848",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2023-09-16",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2610.13654",
+    "title": "TabReliBench: Evaluating Tabular Foundation Models Beyond Predictive Accuracy",
+    "url": "https://arxiv.org/abs/2610.13654",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-09",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2610.07406",
+    "title": "Evaluation of Active Feature Acquisition Policies with Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2610.07406",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-05",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2610.06751",
+    "title": "MatrixFormer: A Foundation Model for Matrix Completion",
+    "url": "https://arxiv.org/abs/2610.06751",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-05",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2605.31272",
+    "title": "Algorithmic Recourse of In-Context Learning for Tabular Data",
+    "url": "https://arxiv.org/abs/2605.31272",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-07-15",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2602.03018",
+    "title": "From Zero to Hero: Advancing Zero-Shot Foundation Models for Tabular Outlier Detection",
+    "url": "https://arxiv.org/abs/2602.03018",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-05-29",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2601.22371",
+    "title": "FIRE: Multi-fidelity Regression with Distribution-conditioned In-context Learning using Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2601.22371",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-01-29",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2510.25154",
+    "title": "TabMGP: Martingale Posterior with TabPFN",
+    "url": "https://arxiv.org/abs/2510.25154",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-05-28",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2610.12537",
+    "title": "Market Impact Estimation via Causal Foundation Models",
+    "url": "https://arxiv.org/abs/2610.12537",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-08",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2610.01725",
+    "title": "RelICL: Training-free Relational Learning with Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2610.01725",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-01",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2609.23574",
+    "title": "PACE: Plug-and-Play Contextual Embedding for Feature Screening with Pretrained Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2609.23574",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-09-20",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2505.14415",
+    "title": "Table Foundation Models: on knowledge pre-training for tabular learning",
+    "url": "https://arxiv.org/abs/2505.14415",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2025-06-30",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2402.16785",
+    "title": "CARTE: Pretraining and Transfer for Tabular Learning",
+    "url": "https://arxiv.org/abs/2402.16785",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2024-05-31",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2610.13253",
+    "title": "Tabular Foundation Models Are Effectively Shallow",
+    "url": "https://arxiv.org/abs/2610.13253",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-09",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2610.11784",
+    "title": "Compile the Table: Query-Calibrated Operator Compression for Tabular In-Context Learning",
+    "url": "https://arxiv.org/abs/2610.11784",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-08",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2610.07996",
+    "title": "TICDA: Tabular In-Context Data Attribution",
+    "url": "https://arxiv.org/abs/2610.07996",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-06",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2610.08314",
+    "title": "The Standardization Trap: Certifying Joint Label Processing in Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2610.08314",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-06",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2610.05352",
+    "title": "Rethinking Tabular Foundation Models On Data Streams",
+    "url": "https://arxiv.org/abs/2610.05352",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-04",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2609.36337",
+    "title": "Adapting Linear-Time Architectures for Tabular In-Context Learning",
+    "url": "https://arxiv.org/abs/2609.36337",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-09-28",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2609.31306",
+    "title": "Benchmarking Attention for Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2609.31306",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-09",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2609.28208",
+    "title": "Support-Compiled Feature Folding: More Evidence at Lower Memory Across Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2609.28208",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-09-25",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2609.07956",
+    "title": "Streaming Hierarchical Inference with Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2609.07956",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-09-07",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2606.05441",
+    "title": "GOTabPFN: From Feature Ordering to Compact Tokenization for Tabular Foundation Models on High-Dimensional Data",
+    "url": "https://arxiv.org/abs/2606.05441",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-06-07",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2605.06510",
+    "title": "Is One Layer Enough? Understanding Inference Dynamics in Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2605.06510",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-05-07",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2610.13818",
+    "title": "TabMF: Learning Dataset Representations with Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2610.13818",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-09",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2609.04901",
+    "title": "Adaptation Interfaces for In-Context Tabular Foundation Models in Time-to-Event Prediction",
+    "url": "https://arxiv.org/abs/2609.04901",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-09-12",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2405.13396",
+    "title": "Fine-tuned In-Context Learning Transformers are Excellent Tabular Data Classifiers",
+    "url": "https://arxiv.org/abs/2405.13396",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2025-01-23",
+    "decision": "included",
+    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+  },
+  {
+    "id": "arxiv-2609.25541",
+    "title": "A JEPA Recipe for Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2609.25541",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-09-22",
+    "decision": "deferred",
+    "reason": "核心是 JEPA 预训练目标配方，暂缓深入；保留候选，不按包含预训练关键词批量排除。"
+  },
+  {
+    "id": "arxiv-2610.13334",
+    "title": "PDE-PFN: Prior-Data Fitted Neural PDE Solver",
+    "url": "https://arxiv.org/abs/2610.13334",
+    "reviewedAt": "2026-10-12",
+    "sourceUpdated": "2026-10-09",
+    "decision": "excluded",
+    "reason": "面向 PDE 求解；本次未确认与表格预测或结构化决策的直接方法联系。"
+  }
+]
