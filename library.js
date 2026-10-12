@@ -78,7 +78,7 @@ export function belongsTo(paper, node) {
 
 export function searchText(paper, categories = []) {
   const names = [paper.category, ...(paper.related || [])].map(id => categories.find(c => c.id === id)?.name || '');
-  return normalize([paper.title, paper.summary, paper.evidence, paper.topic, paper.venue, ...(paper.keywords || []), ...names, ...paperPath(paper, categories).map(n => n.name)].join(' '));
+  return normalize([paper.title, paper.summary, paper.topic, paper.venue, paper.recognition?.label, ...(paper.keywords || []), ...names, ...paperPath(paper, categories).map(n => n.name)].join(' '));
 }
 
 export function filterPapers(papers, state, { saved = new Set(), categories = [], now = new Date() } = {}) {
@@ -116,10 +116,10 @@ export function toCSV(papers, categories) {
     if (/^[=+\-@\t\r]/.test(text)) text = "'" + text;
     return `"${text.replaceAll('"', '""')}"`;
   };
-  const rows = [['标题', '公开时间', '最近修订', '研究领域', '子方向', '具体议题', '发表状态', '研究内容', '验证与边界', '论文链接', 'PDF', '代码']];
+  const rows = [['标题', '公开时间', '最近修订', '研究领域', '子方向', '具体议题', '发表与收录', '会议标记', '标记来源', '研究内容', '论文链接', 'PDF', '代码']];
   for (const p of papers) {
     const path = paperPath(p, categories);
-    rows.push([p.title, p.date, p.updated, ...[0,1,2].map(i => path[i]?.name || ''), p.venue, p.summary, p.evidence, p.url, p.pdf, p.code]);
+    rows.push([p.title, p.date, p.updated, ...[0,1,2].map(i => path[i]?.name || ''), p.venue, p.recognition?.label, p.recognition?.source, p.summary, p.url, p.pdf, p.code]);
   }
   return '\uFEFF' + rows.map(row => row.map(cell).join(',')).join('\r\n');
 }

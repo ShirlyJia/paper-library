@@ -1,4 +1,4 @@
-import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo } from './library.js?v=2';
+import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo } from './library.js?v=3';
 
 const $ = id => document.getElementById(id);
 const STORE_KEY = 'shirly-paper-library:saved:v1';
@@ -244,11 +244,20 @@ function createCard(paper, index) {
   });
   const title = el('h3', 'paper-title'); title.id = `title-${paper.id}`;
   title.append(externalLink(paper.title, paper.url));
+  const publication = el('div', 'paper-publication');
+  publication.setAttribute('aria-label', '发表与会议标记');
+  const published = ['published', 'workshop'].includes(paper.status);
+  const venue = el('span', 'venue-badge', `${published ? '已收录 · ' : ''}${paper.venue}`);
+  venue.dataset.status = paper.status;
+  publication.append(venue);
+  if (paper.recognition && safeURL(paper.recognition.source)) {
+    const recognition = externalLink(paper.recognition.label, paper.recognition.source, 'recognition-badge');
+    recognition.title = `${paper.venue} · ${paper.recognition.label}；查看来源`;
+    recognition.setAttribute('aria-label', `${paper.recognition.label}：查看 ${paper.title} 的会议标记来源`);
+    publication.append(recognition);
+  }
   const summary = el('p', 'paper-summary', paper.summary);
-  const evidence = el('p', 'paper-evidence');
-  evidence.append(el('span', '', '验证与边界'), document.createTextNode(paper.evidence));
   const bottom = el('div', 'paper-bottom');
-  const venue = el('span', 'venue', paper.venue); venue.dataset.status = paper.status;
   const links = el('div', 'paper-links');
   if (safeURL(paper.code)) links.append(externalLink('代码 ↗', paper.code));
   if (safeURL(paper.pdf)) {
@@ -258,8 +267,8 @@ function createCard(paper, index) {
     links.append(pdf);
   }
   links.append(externalLink('原文 ↗', paper.url));
-  bottom.append(venue, links);
-  card.append(top, bookmark, classification, title, summary, evidence, bottom);
+  bottom.append(links);
+  card.append(top, bookmark, classification, title, publication, summary, bottom);
   card.addEventListener('click', event => {
     if (event.target.closest('a,button') || getSelection()?.toString()) return;
     window.open(safeURL(paper.url), '_blank', 'noopener,noreferrer');
@@ -335,7 +344,7 @@ function render({ push = false } = {}) {
 function reset() { Object.assign(state, readState('')); render(); }
 
 async function init() {
-  const response = await fetch(new URL('./data/papers.json?v=2', import.meta.url), { cache: 'no-cache' });
+  const response = await fetch(new URL('./data/papers.json?v=3', import.meta.url), { cache: 'no-cache' });
   if (!response.ok) throw new Error(`索引读取失败 (${response.status})`);
   catalog = await response.json();
   if (!Array.isArray(catalog.papers) || !Array.isArray(catalog.categories)) throw new Error('索引格式无效');

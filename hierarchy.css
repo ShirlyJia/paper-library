@@ -81,6 +81,15 @@ h1 { font-size: clamp(27px, 2.55vw, 37px); line-height: 1.4; overflow-wrap: anyw
 .paper-path a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .path-separator { color: #a2aa9a; }
 .paper-title { font-size: 20px; }
+.paper-publication { display: flex; flex-wrap: wrap; gap: 6px; align-items: flex-start; margin: 0 0 15px; }
+.venue-badge, .recognition-badge { display: inline-block; max-width: 100%; border-radius: 3px; padding: 3px 7px; font-size: 10px; line-height: 1.6; overflow-wrap: anywhere; }
+.venue-badge { background: #f1f0eb; color: #6c7066; }
+.venue-badge[data-status="published"] { background: #edf2e9; color: #405637; }
+.venue-badge[data-status="workshop"] { background: #edf0f4; color: #566374; }
+.venue-badge[data-status="report"] { background: #eff0ee; color: #606c60; }
+.recognition-badge { background: #f5edd8; color: #79602d; font-weight: 600; }
+.recognition-badge:hover { background: #eee2c0; text-decoration: underline; text-underline-offset: 3px; }
+.paper-publication + .paper-summary { margin-bottom: 19px; }
 @media (max-width: 1250px) {
   .site-header { padding-inline: 30px; }
   .workspace { padding-inline: 30px; grid-template-columns: 270px minmax(0, 1fr); gap: 28px; }

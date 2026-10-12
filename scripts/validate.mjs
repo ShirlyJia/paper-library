@@ -24,11 +24,16 @@ for (const p of catalogue.papers) {
   if (!p.id || ids.has(p.id)) errors.push(`重复或缺失 ID: ${p.id}`);
   if (urls.has(p.url)) errors.push(`重复论文: ${p.url}`);
   ids.add(p.id); urls.add(p.url);
-  for (const key of ['title', 'summary', 'evidence', 'venue', 'date', 'updated']) if (!p[key]?.trim()) errors.push(`${p.id} 缺少 ${key}`);
+  for (const key of ['title', 'summary', 'venue', 'date', 'updated']) if (!p[key]?.trim()) errors.push(`${p.id} 缺少 ${key}`);
   for (const key of ['date', 'updated']) if (!/^\d{4}(-\d{2})?(-\d{2})?$/.test(p[key])) errors.push(`${p.id} 日期格式无效: ${key}`);
   if (!categories.has(p.category)) errors.push(`${p.id} 分类不存在`);
   if (paperPath(p, catalogue.categories).length !== 3) errors.push(`${p.id} 子方向或具体议题不属于其上级目录`);
   if (!['published','preprint','workshop','report'].includes(p.status)) errors.push(`${p.id} 发表状态无效`);
+  if (p.recognition) {
+    if (!['Highlight','Spotlight','Oral','Spotlight Oral'].includes(p.recognition.label)) errors.push(`${p.id} 会议标记无效`);
+    if (!['published','workshop'].includes(p.status)) errors.push(`${p.id} 未收录论文不能附会议标记`);
+    if (!safeURL(p.recognition.source) || !/^\d{4}-\d{2}-\d{2}$/.test(p.recognition.verifiedAt || '')) errors.push(`${p.id} 会议标记缺少来源或核实日期`);
+  }
   for (const key of ['url','pdf','code']) if ((p[key] || key === 'url') && !safeURL(p[key])) errors.push(`${p.id} 链接无效: ${key}`);
   for (const word of ['优先阅读', '本轮', 'needs supplement', 'cross_core']) if (JSON.stringify(p).includes(word)) errors.push(`${p.id} 含过程性文字: ${word}`);
 }

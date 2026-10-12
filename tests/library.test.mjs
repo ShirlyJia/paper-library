@@ -7,9 +7,13 @@ const { papers, categories } = catalogue;
 const options = { categories, now: new Date('2026-10-12T12:00:00Z') };
 
 test('search combines English model names and Chinese concepts', () => {
-  const result = filterPapers(papers, { ...readState(), query: 'TabPFN 微调' }, options);
-  assert.ok(result.length > 0);
-  assert.ok(result.every(p => `${p.title} ${p.summary} ${p.evidence}`.toLowerCase().includes('tabpfn')));
+  const fixtures = [
+    { id: 'both', title: 'TabPFN Adaptation', summary: '研究表格模型的微调方法。' },
+    { id: 'english-only', title: 'TabPFN Inference', summary: '研究推理效率。' },
+    { id: 'chinese-only', title: 'Other Model', summary: '研究微调方法。' },
+  ];
+  const result = filterPapers(fixtures, { ...readState(), query: 'tabpfn 微调' }, options);
+  assert.deepEqual(result.map(p => p.id), ['both']);
 });
 test('recent filter uses first publication, not revisions or a year-only date', () => {
   const fixtures = [
