@@ -1,0 +1,18 @@
+{
+  "consensus": {
+    "mode": "codex-connector",
+    "searchTool": "consensus_search",
+    "fetchTool": "consensus_fetch",
+    "searchIntervalSeconds": 30,
+    "rateLimitBackoffSeconds": 60,
+    "retriesPerQuery": 1,
+    "queries": [
+      {"id": "tabular-models", "query": "foundation models for prediction on unseen tabular datasets using example rows"},
+      {"id": "context-and-inference", "query": "selecting training examples retrieval context compression tabular in-context prediction"},
+      {"id": "model-adaptation", "query": "fine tuning distillation test-time adaptation tabular foundation models"},
+      {"id": "causal-decision", "query": "foundation models causal effects counterfactual prediction observational tabular data"},
+      {"id": "semantic-structure", "query": "language models semantic features schema matching entity resolution tabular prediction"},
+      {"id": "evaluation-industry", "query": "tabular foundation models benchmarks calibration distribution shift practical deployment"}
+    ]
+  }
+}

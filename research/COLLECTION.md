@@ -54,12 +54,23 @@ arXiv 和 OpenAlex 普通查询自动翻页，默认最多十页／检索式；O
 
 检索原理与限制依据 [arXiv API](https://info.arxiv.org/help/api/user-manual.html)、[OpenAlex 全文搜索](https://help.openalex.org/api/searching/)、[语义搜索](https://help.openalex.org/api/semantic-search/)及[免费额度](https://help.openalex.org/api/authentication/)。
 
-## 可选插件
+## 插件补查
 
-- **Consensus**：适合交互式补充研究问题检索；需安装并连接后才可使用。
-- **Scite**：适合补查引用上下文，判断后续工作如何使用或讨论某篇论文；需安装并连接后才可使用。
+- **Consensus**：已验证 `search` 和 `fetch` 可用，由每日 Codex 任务执行六方向补查。查询模板见 `connector-sources.json`。它是独立的论文检索渠道；不能据工具说明把全部命中认定为已通过同行评审，也不能把返回的摘要当成 PDF 全文。
+- **Scite**：可补查引用上下文，目前尚未连接，不列为每日任务依赖。
 
-这两个插件尚未接入每日采集，也不是自动任务的依赖。核心渠道直接访问公开来源与免费 API；插件的连接状态和实际服务额度须另行确认。
+Consensus 执行方式：
+
+1. 读取当天采集计划，将查询附上 `date:起始YYYY-MM-结束YYYY-MM`；日期只到月份，候选首发日仍需回原文核验。默认不锁定学科，保留跨行业研究。六个查询逐条调用，搜索间隔按配置保守设置为 30 秒；这是项目策略，不是供应商公布的速率。
+2. 对每个去重结果调用 `fetch(id)`，之后才能引用该结果。保留完整返回的摘要、来源、作者及可用标识；只返回年份时不补造月日。限流后间隔至少 60 秒重试一次，仍失败则记录缺口，继续其他来源。不调用付费升级或额外的 Pro / Deep 任务。
+3. 在本次运行目录保存导出 JSON：`generatedAt`、`since`、`until`，`searches` 中各项含 `id/query/status/results`（结果沿用 search 返回值），`papers` 保存成功 fetch 的原始论文记录；失败项附 `error`。未 fetch 的结果保留为搜索片段，不能伪装成完整摘要。
+4. 使用下面的导入命令，与核心采集候选去重合并；保留已有失败、筛选记录和待核验状态。发表状态、质量判断、首发日期与中文概览仍须基于原始来源核验后入库。
+
+```sh
+npm run collect:consensus -- --input 本次目录/consensus.json --base 本次目录/candidates.json --output 本次目录/combined.json
+```
+
+`npm run collect` 本身不调用登录态插件；插件检索由已连接的 Codex 任务执行，命令行导入器只处理导出结果。站点访问者无需安装插件或登录。普通 search/fetch 的可用额度依连接账号而定，限流不能记成零结果或完整覆盖。
 
 自动采集不等于完整研究：未配置站点、没有可提取链接的参考文献、搜索尚未索引的新作，以及模型卡中的非论文更新，需要第 2–4 步补查。每轮记录实际完成的渠道，不声称穷尽所有论文。
 

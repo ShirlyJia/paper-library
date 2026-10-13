@@ -32,6 +32,8 @@ def arxiv_id(value):
 def keys(record):
     values = [record.get("id", ""), record.get("url", ""), *record.get("sources", [])]
     found = {"arxiv:" + aid for value in values if (aid := arxiv_id(value))}
+    if record.get("consensusId"):
+        found.add("consensus:" + record["consensusId"])
     found.update("url:" + value.rstrip("/") for value in values if value.startswith("https://"))
     for value in values:
         url = urllib.parse.urlparse(value)
