@@ -12,7 +12,8 @@
       {"id": "model-adaptation", "query": "fine tuning distillation test-time adaptation tabular foundation models"},
       {"id": "causal-decision", "query": "foundation models causal effects counterfactual prediction observational tabular data"},
       {"id": "semantic-structure", "query": "language models semantic features schema matching entity resolution tabular prediction"},
-      {"id": "evaluation-industry", "query": "tabular foundation models benchmarks calibration distribution shift practical deployment"}
+      {"id": "evaluation-industry", "query": "tabular foundation models benchmarks calibration distribution shift practical deployment"},
+      {"id": "tabarena-related", "query": "TabArena benchmark datasets evaluation protocols model comparisons algorithms ensembling efficiency reproducibility"}
     ]
   }
 }
