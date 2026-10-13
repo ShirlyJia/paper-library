@@ -4,31 +4,29 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f6f2">
-    <meta name="description" content="Shirly 的研究书架：表格基础模型、结构化决策、因果分析与相关方法的论文索引。提供中文概览、发表与会议标记、原文与 PDF 入口。">
-    <meta property="og:title" content="Shirly 的研究书架">
+    <meta name="description" content="结构化数据论文库：表格基础模型、结构化决策、因果分析与相关方法的共享论文索引。提供中文概览、发表与会议标记、原文与 PDF 入口。">
+    <meta property="og:title" content="结构化数据论文库">
     <meta property="og:description" content="表格基础模型、结构化决策与相关方法的论文索引。">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://shirlyjia.github.io/paper-library/">
     <meta name="color-scheme" content="light">
-    <title>研究书架 — Shirly</title>
+    <title>结构化数据论文库</title>
     <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="./hierarchy.css?v=3">
-    <script type="module" src="./app.js?v=4"></script>
+    <script type="module" src="./app.js?v=5"></script>
   </head>
   <body>
     <a class="skip-link" href="#catalogue">跳至论文列表</a>
     <header class="site-header">
-      <a class="brand" href="./" aria-label="研究书架首页">
+      <a class="brand" href="./" aria-label="结构化数据论文库首页">
         <img src="./assets/mark.svg" width="34" height="34" alt="">
-        <span>研究书架<span class="brand-note">SHIRLY’S LIBRARY</span></span>
+        <span>结构化数据论文库<span class="brand-note">SHARED RESEARCH LIBRARY</span></span>
       </a>
       <nav class="header-nav" aria-label="站点导航">
         <button class="saved-button" id="saved-toggle" aria-pressed="false">
           <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4V3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-          我的收藏 <span id="saved-count">0</span>
+          本机收藏 <span id="saved-count">0</span>
         </button>
-        <a class="source-link" href="https://github.com/ShirlyJia/paper-library" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
       </nav>
     </header>
 
@@ -73,7 +71,7 @@
             </div>
             <div class="sort-group">
               <label class="sr-only" for="sort">排列顺序</label>
-              <select id="sort"><option value="newest">公开时间 ↓</option><option value="oldest">公开时间 ↑</option><option value="updated">最近修订 ↓</option><option value="title">标题 A–Z</option></select>
+              <select id="sort" title="按最早已核实的公开时间排序；修订和入库时间不替代首发时间"><option value="newest">最新公开在前</option><option value="oldest">最早公开在前</option><option value="updated">最近修订在前</option><option value="title">标题 A–Z</option></select>
               <button class="export-button" id="export-csv" title="导出当前筛选结果为 CSV">导出索引 <span aria-hidden="true">↓</span></button>
             </div>
           </div>
@@ -97,7 +95,7 @@
         </div>
         <nav id="pagination" class="pagination" aria-label="论文分页"></nav>
         <noscript><p>请启用 JavaScript 以浏览和筛选论文，或<a href="./data/papers.json">下载完整索引</a>。</p></noscript>
-        <footer class="site-footer"><span>SHIRLY’S LIBRARY</span><a href="./data/papers.json" download="paper-library.json">JSON 索引 ↓</a></footer>
+        <footer class="site-footer"><span>SHARED RESEARCH LIBRARY</span><a href="./data/papers.json" download="paper-library.json">JSON 索引 ↓</a></footer>
       </main>
     </div>
     <div id="toast" class="toast" role="status" aria-live="polite"></div>

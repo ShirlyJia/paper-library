@@ -1,7 +1,9 @@
 import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo } from './library.js?v=4';
 
 const $ = id => document.getElementById(id);
-const STORE_KEY = 'shirly-paper-library:saved:v1';
+const STORE_KEY = 'structured-data-paper-library:saved:v1';
+// Only used to migrate existing browser bookmarks; never displayed on the site.
+const LEGACY_STORE_KEY = 'shirly-paper-library:saved:v1';
 const state = readState(location.search);
 let catalog, filtered = [], toastTimer;
 let saved = readSaved();
@@ -17,7 +19,15 @@ function el(tag, className, text) {
 
 function readSaved() {
   try {
-    const value = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
+    const stored = localStorage.getItem(STORE_KEY);
+    const legacy = stored === null ? localStorage.getItem(LEGACY_STORE_KEY) : null;
+    const value = JSON.parse(stored ?? legacy ?? '[]');
+    if (stored === null && legacy !== null && Array.isArray(value)) {
+      try {
+        localStorage.setItem(STORE_KEY, JSON.stringify(value));
+        localStorage.removeItem(LEGACY_STORE_KEY);
+      } catch { /* Keep the legacy copy if storage is unavailable. */ }
+    }
     return new Set(Array.isArray(value) ? value.filter(v => typeof v === 'string') : []);
   } catch { return new Set(); }
 }
@@ -156,7 +166,7 @@ function updateTree() {
 function renderScope() {
   const path = scopePath(catalog.categories, state);
   const current = path.at(-1);
-  document.title = current ? `${current.name} — 研究书架` : '研究书架 — Shirly';
+  document.title = current ? `${current.name} — ${catalog.title}` : catalog.title;
   const crumbs = $('breadcrumbs'); crumbs.replaceChildren(scopeLink('全部论文', [], 'breadcrumb-root'));
   for (let i = 0; i < path.length; i++) {
     const separator = el('span', 'breadcrumb-separator', '/'); separator.setAttribute('aria-hidden', 'true');
@@ -168,7 +178,7 @@ function renderScope() {
   $('total-count').textContent = current ? nodeCounts.get(String(current.id)) : catalog.papers.length;
   $('count-label').textContent = current ? '本目录收录 / PAPERS' : '篇论文 / PAPERS';
   if (state.savedOnly) {
-    $('view-title').textContent = '我的收藏';
+    $('view-title').textContent = '本机收藏';
     $('view-description').textContent = current ? current.description : '保存在当前浏览器中的论文。';
     $('total-count').textContent = catalog.papers.filter(p => saved.has(p.id) && (!current || belongsTo(p, current))).length;
     $('count-label').textContent = '篇收藏 / PAPERS';

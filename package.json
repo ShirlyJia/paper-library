@@ -1,12 +1,13 @@
 {
-  "name": "shirly-paper-library",
+  "name": "structured-data-paper-library",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "node scripts/serve.mjs",
     "check": "node scripts/validate.mjs && node --test tests/*.test.mjs && python3 -m unittest discover -s tests -p '*_test.py'",
-    "collect": "python3 scripts/collect.py"
+    "collect": "python3 scripts/collect.py",
+    "collect:daily": "python3 scripts/collect_daily.py"
   },
   "engines": { "node": ">=20" }
 }

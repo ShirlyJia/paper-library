@@ -2,6 +2,8 @@
 
 - 当前目录以 `data/papers.json` 为唯一维护源。保留已有论文和目录 ID。
 - 涉及检索、收录或查漏时，先读 `research/COLLECTION.md`。同时使用主题、模型家族／版本、正式会议、作者发布及引用追溯，不只搜 arXiv 标题。
+- 每日更新遵循 `research/DAILY_UPDATE.md`，使用 `npm run collect:daily`，核验并完成必要发布后才能推进本地检查点。没有内容变化时不改目录更新时间。
+- 站点为团队共享论文库；页面、分享信息和公开目录不加个人署名。论文默认按首发时间倒序，修订和入库不能覆盖首发日期。
 - 近半年重点覆盖，关键前作保留；不得按固定篇数、已有代表作或包含预训练内容直接删掉相关模型论文。
 - `npm run collect` 产生候选，核验后再写公开目录；筛选去向记录在 `research/decisions.json`，新模型与版本补入 `research/model-families.json`。
 - 不运行仓库外历史 `build-report.py` / `prepare-library.py` 覆盖当前目录；旧排除名单不再适用。

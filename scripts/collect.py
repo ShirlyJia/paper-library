@@ -193,7 +193,7 @@ def main():
         if "export.arxiv.org" in url:
             time.sleep(max(0, 3.1 - (time.monotonic() - last_arxiv)))
             last_arxiv = time.monotonic()
-        request = urllib.request.Request(url, headers={"User-Agent": "ShirlyPaperLibrary/1.0 (public research index)"})
+        request = urllib.request.Request(url, headers={"User-Agent": "StructuredDataPaperLibrary/1.0 (shared research index)"})
         with urllib.request.urlopen(request, timeout=45) as response:
             raw = response.read().decode("utf-8")
         path.write_text(raw)
