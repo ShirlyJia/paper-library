@@ -13,11 +13,45 @@
       "query": "(all:tabular AND (all:\"semantic embedding\" OR all:\"feature engineering\" OR all:\"text fields\")) OR (all:\"language model\" AND (all:\"schema matching\" OR all:\"entity matching\" OR all:\"text-to-table\"))"
     }
   ],
-  "proceedingsPattern": "tabular|tabpfn|tabicl|limix|prior.data.fitted|tabdpt|tabflex|\\btarte\\b|ingestables|schema matching|entity matching",
-  "proceedings": [
-    {"name": "ICML 2026", "url": "https://proceedings.mlr.press/v306/"},
-    {"name": "ICML 2025", "url": "https://proceedings.mlr.press/v267/"}
+  "relevancePattern": "tabular|tabpfn|tabicl|limix|prior.data.fitted|prior.fitted.network|structured.data|relational.(?:data|learning|foundation)|table.(?:foundation|representation|understanding)|schema.(?:matching|linking)|entity.(?:matching|resolution)|text.to.(?:table|sql)|feature.engineering|causal.(?:foundation|inference|discovery|representation)|treatment.effect|counterfactual.(?:prediction|estimation)|decision.foundation|in.context.(?:regression|classification)|in.context.learning.*(?:numeric|table|data)|(?:numeric|table|data).*in.context.learning",
+  "formalSources": {
+    "pmlr": {
+      "index": "https://proceedings.mlr.press/",
+      "venuePattern": "\\b(ICML|AISTATS|UAI|COLT|CLeaR|AutoML|CoLLAs|CPAL|ALT|ACML|MLHC|CHIL)\\b|International Conference on Machine Learning|Artificial Intelligence and Statistics|Uncertainty in Artificial Intelligence|Conference on Learning Theory|Causal Learning and Reasoning|Lifelong Learning Agents|Learning on Graphs|Machine Learning for Healthcare|Conference on Health.*Learning"
+    },
+    "programmes": [
+      {"name": "ICLR", "origin": "https://iclr.cc"},
+      {"name": "NeurIPS", "origin": "https://neurips.cc"}
+    ],
+    "acl": {
+      "tree": "https://api.github.com/repos/acl-org/acl-anthology/git/trees/master?recursive=1",
+      "rawBase": "https://raw.githubusercontent.com/acl-org/acl-anthology/master/",
+      "collections": ["acl", "emnlp", "naacl", "eacl", "coling", "findings", "conll", "aacl", "ijcnlp", "tacl", "cl"]
+    },
+    "tmlrAccepted": "https://jmlr.org/tmlr/papers/",
+    "indexedVenues": [
+      {"name": "Transactions on machine learning research", "issn": ["2835-8856"]}
+    ]
+  },
+  "openalexRequestLimit": 75,
+  "openalexQueries": [
+    {"id": "models", "query": "\"tabular foundation\" OR \"prior-data fitted\" OR \"TabPFN\" OR \"TabICL\" OR \"LimiX\""},
+    {"id": "inference-adaptation", "query": "tabular AND (\"in-context learning\" OR \"test-time\" OR distillation OR adaptation)"},
+    {"id": "semantic-structure", "query": "(\"language model\" AND (\"schema matching\" OR \"entity matching\" OR \"feature engineering\")) OR \"text-to-table\""},
+    {"id": "causal-relational", "query": "\"causal foundation\" OR \"relational foundation\" OR \"structured data foundation\""}
   ],
+  "semanticQueries": [
+    {"id": "tabular-models", "query": "Foundation models that predict labels or numeric values on unseen tabular datasets by conditioning on example rows, without training a new model for each dataset."},
+    {"id": "context-and-inference", "query": "Improve in-context prediction for tabular and relational data by selecting relevant training rows, retrieval, context compression, ensembling or efficient inference."},
+    {"id": "model-adaptation", "query": "Adapt pretrained tabular foundation models to a new dataset using fine tuning, parameter efficient adaptation, distillation, calibration or test time optimization."},
+    {"id": "causal-decision", "query": "Estimate causal effects, discover causal graphs, answer counterfactual questions or optimize decisions from observational tabular data using foundation models."},
+    {"id": "semantic-structure", "query": "Convert unstructured text and semantic information into tabular features, match entities and schemas, or improve structured prediction using language models."},
+    {"id": "evaluation-industry", "query": "Evaluate reliability, distribution shift, uncertainty, practical deployment and business applications of general purpose models for tabular and relational prediction."}
+  ],
+  "venueQueries": [
+    "tabular OR \"structured data\" OR \"prior-data fitted\" OR \"causal foundation\" OR \"schema matching\""
+  ],
+  "citationSeeds": ["https://openalex.org/W4406170795"],
   "referenceSources": [
     {"name": "TAFFY references", "url": "https://arxiv.org/html/2610.07559v1"},
     {"name": "LimiX-2M references", "url": "https://arxiv.org/html/2606.04485v2"},
@@ -26,9 +60,6 @@
     {"name": "Structured-data workshop", "url": "https://icml-structured-fm-workshop.github.io/accepted-papers/"}
   ],
   "manualSources": [
-    {"name": "NeurIPS proceedings", "url": "https://proceedings.neurips.cc/"},
-    {"name": "ICLR / TMLR decisions", "url": "https://openreview.net/"},
-    {"name": "ACL Anthology", "url": "https://aclanthology.org/"},
     {"name": "Google Research releases", "url": "https://research.google/blog/"},
     {"name": "NVIDIA model cards", "url": "https://huggingface.co/nvidia"},
     {"name": "PFN community index (discovery only)", "url": "https://github.com/Cloudy1225/Awesome-Prior-Data-Fitted-Networks"}

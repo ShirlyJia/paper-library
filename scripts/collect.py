@@ -1,6 +1,7 @@
 """Collect review candidates from independent sources; never publish automatically."""
 import argparse
 import calendar
+import gzip
 import hashlib
 import json
 import re
@@ -8,6 +9,7 @@ import sys
 import time
 import unicodedata
 import urllib.parse
+import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import date
@@ -119,7 +121,7 @@ def merge_candidates(records, papers):
             target = merged[index]
             for other in matches - {index}:
                 absorbed = merged[other]
-                for field in ["sources", "discoveredVia"]:
+                for field in ["sources", "discoveredVia", "retrievalEvidence"]:
                     target[field] = list(dict.fromkeys(target.get(field, []) + absorbed.get(field, [])))
                 for field, value in absorbed.items():
                     if value and not target.get(field):
@@ -130,7 +132,7 @@ def merge_candidates(records, papers):
                         values.add(index)
                 merged[other] = None
             for field, value in record.items():
-                if field in ["sources", "discoveredVia"]:
+                if field in ["sources", "discoveredVia", "retrievalEvidence"]:
                     target[field] = list(dict.fromkeys(target.get(field, []) + value))
                 elif value and not target.get(field):
                     target[field] = value
@@ -165,44 +167,81 @@ def apply_decisions(candidates, decisions):
 
 
 def main():
+    from discovery import discover
     today = date.today()
     month = today.month - 6
     year = today.year - (month <= 0)
     month = month if month > 0 else month + 12
     since = date(year, month, min(today.day, calendar.monthrange(year, month)[1]))
     cli = argparse.ArgumentParser(description=__doc__)
-    cli.add_argument("--since", type=date.fromisoformat, default=since)
-    cli.add_argument("--until", type=date.fromisoformat, default=today)
+    cli.add_argument("--since", type=date.fromisoformat)
+    cli.add_argument("--until", type=date.fromisoformat)
     cli.add_argument("--output", type=Path, default=ROOT / "work/collection/latest.json")
     cli.add_argument("--max-pages", type=int, default=10)
     cli.add_argument("--refresh", action="store_true", help="Ignore the one-day HTTP cache")
+    cli.add_argument("--channels", default="arxiv,formal,fulltext,semantic,citations,references",
+                     help="Comma-separated discovery channels; default runs all")
+    cli.add_argument("--resume", type=Path, help="Continue OpenAlex cursors and preserve candidates from a previous report")
     args = cli.parse_args()
+    previous = json.loads(args.resume.read_text()) if args.resume else {}
+    args.since = args.since or date.fromisoformat(previous.get("since", since.isoformat()))
+    args.until = args.until or date.fromisoformat(previous.get("until", today.isoformat()))
     if args.since > args.until or args.max_pages < 1:
         cli.error("Invalid date range or page limit")
+    channels = set(args.channels.split(","))
+    if not channels or channels - {"arxiv", "formal", "fulltext", "semantic", "citations", "references"}:
+        cli.error("Unknown discovery channel")
     config = json.loads((ROOT / "research/sources.json").read_text())
+    config["_resumeRuns"] = previous.get("runs", [])
+    config["_resumeCandidates"] = previous.get("candidates", [])
+    families = json.loads((ROOT / "research/model-families.json").read_text())["families"]
+    names = sorted({family["name"] for family in families})
+    config["relevancePattern"] += "|" + "|".join(r"\b" + re.escape(name) + r"\b" for name in names)
+    for index in range(0, len(names), 12):
+        config["arxivQueries"].append({"id": f"registered-families-{index // 12 + 1}",
+                                       "query": " OR ".join('all:"' + name.replace('"', '') + '"' for name in names[index:index + 12])})
     papers = json.loads((ROOT / "data/papers.json").read_text())["papers"]
     cache = ROOT / "work/collection/cache"
     cache.mkdir(parents=True, exist_ok=True)
-    last_arxiv = 0.0
+    last_arxiv, last_openalex, openalex_requests = 0.0, 0.0, 0
+    unavailable_hosts = {}
 
     def fetch(url):
-        nonlocal last_arxiv
+        nonlocal last_arxiv, last_openalex, openalex_requests
         path = cache / (hashlib.sha256(url.encode()).hexdigest() + ".txt")
         if not args.refresh and path.exists() and time.time() - path.stat().st_mtime < 86400:
             return path.read_text()
+        host = urllib.parse.urlparse(url).hostname
+        if host in unavailable_hosts:
+            raise RuntimeError(f"Source temporarily unavailable in this run ({unavailable_hosts[host]}); retry later")
         if "export.arxiv.org" in url:
             time.sleep(max(0, 3.1 - (time.monotonic() - last_arxiv)))
             last_arxiv = time.monotonic()
-        request = urllib.request.Request(url, headers={"User-Agent": "StructuredDataPaperLibrary/1.0 (shared research index)"})
-        with urllib.request.urlopen(request, timeout=45) as response:
-            raw = response.read().decode("utf-8")
+        if urllib.parse.urlparse(url).hostname == "api.openalex.org":
+            if openalex_requests >= config.get("openalexRequestLimit", 75):
+                raise RuntimeError("Keyless OpenAlex request budget reached; resume missing lanes in a later run")
+            time.sleep(max(0, 1.1 - (time.monotonic() - last_openalex)))
+            last_openalex = time.monotonic()
+            openalex_requests += 1
+        request = urllib.request.Request(url, headers={"User-Agent": "StructuredDataPaperLibrary/2.0 (shared research index)",
+                                                       "Accept-Encoding": "gzip"})
+        try:
+            with urllib.request.urlopen(request, timeout=90) as response:
+                body = response.read()
+                if response.headers.get("Content-Encoding") == "gzip":
+                    body = gzip.decompress(body)
+                raw = body.decode("utf-8")
+        except urllib.error.HTTPError as error:
+            if error.code in (429, 503):
+                unavailable_hosts[host] = f"HTTP {error.code}"
+            raise
         path.write_text(raw)
         return raw
 
     records, runs = [], []
     stamp = lambda d, end=False: d.strftime("%Y%m%d") + ("2359" if end else "0000")
     window = f"[{stamp(args.since)} TO {stamp(args.until, True)}]"
-    for lane in config["arxivQueries"]:
+    for lane in config["arxivQueries"] if "arxiv" in channels else []:
         count, total = 0, None
         query = f'({lane["query"]}) AND (submittedDate:{window} OR lastUpdatedDate:{window})'
         try:
@@ -221,25 +260,12 @@ def main():
             runs.append({"source": lane["id"], "count": count, "status": "failed", "error": str(error)})
         print(json.dumps(runs[-1], ensure_ascii=False), flush=True)
 
-    terms = re.compile(config["proceedingsPattern"], re.I)
-    for source in config["proceedings"]:
-        try:
-            parser = Proceedings()
-            parser.feed(fetch(source["url"]))
-            if not parser.records:
-                raise ValueError("Proceedings parser found no entries; check source layout")
-            found = [p for p in parser.records if terms.search(p["title"])]
-            for p in found:
-                p["url"] = next(u for u in p["sources"] if "proceedings.mlr.press/" in u)
-                p["discoveredVia"] = [source["name"]]
-                p["venue"] = source["name"]
-            records.extend(found)
-            runs.append({"source": source["url"], "status": "complete", "indexEntries": len(parser.records), "candidates": len(found)})
-        except Exception as error:
-            runs.append({"source": source["url"], "status": "failed", "error": str(error)})
-        print(json.dumps(runs[-1], ensure_ascii=False), flush=True)
+    new_records, new_runs = discover(config, fetch, args.since, args.until, args.max_pages, papers,
+                                    lambda run: print(json.dumps(run, ensure_ascii=False), flush=True), channels)
+    records.extend(new_records)
+    runs.extend(new_runs)
 
-    for source in config["referenceSources"]:
+    for source in config["referenceSources"] if "references" in channels else []:
         try:
             raw = fetch(source["url"])
             parser = Links()
@@ -254,7 +280,7 @@ def main():
                 else:
                     parsed = urllib.parse.urlparse(link)
                     review = urllib.parse.parse_qs(parsed.query).get("id")
-                    if parsed.netloc == "openreview.net" and review:
+                    if parsed.netloc == "openreview.net" and parsed.path in ("/forum", "/pdf") and review:
                         found.append({"url": "https://openreview.net/forum?id=" + review[0], "sources": [link], "discoveredVia": [source["url"]]})
                     elif parsed.netloc == "proceedings.mlr.press" and parsed.path.endswith(".html"):
                         found.append({"url": link, "sources": [link], "discoveredVia": [source["url"]]})
@@ -265,12 +291,21 @@ def main():
         print(json.dumps(runs[-1], ensure_ascii=False), flush=True)
 
     candidates = merge_candidates(records, papers)
+    if previous:
+        # Keep failures from channels that were not retried. A narrow resume must
+        # not turn an incomplete all-source run into a claim of complete coverage.
+        new_sources = {r["source"] for r in runs}
+        retained = [r for r in previous.get("runs", []) if r.get("query") or r["source"] not in new_sources]
+        run_key = lambda r: (r["source"], json.dumps(r.get("query"), sort_keys=True))
+        combined = {run_key(r): r for r in retained + runs}
+        runs = list(combined.values())
     decisions_path = ROOT / "research/decisions.json"
     if decisions_path.exists():
         apply_decisions(candidates, json.loads(decisions_path.read_text()))
     incomplete = any(run["status"] != "complete" for run in runs)
     report = {"generatedAt": today.isoformat(), "since": str(args.since), "until": str(args.until),
-              "incomplete": incomplete, "runs": runs, "manualSources": config["manualSources"], "candidates": candidates}
+              "incomplete": incomplete, "channels": sorted(channels | set(previous.get("channels", []))), "runs": runs,
+              "manualSources": config["manualSources"], "candidates": candidates}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     print(f"候选 {len(candidates)} 条；来源失败或截断 {sum(r['status'] != 'complete' for r in runs)} 项；输出 {args.output}")
