@@ -557,7 +557,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.10321"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.10317",
@@ -588,7 +589,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.10317"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.08694",
@@ -619,7 +621,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.08694"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.07559",
@@ -650,7 +653,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.07559"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.06625",
@@ -673,7 +677,8 @@
         "Jev"
       ],
       "section": "industry-applications",
-      "topicId": "decision-evaluation"
+      "topicId": "decision-evaluation",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-baf74a758c",
@@ -694,7 +699,8 @@
       "keywords": [],
       "dateNote": "期次月份；在线首发日待核",
       "section": "industry-applications",
-      "topicId": "engineering-applications"
+      "topicId": "engineering-applications",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-83f7d5c950",
@@ -717,7 +723,8 @@
       "keywords": [],
       "dateNote": "SSRN 公开日期 2026-09-30",
       "section": "industry-benchmarks",
-      "topicId": "tabular-surveys"
+      "topicId": "tabular-surveys",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "report-nvidia-kumo-tabular",
@@ -751,7 +758,8 @@
       "sources": [
         "https://huggingface.co/blog/nvidia/kumo-tabular",
         "https://huggingface.co/nvidia/Kumo-Tabular"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.36108",
@@ -781,7 +789,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2609.36108"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.27679",
@@ -812,7 +821,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2609.27679"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.22866",
@@ -837,7 +847,8 @@
       ],
       "section": "industry-models",
       "topicId": "tabular-releases",
-      "aliases": []
+      "aliases": [],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.17488",
@@ -867,7 +878,8 @@
         "LimiX-2",
         "LimiX2",
         "LimiX 2"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.17895",
@@ -896,7 +908,8 @@
       "aliases": [
         "TabPFN-3.5",
         "TabPFN3.5"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.04540",
@@ -924,7 +937,8 @@
       "aliases": [
         "Mitra-v2",
         "Mitra v2"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.03880",
@@ -948,7 +962,8 @@
       ],
       "section": "industry-models",
       "topicId": "tabular-releases",
-      "aliases": []
+      "aliases": [],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2608.25774",
@@ -974,7 +989,8 @@
       ],
       "section": "industry-models",
       "topicId": "tabular-releases",
-      "aliases": []
+      "aliases": [],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2608.01400",
@@ -1008,7 +1024,8 @@
         "https://arxiv.org/abs/2608.01400",
         "https://icml-structured-fm-workshop.github.io/accepted-papers/"
       ],
-      "dateNote": "2026-07 Workshop 版本；arXiv 首次提交 2026-08-02。"
+      "dateNote": "2026-07 Workshop 版本；arXiv 首次提交 2026-08-02。",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.37959",
@@ -1044,7 +1061,8 @@
         "https://research.google/blog/introducing-tabfm-a-zero-shot-foundation-model-for-tabular-data/",
         "https://arxiv.org/abs/2609.37959"
       ],
-      "dateNote": "模型技术说明于 2026-06-30 公开；论文于 2026-09-29 提交 arXiv。"
+      "dateNote": "模型技术说明于 2026-06-30 公开；论文于 2026-09-29 提交 arXiv。",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2606.30410",
@@ -1072,7 +1090,8 @@
         "https://arxiv.org/abs/2606.30410",
         "https://neurips.cc/virtual/2026/poster/139490",
         "https://openreview.net/forum?id=Mk0ohjszwO"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2606.15314",
@@ -1092,7 +1111,8 @@
       "code": null,
       "keywords": [],
       "section": "industry-applications",
-      "topicId": "engineering-applications"
+      "topicId": "engineering-applications",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2606.07345",
@@ -1128,7 +1148,8 @@
         "label": "Spotlight",
         "source": "https://arxiv.org/abs/2606.07345",
         "verifiedAt": "2026-10-12"
-      }
+      },
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2606.04485",
@@ -1162,7 +1183,8 @@
       "sources": [
         "https://arxiv.org/abs/2606.04485",
         "https://proceedings.mlr.press/v306/wang26kw.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.18635",
@@ -1183,7 +1205,8 @@
       "code": null,
       "keywords": [],
       "section": "industry-applications",
-      "topicId": "credit-risk"
+      "topicId": "credit-risk",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.18147",
@@ -1203,7 +1226,8 @@
       "code": null,
       "keywords": [],
       "section": "industry-applications",
-      "topicId": "credit-risk"
+      "topicId": "credit-risk",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.18383",
@@ -1236,7 +1260,8 @@
       "sources": [
         "https://arxiv.org/abs/2605.18383",
         "https://tabh2o.h2oai.com/"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.13986",
@@ -1271,7 +1296,8 @@
       "sources": [
         "https://arxiv.org/abs/2605.13986",
         "https://priorlabs.ai/technical-reports/tabpfn-3"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.12292",
@@ -1298,7 +1324,8 @@
         "https://arxiv.org/abs/2605.12292",
         "https://neurips.cc/virtual/2026/poster/139430",
         "https://openreview.net/forum?id=RIVxz1UYR5"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2604.21696",
@@ -1318,7 +1345,8 @@
       "code": "https://github.com/IBM/table-representation-evals",
       "keywords": [],
       "section": "industry-benchmarks",
-      "topicId": "semantic-relational-benchmarks"
+      "topicId": "semantic-relational-benchmarks",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2604.12596",
@@ -1348,7 +1376,8 @@
       "aliases": [
         "KumoRFM-2",
         "Kumo RFM 2"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2602.11139",
@@ -1381,7 +1410,8 @@
         "TabICLv2",
         "TabICL v2",
         "TabICL2"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2511.08667",
@@ -1416,7 +1446,8 @@
         "https://arxiv.org/abs/2511.08667",
         "https://priorlabs.ai/technical-reports/tabpfn-2-5-model-report",
         "https://storage.googleapis.com/prior-labs-tabpfn-public/reports/TabPFN_2_5_tech_report.pdf?date=2025-11-06"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2511.02818",
@@ -1447,7 +1478,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2511.02818"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2510.21204",
@@ -1478,7 +1510,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2510.21204"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2509.03505",
@@ -1512,7 +1545,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2509.03505"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2506.16791",
@@ -1539,7 +1573,8 @@
         "label": "Spotlight",
         "source": "https://arxiv.org/abs/2506.16791",
         "verifiedAt": "2026-10-12"
-      }
+      },
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2506.05584",
@@ -1570,7 +1605,8 @@
       "sources": [
         "https://arxiv.org/abs/2506.05584",
         "https://proceedings.mlr.press/v267/zeng25b.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2502.05564",
@@ -1603,7 +1639,8 @@
       "sources": [
         "https://arxiv.org/abs/2502.05564",
         "https://proceedings.mlr.press/v267/qu25d.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-612809da03",
@@ -1633,7 +1670,8 @@
         "TabPFN-v2",
         "TabPFN v2",
         "TabPFN2"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2410.18164",
@@ -1664,7 +1702,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2410.18164"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2407.20060",
@@ -1685,7 +1724,8 @@
       "code": "https://github.com/stanford-star/relbench",
       "keywords": [],
       "section": "industry-benchmarks",
-      "topicId": "semantic-relational-benchmarks"
+      "topicId": "semantic-relational-benchmarks",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2406.19380",
@@ -1706,7 +1746,8 @@
       "code": null,
       "keywords": [],
       "section": "industry-benchmarks",
-      "topicId": "general-benchmarks"
+      "topicId": "general-benchmarks",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2402.14335",
@@ -1737,7 +1778,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2402.14335"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2207.01848",
@@ -1771,7 +1813,8 @@
       "sources": [
         "https://arxiv.org/abs/2207.01848",
         "https://openreview.net/forum?id=cp5PvcI6w8_"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.13654",
@@ -1800,7 +1843,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.13654"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.06693",
@@ -1823,7 +1867,8 @@
         "TabPFN"
       ],
       "section": "prediction-quality",
-      "topicId": "anomaly-detection"
+      "topicId": "anomaly-detection",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.07406",
@@ -1854,7 +1899,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.07406"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.06751",
@@ -1885,7 +1931,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.06751"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.29769",
@@ -1908,7 +1955,8 @@
         "Jev"
       ],
       "section": "prediction-decisions",
-      "topicId": "scores-routing"
+      "topicId": "scores-routing",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2608.06004",
@@ -1928,7 +1976,8 @@
       "code": null,
       "keywords": [],
       "section": "prediction-distributions",
-      "topicId": "probability-calibration"
+      "topicId": "probability-calibration",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.31272",
@@ -1956,7 +2005,8 @@
       "sources": [
         "https://arxiv.org/abs/2605.31272",
         "https://proceedings.mlr.press/v306/dong26n.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.19662",
@@ -1980,7 +2030,8 @@
       "sources": [
         "https://arxiv.org/abs/2605.19662",
         "https://proceedings.mlr.press/v306/lv26g.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.18696",
@@ -2001,7 +2052,8 @@
       "code": null,
       "keywords": [],
       "section": "prediction-distributions",
-      "topicId": "probability-calibration"
+      "topicId": "probability-calibration",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.04363",
@@ -2025,7 +2077,8 @@
       "sources": [
         "https://arxiv.org/abs/2605.04363",
         "https://proceedings.mlr.press/v306/lee26aw.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2604.25154",
@@ -2046,7 +2099,8 @@
       "code": null,
       "keywords": [],
       "section": "prediction-quality",
-      "topicId": "missing-noisy-data"
+      "topicId": "missing-noisy-data",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2603.29928",
@@ -2067,7 +2121,8 @@
       "code": "https://github.com/jonaslandsgesell/ScoringBench",
       "keywords": [],
       "section": "prediction-distributions",
-      "topicId": "predictive-distributions"
+      "topicId": "predictive-distributions",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2603.26611",
@@ -2088,7 +2143,8 @@
       "code": "https://github.com/rizbicki/tabDensityComparisons",
       "keywords": [],
       "section": "prediction-distributions",
-      "topicId": "predictive-distributions"
+      "topicId": "predictive-distributions",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2602.04596",
@@ -2110,7 +2166,8 @@
         "TabPFN"
       ],
       "section": "prediction-distributions",
-      "topicId": "predictive-distributions"
+      "topicId": "predictive-distributions",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2602.03018",
@@ -2141,7 +2198,8 @@
       "sources": [
         "https://arxiv.org/abs/2602.03018",
         "https://proceedings.mlr.press/v306/ding26s.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2601.22371",
@@ -2176,7 +2234,8 @@
         "label": "Spotlight",
         "source": "https://decode.mit.edu/projects/fire/",
         "verifiedAt": "2026-10-12"
-      }
+      },
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-3b87eab6aa",
@@ -2203,7 +2262,8 @@
         "label": "Oral",
         "source": "https://sites.google.com/view/eurips25-ai-td/home",
         "verifiedAt": "2026-10-12"
-      }
+      },
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2510.25154",
@@ -2231,7 +2291,8 @@
       "sources": [
         "https://arxiv.org/abs/2510.25154",
         "https://proceedings.mlr.press/v306/ng26a.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2510.02625",
@@ -2251,7 +2312,8 @@
       "code": null,
       "keywords": [],
       "section": "prediction-quality",
-      "topicId": "missing-noisy-data"
+      "topicId": "missing-noisy-data",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-dd682e2bac",
@@ -2269,7 +2331,8 @@
       "code": "https://github.com/yromano/cqr",
       "keywords": [],
       "section": "prediction-distributions",
-      "topicId": "prediction-intervals"
+      "topicId": "prediction-intervals",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-d00034280f",
@@ -2294,7 +2357,8 @@
       "topicId": "causal-adaptation",
       "sources": [
         "https://proceedings.mlr.press/v306/wang26fl.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.12537",
@@ -2323,7 +2387,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.12537"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.39523",
@@ -2343,7 +2408,8 @@
       "code": null,
       "keywords": [],
       "section": "causal-estimation",
-      "topicId": "experimental-regimes"
+      "topicId": "experimental-regimes",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.03003",
@@ -2369,7 +2435,8 @@
         "CausalFM"
       ],
       "section": "causal-models",
-      "topicId": "causal-unified"
+      "topicId": "causal-unified",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2607.11510",
@@ -2389,7 +2456,8 @@
       "code": null,
       "keywords": [],
       "section": "causal-discovery",
-      "topicId": "causal-mechanisms"
+      "topicId": "causal-mechanisms",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2606.26467",
@@ -2412,7 +2480,8 @@
         "TabPFN"
       ],
       "section": "causal-models",
-      "topicId": "causal-unified"
+      "topicId": "causal-unified",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.15133",
@@ -2433,7 +2502,8 @@
       "code": "https://github.com/layer6ai-labs/CCPFN-inference",
       "keywords": [],
       "section": "causal-estimation",
-      "topicId": "continuous-iv"
+      "topicId": "continuous-iv",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.05993",
@@ -2454,7 +2524,8 @@
       "code": "https://github.com/GepingChen/TabCF",
       "keywords": [],
       "section": "causal-estimation",
-      "topicId": "continuous-iv"
+      "topicId": "continuous-iv",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2603.15928",
@@ -2478,7 +2549,8 @@
         "CausalPFN"
       ],
       "section": "causal-models",
-      "topicId": "causal-reliability"
+      "topicId": "causal-reliability",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2603.12037",
@@ -2503,7 +2575,8 @@
       "sources": [
         "https://arxiv.org/abs/2603.12037",
         "https://proceedings.mlr.press/v306/melnychuk26a.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-8380790f74",
@@ -2525,7 +2598,8 @@
         "TabPFN"
       ],
       "section": "causal-models",
-      "topicId": "causal-knowledge"
+      "topicId": "causal-knowledge",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-a15b9c81ae",
@@ -2548,7 +2622,8 @@
       "topicId": "causal-knowledge",
       "sources": [
         "https://proceedings.mlr.press/v306/reuter26a.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2601.04110",
@@ -2574,7 +2649,8 @@
         "label": "Oral",
         "source": "https://sites.google.com/view/eurips25-ai-td/home",
         "verifiedAt": "2026-10-12"
-      }
+      },
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2511.07236",
@@ -2596,7 +2672,8 @@
         "TabPFN"
       ],
       "section": "causal-models",
-      "topicId": "causal-adaptation"
+      "topicId": "causal-adaptation",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-9fd1ee8bbf",
@@ -2618,7 +2695,8 @@
         "CausalFM"
       ],
       "section": "causal-estimation",
-      "topicId": "treatment-effects"
+      "topicId": "treatment-effects",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-e5eafe3ccc",
@@ -2641,7 +2719,8 @@
         "CausalPFN"
       ],
       "section": "causal-estimation",
-      "topicId": "treatment-effects"
+      "topicId": "treatment-effects",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-93cf6a538b",
@@ -2664,7 +2743,8 @@
         "Do-PFN"
       ],
       "section": "causal-estimation",
-      "topicId": "treatment-effects"
+      "topicId": "treatment-effects",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2205.12934",
@@ -2684,7 +2764,8 @@
       "code": "https://github.com/larslorch/avici",
       "keywords": [],
       "section": "causal-discovery",
-      "topicId": "causal-graphs"
+      "topicId": "causal-graphs",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-dee7306e6b",
@@ -2704,7 +2785,8 @@
       "code": "https://github.com/grf-labs/policytree/tree/master/experiments/athey_wager_2021",
       "keywords": [],
       "section": "causal-estimation",
-      "topicId": "causal-policy"
+      "topicId": "causal-policy",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-af13c15dd9",
@@ -2724,7 +2806,8 @@
       "code": null,
       "keywords": [],
       "section": "causal-models",
-      "topicId": "causal-reliability"
+      "topicId": "causal-reliability",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.01725",
@@ -2754,7 +2837,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.01725"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.23574",
@@ -2785,7 +2869,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2609.23574"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.21894",
@@ -2805,7 +2890,8 @@
       "code": null,
       "keywords": [],
       "section": "semantic-features",
-      "topicId": "text-structure"
+      "topicId": "text-structure",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.03529",
@@ -2825,7 +2911,8 @@
       "code": null,
       "keywords": [],
       "section": "semantic-features",
-      "topicId": "knowledge-features"
+      "topicId": "knowledge-features",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-20e0758264",
@@ -2845,7 +2932,8 @@
       "code": null,
       "keywords": [],
       "section": "semantic-integration",
-      "topicId": "entity-matching"
+      "topicId": "entity-matching",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2608.03565",
@@ -2878,7 +2966,8 @@
       "aliases": [
         "CASE",
         "Context-Aware Semantic Embeddings"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2607.24492",
@@ -2896,7 +2985,8 @@
       "code": "https://github.com/wbsg-uni-mannheim/SINT-Flow",
       "keywords": [],
       "section": "semantic-integration",
-      "topicId": "schema-matching"
+      "topicId": "schema-matching",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2607.01548",
@@ -2926,7 +3016,8 @@
         "EFE",
         "EFE-Tab",
         "EFE-Time"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2606.30371",
@@ -2946,7 +3037,8 @@
       "code": "https://github.com/wbsg-uni-mannheim/MaDI-Bench",
       "keywords": [],
       "section": "semantic-integration",
-      "topicId": "data-integration"
+      "topicId": "data-integration",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2606.08800",
@@ -2966,7 +3058,8 @@
       "code": null,
       "keywords": [],
       "section": "semantic-features",
-      "topicId": "knowledge-features"
+      "topicId": "knowledge-features",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.12411",
@@ -2989,7 +3082,8 @@
         "TabPFN"
       ],
       "section": "semantic-fusion",
-      "topicId": "semantic-embeddings"
+      "topicId": "semantic-embeddings",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2604.11835",
@@ -3009,7 +3103,8 @@
       "code": null,
       "keywords": [],
       "section": "semantic-fusion",
-      "topicId": "multimodal-schema"
+      "topicId": "multimodal-schema",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2506.10707",
@@ -3043,7 +3138,8 @@
         "ConTextTab",
         "SAP-RPT-1-OSS",
         "SAP RPT 1 OSS"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2505.18125",
@@ -3068,7 +3164,8 @@
       ],
       "section": "semantic-fusion",
       "topicId": "text-tabular-models",
-      "aliases": []
+      "aliases": [],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2505.14415",
@@ -3099,7 +3196,8 @@
       "sources": [
         "https://arxiv.org/abs/2505.14415",
         "https://openreview.net/forum?id=QV4P8Csw17"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2412.08194",
@@ -3117,7 +3215,8 @@
       "code": "https://github.com/VIDA-NYU/magneto-matcher",
       "keywords": [],
       "section": "semantic-integration",
-      "topicId": "schema-matching"
+      "topicId": "schema-matching",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2402.16785",
@@ -3148,7 +3247,8 @@
       "sources": [
         "https://arxiv.org/abs/2402.16785",
         "https://proceedings.mlr.press/v235/kim24d.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2305.03403",
@@ -3168,7 +3268,8 @@
       "code": "https://github.com/noahho/CAAFE",
       "keywords": [],
       "section": "semantic-features",
-      "topicId": "feature-search"
+      "topicId": "feature-search",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "paper-62f5871d79",
@@ -3186,7 +3287,8 @@
       "code": "https://github.com/shirley-wu/text_to_table",
       "keywords": [],
       "section": "semantic-features",
-      "topicId": "text-structure"
+      "topicId": "text-structure",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.13253",
@@ -3215,7 +3317,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.13253"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.11784",
@@ -3245,7 +3348,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.11784"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.12005",
@@ -3266,7 +3370,8 @@
       "code": "https://github.com/kanghui-learning/test-time-compute-for-tabular-foundation-models",
       "keywords": [],
       "section": "inference-strategies",
-      "topicId": "test-time-compute"
+      "topicId": "test-time-compute",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.07996",
@@ -3295,7 +3400,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.07996"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.08314",
@@ -3325,7 +3431,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.08314"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.06679",
@@ -3345,7 +3452,8 @@
       "code": "https://github.com/yoel-zeldes/tabalign",
       "keywords": [],
       "section": "inference-efficiency",
-      "topicId": "context-compression"
+      "topicId": "context-compression",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.05352",
@@ -3375,7 +3483,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.05352"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.37989",
@@ -3399,7 +3508,8 @@
         "TabFM"
       ],
       "section": "inference-strategies",
-      "topicId": "pipeline-search"
+      "topicId": "pipeline-search",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.36337",
@@ -3429,7 +3539,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2609.36337"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.31306",
@@ -3460,7 +3571,8 @@
         "https://arxiv.org/abs/2609.31306",
         "https://neurips.cc/virtual/2026/poster/139839",
         "https://openreview.net/forum?id=1MbSbrblLi"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.28208",
@@ -3490,7 +3602,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2609.28208"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.13031",
@@ -3510,7 +3623,8 @@
       "code": null,
       "keywords": [],
       "section": "inference-efficiency",
-      "topicId": "memory-quantization"
+      "topicId": "memory-quantization",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.07956",
@@ -3540,7 +3654,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2609.07956"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2608.17856",
@@ -3558,7 +3673,8 @@
       "code": null,
       "keywords": [],
       "section": "context-selection",
-      "topicId": "retrieval-shots"
+      "topicId": "retrieval-shots",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2608.12989",
@@ -3580,7 +3696,8 @@
         "TabPFN"
       ],
       "section": "context-selection",
-      "topicId": "representative-context"
+      "topicId": "representative-context",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2608.16429",
@@ -3603,7 +3720,8 @@
       ],
       "dateNote": "日期按 2026 年 7 月 Workshop 版本",
       "section": "context-selection",
-      "topicId": "retrieval-shots"
+      "topicId": "retrieval-shots",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2607.27546",
@@ -3626,7 +3744,8 @@
       ],
       "dateNote": "日期按 2026 年 7 月 Workshop 版本",
       "section": "inference-efficiency",
-      "topicId": "memory-quantization"
+      "topicId": "memory-quantization",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2606.18677",
@@ -3651,7 +3770,8 @@
         "label": "Spotlight Oral",
         "source": "https://icml-structured-fm-workshop.github.io/accepted-papers/",
         "verifiedAt": "2026-10-12"
-      }
+      },
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2606.11473",
@@ -3669,7 +3789,8 @@
       "code": null,
       "keywords": [],
       "section": "context-selection",
-      "topicId": "representative-context"
+      "topicId": "representative-context",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2606.05441",
@@ -3699,7 +3820,8 @@
       "sources": [
         "https://arxiv.org/abs/2606.05441",
         "https://proceedings.mlr.press/v306/habib26a.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.27254",
@@ -3717,7 +3839,8 @@
       "code": "https://github.com/ari-dasci/S-LUCoS",
       "keywords": [],
       "section": "context-selection",
-      "topicId": "retrieval-shots"
+      "topicId": "retrieval-shots",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.21288",
@@ -3738,7 +3861,8 @@
       "code": null,
       "keywords": [],
       "section": "inference-strategies",
-      "topicId": "inference-mechanisms"
+      "topicId": "inference-mechanisms",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.12904",
@@ -3758,7 +3882,8 @@
       "code": null,
       "keywords": [],
       "section": "context-selection",
-      "topicId": "representative-context"
+      "topicId": "representative-context",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.06510",
@@ -3787,7 +3912,8 @@
       "sources": [
         "https://arxiv.org/abs/2605.06510",
         "https://proceedings.mlr.press/v306/balef26a.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2602.05649",
@@ -3816,7 +3942,8 @@
       "sources": [
         "https://arxiv.org/abs/2602.05649",
         "https://proceedings.mlr.press/v306/zabergja26a.html"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2406.05207",
@@ -3838,7 +3965,8 @@
         "TabPFN"
       ],
       "section": "context-selection",
-      "topicId": "retrieval-shots"
+      "topicId": "retrieval-shots",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2402.11137",
@@ -3859,7 +3987,8 @@
       "code": "https://github.com/penfever/TuneTables",
       "keywords": [],
       "section": "inference-efficiency",
-      "topicId": "context-compression"
+      "topicId": "context-compression",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.13818",
@@ -3889,7 +4018,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.13818"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.01435",
@@ -3910,7 +4040,8 @@
       "code": null,
       "keywords": [],
       "section": "adaptation-distillation",
-      "topicId": "distillation-recipes"
+      "topicId": "distillation-recipes",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.01143",
@@ -3931,7 +4062,8 @@
       "code": null,
       "keywords": [],
       "section": "adaptation-distribution",
-      "topicId": "subpopulation-shift"
+      "topicId": "subpopulation-shift",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2609.04901",
@@ -3962,7 +4094,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2609.04901"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.18654",
@@ -3983,7 +4116,8 @@
       "code": "https://github.com/Lexsi-Labs/TabTune",
       "keywords": [],
       "section": "adaptation-distillation",
-      "topicId": "tree-distillation"
+      "topicId": "tree-distillation",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2605.06047",
@@ -4003,7 +4137,8 @@
       "code": null,
       "keywords": [],
       "section": "adaptation-target",
-      "topicId": "input-adapters"
+      "topicId": "input-adapters",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2601.09654",
@@ -4023,7 +4158,8 @@
       "code": null,
       "keywords": [],
       "section": "adaptation-target",
-      "topicId": "parameter-finetuning"
+      "topicId": "parameter-finetuning",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2506.08982",
@@ -4045,7 +4181,8 @@
         "TabPFN"
       ],
       "section": "adaptation-target",
-      "topicId": "parameter-finetuning"
+      "topicId": "parameter-finetuning",
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2405.13396",
@@ -4076,7 +4213,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2405.13396"
-      ]
+      ],
+      "addedAt": "2026-10-12"
     },
     {
       "id": "arxiv-2610.14998",
@@ -4111,7 +4249,8 @@
       "sources": [
         "https://arxiv.org/abs/2610.14998",
         "https://arxiv.org/pdf/2610.14998"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2610.14989",
@@ -4145,7 +4284,8 @@
       "sources": [
         "https://arxiv.org/abs/2610.14989",
         "https://arxiv.org/html/2610.14989"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2610.13764",
@@ -4178,7 +4318,8 @@
       "sources": [
         "https://arxiv.org/abs/2610.13764",
         "https://arxiv.org/html/2610.13764"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2610.13644",
@@ -4211,7 +4352,8 @@
       "sources": [
         "https://arxiv.org/abs/2610.13644",
         "https://arxiv.org/pdf/2610.13644"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2610.12904",
@@ -4245,7 +4387,8 @@
       "sources": [
         "https://arxiv.org/abs/2610.12904",
         "https://arxiv.org/html/2610.12904"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2610.12390",
@@ -4279,7 +4422,8 @@
       "sources": [
         "https://arxiv.org/abs/2610.12390",
         "https://arxiv.org/html/2610.12390"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2610.10832",
@@ -4313,7 +4457,8 @@
       "sources": [
         "https://arxiv.org/abs/2610.10832",
         "https://arxiv.org/html/2610.10832"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2610.10068",
@@ -4346,7 +4491,8 @@
       "sources": [
         "https://arxiv.org/abs/2610.10068",
         "https://arxiv.org/html/2610.10068"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2610.09487",
@@ -4381,7 +4527,8 @@
         "https://arxiv.org/abs/2610.09487",
         "https://arxiv.org/html/2610.09487",
         "https://github.com/RazeenLI/JevNexus"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2610.08078",
@@ -4415,7 +4562,8 @@
       "sources": [
         "https://arxiv.org/abs/2610.08078",
         "https://arxiv.org/html/2610.08078"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2609.33114",
@@ -4448,7 +4596,8 @@
       "sources": [
         "https://arxiv.org/abs/2609.33114",
         "https://arxiv.org/html/2609.33114"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2609.16309",
@@ -4482,7 +4631,8 @@
       "sources": [
         "https://arxiv.org/abs/2609.16309",
         "https://arxiv.org/html/2609.16309"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2608.27882",
@@ -4516,7 +4666,8 @@
       "sources": [
         "https://arxiv.org/abs/2608.27882",
         "https://arxiv.org/html/2608.27882"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2608.20841",
@@ -4548,7 +4699,8 @@
       "sources": [
         "https://arxiv.org/abs/2608.20841",
         "https://arxiv.org/html/2608.20841"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2608.18919",
@@ -4581,7 +4733,8 @@
       "sources": [
         "https://arxiv.org/abs/2608.18919",
         "https://arxiv.org/html/2608.18919"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2608.18849",
@@ -4616,7 +4769,8 @@
       "sources": [
         "https://arxiv.org/abs/2608.18849",
         "https://arxiv.org/html/2608.18849"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2608.17957",
@@ -4651,7 +4805,8 @@
         "https://arxiv.org/html/2608.17957",
         "https://neurips.cc/virtual/2026/poster/150354",
         "https://openreview.net/forum?id=ikYK94iVvj"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2608.16319",
@@ -4690,7 +4845,8 @@
         "https://arxiv.org/abs/2608.16319",
         "https://arxiv.org/html/2608.16319",
         "https://github.com/PriorLabs/relarena"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2607.26628",
@@ -4723,7 +4879,8 @@
         "https://arxiv.org/abs/2607.26628",
         "https://arxiv.org/html/2607.26628",
         "https://github.com/mohammed1916/tabmx"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2606.08679",
@@ -4755,7 +4912,8 @@
       "sources": [
         "https://arxiv.org/abs/2606.08679",
         "https://arxiv.org/html/2606.08679"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2606.03681",
@@ -4789,7 +4947,8 @@
         "https://arxiv.org/abs/2606.03681",
         "https://arxiv.org/html/2606.03681",
         "https://github.com/borawhocodess/modded-nanotabpfn"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2606.02384",
@@ -4826,7 +4985,8 @@
         "https://github.com/atschalz/tabprep",
         "https://neurips.cc/virtual/2026/poster/139065",
         "https://openreview.net/forum?id=nMW7DYLGTo"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2605.30729",
@@ -4859,7 +5019,8 @@
         "https://arxiv.org/abs/2605.30729",
         "https://arxiv.org/html/2605.30729",
         "https://research.ibm.com/publications/semstruct-contextualizing-semantic-embeddings-with-structural-information-for-schema-matching"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2605.28418",
@@ -4892,7 +5053,8 @@
       "sources": [
         "https://arxiv.org/abs/2605.28418",
         "https://arxiv.org/html/2605.28418"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2605.11262",
@@ -4925,7 +5087,8 @@
       "sources": [
         "https://arxiv.org/abs/2605.11262",
         "https://arxiv.org/html/2605.11262"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2605.06290",
@@ -4962,7 +5125,8 @@
       "sources": [
         "https://arxiv.org/abs/2605.06290",
         "https://arxiv.org/html/2605.06290"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2511.02802",
@@ -4996,7 +5160,8 @@
         "https://arxiv.org/abs/2511.02802",
         "https://arxiv.org/html/2511.02802",
         "https://github.com/Lexsi-Labs/TabTune"
-      ]
+      ],
+      "addedAt": "2026-10-14"
     },
     {
       "id": "arxiv-2605.10616",
@@ -5040,6 +5205,195 @@
         "https://github.com/alanarazi7/MulTaBench",
         "https://neurips.cc/virtual/2026/poster/138893",
         "https://openreview.net/forum?id=yOd4AxlEbb"
+      ],
+      "addedAt": "2026-10-14"
+    }
+  ],
+  "collectionUpdates": [
+    {
+      "date": "2026-10-12",
+      "added": [
+        "arxiv-2205.12934",
+        "arxiv-2207.01848",
+        "arxiv-2305.03403",
+        "arxiv-2402.11137",
+        "arxiv-2402.14335",
+        "arxiv-2402.16785",
+        "arxiv-2405.13396",
+        "arxiv-2406.05207",
+        "arxiv-2406.19380",
+        "arxiv-2407.20060",
+        "arxiv-2410.18164",
+        "arxiv-2412.08194",
+        "arxiv-2502.05564",
+        "arxiv-2505.14415",
+        "arxiv-2505.18125",
+        "arxiv-2506.05584",
+        "arxiv-2506.08982",
+        "arxiv-2506.10707",
+        "arxiv-2506.16791",
+        "arxiv-2509.03505",
+        "arxiv-2510.02625",
+        "arxiv-2510.21204",
+        "arxiv-2510.25154",
+        "arxiv-2511.02818",
+        "arxiv-2511.07236",
+        "arxiv-2511.08667",
+        "arxiv-2601.04110",
+        "arxiv-2601.09654",
+        "arxiv-2601.22371",
+        "arxiv-2602.03018",
+        "arxiv-2602.04596",
+        "arxiv-2602.05649",
+        "arxiv-2602.11139",
+        "arxiv-2603.12037",
+        "arxiv-2603.15928",
+        "arxiv-2603.26611",
+        "arxiv-2603.29928",
+        "arxiv-2604.11835",
+        "arxiv-2604.12596",
+        "arxiv-2604.21696",
+        "arxiv-2604.25154",
+        "arxiv-2605.04363",
+        "arxiv-2605.05993",
+        "arxiv-2605.06047",
+        "arxiv-2605.06510",
+        "arxiv-2605.12292",
+        "arxiv-2605.12411",
+        "arxiv-2605.12904",
+        "arxiv-2605.13986",
+        "arxiv-2605.15133",
+        "arxiv-2605.18147",
+        "arxiv-2605.18383",
+        "arxiv-2605.18635",
+        "arxiv-2605.18654",
+        "arxiv-2605.18696",
+        "arxiv-2605.19662",
+        "arxiv-2605.21288",
+        "arxiv-2605.27254",
+        "arxiv-2605.31272",
+        "arxiv-2606.04485",
+        "arxiv-2606.05441",
+        "arxiv-2606.07345",
+        "arxiv-2606.08800",
+        "arxiv-2606.11473",
+        "arxiv-2606.15314",
+        "arxiv-2606.18677",
+        "arxiv-2606.26467",
+        "arxiv-2606.30371",
+        "arxiv-2606.30410",
+        "arxiv-2607.01548",
+        "arxiv-2607.11510",
+        "arxiv-2607.24492",
+        "arxiv-2607.27546",
+        "arxiv-2608.01400",
+        "arxiv-2608.03565",
+        "arxiv-2608.06004",
+        "arxiv-2608.12989",
+        "arxiv-2608.16429",
+        "arxiv-2608.17856",
+        "arxiv-2608.25774",
+        "arxiv-2609.03003",
+        "arxiv-2609.03529",
+        "arxiv-2609.03880",
+        "arxiv-2609.04540",
+        "arxiv-2609.04901",
+        "arxiv-2609.07956",
+        "arxiv-2609.13031",
+        "arxiv-2609.17488",
+        "arxiv-2609.17895",
+        "arxiv-2609.21894",
+        "arxiv-2609.22866",
+        "arxiv-2609.23574",
+        "arxiv-2609.27679",
+        "arxiv-2609.28208",
+        "arxiv-2609.29769",
+        "arxiv-2609.31306",
+        "arxiv-2609.36108",
+        "arxiv-2609.36337",
+        "arxiv-2609.37959",
+        "arxiv-2609.37989",
+        "arxiv-2609.39523",
+        "arxiv-2610.01143",
+        "arxiv-2610.01435",
+        "arxiv-2610.01725",
+        "arxiv-2610.05352",
+        "arxiv-2610.06625",
+        "arxiv-2610.06679",
+        "arxiv-2610.06693",
+        "arxiv-2610.06751",
+        "arxiv-2610.07406",
+        "arxiv-2610.07559",
+        "arxiv-2610.07996",
+        "arxiv-2610.08314",
+        "arxiv-2610.08694",
+        "arxiv-2610.10317",
+        "arxiv-2610.10321",
+        "arxiv-2610.11784",
+        "arxiv-2610.12005",
+        "arxiv-2610.12537",
+        "arxiv-2610.13253",
+        "arxiv-2610.13654",
+        "arxiv-2610.13818",
+        "paper-20e0758264",
+        "paper-3b87eab6aa",
+        "paper-612809da03",
+        "paper-62f5871d79",
+        "paper-8380790f74",
+        "paper-83f7d5c950",
+        "paper-93cf6a538b",
+        "paper-9fd1ee8bbf",
+        "paper-a15b9c81ae",
+        "paper-af13c15dd9",
+        "paper-baf74a758c",
+        "paper-d00034280f",
+        "paper-dd682e2bac",
+        "paper-dee7306e6b",
+        "paper-e5eafe3ccc",
+        "report-nvidia-kumo-tabular"
+      ],
+      "updated": []
+    },
+    {
+      "date": "2026-10-14",
+      "added": [
+        "arxiv-2511.02802",
+        "arxiv-2605.06290",
+        "arxiv-2605.10616",
+        "arxiv-2605.11262",
+        "arxiv-2605.28418",
+        "arxiv-2605.30729",
+        "arxiv-2606.02384",
+        "arxiv-2606.03681",
+        "arxiv-2606.08679",
+        "arxiv-2607.26628",
+        "arxiv-2608.16319",
+        "arxiv-2608.17957",
+        "arxiv-2608.18849",
+        "arxiv-2608.18919",
+        "arxiv-2608.20841",
+        "arxiv-2608.27882",
+        "arxiv-2609.16309",
+        "arxiv-2609.33114",
+        "arxiv-2610.08078",
+        "arxiv-2610.09487",
+        "arxiv-2610.10068",
+        "arxiv-2610.10832",
+        "arxiv-2610.12390",
+        "arxiv-2610.12904",
+        "arxiv-2610.13644",
+        "arxiv-2610.13764",
+        "arxiv-2610.14989",
+        "arxiv-2610.14998"
+      ],
+      "updated": [
+        "arxiv-2511.08667",
+        "arxiv-2605.12292",
+        "arxiv-2605.13986",
+        "arxiv-2606.30410",
+        "arxiv-2607.01548",
+        "arxiv-2608.03565",
+        "arxiv-2609.31306"
       ]
     }
   ]

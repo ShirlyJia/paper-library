@@ -12,8 +12,8 @@
     <title>结构化数据论文库</title>
     <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="./hierarchy.css?v=3">
-    <script type="module" src="./app.js?v=5"></script>
+    <link rel="stylesheet" href="./hierarchy.css?v=4">
+    <script type="module" src="./app.js?v=6"></script>
   </head>
   <body>
     <a class="skip-link" href="#catalogue">跳至论文列表</a>
@@ -54,6 +54,14 @@
         </section>
         <div class="scope-questions" id="scope-questions" hidden></div>
 
+        <details class="activity-board" id="activity-board" hidden>
+          <summary><span class="activity-title">近期更新</span><span id="activity-summary"></span><span class="activity-toggle" aria-hidden="true"></span></summary>
+          <div class="activity-body">
+            <p class="activity-note" id="activity-note"></p>
+            <div id="activity-days"></div>
+          </div>
+        </details>
+
         <section class="controls" aria-label="搜索与筛选">
           <div class="search-wrap">
             <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -71,7 +79,7 @@
             </div>
             <div class="sort-group">
               <label class="sr-only" for="sort">排列顺序</label>
-              <select id="sort" title="按最早已核实的公开时间排序；修订和入库时间不替代首发时间"><option value="newest">最新公开在前</option><option value="oldest">最早公开在前</option><option value="updated">最近修订在前</option><option value="title">标题 A–Z</option></select>
+              <select id="sort" title="默认按论文首发排序，也可按本站收录日期排列"><option value="newest">最新公开在前</option><option value="oldest">最早公开在前</option><option value="added">最近收录在前</option><option value="updated">最近修订在前</option><option value="title">标题 A–Z</option></select>
               <button class="export-button" id="export-csv" title="导出当前筛选结果为 CSV">导出索引 <span aria-hidden="true">↓</span></button>
             </div>
           </div>

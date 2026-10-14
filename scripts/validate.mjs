@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises';
-import { safeURL, paperPath } from '../library.js';
+import { safeURL, paperPath, isFullDate, beijingDate } from '../library.js';
 const catalogue = JSON.parse(await readFile(new URL('../data/papers.json', import.meta.url), 'utf8'));
 const registry = JSON.parse(await readFile(new URL('../research/model-families.json', import.meta.url), 'utf8'));
 const categories = new Set(catalogue.categories.map(c => c.id));
@@ -41,6 +41,7 @@ for (const p of catalogue.papers) {
   ids.add(p.id); urls.add(p.url);
   for (const key of ['title', 'summary', 'venue', 'date', 'updated']) if (!p[key]?.trim()) errors.push(`${p.id} 缺少 ${key}`);
   for (const key of ['date', 'updated']) if (!/^\d{4}(-\d{2})?(-\d{2})?$/.test(p[key])) errors.push(`${p.id} 日期格式无效: ${key}`);
+  if (!isFullDate(p.addedAt) || p.addedAt > beijingDate()) errors.push(`${p.id} 本站收录日期无效或在未来`);
   if (!categories.has(p.category)) errors.push(`${p.id} 分类不存在`);
   if (paperPath(p, catalogue.categories).length !== 3) errors.push(`${p.id} 子方向或具体议题不属于其上级目录`);
   if (!['published','preprint','workshop','report'].includes(p.status)) errors.push(`${p.id} 发表状态无效`);
@@ -58,6 +59,26 @@ for (const p of catalogue.papers) {
   }
   for (const word of ['优先阅读', '本轮', 'needs supplement', 'cross_core']) if (JSON.stringify(p).includes(word)) errors.push(`${p.id} 含过程性文字: ${word}`);
 }
+const paperById = new Map(catalogue.papers.map(p => [p.id, p]));
+const historyDates = new Set(), firstAdded = new Set();
+if (!Array.isArray(catalogue.collectionUpdates)) errors.push('缺少本站收录与更新记录');
+for (const day of catalogue.collectionUpdates || []) {
+  if (!isFullDate(day.date) || day.date > beijingDate() || day.date > catalogue.updatedAt || historyDates.has(day.date)) errors.push(`本站更新记录日期无效或重复: ${day.date}`);
+  historyDates.add(day.date);
+  for (const kind of ['added', 'updated']) {
+    if (!Array.isArray(day[kind]) || new Set(day[kind]).size !== day[kind].length) { errors.push(`${day.date} ${kind} 记录无效或重复`); continue; }
+    for (const id of day[kind]) {
+      const paper = paperById.get(id);
+      if (!paper) { errors.push(`更新记录引用不存在的论文: ${id}`); continue; }
+      if (kind === 'added') {
+        if (firstAdded.has(id) || paper.addedAt !== day.date) errors.push(`${id} 收录日期与记录不一致`);
+        firstAdded.add(id);
+      } else if (paper.addedAt >= day.date) errors.push(`${id} 更新记录不能早于或重复当天收录记录`);
+    }
+  }
+  if (!day.added?.length && !day.updated?.length) errors.push(`${day.date} 为空更新记录`);
+}
+for (const id of ids) if (!firstAdded.has(id)) errors.push(`${id} 缺少首次收录记录`);
 for (const family of registry.families) {
   if (!family.name || !family.paperIds?.length || !family.sources?.length) errors.push('模型家族缺少名称、论文或来源');
   for (const id of family.paperIds || []) if (!ids.has(id)) errors.push(`已知版本漏收: ${family.name} / ${id}`);

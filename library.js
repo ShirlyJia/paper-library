@@ -1,6 +1,15 @@
 export const PAGE_SIZE = 12;
 export const VALID_STATUS = new Set(['all', 'published', 'workshop', 'preprint', 'report']);
-export const VALID_SORT = new Set(['newest', 'oldest', 'updated', 'title']);
+export const VALID_SORT = new Set(['newest', 'oldest', 'updated', 'added', 'title']);
+
+export function beijingDate(now = new Date()) {
+  return new Date(now.getTime() + 8 * 60 * 60 * 1000).toISOString().slice(0, 10);
+}
+
+export function isFullDate(value) {
+  return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)
+    && !Number.isNaN(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
+}
 
 export function normalize(text = '') {
   return String(text).normalize('NFKC').toLocaleLowerCase().replace(/[–—−]/g, '-').replace(/\s+/g, ' ').trim();
@@ -99,9 +108,37 @@ export function filterPapers(papers, state, { saved = new Set(), categories = []
   });
   return result.sort((a, b) => {
     if (state.sort === 'title') return a.title.localeCompare(b.title, 'en');
-    const key = state.sort === 'updated' ? 'updated' : 'date';
+    const key = state.sort === 'updated' ? 'updated' : state.sort === 'added' ? 'addedAt' : 'date';
     const difference = dateKey(b[key]).localeCompare(dateKey(a[key]));
     return (state.sort === 'oldest' ? -difference : difference) || a.title.localeCompare(b.title, 'en');
+  });
+}
+
+export function recentCollectionUpdates(catalog, state, { now = new Date(), days = 30 } = {}) {
+  const today = beijingDate(now);
+  const cutoff = new Date(Date.parse(today) - (days - 1) * 86400000).toISOString().slice(0, 10);
+  const path = scopePath(catalog.categories, state);
+  const scope = path.at(-1);
+  const papers = new Map(catalog.papers.filter(p => !scope || belongsTo(p, scope)).map(p => [p.id, p]));
+  const dates = new Map();
+  for (const event of catalog.collectionUpdates || []) {
+    if (!isFullDate(event.date) || event.date < cutoff || event.date > today) continue;
+    if (!dates.has(event.date)) dates.set(event.date, { added: new Set(), updated: new Set() });
+    const day = dates.get(event.date);
+    for (const kind of ['added', 'updated']) for (const id of event[kind] || []) if (papers.has(id)) day[kind].add(id);
+  }
+  return [...dates].sort(([a], [b]) => b.localeCompare(a)).flatMap(([date, day]) => {
+    for (const id of day.added) day.updated.delete(id);
+    if (!day.added.size && !day.updated.size) return [];
+    const groups = new Map();
+    for (const kind of ['added', 'updated']) for (const id of day[kind]) {
+      const groupPath = paperPath(papers.get(id), catalog.categories).slice(0, Math.min(path.length + 1, 3));
+      const node = groupPath.at(-1);
+      if (!groups.has(node.id)) groups.set(node.id, { path: groupPath, added: 0, updated: 0 });
+      groups.get(node.id)[kind]++;
+    }
+    return [{ date, added: day.added.size, updated: day.updated.size,
+      groups: [...groups.values()].sort((a, b) => a.path.at(-1).code.localeCompare(b.path.at(-1).code)) }];
   });
 }
 
@@ -116,10 +153,10 @@ export function toCSV(papers, categories) {
     if (/^[=+\-@\t\r]/.test(text)) text = "'" + text;
     return `"${text.replaceAll('"', '""')}"`;
   };
-  const rows = [['标题', '公开时间', '最近修订', '研究领域', '子方向', '具体议题', '发表与收录', '会议标记', '标记来源', '研究内容', '论文链接', 'PDF', '代码']];
+  const rows = [['标题', '公开时间', '本站收录', '最近修订', '研究领域', '子方向', '具体议题', '发表与收录', '会议标记', '标记来源', '研究内容', '论文链接', 'PDF', '代码']];
   for (const p of papers) {
     const path = paperPath(p, categories);
-    rows.push([p.title, p.date, p.updated, ...[0,1,2].map(i => path[i]?.name || ''), p.venue, p.recognition?.label, p.recognition?.source, p.summary, p.url, p.pdf, p.code]);
+    rows.push([p.title, p.date, p.addedAt, p.updated, ...[0,1,2].map(i => path[i]?.name || ''), p.venue, p.recognition?.label, p.recognition?.source, p.summary, p.url, p.pdf, p.code]);
   }
   return '\uFEFF' + rows.map(row => row.map(cell).join(',')).join('\r\n');
 }

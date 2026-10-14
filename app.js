@@ -1,4 +1,4 @@
-import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo } from './library.js?v=4';
+import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo, recentCollectionUpdates } from './library.js?v=5';
 
 const $ = id => document.getElementById(id);
 const STORE_KEY = 'structured-data-paper-library:saved:v1';
@@ -9,6 +9,7 @@ let catalog, filtered = [], toastTimer;
 let saved = readSaved();
 const expanded = new Set();
 const nodeCounts = new Map();
+const catalogChanges = new Map();
 
 function el(tag, className, text) {
   const node = document.createElement(tag);
@@ -232,6 +233,45 @@ function renderScope() {
   updateTree();
 }
 
+function activityCount(added, updated) {
+  return [added ? `新增 ${added} 篇` : '', updated ? `资料更新 ${updated} 次` : ''].filter(Boolean).join(' · ');
+}
+
+function renderActivity() {
+  const days = recentCollectionUpdates(catalog, state);
+  const path = scopePath(catalog.categories, state);
+  const scopeName = path.at(-1)?.name || '全站';
+  const added = days.reduce((n, day) => n + day.added, 0);
+  const updated = days.reduce((n, day) => n + day.updated, 0);
+  $('activity-summary').textContent = `${path.length ? '本目录' : '全站'}近 30 天 · ${days.length ? `${days.length} 个更新日 · ${activityCount(added, updated)}` : '暂无更新'}`;
+  $('activity-note').textContent = `${scopeName}的收录与资料维护记录，按当前目录汇总；与论文发表、修订时间分别记录。`;
+  const list = $('activity-days'); list.replaceChildren();
+  for (const day of days) {
+    const section = el('section', 'activity-day');
+    const heading = el('h3', 'activity-day-heading');
+    const date = el('time', '', day.date.replaceAll('-', '.')); date.dateTime = day.date;
+    heading.append(date, el('span', '', activityCount(day.added, day.updated)));
+    const groups = el('ul', 'activity-groups');
+    for (const group of day.groups) {
+      const node = group.path.at(-1);
+      const item = el('li');
+      const link = el('a', 'activity-link', node.name);
+      const next = { ...readState(), ...scopeValues(group.path), sort: 'added' };
+      link.href = location.pathname + '?' + stateSearch(next);
+      link.title = '查看该方向全部论文，按最近收录排序';
+      link.addEventListener('click', event => {
+        if (event.button || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault(); Object.assign(state, next); navigate(group.path);
+      });
+      item.append(link, el('span', 'activity-count', activityCount(group.added, group.updated)));
+      groups.append(item);
+    }
+    section.append(heading, groups); list.append(section);
+  }
+  if (!days.length) list.append(el('p', 'activity-empty', '近 30 天没有新增或资料更新，已有论文仍可正常浏览。'));
+  $('activity-board').hidden = false;
+}
+
 function createCard(paper, index) {
   const path = paperPath(paper, catalog.categories);
   const card = el('article', 'paper-card enter');
@@ -268,6 +308,10 @@ function createCard(paper, index) {
   }
   const summary = el('p', 'paper-summary', paper.summary);
   const bottom = el('div', 'paper-bottom');
+  const collected = el('span', 'paper-collected', '本站收录 ');
+  const addedAt = el('time', '', paper.addedAt.replaceAll('-', '.')); addedAt.dateTime = paper.addedAt;
+  collected.append(addedAt);
+  collected.title = `加入本站的日期：${paper.addedAt}；不代表论文发表日期。${catalogChanges.has(paper.id) ? `本站资料最近更新：${catalogChanges.get(paper.id)}。` : ''}`;
   const links = el('div', 'paper-links');
   if (safeURL(paper.code)) links.append(externalLink('代码 ↗', paper.code));
   if (safeURL(paper.pdf)) {
@@ -277,7 +321,7 @@ function createCard(paper, index) {
     links.append(pdf);
   }
   links.append(externalLink('原文 ↗', paper.url));
-  bottom.append(links);
+  bottom.append(collected, links);
   card.append(top, bookmark, classification, title, publication, summary, bottom);
   card.addEventListener('click', event => {
     if (event.target.closest('a,button') || getSelection()?.toString()) return;
@@ -334,6 +378,7 @@ function render({ push = false } = {}) {
   filtered = filterPapers(catalog.papers, state, { saved, categories: catalog.categories });
   state.page = Math.min(state.page, Math.max(1, Math.ceil(filtered.length / PAGE_SIZE)));
   renderScope();
+  renderActivity();
   $('period').value = state.period; $('status').value = state.status; $('sort').value = state.sort; $('code-only').checked = state.codeOnly;
   if ($('search').value !== state.query) $('search').value = state.query;
   updateSavedCount();
@@ -354,10 +399,13 @@ function render({ push = false } = {}) {
 function reset() { Object.assign(state, readState('')); render(); }
 
 async function init() {
-  const response = await fetch(new URL('./data/papers.json?v=4', import.meta.url), { cache: 'no-cache' });
+  const response = await fetch(new URL('./data/papers.json?v=5', import.meta.url), { cache: 'no-cache' });
   if (!response.ok) throw new Error(`索引读取失败 (${response.status})`);
   catalog = await response.json();
   if (!Array.isArray(catalog.papers) || !Array.isArray(catalog.categories)) throw new Error('索引格式无效');
+  for (const event of catalog.collectionUpdates || []) for (const id of event.updated) {
+    if (!catalogChanges.has(id) || event.date > catalogChanges.get(id)) catalogChanges.set(id, event.date);
+  }
   $('last-updated').textContent = `更新于 ${catalog.updatedAt.replaceAll('-', '.')}`;
   for (const year of [...new Set(catalog.papers.map(p => p.date.slice(0, 4)))].sort().reverse()) {
     const option = el('option', '', year); option.value = year; $('period').append(option);
