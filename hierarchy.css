@@ -20,6 +20,8 @@
 .tree-name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .tree-number { font: 10px/1.65 var(--mono); color: var(--muted); }
 .tree-count { font: 10px/1.65 var(--mono); color: var(--muted); margin-left: auto; flex-shrink: 0; }
+.directory-counts { display: inline-flex; align-items: baseline; gap: 6px; flex-shrink: 0; white-space: nowrap; }
+.today-count { display: inline-block; font: 500 10px/1.5 var(--mono); color: #287046; background: #eaf3e9; border-radius: 3px; padding: 1px 4px; }
 .tree-all { margin: 0 0 12px 22px; font-size: 12px; padding-block: 12px; }
 .tree-children { border-left: 1px solid var(--branch-line); margin: 0 0 10px 11px; padding-left: 10px; }
 .tree-children .tree-link { font-size: 11.5px; padding-block: 9px; }
@@ -75,6 +77,10 @@ h1 { font-size: clamp(27px, 2.55vw, 37px); line-height: 1.4; overflow-wrap: anyw
 .results-heading { min-height: 44px; }
 .paper-topline { margin-bottom: 10px; }
 .paper-code { font: 10px var(--mono); color: #707c64; }
+.paper-reference { display: inline-flex; align-items: center; gap: 9px; }
+.paper-new-label { font-size: 10px; line-height: 1.6; white-space: nowrap; color: #496c7c; background: #edf4f7; border-radius: 3px; padding: 2px 6px; }
+.paper-card.is-new-today { border-color: #cbdce2; }
+.paper-card.is-new-today:hover { border-color: #9eb9c5; }
 .paper-path { display: flex; flex-wrap: wrap; gap: 2px 5px; font-size: 10px; line-height: 1.9; margin: 0 0 13px; color: #66715d; }
 .paper-path a { max-width: 100%; overflow-wrap: anywhere; }
 .paper-path a:last-child { color: #344b2f; }

@@ -85,6 +85,26 @@ export function belongsTo(paper, node) {
   return paper.category === node.id || paper.section === node.id || paper.topicId === node.id;
 }
 
+export function todayAdditions(catalog, { now = new Date() } = {}) {
+  const date = beijingDate(now);
+  const paperIds = new Set();
+  const counts = new Map();
+  for (const paper of catalog.papers) {
+    if (paper.addedAt !== date || paperIds.has(paper.id)) continue;
+    paperIds.add(paper.id);
+    for (const node of paperPath(paper, catalog.categories)) {
+      const key = String(node.id);
+      counts.set(key, (counts.get(key) || 0) + 1);
+    }
+  }
+  if (paperIds.size) counts.set('0', paperIds.size);
+  return { date, paperIds, counts };
+}
+
+export function millisecondsUntilBeijingMidnight(now = new Date()) {
+  return Date.parse(`${beijingDate(now)}T00:00:00+08:00`) + 86400000 - now.getTime();
+}
+
 export function searchText(paper, categories = []) {
   const names = [paper.category, ...(paper.related || [])].map(id => categories.find(c => c.id === id)?.name || '');
   return normalize([paper.title, ...(paper.aliases || []), paper.summary, paper.topic, paper.venue, paper.recognition?.label, ...(paper.keywords || []), ...names, ...paperPath(paper, categories).map(n => n.name)].join(' '));

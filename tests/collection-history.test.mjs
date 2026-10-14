@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { recordUpdates } from '../scripts/record-updates.mjs';
-import { beijingDate, recentCollectionUpdates, filterPapers, readState, stateSearch } from '../library.js';
+import { beijingDate, recentCollectionUpdates, filterPapers, readState, stateSearch, todayAdditions, millisecondsUntilBeijingMidnight } from '../library.js';
 
 const categories = [1, 2].map(id => ({ id, code: `0${id}`, name: `方向 ${id}`, children: [
   { id: `section-${id}`, code: `0${id}.01`, name: `子方向 ${id}`, children: [
@@ -68,4 +68,39 @@ test('recent collection sorting is shareable and does not change default publica
   const state = {...readState(),sort:'added'};
   assert.equal(filterPapers(papers,state)[0].id,'older-backfill');
   assert.equal(readState(stateSearch(state)).sort,'added');
+});
+
+test('today additions follow collection dates and count each primary directory once', () => {
+  const data = { categories, papers: [
+    { ...paper('old-paper-collected-today'), addedAt: '2026-10-14', related: [2] },
+    { ...paper('second-new-paper'), addedAt: '2026-10-14' },
+    { ...paper('published-today', 2), date: '2026-10-14' },
+    { ...paper('revised-today', 2), updated: '2026-10-14' },
+    paper('metadata-corrected-today', 2),
+    { ...paper('future', 2), addedAt: '2026-10-15' },
+  ], collectionUpdates: [{ date: '2026-10-14', added: [], updated: ['metadata-corrected-today'] }] };
+  const result = todayAdditions(data, { now: new Date('2026-10-14T08:00:00Z') });
+  assert.deepEqual([...result.paperIds], ['old-paper-collected-today', 'second-new-paper']);
+  assert.equal(result.counts.get('0'), 2);
+  assert.equal(result.counts.get('1'), 2);
+  assert.equal(result.counts.get('section-1'), 2);
+  assert.equal(result.counts.get('topic-1'), 2);
+  for (const key of ['2', 'section-2', 'topic-2']) assert.equal(result.counts.has(key), false);
+});
+
+test('today hints start and expire at Beijing midnight without changing historical dates', () => {
+  const data = catalog();
+  data.papers.push({ ...paper('today'), addedAt: '2026-10-14' });
+  const before = JSON.stringify(data);
+  const start = new Date('2026-10-13T16:00:00Z');
+  const end = new Date('2026-10-14T16:00:00Z');
+  assert.equal(todayAdditions(data, { now: new Date(start - 1) }).paperIds.size, 0);
+  assert.deepEqual([...todayAdditions(data, { now: start }).paperIds], ['today']);
+  assert.equal(todayAdditions(data, { now: new Date(end - 1) }).paperIds.size, 1);
+  const tomorrow = todayAdditions(data, { now: end });
+  assert.equal(tomorrow.paperIds.size, 0);
+  assert.equal(tomorrow.counts.size, 0);
+  assert.equal(millisecondsUntilBeijingMidnight(new Date(end - 1)), 1);
+  assert.equal(millisecondsUntilBeijingMidnight(start), 86400000);
+  assert.equal(JSON.stringify(data), before);
 });

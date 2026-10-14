@@ -1,11 +1,11 @@
-import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo, recentCollectionUpdates } from './library.js?v=5';
+import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo, recentCollectionUpdates, beijingDate, todayAdditions, millisecondsUntilBeijingMidnight } from './library.js?v=6';
 
 const $ = id => document.getElementById(id);
 const STORE_KEY = 'structured-data-paper-library:saved:v1';
 // Only used to migrate existing browser bookmarks; never displayed on the site.
 const LEGACY_STORE_KEY = 'shirly-paper-library:saved:v1';
 const state = readState(location.search);
-let catalog, filtered = [], toastTimer;
+let catalog, filtered = [], toastTimer, today, dayTimer;
 let saved = readSaved();
 const expanded = new Set();
 const nodeCounts = new Map();
@@ -108,10 +108,26 @@ function setMobileDirectory(open) {
   $('mobile-directory').lastElementChild.textContent = open ? '−' : '＋';
 }
 
+function appendTodayCount(parent, nodeId) {
+  const count = today.counts.get(String(nodeId));
+  if (!count) return;
+  const badge = el('span', 'today-count', `+${count}`);
+  badge.title = `今日新收录 ${count} 篇 · 北京时间`;
+  badge.setAttribute('aria-label', badge.title);
+  parent.append(badge);
+}
+
+function directoryCounts(count, nodeId, className) {
+  const counts = el('span', 'directory-counts');
+  counts.append(el('span', className, count));
+  appendTodayCount(counts, nodeId);
+  return counts;
+}
+
 function renderCategories() {
   const list = $('categories'); list.replaceChildren();
   const all = scopeLink('', [], 'tree-link tree-all'); all.dataset.node = '0';
-  all.append(el('span', '', '全部论文'), el('span', 'tree-count', catalog.papers.length));
+  all.append(el('span', 'tree-name', '全部论文'), directoryCounts(catalog.papers.length, '0', 'tree-count'));
   list.append(all);
   function build(nodes, ancestors = []) {
     const ul = el('ul', ancestors.length ? 'tree-children' : 'tree-root');
@@ -135,7 +151,7 @@ function renderCategories() {
       } else row.append(el('span', 'tree-leaf-mark', '·'));
       const link = scopeLink('', path, 'tree-link'); link.dataset.node = node.id;
       link.title = node.description;
-      link.append(el('span', 'tree-name', node.name), el('span', 'tree-count', count));
+      link.append(el('span', 'tree-name', node.name), directoryCounts(count, node.id, 'tree-count'));
       if (!ancestors.length) link.prepend(el('span', 'tree-number', node.code));
       row.append(link); li.append(row);
       if (node.children) {
@@ -213,14 +229,14 @@ function renderScope() {
       const link = scopeLink('', childPath, 'directory-heading');
       link.append(el('span', 'directory-code', child.code), el('span', '', child.name), el('span', 'directory-arrow', '→'));
       heading.append(link); main.append(heading, el('p', 'directory-description', child.description));
-      main.append(el('span', 'directory-meta', `${nodeCounts.get(String(child.id))} 篇论文`));
+      main.append(directoryCounts(`${nodeCounts.get(String(child.id))} 篇论文`, child.id, 'directory-meta'));
       card.append(main);
       if (child.children) {
         const sublist = el('ul', 'directory-children');
         for (const next of child.children) {
           const item = el('li');
           const nextLink = scopeLink('', [...childPath, next]);
-          nextLink.append(el('span', '', next.name), el('span', 'directory-child-count', nodeCounts.get(String(next.id))));
+          nextLink.append(el('span', '', next.name), directoryCounts(nodeCounts.get(String(next.id)), next.id, 'directory-child-count'));
           item.append(nextLink); sublist.append(item);
         }
         card.append(sublist);
@@ -275,11 +291,19 @@ function renderActivity() {
 function createCard(paper, index) {
   const path = paperPath(paper, catalog.categories);
   const card = el('article', 'paper-card enter');
+  const isNewToday = today.paperIds.has(paper.id);
+  card.classList.toggle('is-new-today', isNewToday);
   card.dataset.id = paper.id;
   card.style.transitionDelay = `${Math.min(index % 2, 1) * 45}ms`;
   card.setAttribute('aria-labelledby', `title-${paper.id}`);
   const top = el('div', 'paper-topline');
-  const tag = el('span', 'paper-code', path.at(-1).code);
+  const tag = el('span', 'paper-reference');
+  tag.append(el('span', 'paper-code', path.at(-1).code));
+  if (isNewToday) {
+    const label = el('span', 'paper-new-label', '今日收录');
+    label.title = `今日加入本站（北京时间 ${today.date}）`;
+    tag.append(label);
+  }
   const date = el('time', 'paper-date', paper.date.replaceAll('-', '.')); date.dateTime = paper.date;
   date.title = paper.dateNote || `最早已核实公开时间：${paper.date}`;
   if (paper.updated !== paper.date) date.title += `；最近修订：${paper.updated}`;
@@ -374,6 +398,11 @@ function syncURL(push = false) {
 }
 
 function render({ push = false } = {}) {
+  const now = new Date();
+  if (today?.date !== beijingDate(now)) {
+    today = todayAdditions(catalog, { now });
+    renderCategories();
+  }
   Object.assign(state, normalizeScope(state, catalog.categories));
   filtered = filterPapers(catalog.papers, state, { saved, categories: catalog.categories });
   state.page = Math.min(state.page, Math.max(1, Math.ceil(filtered.length / PAGE_SIZE)));
@@ -398,6 +427,12 @@ function render({ push = false } = {}) {
 
 function reset() { Object.assign(state, readState('')); render(); }
 
+function refreshDay() {
+  if (today.date !== beijingDate()) render();
+  clearTimeout(dayTimer);
+  dayTimer = setTimeout(refreshDay, millisecondsUntilBeijingMidnight() + 50);
+}
+
 async function init() {
   const response = await fetch(new URL('./data/papers.json?v=5', import.meta.url), { cache: 'no-cache' });
   if (!response.ok) throw new Error(`索引读取失败 (${response.status})`);
@@ -412,7 +447,11 @@ async function init() {
   }
   if (![...$('period').options].some(o => o.value === state.period)) state.period = 'all';
   for (const node of scopePath(catalog.categories, state)) if (node.children) expanded.add(String(node.id));
-  renderCategories(); render();
+  render();
+  refreshDay();
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshDay(); });
+  window.addEventListener('focus', refreshDay);
+  window.addEventListener('pageshow', refreshDay);
   $('mobile-directory').addEventListener('click', () => setMobileDirectory($('mobile-directory').getAttribute('aria-expanded') !== 'true'));
   $('collapse-tree').addEventListener('click', () => { expanded.clear(); updateTree(); });
   let searchTimer;
