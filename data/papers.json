@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-12",
+  "updatedAt": "2026-10-14",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -1059,15 +1059,20 @@
         6
       ],
       "topic": "技术路线与生态",
-      "status": "preprint",
-      "venue": "预印本",
+      "status": "published",
+      "venue": "NeurIPS 2026 · Evaluations and Datasets Track",
       "summary": "构建 BeyondArena 与 Data Foundry，将时间切分、分组切分、大样本、高维、高基数和文本字段纳入评测。",
       "url": "https://arxiv.org/abs/2606.30410",
       "pdf": "https://arxiv.org/pdf/2606.30410",
       "code": null,
       "keywords": [],
       "section": "industry-benchmarks",
-      "topicId": "general-benchmarks"
+      "topicId": "general-benchmarks",
+      "sources": [
+        "https://arxiv.org/abs/2606.30410",
+        "https://neurips.cc/virtual/2026/poster/139490",
+        "https://openreview.net/forum?id=Mk0ohjszwO"
+      ]
     },
     {
       "id": "arxiv-2606.15314",
@@ -1236,7 +1241,7 @@
     {
       "id": "arxiv-2605.13986",
       "title": "TabPFN-3: Technical Report",
-      "date": "2026-05-13",
+      "date": "2026-05-12",
       "updated": "2026-05-28",
       "category": 1,
       "related": [
@@ -1262,6 +1267,10 @@
         "TabPFN-3",
         "TabPFN v3",
         "TabPFN3"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.13986",
+        "https://priorlabs.ai/technical-reports/tabpfn-3"
       ]
     },
     {
@@ -1276,15 +1285,20 @@
         6
       ],
       "topic": "语义表格评测与技术路线比较",
-      "status": "preprint",
-      "venue": "预印本",
+      "status": "published",
+      "venue": "NeurIPS 2026 · Evaluations and Datasets Track",
       "summary": "保留真实表格里的原始字符串与数字，比较端到端模型，以及“字符串编码→后处理→表格预测器”的模块化方案。",
       "url": "https://arxiv.org/abs/2605.12292",
       "pdf": "https://arxiv.org/pdf/2605.12292",
       "code": "https://github.com/soda-inria/strable",
       "keywords": [],
       "section": "industry-benchmarks",
-      "topicId": "semantic-relational-benchmarks"
+      "topicId": "semantic-relational-benchmarks",
+      "sources": [
+        "https://arxiv.org/abs/2605.12292",
+        "https://neurips.cc/virtual/2026/poster/139430",
+        "https://openreview.net/forum?id=RIVxz1UYR5"
+      ]
     },
     {
       "id": "arxiv-2604.21696",
@@ -1372,7 +1386,7 @@
     {
       "id": "arxiv-2511.08667",
       "title": "TabPFN-2.5: Advancing the State of the Art in Tabular Foundation Models",
-      "date": "2025-11-11",
+      "date": "2025-11-06",
       "updated": "2026-02-05",
       "category": 1,
       "section": "industry-models",
@@ -1399,7 +1413,9 @@
         "TabPFN v2.5"
       ],
       "sources": [
-        "https://arxiv.org/abs/2511.08667"
+        "https://arxiv.org/abs/2511.08667",
+        "https://priorlabs.ai/technical-reports/tabpfn-2-5-model-report",
+        "https://storage.googleapis.com/prior-labs-tabpfn-public/reports/TabPFN_2_5_tech_report.pdf?date=2025-11-06"
       ]
     },
     {
@@ -2842,8 +2858,8 @@
         5
       ],
       "topic": "语义与表格特征融合",
-      "status": "workshop",
-      "venue": "ICML 2026 FMSD Workshop",
+      "status": "published",
+      "venue": "NeurIPS 2026",
       "summary": "CASE 用表内有标签样本预填语言模型的 KV 缓存，使后续行嵌入带上任务与数据集语境；压缩后与原始表格特征一起交给 TabICL 等预测器。",
       "url": "https://arxiv.org/abs/2608.03565",
       "pdf": "https://arxiv.org/pdf/2608.03565",
@@ -2853,7 +2869,16 @@
       ],
       "dateNote": "日期按 2026 年 7 月 Workshop 版本",
       "section": "semantic-fusion",
-      "topicId": "semantic-embeddings"
+      "topicId": "semantic-embeddings",
+      "sources": [
+        "https://arxiv.org/abs/2608.03565",
+        "https://neurips.cc/virtual/2026/poster/149526",
+        "https://openreview.net/forum?id=pV2wVDrTqK"
+      ],
+      "aliases": [
+        "CASE",
+        "Context-Aware Semantic Embeddings"
+      ]
     },
     {
       "id": "arxiv-2607.24492",
@@ -2883,15 +2908,25 @@
         5
       ],
       "topic": "语义信息结构化与任务驱动特征生成",
-      "status": "workshop",
-      "venue": "ICML 2026 FMSD Workshop",
+      "status": "published",
+      "venue": "NeurIPS 2026",
       "summary": "让 LLM 根据数据语境、统计摘要和验证集反馈演化 fit/transform 特征程序；表格版本添加可解释特征并移除冗余列。",
       "url": "https://arxiv.org/abs/2607.01548",
       "pdf": "https://arxiv.org/pdf/2607.01548",
       "code": "https://github.com/egetaga/EFE",
       "keywords": [],
       "section": "semantic-features",
-      "topicId": "feature-search"
+      "topicId": "feature-search",
+      "sources": [
+        "https://arxiv.org/abs/2607.01548",
+        "https://neurips.cc/virtual/2026/poster/150446",
+        "https://openreview.net/forum?id=hz6wl9NrRG"
+      ],
+      "aliases": [
+        "EFE",
+        "EFE-Tab",
+        "EFE-Time"
+      ]
     },
     {
       "id": "arxiv-2606.30371",
@@ -3408,8 +3443,8 @@
         1
       ],
       "topic": "内存优化与注意力量化",
-      "status": "preprint",
-      "venue": "预印本",
+      "status": "published",
+      "venue": "NeurIPS 2026 · Evaluations and Datasets Track",
       "summary": "针对表格的二维行列注意力，比较不同算子后端、序列形状与 GPU 上的前向／反向吞吐，解释为何行注意力和列注意力需要不同实现选择。",
       "url": "https://arxiv.org/abs/2609.31306",
       "pdf": "https://arxiv.org/pdf/2609.31306",
@@ -3422,7 +3457,9 @@
         "Tabular Attention Benchmark"
       ],
       "sources": [
-        "https://arxiv.org/abs/2609.31306"
+        "https://arxiv.org/abs/2609.31306",
+        "https://neurips.cc/virtual/2026/poster/139839",
+        "https://openreview.net/forum?id=1MbSbrblLi"
       ]
     },
     {
@@ -4039,6 +4076,970 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2405.13396"
+      ]
+    },
+    {
+      "id": "arxiv-2610.14998",
+      "title": "Recurrent In-Context Learning for Tabular Foundation Models",
+      "date": "2026-10-10",
+      "updated": "2026-10-10",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "test-time-compute",
+      "related": [
+        1
+      ],
+      "topic": "推理时计算与组合策略",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "Tab-Loop 将 TabICLv2 的 12 个独立上下文学习块换成 4 个共享块循环执行。在相同预训练计算和 12 次块调用下，以少 62% 的参数取得接近的预测表现，评估覆盖 200 个 TALENT 数据集和 38 个 TabArena 分类数据集。继续增加循环可扩展计算深度，但参数减少不等于推理计算或延迟同比下降。",
+      "url": "https://arxiv.org/abs/2610.14998",
+      "pdf": "https://arxiv.org/pdf/2610.14998",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "ICL",
+        "循环推理",
+        "权重共享",
+        "TabArena",
+        "TALENT"
+      ],
+      "aliases": [
+        "Tab-Loop",
+        "Tab Loop"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.14998",
+        "https://arxiv.org/pdf/2610.14998"
+      ]
+    },
+    {
+      "id": "arxiv-2610.14989",
+      "title": "Characterizing the Separability Gap in Prior-Data Fitted Networks",
+      "date": "2026-10-10",
+      "updated": "2026-10-10",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "inference-mechanisms",
+      "related": [
+        2,
+        6
+      ],
+      "topic": "模型机制与行为分析",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "分析 PFN 先验中输入分布与标签机制相互依赖时，未标注样本为何会改变预测；并训练 SemiTabICL 显式利用未标注上下文。在 150 个 semi-TALENT 分类数据集和 23 个 UCI 任务上检验收益。使用时需区分独立未标注数据与测试查询，先验失配也可能使模型过度拟合输入分布。",
+      "url": "https://arxiv.org/abs/2610.14989",
+      "pdf": "https://arxiv.org/pdf/2610.14989",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "半监督学习",
+        "贝叶斯推断",
+        "未标注数据"
+      ],
+      "aliases": [
+        "SemiTabICL",
+        "separability gap"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.14989",
+        "https://arxiv.org/html/2610.14989"
+      ]
+    },
+    {
+      "id": "arxiv-2610.13764",
+      "title": "How Well Do Prior-Data Fitted Networks Amortize Bayesian Inference?",
+      "date": "2026-10-09",
+      "updated": "2026-10-09",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "inference-mechanisms",
+      "related": [
+        1,
+        2
+      ],
+      "topic": "模型机制与行为分析",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "将 PFN 的部署误差拆为先验、上下文和摊销近似三部分，解释独立训练的模型为何仍会产生分歧。通过可计算参考后验及 30 个 TabArena 分类数据集比较集成、采样和变分方法；深度集成较稳定地改善预测，其他近似并非都有额外收益。",
+      "url": "https://arxiv.org/abs/2610.13764",
+      "pdf": "https://arxiv.org/pdf/2610.13764",
+      "code": null,
+      "keywords": [
+        "PFN",
+        "贝叶斯推断",
+        "深度集成",
+        "TabArena"
+      ],
+      "aliases": [
+        "PFN amortization error"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.13764",
+        "https://arxiv.org/html/2610.13764"
+      ]
+    },
+    {
+      "id": "arxiv-2610.13644",
+      "title": "SelectArena: A Modern Benchmark for Feature Selection on Real-world Tabular Data",
+      "date": "2026-10-09",
+      "updated": "2026-10-09",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "related": [
+        4,
+        5
+      ],
+      "topic": "通用评测与分布泛化",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "在 TabArena 与 AutoGluon 的流程上扩展特征选择评测，整理 71 个真实分类／回归数据集，比较 15 种方法及现代预测模型。统一控制特征数和运行预算，同时检查精度、耗时与选择稳定性；简单统计及树重要性方法常有较好折中，结论取决于下游模型和资源预算。",
+      "url": "https://arxiv.org/abs/2610.13644",
+      "pdf": "https://arxiv.org/pdf/2610.13644",
+      "code": null,
+      "keywords": [
+        "TabArena",
+        "特征选择",
+        "评测协议",
+        "复现"
+      ],
+      "aliases": [
+        "SelectArena"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.13644",
+        "https://arxiv.org/pdf/2610.13644"
+      ]
+    },
+    {
+      "id": "arxiv-2610.12904",
+      "title": "GIST: Generator-state-Informed Supervision for Tabular Foundation Models",
+      "date": "2026-10-09",
+      "updated": "2026-10-09",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "related": [
+        2
+      ],
+      "topic": "通用评测与分布泛化",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "GIST 利用合成数据生成器的内部状态计算条件标签分布，减少单次采样标签带来的训练噪声。在保持模型结构和推理配置一致的配对实验中，对 TabICLv2、TabSwift 和 TabPFN-2.5 检查效果，覆盖 TabArena 的 38 个分类数据集及 TALENT。贡献在训练监督算法，不能直接作为已发布模型的推理插件。",
+      "url": "https://arxiv.org/abs/2610.12904",
+      "pdf": "https://arxiv.org/pdf/2610.12904",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "监督目标",
+        "梯度方差",
+        "TabArena",
+        "TALENT"
+      ],
+      "aliases": [
+        "GIST",
+        "Generator-state-Informed Supervision"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.12904",
+        "https://arxiv.org/html/2610.12904"
+      ]
+    },
+    {
+      "id": "arxiv-2610.12390",
+      "title": "Long Text to Predictive Features: LLM-Guided Blockwise Feature Engineering via Executable Program Search",
+      "date": "2026-10-08",
+      "updated": "2026-10-08",
+      "category": 4,
+      "section": "semantic-features",
+      "topicId": "feature-search",
+      "related": [
+        1,
+        2
+      ],
+      "topic": "任务反馈与特征搜索",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "LLM-BlockFE 离线把长文本转成可执行的特征程序，以 XGBoost 验证反馈筛选代码块，并通过回退与多条搜索路径改进特征。部署时只运行冻结程序，无需逐条调用 LLM。实验覆盖两组公开、两组私有数据及五个金融应用；线上结果来自作者的上线后监测，不能等同于随机对照验证。",
+      "url": "https://arxiv.org/abs/2610.12390",
+      "pdf": "https://arxiv.org/pdf/2610.12390",
+      "code": null,
+      "keywords": [
+        "语义结构化",
+        "特征工程",
+        "程序搜索",
+        "金融风控"
+      ],
+      "aliases": [
+        "LLM-BlockFE",
+        "BlockFE"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.12390",
+        "https://arxiv.org/html/2610.12390"
+      ]
+    },
+    {
+      "id": "arxiv-2610.10832",
+      "title": "MotherTree: Meta-learning on synthetic data improves decision tree training",
+      "date": "2026-10-07",
+      "updated": "2026-10-07",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5,
+        6
+      ],
+      "topic": "通用表格模型",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "MotherTree 用 Transformer 根据新表格一次生成可独立运行的硬决策树，并可进一步优化生成的树参数。它在合成任务上学习建树方式，无需参考树作为监督；在树大小匹配的两组基准上与传统、可微及蒸馏树比较，优势主要出现在小样本二分类。生成树与把教师模型蒸馏成树是不同路线。",
+      "url": "https://arxiv.org/abs/2610.10832",
+      "pdf": "https://arxiv.org/pdf/2610.10832",
+      "code": null,
+      "keywords": [
+        "决策树",
+        "元学习",
+        "模型生成",
+        "可解释预测"
+      ],
+      "aliases": [
+        "MotherTree",
+        "MotherTree-Tune"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.10832",
+        "https://arxiv.org/html/2610.10832"
+      ]
+    },
+    {
+      "id": "arxiv-2610.10068",
+      "title": "Efficient Provably Private Classification with a Tabular Foundation Model",
+      "date": "2026-10-07",
+      "updated": "2026-10-07",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        2,
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "PrivTab 将敏感训练行压缩为加入校准噪声的私有摘要，再据此预测，避免每个数据集重新进行私有优化。实验使用 33 个 TabArena 分类数据集，另以五个案例计入私有预处理成本。隐私分析以每人一行为前提；主基准的理想化标准化不能直接视为端到端隐私保证。",
+      "url": "https://arxiv.org/abs/2610.10068",
+      "pdf": "https://arxiv.org/pdf/2610.10068",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "差分隐私",
+        "上下文压缩",
+        "TabArena"
+      ],
+      "aliases": [
+        "PrivTab"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.10068",
+        "https://arxiv.org/html/2610.10068"
+      ]
+    },
+    {
+      "id": "arxiv-2610.09487",
+      "title": "Correspondences as Decisions: JevNexus for Decision-Centric Schema Matching",
+      "date": "2026-10-07",
+      "updated": "2026-10-07",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "schema-matching",
+      "related": [
+        1,
+        2
+      ],
+      "topic": "字段匹配与模式整合",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "JevNexus 先检索候选字段，再用 Jev 输出配对判断并融合字段／取值证据，只对有歧义的候选重排。六组基准共 561 个匹配案例中，与 Magneto 的 MRR 和首位命中率差异未达统计显著；在同一 RTX PRO 6000 主机、排除模型启动时间的比较中，平均延迟约低至其 1/7.75。",
+      "url": "https://arxiv.org/abs/2610.09487",
+      "pdf": "https://arxiv.org/pdf/2610.09487",
+      "code": "https://github.com/RazeenLI/JevNexus",
+      "keywords": [
+        "Jev",
+        "模式匹配",
+        "结构化决策",
+        "选择性重排"
+      ],
+      "aliases": [
+        "JevNexus",
+        "DeMa"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.09487",
+        "https://arxiv.org/html/2610.09487",
+        "https://github.com/RazeenLI/JevNexus"
+      ]
+    },
+    {
+      "id": "arxiv-2610.08078",
+      "title": "ProximalFM: Amortized Proximal Causal Inference under Hidden Confounding",
+      "date": "2026-10-06",
+      "updated": "2026-10-06",
+      "category": 3,
+      "section": "causal-estimation",
+      "topicId": "treatment-effects",
+      "related": [
+        2,
+        6
+      ],
+      "topic": "处理效应与干预分布",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "ProximalFM 在满足近端因果识别条件的合成机制上学习，用可观测代理变量处理隐混杂，一次前向输出条件平均处理效应及后验。在 12 组真实协变量构造的 288 个半合成实例上评估；分布偏移下区间会过度自信，超出训练上下文长度后收益趋缓，物理系统实验也未全面胜出。",
+      "url": "https://arxiv.org/abs/2610.08078",
+      "pdf": "https://arxiv.org/pdf/2610.08078",
+      "code": null,
+      "keywords": [
+        "因果基础模型",
+        "隐混杂",
+        "代理变量",
+        "CATE"
+      ],
+      "aliases": [
+        "ProximalFM",
+        "ProximalFM-FT"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.08078",
+        "https://arxiv.org/html/2610.08078"
+      ]
+    },
+    {
+      "id": "arxiv-2609.33114",
+      "title": "Can Tabular Foundation Models Amortize Statistical Inference?",
+      "date": "2026-09-27",
+      "updated": "2026-09-27",
+      "category": 6,
+      "section": "adaptation-target",
+      "topicId": "parameter-finetuning",
+      "related": [
+        2,
+        5
+      ],
+      "topic": "参数微调与训练策略",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "TabCon 冻结 TabPFN-3 主干及残差分布专家，通过监督初始化和强化学习后训练优化稀疏路由，直接生成条件均值的置信区间。实验包括合成机制及 13 个 OpenML 数据集构造的半合成任务，比较覆盖率、区间长度和计算成本；这里的均值置信区间不同于单个未来样本的预测区间。",
+      "url": "https://arxiv.org/abs/2609.33114",
+      "pdf": "https://arxiv.org/pdf/2609.33114",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "强化学习后训练",
+        "稀疏专家",
+        "置信区间"
+      ],
+      "aliases": [
+        "TabCon"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.33114",
+        "https://arxiv.org/html/2609.33114"
+      ]
+    },
+    {
+      "id": "arxiv-2609.16309",
+      "title": "Agentic Search Spaces for Tabular Machine Learning",
+      "date": "2026-09-14",
+      "updated": "2026-09-14",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "pipeline-search",
+      "related": [
+        1,
+        4
+      ],
+      "topic": "自动管线与策略搜索",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "让代码智能体为表格模型一次生成可复用的模块选项，再由传统超参数搜索按数据集选择组合；对 TabICLv2 主要扩展预处理与推理模块。研究在 45 个数据集及 TabArena 上评估迁移收益。需区分生成成本与调参预算，且 TabICLv2 的默认对照未调参，不能把所有比较都解读为等预算算法优势。",
+      "url": "https://arxiv.org/abs/2609.16309",
+      "pdf": "https://arxiv.org/pdf/2609.16309",
+      "code": null,
+      "keywords": [
+        "AutoML",
+        "代码生成",
+        "超参数优化",
+        "TabICL",
+        "TabArena"
+      ],
+      "aliases": [
+        "Agentic Search Spaces"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.16309",
+        "https://arxiv.org/html/2609.16309"
+      ]
+    },
+    {
+      "id": "arxiv-2608.27882",
+      "title": "SOMTab: Set-Order Mamba for Efficient Tabular In-Context Learning",
+      "date": "2026-08-28",
+      "updated": "2026-08-28",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "SOMTab 将无序表格映射为固定潜在槽位，用 Mamba 构造行列表示，同时保留最终按查询检索标签上下文的注意力。研究比较分类性能、显存与推理成本，并补充 TabArena 结果；其中榜单与自测使用不同 GPU，速度图只能作为参考，不能视为同硬件加速验证。",
+      "url": "https://arxiv.org/abs/2608.27882",
+      "pdf": "https://arxiv.org/pdf/2608.27882",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "Mamba",
+        "状态空间模型",
+        "TabArena"
+      ],
+      "aliases": [
+        "SOMTab",
+        "Set-Order Mamba",
+        "DCH-TailMix"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.27882",
+        "https://arxiv.org/html/2608.27882"
+      ]
+    },
+    {
+      "id": "arxiv-2608.20841",
+      "title": "Foundation Models for Partial Causal Identification",
+      "date": "2026-08-21",
+      "updated": "2026-08-21",
+      "category": 3,
+      "section": "causal-models",
+      "topicId": "causal-reliability",
+      "related": [
+        2
+      ],
+      "topic": "效应去偏与可靠性",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "当观测数据无法唯一确定因果效应时，研究用覆盖离散结构因果模型的规范先验训练 PFN，以后验支持范围表示可识别集合。理论给出特定条件下的渐近关系，实验主要是具有解析界的二变量二值系统；不能据此认定已解决高维真实数据的有限样本因果界估计。",
+      "url": "https://arxiv.org/abs/2608.20841",
+      "pdf": "https://arxiv.org/pdf/2608.20841",
+      "code": null,
+      "keywords": [
+        "因果基础模型",
+        "部分识别",
+        "反事实边界",
+        "隐混杂"
+      ],
+      "aliases": [
+        "Partial Causal Identification"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.20841",
+        "https://arxiv.org/html/2608.20841"
+      ]
+    },
+    {
+      "id": "arxiv-2608.18919",
+      "title": "Lost in Aggregation: How Benchmarks Overlook Irreplaceable Model Strengths",
+      "date": "2026-08-19",
+      "updated": "2026-08-19",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "related": [
+        2
+      ],
+      "topic": "通用评测与分布泛化",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "基于 TabArena 结果，区分模型在每个数据集上是否具有不可替代的最优表现，分析平均排名、胜率和 Elo 遗漏的信息。论文发现常用聚合指标更偏向稳定表现及避免失误，可能掩盖少数任务上的独特优势；该分析聚焦预测性能，不包含部署成本与集成收益。",
+      "url": "https://arxiv.org/abs/2608.18919",
+      "pdf": "https://arxiv.org/pdf/2608.18919",
+      "code": null,
+      "keywords": [
+        "TabArena",
+        "模型比较",
+        "榜单聚合",
+        "统计评测"
+      ],
+      "aliases": [
+        "Lost in Aggregation",
+        "peak performance frontier"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.18919",
+        "https://arxiv.org/html/2608.18919"
+      ]
+    },
+    {
+      "id": "arxiv-2608.18849",
+      "title": "GEAR: Generative Expansion and Real Anchoring for Two-Stage Distillation of Tabular Foundation Models",
+      "date": "2026-08-19",
+      "updated": "2026-08-25",
+      "category": 6,
+      "section": "adaptation-distillation",
+      "topicId": "distillation-recipes",
+      "related": [
+        1,
+        5
+      ],
+      "topic": "教师信号与学生比较",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "GEAR 先在合成特征上查询 TFM 软标签训练学生，再用真实标签与折外教师预测校正，避免训练行同时进入教师上下文造成标签泄漏。以 TabPFN、TabICL、TabDPT 为教师，在 TALENT 和 TabArena 上检验 MLP 与树学生。合成样本数量和生成质量存在折中，部署收益须结合教师 GPU 与学生 CPU 的计时条件判断。",
+      "url": "https://arxiv.org/abs/2608.18849",
+      "pdf": "https://arxiv.org/pdf/2608.18849",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "两阶段蒸馏",
+        "合成查询",
+        "TabArena",
+        "TALENT"
+      ],
+      "aliases": [
+        "GEAR",
+        "Generative Expansion and Real Anchoring"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.18849",
+        "https://arxiv.org/html/2608.18849"
+      ]
+    },
+    {
+      "id": "arxiv-2608.17957",
+      "title": "Understanding the Surprising Generalization Properties of Tabular Foundation Models",
+      "date": "2026-08-18",
+      "updated": "2026-08-18",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "inference-mechanisms",
+      "related": [
+        1,
+        4
+      ],
+      "topic": "模型机制与行为分析",
+      "status": "published",
+      "venue": "NeurIPS 2026",
+      "summary": "通过单表与多表训练、列清洗和受控消融，研究真实数据训练的 TFM 如何跨数据集泛化；列级任务多样性比简单整表去重更有解释力，并在 51 个 TabArena 任务上复核。学习到的检索机制得到实验支持，但未排除其他机制；结果主要来自行注意力模型，不能直接推广到所有合成先验模型。",
+      "url": "https://arxiv.org/abs/2608.17957",
+      "pdf": "https://arxiv.org/pdf/2608.17957",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "任务多样性",
+        "检索机制",
+        "TabArena"
+      ],
+      "aliases": [
+        "TFM Generalization Properties"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.17957",
+        "https://arxiv.org/html/2608.17957",
+        "https://neurips.cc/virtual/2026/poster/150354",
+        "https://openreview.net/forum?id=ikYK94iVvj"
+      ]
+    },
+    {
+      "id": "arxiv-2608.16319",
+      "title": "Advancing Open and Reproducible Relational Learning: RelArena-α, TabPFN-Rel and RPI",
+      "date": "2026-08-17",
+      "updated": "2026-09-07",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "relational-releases",
+      "related": [
+        4,
+        5
+      ],
+      "topic": "关系数据模型",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "RelArena-α 借鉴 TabArena，统一关系预测的数据时间截点、调参和评价；TabPFN-Rel 沿外键聚合成单表，再交给 TabPFN-3 预测，RPI 提供任务定义接口。初版覆盖 RelBench v1 的 21 个实体预测任务、单个随机种子；不同数据库快照或调参制度下的旧结果不能直接比较。",
+      "url": "https://arxiv.org/abs/2608.16319",
+      "pdf": "https://arxiv.org/pdf/2608.16319",
+      "code": "https://github.com/PriorLabs/relarena",
+      "keywords": [
+        "关系数据",
+        "TabPFN",
+        "TabArena",
+        "评测协议",
+        "特征聚合"
+      ],
+      "aliases": [
+        "RelArena",
+        "RelArena-alpha",
+        "RelArena-α",
+        "TabPFN-Rel",
+        "RPI"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.16319",
+        "https://arxiv.org/html/2608.16319",
+        "https://github.com/PriorLabs/relarena"
+      ]
+    },
+    {
+      "id": "arxiv-2607.26628",
+      "title": "Understanding Context Sampling in TabPFN on Small Tabular Datasets",
+      "date": "2026-07-29",
+      "updated": "2026-07-29",
+      "category": 5,
+      "section": "context-selection",
+      "topicId": "representative-context",
+      "related": [
+        2
+      ],
+      "topic": "代表性选择与上下文优化",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "在 15 个小型 OpenML 数据集上反复抽取 TabPFN-3 上下文，比较样本数、特征覆盖、多样性和选择成本。较大上下文使预测更稳定；只匹配特征均值可能损害多样性，K-Means 和最远点选择也未稳定胜过随机抽样。结果基于固定测试切分，不能直接外推到大表或所有分布偏移。",
+      "url": "https://arxiv.org/abs/2607.26628",
+      "pdf": "https://arxiv.org/pdf/2607.26628",
+      "code": "https://github.com/mohammed1916/tabmx",
+      "keywords": [
+        "TabPFN",
+        "上下文采样",
+        "原型选择",
+        "小样本"
+      ],
+      "aliases": [
+        "TabPFN context sampling"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2607.26628",
+        "https://arxiv.org/html/2607.26628",
+        "https://github.com/mohammed1916/tabmx"
+      ]
+    },
+    {
+      "id": "arxiv-2606.08679",
+      "title": "Rank Intervals for Leaderboards: A Hierarchical Framework for Model Evaluation",
+      "date": "2026-06-07",
+      "updated": "2026-06-07",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "related": [
+        2
+      ],
+      "topic": "通用评测与分布泛化",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用成对比较构造单任务排名置信区间，再以保形方法形成新任务上的排名预测区间，避免将单一榜单顺序当成确定结论。实验使用模拟数据、TabArena 的 44 个模型／51 个数据集及 PromptEval；采用的是基准论文归档结果，不是持续变化的实时榜单。",
+      "url": "https://arxiv.org/abs/2606.08679",
+      "pdf": "https://arxiv.org/pdf/2606.08679",
+      "code": null,
+      "keywords": [
+        "TabArena",
+        "排名区间",
+        "保形推断",
+        "评测不确定性"
+      ],
+      "aliases": [
+        "Rank Intervals for Leaderboards"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.08679",
+        "https://arxiv.org/html/2606.08679"
+      ]
+    },
+    {
+      "id": "arxiv-2606.03681",
+      "title": "Speedrunning Tabular Foundation Model Pretraining",
+      "date": "2026-06-02",
+      "updated": "2026-06-02",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "related": [
+        5
+      ],
+      "topic": "通用评测与分布泛化",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "建立基于 nanoTabPFN 的训练竞速协议，固定单张 L40S 和目标精度，研究优化器、实现及训练策略的加速。评测采用 TabArena 的 38 个分类任务，但下采样至最多 100 特征、1,000 行；记录仅统计训练时间，不含先验生成与评测，不能视为完整 TabArena 排名或大型模型训练成本。",
+      "url": "https://arxiv.org/abs/2606.03681",
+      "pdf": "https://arxiv.org/pdf/2606.03681",
+      "code": "https://github.com/borawhocodess/modded-nanotabpfn",
+      "keywords": [
+        "TabArena",
+        "训练效率",
+        "优化器",
+        "复现协议"
+      ],
+      "aliases": [
+        "modded-nanoTabPFN",
+        "nanoTabPFN speedrun"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.03681",
+        "https://arxiv.org/html/2606.03681",
+        "https://github.com/borawhocodess/modded-nanotabpfn"
+      ]
+    },
+    {
+      "id": "arxiv-2606.02384",
+      "title": "TabPrep: Closing the Feature Engineering Gap in Tabular Benchmarks",
+      "date": "2026-06-01",
+      "updated": "2026-06-01",
+      "category": 4,
+      "section": "semantic-features",
+      "topicId": "feature-search",
+      "related": [
+        1,
+        5
+      ],
+      "topic": "任务反馈与特征搜索",
+      "status": "published",
+      "venue": "NeurIPS 2026 · Evaluations and Datasets Track",
+      "summary": "TabPrep 将特征工程改为受预算约束的结构模式生成，显式补充数值交互、类别条件效应等现代模型仍可能漏掉的关系。通过合成诊断及 TabArena 比较线性、树、神经网络和 TFM，显示模型排名会受特征处理流程影响。重点是可复现的轻量特征基线，不依赖 LLM 逐次生成代码。",
+      "url": "https://arxiv.org/abs/2606.02384",
+      "pdf": "https://arxiv.org/pdf/2606.02384",
+      "code": "https://github.com/atschalz/tabprep",
+      "keywords": [
+        "TabArena",
+        "特征工程",
+        "类别编码",
+        "结构模式"
+      ],
+      "aliases": [
+        "TabPrep",
+        "CatPrep"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.02384",
+        "https://arxiv.org/html/2606.02384",
+        "https://github.com/atschalz/tabprep",
+        "https://neurips.cc/virtual/2026/poster/139065",
+        "https://openreview.net/forum?id=nMW7DYLGTo"
+      ]
+    },
+    {
+      "id": "arxiv-2605.30729",
+      "title": "SemStruct: Contextualizing Semantic Embeddings with Structural Information for Schema Matching",
+      "date": "2026-05-29",
+      "updated": "2026-05-29",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "schema-matching",
+      "related": [
+        1
+      ],
+      "topic": "字段匹配与模式整合",
+      "status": "published",
+      "venue": "KDD 2026",
+      "summary": "SemStruct 保持语言模型冻结，将列、行和单元格值构造成异质图，仅训练轻量 GNN 来补充同一行中的共现关系。通过 Valentine 与 SOTAB-SM 的字段匹配实验及消融，检查结构信息能否改善仅靠列描述的语义匹配；重点是列对应关系，不是直接预测业务标签。",
+      "url": "https://arxiv.org/abs/2605.30729",
+      "pdf": "https://arxiv.org/pdf/2605.30729",
+      "code": null,
+      "keywords": [
+        "模式匹配",
+        "语义嵌入",
+        "图神经网络",
+        "表格结构"
+      ],
+      "aliases": [
+        "SemStruct"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.30729",
+        "https://arxiv.org/html/2605.30729",
+        "https://research.ibm.com/publications/semstruct-contextualizing-semantic-embeddings-with-structural-information-for-schema-matching"
+      ]
+    },
+    {
+      "id": "arxiv-2605.28418",
+      "title": "Explaining Tabular Foundation Model Differences Through Meta-Features",
+      "date": "2026-05-27",
+      "updated": "2026-07-01",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "related": [
+        2,
+        5
+      ],
+      "topic": "通用评测与分布泛化",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "分析 51 个 TabArena 数据集的元特征是否能解释或预测树、神经网络和 TFM 的差异，并使用多重检验及留一数据集验证。整体未形成稳健的通用选模规则；相关性与预测能力不同，筛选出的稳健特征也未在每个验证折内重新选择，不能当作完整嵌套验证的路由器效果。",
+      "url": "https://arxiv.org/abs/2605.28418",
+      "pdf": "https://arxiv.org/pdf/2605.28418",
+      "code": null,
+      "keywords": [
+        "TabArena",
+        "元特征",
+        "模型选择",
+        "统计检验"
+      ],
+      "aliases": [
+        "Revisiting Metafeatures to Explain Model Differences on Tabular Data"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.28418",
+        "https://arxiv.org/html/2605.28418"
+      ]
+    },
+    {
+      "id": "arxiv-2605.11262",
+      "title": "Latent Chain-of-Thought Improves Structured-Data Transformers",
+      "date": "2026-05-11",
+      "updated": "2026-05-19",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "test-time-compute",
+      "related": [
+        1
+      ],
+      "topic": "推理时计算与组合策略",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "将隐藏表示压缩成反馈 token 并重复送回 Transformer，研究结构化数据上的潜在多步推理。实验覆盖 27 个表格与 9 个时序数据集，并扩展至 nanoTabPFN；TabArena 部分使用低维小数据子集，其结果不能直接外推到完整基准或更大规模 TabPFN。",
+      "url": "https://arxiv.org/abs/2605.11262",
+      "pdf": "https://arxiv.org/pdf/2605.11262",
+      "code": null,
+      "keywords": [
+        "潜在推理",
+        "TFM",
+        "反馈Token",
+        "TabArena"
+      ],
+      "aliases": [
+        "Latent CoT",
+        "nanoTabPFN-CoT"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.11262",
+        "https://arxiv.org/html/2605.11262"
+      ]
+    },
+    {
+      "id": "arxiv-2605.06290",
+      "title": "Data Language Models: A New Foundation Model Class for Tabular Data",
+      "date": "2026-05-07",
+      "updated": "2026-05-07",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        2,
+        4,
+        6
+      ],
+      "topic": "通用表格模型",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "Schema-1 融合列名语义、列统计、原始单元格与缺失结构，面向预测、填补和数据领域识别。报告描述冻结主干后的任务适配与连续微调；CC18 比较仅用 18 个数据集，外部基线复用旧论文结果，未重新运行，也未覆盖较新 TFM，因此不能据此判断其相对当前模型的整体优势。",
+      "url": "https://arxiv.org/abs/2605.06290",
+      "pdf": "https://arxiv.org/pdf/2605.06290",
+      "code": null,
+      "keywords": [
+        "TFM",
+        "列语义",
+        "缺失数据",
+        "多源表格"
+      ],
+      "aliases": [
+        "Schema-1",
+        "Schema1",
+        "Data Language Model",
+        "DLM"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.06290",
+        "https://arxiv.org/html/2605.06290"
+      ]
+    },
+    {
+      "id": "arxiv-2511.02802",
+      "title": "TabTune: A Unified Library for Inference and Fine-Tuning Tabular Foundation Models",
+      "date": "2025-11-04",
+      "updated": "2025-12-02",
+      "category": 6,
+      "section": "adaptation-target",
+      "topicId": "parameter-finetuning",
+      "related": [
+        1,
+        5
+      ],
+      "topic": "参数微调与训练策略",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "TabTune 为不同表格基础模型统一预处理、推理和微调接口，涵盖元学习式适配、监督微调及参数高效微调，并检查校准、公平性与计算开销。论文在 TALENT、OpenML-CC18、TabZilla 的可共同运行子集上比较策略；它是适配工具与评测框架，不代表所有模型支持相同训练方式。",
+      "url": "https://arxiv.org/abs/2511.02802",
+      "pdf": "https://arxiv.org/pdf/2511.02802",
+      "code": "https://github.com/Lexsi-Labs/TabTune",
+      "keywords": [
+        "TFM",
+        "微调",
+        "LoRA",
+        "适配评测"
+      ],
+      "aliases": [
+        "TabTune"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2511.02802",
+        "https://arxiv.org/html/2511.02802",
+        "https://github.com/Lexsi-Labs/TabTune"
+      ]
+    },
+    {
+      "id": "arxiv-2605.10616",
+      "title": "MulTaBench: Benchmarking Multimodal Tabular Learning with Text and Image",
+      "date": "2026-05-11",
+      "updated": "2026-09-27",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "semantic-relational-benchmarks",
+      "related": [
+        4,
+        6
+      ],
+      "topic": "语义表格评测与技术路线比较",
+      "status": "published",
+      "venue": "NeurIPS 2026 · Evaluations and Datasets Track",
+      "recognition": {
+        "label": "Spotlight",
+        "source": "https://arxiv.org/abs/2605.10616",
+        "verifiedAt": "2026-10-14"
+      },
+      "summary": "MulTaBench 收集 40 个文本／图像与表格联合预测任务，比较冻结嵌入和按目标微调的表示，并额外开放 40 个候选数据集。以编码器末三层 LoRA、五类表格模型及五个随机种子构造筛选协议，再用新模型和不同表示规模复核。数据集有意筛选出受益于表示微调的任务，适合研究多模态适配，排名带有筛选偏差。",
+      "url": "https://arxiv.org/abs/2605.10616",
+      "pdf": "https://arxiv.org/pdf/2605.10616",
+      "code": "https://github.com/alanarazi7/MulTaBench",
+      "keywords": [
+        "多模态表格",
+        "文本特征",
+        "图像特征",
+        "LoRA",
+        "目标感知表示"
+      ],
+      "aliases": [
+        "MulTaBench",
+        "Target-Aware Representations",
+        "TAR"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.10616",
+        "https://arxiv.org/html/2605.10616v2",
+        "https://github.com/alanarazi7/MulTaBench",
+        "https://neurips.cc/virtual/2026/poster/138893",
+        "https://openreview.net/forum?id=yOd4AxlEbb"
       ]
     }
   ]

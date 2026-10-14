@@ -64,12 +64,15 @@
     {"name": "LimiX-2M references", "url": "https://arxiv.org/html/2606.04485v2"},
     {"name": "LimiX official releases", "url": "https://github.com/limix-ldm-ai/LimiX"},
     {"name": "TabPFN official releases", "url": "https://github.com/PriorLabs/TabPFN"},
-    {"name": "Structured-data workshop", "url": "https://icml-structured-fm-workshop.github.io/accepted-papers/"}
+    {"name": "Structured-data workshop", "url": "https://icml-structured-fm-workshop.github.io/accepted-papers/"},
+    {"name": "Prior Labs research publications", "url": "https://priorlabs.ai/research"}
   ],
   "manualSources": [
     {"name": "TabArena official leaderboard and model papers", "url": "https://tabarena.ai/"},
     {"name": "Google Research releases", "url": "https://research.google/blog/"},
     {"name": "NVIDIA model cards", "url": "https://huggingface.co/nvidia"},
-    {"name": "PFN community index (discovery only)", "url": "https://github.com/Cloudy1225/Awesome-Prior-Data-Fitted-Networks"}
+    {"name": "PFN community index (discovery only)", "url": "https://github.com/Cloudy1225/Awesome-Prior-Data-Fitted-Networks"},
+    {"name": "Prior Labs technical reports and release dates", "url": "https://priorlabs.ai/technical-reports"},
+    {"name": "KDD 2026 accepted papers (manual verification; bulk abstract coverage pending)", "url": "https://kdd2026.kdd.org/papers/"}
   ]
 }

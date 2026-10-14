@@ -439,5 +439,536 @@
     "sourceUpdated": "2026-10-09",
     "decision": "excluded",
     "reason": "面向 PDE 求解；本次未确认与表格预测或结构化决策的直接方法联系。"
+  },
+  {
+    "id": "arxiv-2610.14998",
+    "title": "Recurrent In-Context Learning for Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2610.14998",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-10",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2610.14989",
+    "title": "Characterizing the Separability Gap in Prior-Data Fitted Networks",
+    "url": "https://arxiv.org/abs/2610.14989",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-10",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2610.13764",
+    "title": "How Well Do Prior-Data Fitted Networks Amortize Bayesian Inference?",
+    "url": "https://arxiv.org/abs/2610.13764",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-09",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2610.13644",
+    "title": "SelectArena: A Modern Benchmark for Feature Selection on Real-world Tabular Data",
+    "url": "https://arxiv.org/abs/2610.13644",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-09",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2610.12904",
+    "title": "GIST: Generator-state-Informed Supervision for Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2610.12904",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-09",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2610.12390",
+    "title": "Long Text to Predictive Features: LLM-Guided Blockwise Feature Engineering via Executable Program Search",
+    "url": "https://arxiv.org/abs/2610.12390",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-08",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2610.10832",
+    "title": "MotherTree: Meta-learning on synthetic data improves decision tree training",
+    "url": "https://arxiv.org/abs/2610.10832",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-07",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2610.10068",
+    "title": "Efficient Provably Private Classification with a Tabular Foundation Model",
+    "url": "https://arxiv.org/abs/2610.10068",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-07",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2610.09487",
+    "title": "Correspondences as Decisions: JevNexus for Decision-Centric Schema Matching",
+    "url": "https://arxiv.org/abs/2610.09487",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-07",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2610.08078",
+    "title": "ProximalFM: Amortized Proximal Causal Inference under Hidden Confounding",
+    "url": "https://arxiv.org/abs/2610.08078",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-06",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2609.33114",
+    "title": "Can Tabular Foundation Models Amortize Statistical Inference?",
+    "url": "https://arxiv.org/abs/2609.33114",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-09-27",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2609.16309",
+    "title": "Agentic Search Spaces for Tabular Machine Learning",
+    "url": "https://arxiv.org/abs/2609.16309",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-09-14",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2608.27882",
+    "title": "SOMTab: Set-Order Mamba for Efficient Tabular In-Context Learning",
+    "url": "https://arxiv.org/abs/2608.27882",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-08-28",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2608.20841",
+    "title": "Foundation Models for Partial Causal Identification",
+    "url": "https://arxiv.org/abs/2608.20841",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-08-21",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2608.18919",
+    "title": "Lost in Aggregation: How Benchmarks Overlook Irreplaceable Model Strengths",
+    "url": "https://arxiv.org/abs/2608.18919",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-08-19",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2608.18849",
+    "title": "GEAR: Generative Expansion and Real Anchoring for Two-Stage Distillation of Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2608.18849",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-08-25",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2608.17957",
+    "title": "Understanding the Surprising Generalization Properties of Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2608.17957",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-08-18",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。 核对今日 NeurIPS 官方程序与海报页的题名、作者、摘要和轨道，确认 Accept (poster)；合并会议与既有来源，保留最早公开日期及其精度。"
+  },
+  {
+    "id": "arxiv-2608.16319",
+    "title": "Advancing Open and Reproducible Relational Learning: RelArena-α, TabPFN-Rel and RPI",
+    "url": "https://arxiv.org/abs/2608.16319",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-09-07",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2607.26628",
+    "title": "Understanding Context Sampling in TabPFN on Small Tabular Datasets",
+    "url": "https://arxiv.org/abs/2607.26628",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-07-29",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2606.08679",
+    "title": "Rank Intervals for Leaderboards: A Hierarchical Framework for Model Evaluation",
+    "url": "https://arxiv.org/abs/2606.08679",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-06-07",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2606.03681",
+    "title": "Speedrunning Tabular Foundation Model Pretraining",
+    "url": "https://arxiv.org/abs/2606.03681",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-06-02",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2606.02384",
+    "title": "TabPrep: Closing the Feature Engineering Gap in Tabular Benchmarks",
+    "url": "https://arxiv.org/abs/2606.02384",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-06-01",
+    "decision": "included",
+    "reason": "核对 NeurIPS 官方海报页面及程序数据：Accept (poster)，属 Evaluations and Datasets Track；合并预印本与会议来源，保留原始首发日期。"
+  },
+  {
+    "id": "arxiv-2605.30729",
+    "title": "SemStruct: Contextualizing Semantic Embeddings with Structural Information for Schema Matching",
+    "url": "https://arxiv.org/abs/2605.30729",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-05-29",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2605.28418",
+    "title": "Explaining Tabular Foundation Model Differences Through Meta-Features",
+    "url": "https://arxiv.org/abs/2605.28418",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-07-01",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2605.11262",
+    "title": "Latent Chain-of-Thought Improves Structured-Data Transformers",
+    "url": "https://arxiv.org/abs/2605.11262",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-05-19",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2605.06290",
+    "title": "Data Language Models: A New Foundation Model Class for Tabular Data",
+    "url": "https://arxiv.org/abs/2605.06290",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-05-07",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2511.02802",
+    "title": "TabTune: A Unified Library for Inference and Fine-Tuning Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2511.02802",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2025-12-02",
+    "decision": "included",
+    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+  },
+  {
+    "id": "arxiv-2606.30410",
+    "title": "Beyond IID: How General Are Tabular Foundation Models, Really?",
+    "url": "https://arxiv.org/abs/2606.30410",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-06-29",
+    "decision": "existing",
+    "reason": "核对 NeurIPS 官方海报页面及程序数据：Accept (poster)，属 Evaluations and Datasets Track；合并预印本与会议来源，保留原始首发日期。"
+  },
+  {
+    "id": "arxiv-2605.12292",
+    "title": "STRABLE: Benchmarking Tabular Machine Learning with Strings",
+    "url": "https://arxiv.org/abs/2605.12292",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-05-12",
+    "decision": "existing",
+    "reason": "核对 NeurIPS 官方海报页面及程序数据：Accept (poster)，属 Evaluations and Datasets Track；合并预印本与会议来源，保留原始首发日期。"
+  },
+  {
+    "id": "arxiv-2605.13986",
+    "title": "TabPFN-3: Technical Report",
+    "url": "https://arxiv.org/abs/2605.13986",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-05-28",
+    "decision": "existing",
+    "reason": "官方完整技术报告与发布页确认同一工作已于 2026-05-12 公开，早于 arXiv 提交；更正最早公开日期，保留论文修订日期与原条目 ID。"
+  },
+  {
+    "id": "arxiv-2511.08667",
+    "title": "TabPFN-2.5: Advancing the State of the Art in Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2511.08667",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-02-05",
+    "decision": "existing",
+    "reason": "官方完整技术报告与发布页确认同一工作已于 2025-11-06 公开，早于 arXiv 提交；更正最早公开日期，保留论文修订日期与原条目 ID。"
+  },
+  {
+    "id": "arxiv-2605.10616",
+    "title": "MulTaBench: Benchmarking Multimodal Tabular Learning with Text and Image",
+    "url": "https://arxiv.org/abs/2605.10616",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-09-27",
+    "decision": "included",
+    "reason": "阅读原始摘要、筛选协议、鲁棒性实验及参考文献；确认 40 个基准任务和 40 个额外候选的区别。官方 NeurIPS 程序标记 Accept (spotlight)，保留评测与数据集轨道及筛选偏差。"
+  },
+  {
+    "id": "arxiv-2609.17895",
+    "title": "TabPFN-3.5: Technical Report",
+    "url": "https://arxiv.org/abs/2609.17895",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-09-22",
+    "decision": "existing",
+    "reason": "复核 TabPFN-3.5 官方技术报告及 arXiv 修订信息，已登记的 3.5/Fast/Plus/Thinking 属同一报告，不重复建立论文条目。"
+  },
+  {
+    "id": "arxiv-2610.10227",
+    "title": "From Prompts to Trees: Effective LLM-Guided Tree Generation for Few-Shot Tabular Classification",
+    "url": "https://arxiv.org/abs/2610.10227",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-07",
+    "decision": "deferred",
+    "reason": "已读原始摘要；待核对三阶段规则转树流程、少样本划分与 LLM 调用预算，避免把任务样本参与提示当成独立测试。"
+  },
+  {
+    "id": "arxiv-2610.08564",
+    "title": "Valid for Free: Homophily-Gated Conformal Prediction for Training-Free Node Classification with Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2610.08564",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-06",
+    "decision": "deferred",
+    "reason": "已读原始摘要；待核对图节点交换性、上下文与校准集隔离，以及边际覆盖与低同配性子群覆盖的区别。"
+  },
+  {
+    "id": "arxiv-2610.05825",
+    "title": "Usefulness of Quantile-Aware Diffusion Modeling for Highly Imbalanced Tabular Data",
+    "url": "https://arxiv.org/abs/2610.05825",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-05",
+    "decision": "deferred",
+    "reason": "已读原始摘要；待核对 Quantile-TabDDPM 的单信用卡数据集实验、合成数据泄漏控制和极不平衡基线。"
+  },
+  {
+    "id": "arxiv-2610.02347",
+    "title": "From Behavior to Provenance: Attributing Tabular Foundation Models to Synthetic Pretraining Data",
+    "url": "https://arxiv.org/abs/2610.02347",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-01",
+    "decision": "deferred",
+    "reason": "已读原始摘要；待核对反事实重训练、合成任务溯源和任务级归因的因果证据，不因涉及预训练而排除。"
+  },
+  {
+    "id": "arxiv-2609.36968",
+    "title": "TaskBridge: Bridging Unsupervised Tabular Anomaly Detection and In-Context Learning via Virtual Tasks",
+    "url": "https://arxiv.org/abs/2609.36968",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-09-29",
+    "decision": "deferred",
+    "reason": "已读原始摘要；待核对 TaskBridge 的虚拟任务构造、790 数据集来源与正常训练集设定，以及基线可运行交集。"
+  },
+  {
+    "id": "arxiv-2609.38414",
+    "title": "Synthesis Without Training: An Inference-Only Pipeline for Tabular, Temporal, and Relational Synthetic Data",
+    "url": "https://arxiv.org/abs/2609.38414",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-09-29",
+    "decision": "deferred",
+    "reason": "已读原始摘要；待核对 GENSCRIPT 的统计摘要、完整性约束、采样程序和真实数据隐私边界。"
+  },
+  {
+    "id": "arxiv-2609.36883",
+    "title": "Architecture Alignment With Sparse Priors in Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2609.36883",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-09-29",
+    "decision": "deferred",
+    "reason": "已读原始摘要；待核对架构与先验受控实验、无关特征注入和特征注意力干预，区别冻结模型比较与因果归因。"
+  },
+  {
+    "id": "arxiv-2609.34887",
+    "title": "Conformal Prediction and Conditional Coverage for Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2609.34887",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-09-28",
+    "decision": "deferred",
+    "reason": "已读原始摘要；待核对 C-USIM 的边际有效性假设、条件覆盖结论、离散分数处理及校准样本预算。"
+  },
+  {
+    "id": "arxiv-2609.32976",
+    "title": "Adaptive Ensemble Selection for Noisy Labels on Tabular Data",
+    "url": "https://arxiv.org/abs/2609.32976",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-09-26",
+    "decision": "deferred",
+    "reason": "已读原始摘要；待核对标签噪声检测的表格实验和元模型泛化划分；摘要显示平均与 Confident Learning 相近，不写成普遍优势。"
+  },
+  {
+    "id": "arxiv-2609.26290",
+    "title": "Learning to Fluctuate: Statistical Foundations for Causal Tabular Pretraining",
+    "url": "https://arxiv.org/abs/2609.26290",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-09-24",
+    "decision": "deferred",
+    "reason": "已读原始摘要及部分正文；待完成 FSP 的影响函数监督、效应偏移实验和覆盖率假设核验，再判定收录位置。"
+  },
+  {
+    "id": "arxiv-2609.18130",
+    "title": "Benchmarking Tabular Foundation Models as Surrogates in Expensive Evolutionary Optimization",
+    "url": "https://arxiv.org/abs/2609.18130",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-09-16",
+    "decision": "deferred",
+    "reason": "已读原始摘要；待核对 TabPFN 在代理辅助进化优化中的离线／在线预算、优化问题分组及失败条件。"
+  },
+  {
+    "id": "lead-53f7065633df",
+    "title": "TabArena 线索：TabDPT-1.3",
+    "url": "https://github.com/layer6ai-labs/TabDPT-inference/releases/tag/v1.3.0",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "",
+    "decision": "deferred",
+    "reason": "官方 TabArena 榜单提供该模型／算法入口；待从论文、技术报告或版本发布说明核实身份、首发、独立贡献和评测设置。榜单名不直接作为论文入库。"
+  },
+  {
+    "id": "lead-006279f5112b",
+    "title": "TabArena 线索：TabDPT-Turbo",
+    "url": "https://openreview.net/pdf?id=Y00pwFyrHR",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "",
+    "decision": "deferred",
+    "reason": "官方 TabArena 榜单提供该模型／算法入口；待从论文、技术报告或版本发布说明核实身份、首发、独立贡献和评测设置。榜单名不直接作为论文入库。"
+  },
+  {
+    "id": "lead-ab875b4dd5f5",
+    "title": "TabArena 线索：iLTM",
+    "url": "https://arxiv.org/abs/2511.15941",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "",
+    "decision": "deferred",
+    "reason": "官方 TabArena 榜单提供该模型／算法入口；待从论文、技术报告或版本发布说明核实身份、首发、独立贡献和评测设置。榜单名不直接作为论文入库。"
+  },
+  {
+    "id": "lead-5098ab60ddd6",
+    "title": "TabArena 线索：ChimeraBoost",
+    "url": "https://github.com/bbstats/chimeraboost",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "",
+    "decision": "deferred",
+    "reason": "官方 TabArena 榜单提供该模型／算法入口；待从论文、技术报告或版本发布说明核实身份、首发、独立贡献和评测设置。榜单名不直接作为论文入库。"
+  },
+  {
+    "id": "lead-b1c4b84fd37e",
+    "title": "TabArena 线索：CTBoost",
+    "url": "https://github.com/captnmarkus/ctboost",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "",
+    "decision": "deferred",
+    "reason": "官方 TabArena 榜单提供该模型／算法入口；待从论文、技术报告或版本发布说明核实身份、首发、独立贡献和评测设置。榜单名不直接作为论文入库。"
+  },
+  {
+    "id": "lead-5a5cc8230b8c",
+    "title": "TabArena 线索：LightPFN",
+    "url": "https://github.com/GioOtto/LightPFN",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "",
+    "decision": "deferred",
+    "reason": "官方 TabArena 榜单提供该模型／算法入口；待从论文、技术报告或版本发布说明核实身份、首发、独立贡献和评测设置。榜单名不直接作为论文入库。"
+  },
+  {
+    "id": "lead-6e3f7de3e397",
+    "title": "TabArena 线索：BetaTabPFN",
+    "url": "https://arxiv.org/abs/2502.02527",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "",
+    "decision": "deferred",
+    "reason": "官方 TabArena 榜单提供该模型／算法入口；待从论文、技术报告或版本发布说明核实身份、首发、独立贡献和评测设置。榜单名不直接作为论文入库。"
+  },
+  {
+    "id": "lead-20b33f76280e",
+    "title": "TabArena 线索：PrismBoost",
+    "url": "https://github.com/PrismBoost/PrismBoost",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "",
+    "decision": "deferred",
+    "reason": "官方 TabArena 榜单提供该模型／算法入口；待从论文、技术报告或版本发布说明核实身份、首发、独立贡献和评测设置。榜单名不直接作为论文入库。"
+  },
+  {
+    "id": "lead-c293a6c00f6a",
+    "title": "TabArena 线索：APLR",
+    "url": "https://github.com/ottenbreit-data-science/aplr",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "",
+    "decision": "deferred",
+    "reason": "官方 TabArena 榜单提供该模型／算法入口；待从论文、技术报告或版本发布说明核实身份、首发、独立贡献和评测设置。榜单名不直接作为论文入库。"
+  },
+  {
+    "id": "lead-7fac507bf105",
+    "title": "TabArena 线索：Nori-30M",
+    "url": "https://huggingface.co/Synthefy/Nori-30M",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "",
+    "decision": "deferred",
+    "reason": "官方 TabArena 榜单提供该模型／算法入口；待从论文、技术报告或版本发布说明核实身份、首发、独立贡献和评测设置。榜单名不直接作为论文入库。"
+  },
+  {
+    "id": "lead-791d78ba474d",
+    "title": "TabArena 线索：Nori",
+    "url": "https://github.com/Synthefy/synthefy-nori",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "",
+    "decision": "deferred",
+    "reason": "官方 TabArena 榜单提供该模型／算法入口；待从论文、技术报告或版本发布说明核实身份、首发、独立贡献和评测设置。榜单名不直接作为论文入库。"
+  },
+  {
+    "id": "lead-08144bc57dc2",
+    "title": "TabArena 线索：PerpetualBooster",
+    "url": "https://perpetual-ml.com/",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "",
+    "decision": "deferred",
+    "reason": "官方 TabArena 榜单提供该模型／算法入口；待从论文、技术报告或版本发布说明核实身份、首发、独立贡献和评测设置。榜单名不直接作为论文入库。"
+  },
+  {
+    "id": "arxiv-2608.03565",
+    "title": "Enhancing Tabular Learners with Context-Aware Semantic Embeddings",
+    "url": "https://arxiv.org/abs/2608.03565",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-09",
+    "decision": "existing",
+    "reason": "核对今日 NeurIPS 官方程序与海报页的题名、作者、摘要和轨道，确认 Accept (poster)；合并会议与既有来源，保留最早公开日期及其精度。"
+  },
+  {
+    "id": "arxiv-2607.01548",
+    "title": "Evolutionary Feature Engineering for Structured Data",
+    "url": "https://arxiv.org/abs/2607.01548",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-07-02",
+    "decision": "existing",
+    "reason": "核对今日 NeurIPS 官方程序与海报页的题名、作者、摘要和轨道，确认 Accept (poster)；合并会议与既有来源，保留最早公开日期及其精度。"
+  },
+  {
+    "id": "arxiv-2609.31306",
+    "title": "Benchmarking Attention for Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2609.31306",
+    "reviewedAt": "2026-10-14",
+    "sourceUpdated": "2026-10-09",
+    "decision": "existing",
+    "reason": "核对今日 NeurIPS 官方程序与海报页的题名、作者、摘要和轨道，确认 Accept (poster)；合并会议与既有来源，保留最早公开日期及其精度。"
   }
 ]

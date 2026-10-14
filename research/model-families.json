@@ -285,6 +285,97 @@
         "https://arxiv.org/abs/2602.03018",
         "https://github.com/psorus/Outformer.git"
       ]
+    },
+    {
+      "name": "Tab-Loop",
+      "paperIds": [
+        "arxiv-2610.14998"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.14998",
+        "https://arxiv.org/pdf/2610.14998"
+      ]
+    },
+    {
+      "name": "SemiTabICL",
+      "paperIds": [
+        "arxiv-2610.14989"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.14989",
+        "https://arxiv.org/html/2610.14989"
+      ]
+    },
+    {
+      "name": "MotherTree",
+      "paperIds": [
+        "arxiv-2610.10832"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.10832",
+        "https://arxiv.org/html/2610.10832"
+      ]
+    },
+    {
+      "name": "PrivTab",
+      "paperIds": [
+        "arxiv-2610.10068"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.10068",
+        "https://arxiv.org/html/2610.10068"
+      ]
+    },
+    {
+      "name": "ProximalFM",
+      "paperIds": [
+        "arxiv-2610.08078"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.08078",
+        "https://arxiv.org/html/2610.08078"
+      ]
+    },
+    {
+      "name": "TabCon",
+      "paperIds": [
+        "arxiv-2609.33114"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.33114",
+        "https://arxiv.org/html/2609.33114"
+      ]
+    },
+    {
+      "name": "SOMTab",
+      "paperIds": [
+        "arxiv-2608.27882"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.27882",
+        "https://arxiv.org/html/2608.27882"
+      ]
+    },
+    {
+      "name": "TabPFN-Rel",
+      "paperIds": [
+        "arxiv-2608.16319"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.16319",
+        "https://arxiv.org/html/2608.16319",
+        "https://github.com/PriorLabs/relarena"
+      ]
+    },
+    {
+      "name": "Schema-1",
+      "paperIds": [
+        "arxiv-2605.06290"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.06290",
+        "https://arxiv.org/html/2605.06290"
+      ]
     }
   ]
 }
