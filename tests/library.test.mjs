@@ -36,6 +36,17 @@ test('recent filter uses first publication, not revisions or a year-only date', 
   assert.deepEqual(result.map(p => p.id), ['recent']);
   assert.equal(sixMonthsAgo(new Date('2026-08-31T00:00:00Z')), '2026-02-28');
 });
+test('recent filter uses Beijing dates around UTC midnight', () => {
+  const now = new Date('2026-10-15T01:00:00+08:00');
+  const paper = { id: 'today', title: 'Today', date: '2026-10-15', updated: '2026-10-15' };
+  assert.deepEqual(filterPapers([paper], { ...readState(), period: '6m' }, { now }).map(p => p.id), ['today']);
+  assert.equal(sixMonthsAgo(now), '2026-04-15');
+});
+test('static assets share one cache version', async () => {
+  const sources = await Promise.all(['../index.html', '../app.js'].map(f => readFile(new URL(f, import.meta.url), 'utf8')));
+  const versions = new Set(sources.join('').match(/\?v=\d+/g));
+  assert.equal(versions.size, 1, `版本号不一致: ${[...versions]}`);
+});
 test('category, publication, code and saved filters intersect', () => {
   const saved = new Set(papers.map(p => p.id));
   const result = filterPapers(papers, { ...readState(), category: 4, status: 'published', codeOnly: true, savedOnly: true }, { ...options, saved });

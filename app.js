@@ -1,4 +1,4 @@
-import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo, recentCollectionUpdates, beijingDate, todayAdditions, millisecondsUntilBeijingMidnight } from './library.js?v=6';
+import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo, recentCollectionUpdates, beijingDate, todayAdditions, millisecondsUntilBeijingMidnight } from './library.js?v=9';
 
 const $ = id => document.getElementById(id);
 const STORE_KEY = 'structured-data-paper-library:saved:v1';
@@ -434,7 +434,7 @@ function refreshDay() {
 }
 
 async function init() {
-  const response = await fetch(new URL('./data/papers.json?v=5', import.meta.url), { cache: 'no-cache' });
+  const response = await fetch(new URL('./data/papers.json', import.meta.url), { cache: 'no-cache' });
   if (!response.ok) throw new Error(`索引读取失败 (${response.status})`);
   catalog = await response.json();
   if (!Array.isArray(catalog.papers) || !Array.isArray(catalog.categories)) throw new Error('索引格式无效');

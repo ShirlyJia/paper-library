@@ -20,6 +20,7 @@ export function dateKey(value) {
 }
 
 export function sixMonthsAgo(now = new Date()) {
+  now = new Date(beijingDate(now));
   const day = now.getUTCDate();
   const start = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 6, 1));
   const lastDay = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 1, 0)).getUTCDate();
@@ -113,7 +114,7 @@ export function searchText(paper, categories = []) {
 export function filterPapers(papers, state, { saved = new Set(), categories = [], now = new Date() } = {}) {
   const terms = normalize(state.query).split(' ').filter(Boolean);
   const cutoff = sixMonthsAgo(now);
-  const today = now.toISOString().slice(0, 10);
+  const today = beijingDate(now);
   const result = papers.filter(paper => {
     if (state.category && paper.category !== state.category) return false;
     if (state.section && paper.section !== state.section) return false;
