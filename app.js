@@ -1,11 +1,11 @@
-import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo, recentCollectionUpdates, beijingDate, todayAdditions, millisecondsUntilBeijingMidnight } from './library.js?v=9';
+import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo, recentCollectionUpdates, beijingDate, todayAdditions, millisecondsUntilBeijingMidnight, defaultSort, searchTerms, highlightParts } from './library.js?v=10';
 
 const $ = id => document.getElementById(id);
 const STORE_KEY = 'structured-data-paper-library:saved:v1';
 // Only used to migrate existing browser bookmarks; never displayed on the site.
 const LEGACY_STORE_KEY = 'shirly-paper-library:saved:v1';
 const state = readState(location.search);
-let catalog, filtered = [], toastTimer, today, dayTimer;
+let catalog, filtered = [], toastTimer, today, dayTimer, terms = [];
 let saved = readSaved();
 const expanded = new Set();
 const nodeCounts = new Map();
@@ -47,6 +47,11 @@ function bookmarkIcon() {
   const path = document.createElementNS(svg.namespaceURI, 'path');
   for (const [key, value] of Object.entries({ d: 'M6 3h12v18l-6-4-6 4V3Z', fill: 'none', stroke: 'currentColor', 'stroke-width': '1.6', 'stroke-linejoin': 'round' })) path.setAttribute(key, value);
   svg.append(path); return svg;
+}
+
+function highlighted(node, text) {
+  node.replaceChildren(...highlightParts(text, terms).map(part => part.hit ? el('mark', '', part.text) : part.text));
+  return node;
 }
 
 function externalLink(text, url, className) {
@@ -288,13 +293,12 @@ function renderActivity() {
   $('activity-board').hidden = false;
 }
 
-function createCard(paper, index) {
+function createCard(paper) {
   const path = paperPath(paper, catalog.categories);
-  const card = el('article', 'paper-card enter');
+  const card = el('article', 'paper-card');
   const isNewToday = today.paperIds.has(paper.id);
   card.classList.toggle('is-new-today', isNewToday);
   card.dataset.id = paper.id;
-  card.style.transitionDelay = `${Math.min(index % 2, 1) * 45}ms`;
   card.setAttribute('aria-labelledby', `title-${paper.id}`);
   const top = el('div', 'paper-topline');
   const tag = el('span', 'paper-reference');
@@ -317,7 +321,7 @@ function createCard(paper, index) {
     classification.append(scopeLink(node.name, path.slice(0, i + 1)));
   });
   const title = el('h3', 'paper-title'); title.id = `title-${paper.id}`;
-  title.append(externalLink(paper.title, paper.url));
+  title.append(highlighted(externalLink('', paper.url), paper.title));
   const publication = el('div', 'paper-publication');
   publication.setAttribute('aria-label', '发表与会议标记');
   const published = ['published', 'workshop'].includes(paper.status);
@@ -330,7 +334,7 @@ function createCard(paper, index) {
     recognition.setAttribute('aria-label', `${paper.recognition.label}：查看 ${paper.title} 的会议标记来源`);
     publication.append(recognition);
   }
-  const summary = el('p', 'paper-summary', paper.summary);
+  const summary = highlighted(el('p', 'paper-summary'), paper.summary);
   const bottom = el('div', 'paper-bottom');
   const collected = el('span', 'paper-collected', '本站收录 ');
   const addedAt = el('time', '', paper.addedAt.replaceAll('-', '.')); addedAt.dateTime = paper.addedAt;
@@ -353,12 +357,6 @@ function createCard(paper, index) {
   });
   return card;
 }
-
-const observer = new IntersectionObserver(entries => {
-  for (const entry of entries) if (entry.isIntersecting) {
-    entry.target.classList.add('visible'); observer.unobserve(entry.target);
-  }
-}, { rootMargin: '100px' });
 
 function renderPages(total) {
   const nav = $('pagination'); nav.replaceChildren();
@@ -404,6 +402,8 @@ function render({ push = false } = {}) {
     renderCategories();
   }
   Object.assign(state, normalizeScope(state, catalog.categories));
+  terms = searchTerms(state.query);
+  document.body.classList.toggle('is-searching', terms.length > 0);
   filtered = filterPapers(catalog.papers, state, { saved, categories: catalog.categories });
   state.page = Math.min(state.page, Math.max(1, Math.ceil(filtered.length / PAGE_SIZE)));
   renderScope();
@@ -412,11 +412,8 @@ function render({ push = false } = {}) {
   if ($('search').value !== state.query) $('search').value = state.query;
   updateSavedCount();
   const start = (state.page - 1) * PAGE_SIZE;
-  const list = $('papers'); observer.disconnect(); list.replaceChildren();
-  for (const [index, paper] of filtered.slice(start, start + PAGE_SIZE).entries()) {
-    const card = createCard(paper, index); list.append(card); observer.observe(card);
-  }
-  list.setAttribute('aria-busy', 'false');
+  $('papers').replaceChildren(...filtered.slice(start, start + PAGE_SIZE).map(createCard));
+  $('papers').setAttribute('aria-busy', 'false');
   $('result-count').replaceChildren(el('strong', '', String(filtered.length)), document.createTextNode(` 篇论文${filtered.length ? `  /  显示 ${start + 1}–${Math.min(start + PAGE_SIZE, filtered.length)}` : ''}`));
   $('empty-state').hidden = filtered.length > 0;
   $('empty-description').textContent = state.savedOnly ? '点击论文右上角的书签图标，将它加入收藏。' : '换一个关键词，或放宽筛选条件。';
@@ -458,7 +455,10 @@ async function init() {
   $('search').addEventListener('input', event => {
     const value = event.target.value;
     clearTimeout(searchTimer);
-    searchTimer = setTimeout(() => { state.query = value; state.page = 1; render(); }, 110);
+    searchTimer = setTimeout(() => {
+      if (state.sort === defaultSort(state.query)) state.sort = defaultSort(value);
+      Object.assign(state, { query: value, page: 1 }); render();
+    }, 110);
   });
   for (const [id, key] of [['period', 'period'], ['status', 'status'], ['sort', 'sort'], ['code-only', 'codeOnly']]) {
     $(id).addEventListener('change', event => { state[key] = id === 'code-only' ? event.target.checked : event.target.value; state.page = 1; render(); });

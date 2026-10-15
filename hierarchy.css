@@ -178,3 +178,8 @@ h1 { font-size: clamp(27px, 2.55vw, 37px); line-height: 1.4; overflow-wrap: anyw
   .directory-heading { gap: 7px; }
   .directory-cards[data-depth="1"] .directory-card { padding: 16px; }
 }
+
+mark { background: var(--pale); color: inherit; border-radius: 2px; padding: 0 1px; }
+.is-searching .intro-description, .is-searching .collection-counter, .is-searching .activity-board, .is-searching h1 > br, .is-searching h1 > span { display: none; }
+.is-searching .intro { padding-bottom: 12px; }
+.is-searching h1 { font-size: 24px; }

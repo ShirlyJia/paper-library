@@ -1,6 +1,6 @@
 export const PAGE_SIZE = 12;
 export const VALID_STATUS = new Set(['all', 'published', 'workshop', 'preprint', 'report']);
-export const VALID_SORT = new Set(['newest', 'oldest', 'updated', 'added', 'title']);
+export const VALID_SORT = new Set(['relevance', 'newest', 'oldest', 'updated', 'added', 'title']);
 
 export function beijingDate(now = new Date()) {
   return new Date(now.getTime() + 8 * 60 * 60 * 1000).toISOString().slice(0, 10);
@@ -13,6 +13,10 @@ export function isFullDate(value) {
 
 export function normalize(text = '') {
   return String(text).normalize('NFKC').toLocaleLowerCase().replace(/[–—−]/g, '-').replace(/\s+/g, ' ').trim();
+}
+
+export function defaultSort(query = '') {
+  return query.trim() ? 'relevance' : 'newest';
 }
 
 export function dateKey(value) {
@@ -31,15 +35,17 @@ export function sixMonthsAgo(now = new Date()) {
 export function readState(search = '') {
   const params = new URLSearchParams(search);
   const category = Number(params.get('category'));
+  const query = (params.get('q') || '').slice(0, 300);
+  const sort = VALID_SORT.has(params.get('sort')) ? params.get('sort') : defaultSort(query);
   const slug = key => /^[a-z0-9-]{1,80}$/.test(params.get(key) || '') ? params.get(key) : '';
   return {
-    query: (params.get('q') || '').slice(0, 300),
+    query,
     category: Number.isInteger(category) && category >= 1 && category <= 6 ? category : 0,
     section: slug('section'),
     topic: slug('topic'),
     period: /^(all|6m|\d{4})$/.test(params.get('period') || '') ? params.get('period') : 'all',
     status: VALID_STATUS.has(params.get('status')) ? params.get('status') : 'all',
-    sort: VALID_SORT.has(params.get('sort')) ? params.get('sort') : 'newest',
+    sort: sort === 'relevance' && !query.trim() ? 'newest' : sort,
     codeOnly: params.get('code') === '1',
     savedOnly: params.get('saved') === '1',
     page: Math.min(10000, Math.max(1, parseInt(params.get('page'), 10) || 1)),
@@ -54,7 +60,7 @@ export function stateSearch(state) {
   if (state.topic) params.set('topic', state.topic);
   if (state.period !== 'all') params.set('period', state.period);
   if (state.status !== 'all') params.set('status', state.status);
-  if (state.sort !== 'newest') params.set('sort', state.sort);
+  if (state.sort !== defaultSort(state.query)) params.set('sort', state.sort);
   if (state.codeOnly) params.set('code', '1');
   if (state.savedOnly) params.set('saved', '1');
   if (state.page > 1) params.set('page', state.page);
@@ -108,11 +114,53 @@ export function millisecondsUntilBeijingMidnight(now = new Date()) {
 
 export function searchText(paper, categories = []) {
   const names = [paper.category, ...(paper.related || [])].map(id => categories.find(c => c.id === id)?.name || '');
-  return normalize([paper.title, ...(paper.aliases || []), paper.summary, paper.topic, paper.venue, paper.recognition?.label, ...(paper.keywords || []), ...names, ...paperPath(paper, categories).map(n => n.name)].join(' '));
+  return normalize([paper.title, paper.date?.slice(0, 4), ...(paper.aliases || []), paper.summary, paper.topic, paper.venue, paper.recognition?.label, ...(paper.keywords || []), ...names, ...paperPath(paper, categories).map(n => n.name)].join(' '));
+}
+
+const compact = text => text.replace(/[\s\-._]/g, '');
+const searchCache = new WeakMap();
+
+// Single ASCII letters or digits ("TabPFN 2") match nearly every paper, so they only count as part of the phrase.
+export function searchTerms(query) {
+  const terms = normalize(query).split(' ').filter(Boolean);
+  const meaningful = terms.filter(term => !/^[a-z0-9]$/.test(term));
+  return meaningful.length ? meaningful : terms;
+}
+
+function searchFields(paper, categories) {
+  let papers = searchCache.get(categories);
+  if (!papers) searchCache.set(categories, papers = new WeakMap());
+  if (!papers.has(paper)) {
+    const fields = [normalize([paper.title, ...(paper.aliases || [])].join(' ')), normalize([...(paper.keywords || []), paper.topic].join(' ')), searchText(paper, categories)];
+    papers.set(paper, fields.map(text => [text, compact(text)]));
+  }
+  return papers.get(paper);
+}
+
+// Title/alias hits outrank keyword hits, which outrank summary or directory hits; spacing and hyphens in version names are ignored.
+export function relevance(paper, query, categories = []) {
+  const terms = searchTerms(query);
+  if (!terms.length) return 1;
+  const fields = searchFields(paper, categories);
+  const tier = term => {
+    const index = fields.findIndex(([text, packed]) => text.includes(term) || packed.includes(compact(term)));
+    return index < 0 ? 0 : 3 - index;
+  };
+  const tiers = terms.map(tier);
+  const phrase = terms.length > 1 || terms[0] !== normalize(query) ? tier(normalize(query)) : 0;
+  if (tiers.includes(0) && !phrase) return 0;
+  return (tiers.includes(0) ? 0 : tiers.reduce((a, b) => a + b, 0)) + phrase * terms.length;
+}
+
+export function highlightParts(text, terms) {
+  const needles = [...terms].sort((a, b) => b.length - a.length).map(term => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  if (!needles.length) return [{ text, hit: false }];
+  return String(text).split(new RegExp(`(${needles.join('|')})`, 'giu')).map((part, i) => ({ text: part, hit: i % 2 === 1 })).filter(part => part.text);
 }
 
 export function filterPapers(papers, state, { saved = new Set(), categories = [], now = new Date() } = {}) {
-  const terms = normalize(state.query).split(' ').filter(Boolean);
+  const searching = searchTerms(state.query).length > 0;
+  const scores = new Map();
   const cutoff = sixMonthsAgo(now);
   const today = beijingDate(now);
   const result = papers.filter(paper => {
@@ -124,11 +172,16 @@ export function filterPapers(papers, state, { saved = new Set(), categories = []
     if (state.savedOnly && !saved.has(paper.id)) return false;
     if (state.period === '6m' && !(paper.date.length >= 7 && paper.date >= cutoff && paper.date <= today)) return false;
     if (/^\d{4}$/.test(state.period) && !paper.date.startsWith(state.period)) return false;
-    if (terms.length && !terms.every(term => searchText(paper, categories).includes(term))) return false;
+    if (searching) {
+      const score = relevance(paper, state.query, categories);
+      if (!score) return false;
+      scores.set(paper, score);
+    }
     return true;
   });
   return result.sort((a, b) => {
     if (state.sort === 'title') return a.title.localeCompare(b.title, 'en');
+    if (state.sort === 'relevance' && searching && scores.get(b) !== scores.get(a)) return scores.get(b) - scores.get(a);
     const key = state.sort === 'updated' ? 'updated' : state.sort === 'added' ? 'addedAt' : 'date';
     const difference = dateKey(b[key]).localeCompare(dateKey(a[key]));
     return (state.sort === 'oldest' ? -difference : difference) || a.title.localeCompare(b.title, 'en');

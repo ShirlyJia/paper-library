@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { filterPapers, readState, stateSearch, sixMonthsAgo, safeURL, toCSV, scopePath, paperPath, normalizeScope, belongsTo } from '../library.js';
+import { filterPapers, readState, stateSearch, sixMonthsAgo, highlightParts, searchTerms, safeURL, toCSV, scopePath, paperPath, normalizeScope, belongsTo } from '../library.js';
 const catalogue = JSON.parse(await readFile(new URL('../data/papers.json', import.meta.url), 'utf8'));
 const { papers, categories } = catalogue;
 const options = { categories, now: new Date('2026-10-12T12:00:00Z') };
@@ -46,6 +46,31 @@ test('static assets share one cache version', async () => {
   const sources = await Promise.all(['../index.html', '../app.js'].map(f => readFile(new URL(f, import.meta.url), 'utf8')));
   const versions = new Set(sources.join('').match(/\?v=\d+/g));
   assert.equal(versions.size, 1, `版本号不一致: ${[...versions]}`);
+});
+test('search ranks title hits first and ignores version spelling', () => {
+  const fixtures = [
+    { id: 'mention', title: 'Newer study', summary: 'Compares against TabPFN v2.', date: '2026-09-01', updated: '2026-09-01' },
+    { id: 'title', title: 'TabPFN v2 report', summary: 'Model report.', date: '2025-01-01', updated: '2025-01-01' },
+    { id: 'other', title: 'TabICL', summary: 'Unrelated model with v2 weights.', date: '2026-10-01', updated: '2026-10-01' },
+  ];
+  const ids = q => filterPapers(fixtures, readState(`?q=${encodeURIComponent(q)}`)).map(p => p.id);
+  assert.deepEqual(ids('TabPFN'), ['title', 'mention']);
+  for (const q of ['tabpfn v2', 'TabPFNv2', 'TabPFN-v2']) assert.deepEqual(ids(q), ['title', 'mention'], q);
+  assert.deepEqual(searchTerms('TabPFN 2'), ['tabpfn']);
+  assert.deepEqual(ids('2025'), ['title']);
+  assert.deepEqual(filterPapers(fixtures, readState('?q=TabPFN&sort=newest')).map(p => p.id), ['mention', 'title']);
+});
+test('relevance is the default sort only while searching', () => {
+  assert.equal(readState('?q=TabPFN').sort, 'relevance');
+  assert.equal(readState('?sort=relevance').sort, 'newest');
+  assert.equal(stateSearch(readState('?q=TabPFN')), 'q=TabPFN');
+  assert.equal(stateSearch(readState('?q=TabPFN&sort=newest')), 'q=TabPFN&sort=newest');
+});
+test('highlight marks every term case-insensitively, longest first', () => {
+  assert.deepEqual(highlightParts('TabPFN and tabpfn-2.5 (TabPFN)', ['tabpfn', 'tabpfn-2.5']),
+    [{ text: 'TabPFN', hit: true }, { text: ' and ', hit: false }, { text: 'tabpfn-2.5', hit: true }, { text: ' (', hit: false }, { text: 'TabPFN', hit: true }, { text: ')', hit: false }]);
+  assert.deepEqual(highlightParts('a.b', ['.']), [{ text: 'a', hit: false }, { text: '.', hit: true }, { text: 'b', hit: false }]);
+  assert.deepEqual(highlightParts('plain', []), [{ text: 'plain', hit: false }]);
 });
 test('category, publication, code and saved filters intersect', () => {
   const saved = new Set(papers.map(p => p.id));
