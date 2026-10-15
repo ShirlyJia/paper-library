@@ -1,0 +1,184 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-15",
+  "description": "暂缓公开的原始条目；保留稳定 ID、原收录日期和完整历史，补足证据后可恢复。",
+  "papers": [
+    {
+      "paper": {
+        "id": "paper-83f7d5c950",
+        "title": "Tabular Foundation Models: A Systematic Survey",
+        "date": "2026-09-30",
+        "updated": "2026-09-30",
+        "category": 1,
+        "related": [
+          4,
+          5,
+          6
+        ],
+        "topic": "技术路线与生态",
+        "status": "preprint",
+        "venue": "预印本",
+        "summary": "系统整理表格基础模型及其扩展，区分利用上下文、目标数据适配等技术路线。",
+        "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7531718",
+        "pdf": null,
+        "code": null,
+        "keywords": [],
+        "dateNote": "SSRN 公开日期 2026-09-30",
+        "section": "industry-benchmarks",
+        "topicId": "tabular-surveys",
+        "addedAt": "2026-10-12"
+      },
+      "withheldAt": "2026-10-15",
+      "reason": "当前仅取得公开元数据与摘要，未完成正文质量核验；保留原记录等待材料恢复。",
+      "restoreWhen": "取得作者或出版方可访问的正文，并核对检索范围、纳排流程与关键比较依据。",
+      "collectionHistory": [
+        {
+          "date": "2026-10-12",
+          "kind": "added"
+        }
+      ],
+      "qualityReview": {
+        "reviewedAt": "2026-10-15",
+        "reviewStatus": "pending-fulltext",
+        "claim": "该综述的覆盖和比较质量已获得正文复核。",
+        "contribution": "摘要提出覆盖表格基础模型与扩展工作的系统综述。",
+        "evidence": "SSRN 公开元数据和摘要可核对，但未取得相关正文，未完成对检索、纳排与证据编码流程的复核。",
+        "limitations": "仅凭摘要不足以验证系统综述的覆盖与判断质量；无法访问不等于论文质量低。",
+        "value": "可作为待补充的综述线索，取得正文后再审核。",
+        "conclusion": "有迹象但证据不足",
+        "reproducibility": "全文材料待补充；未核验正文、代码或复现结果。",
+        "sources": [
+          "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7531718"
+        ],
+        "readScope": "仅 SSRN 元数据及摘要；正文获取失败，作者机构／arXiv／官方代码仓库检索未发现可用副本。",
+        "auditReport": "research/QUALITY_AUDIT_2026-10-15.md",
+        "restoreWhen": "取得作者或出版方可访问的正文，并核对检索范围、纳排流程与关键比较依据。"
+      }
+    },
+    {
+      "paper": {
+        "id": "arxiv-2608.12989",
+        "title": "Balanced Adaptive Prototype Selection for Scalable TabPFN Inference on Large-Scale Tabular Data",
+        "date": "2026-08-13",
+        "updated": "2026-08-13",
+        "category": 5,
+        "related": [
+          2
+        ],
+        "topic": "上下文样本优化",
+        "status": "preprint",
+        "venue": "预印本",
+        "summary": "BAPS 选取紧凑原型，同时考虑分布代表性、分类边界、局部密度、类别平衡和特征多样性。",
+        "url": "https://arxiv.org/abs/2608.12989",
+        "pdf": "https://arxiv.org/pdf/2608.12989",
+        "code": null,
+        "keywords": [
+          "TabPFN"
+        ],
+        "section": "context-selection",
+        "topicId": "representative-context",
+        "addedAt": "2026-10-12"
+      },
+      "withheldAt": "2026-10-15",
+      "reason": "原文实验数据集数量及清单前后不一致，模型版本与完整协议信息不足；保留原条目与收录历史，待作者补充后复核。",
+      "restoreWhen": "补充一致的数据集清单、具体 TabPFN 版本、划分与调参协议，并按相同上下文／集成预算给出完整结果。",
+      "collectionHistory": [
+        {
+          "date": "2026-10-12",
+          "kind": "added"
+        }
+      ],
+      "qualityReview": {
+        "reviewedAt": "2026-10-15",
+        "reviewStatus": "completed",
+        "claim": "现有正文足以复核 BAPS 在所称完整数据集集合上的优势。",
+        "contribution": "BAPS 按类别平衡、代表性、边界和密度构造紧凑原型上下文。",
+        "evidence": "正文主要呈现 HIGGS、SUSY 的 512 原型与多上下文结果，声称重复五次。",
+        "limitations": "实验节先称五个数据集，随后列出另一组六个；模型版本与完整比较协议不足，且多上下文结果不能直接归因单上下文选择。",
+        "value": "原型选样方向相关，但当前材料不足以稳定判断复现范围和增益，暂缓公开展示并等待更完整版本。",
+        "conclusion": "有迹象但证据不足",
+        "reproducibility": "本次核对公开原文中的相关方法和评测材料；结果归属于作者，未运行模型或独立复现实验。",
+        "sources": [
+          "https://arxiv.org/html/2608.12989"
+        ],
+        "readScope": "相关方法／模型设计、实验设置与结果、讨论或局限部分；理论工作核对定理假设和结论范围，未逐行验算全部证明。",
+        "auditReport": "research/QUALITY_AUDIT_2026-10-15.md",
+        "sourceSnapshot": {
+          "url": "https://arxiv.org/html/2608.12989",
+          "retrievedAt": "2026-10-15T03:05:38.429842+00:00",
+          "textSha256": "3970172037de7e3afc924b6785ba8927882327a4ffe1fc5f8bd76f224253fc21"
+        },
+        "restoreWhen": "补充一致的数据集清单、具体 TabPFN 版本、划分与调参协议，并按相同上下文／集成预算给出完整结果。"
+      }
+    },
+    {
+      "paper": {
+        "id": "arxiv-2605.24417",
+        "title": "Do You Even Need More Data? Rethinking LLM Deployment for Label-Scarce Tabular Classification with TabLens",
+        "date": "2026-05-23",
+        "updated": "2026-10-13",
+        "category": 4,
+        "section": "semantic-fusion",
+        "topicId": "text-tabular-models",
+        "related": [
+          1,
+          2,
+          5
+        ],
+        "topic": "文本与表格联合建模",
+        "status": "preprint",
+        "venue": "预印本",
+        "summary": "TabLens 在 99 个二分类数据集上分离考察示例数、列名、任务描述、专家规则和文本模态，核心表格切分参照 TabArena。部分低复杂度、文本丰富任务中，完整语义上下文可替代少量标注示例；专家规则需要匹配任务背景。该结论不适用于所有数据复杂度，也尚未覆盖回归和一般多分类任务。",
+        "url": "https://arxiv.org/abs/2605.24417",
+        "pdf": "https://arxiv.org/pdf/2605.24417",
+        "code": null,
+        "keywords": [
+          "LLM",
+          "小样本分类",
+          "TabArena",
+          "语义上下文",
+          "标签稀缺"
+        ],
+        "aliases": [
+          "TabLens"
+        ],
+        "sources": [
+          "https://arxiv.org/abs/2605.24417",
+          "https://arxiv.org/html/2605.24417"
+        ],
+        "addedAt": "2026-10-15"
+      },
+      "withheldAt": "2026-10-15",
+      "reason": "核心零样本胜过随机的显著性检验使用按评估结果翻转的 AUC，未校正翻转后的零分布；先暂缓公开，待固定预测方向并重新检验。",
+      "restoreWhen": "提供不依赖测试标签确定预测方向的原始 AUC，或为翻转后的统计量构造有效零分布并重新报告检验及比较。",
+      "collectionHistory": [
+        {
+          "date": "2026-10-15",
+          "kind": "added"
+        }
+      ],
+      "qualityReview": {
+        "reviewedAt": "2026-10-15",
+        "reviewStatus": "completed",
+        "claim": "当前 AUC 翻转与显著性检验足以证明零样本性能高于随机。",
+        "contribution": "TabLens 分离少样本示例、列语义、专家规则与文本模态对 LLM 表格分类的影响。",
+        "evidence": "九十九个二分类任务；正文将低于 0.5 的 AUC 翻为 1−AUC，再检验数据集均值是否高于 0.5。",
+        "limitations": "按评估 AUC 选择方向使零假设统计分布改变；现有显著性检验未体现这一处理，不能据此确证零样本优于随机。",
+        "value": "语义上下文的拆分具有研究价值，但核心胜过随机的证据需先修正。",
+        "conclusion": "现有证据不支持",
+        "reproducibility": "本次核对公开原文中的相关方法和评测材料；结果归属于作者，未运行模型或独立复现实验。",
+        "sources": [
+          "https://arxiv.org/html/2605.24417"
+        ],
+        "readScope": "正文第 3 节 Models and baselines、Scoring、Testing zero-shot performance against random guessing；第 7 节结论及附录 B 评测协议。",
+        "auditReport": "research/QUALITY_AUDIT_2026-10-15.md",
+        "sourceSnapshot": {
+          "url": "https://arxiv.org/html/2605.24417",
+          "retrievedAt": "2026-10-15T03:07:25.560476+00:00",
+          "textSha256": "fdb68b3fd480520007c773f44a17b45e4d1c96c5d5530811e5f6347e638631ad"
+        },
+        "restoreWhen": "提供不依赖测试标签确定预测方向的原始 AUC，或为翻转后的统计量构造有效零分布并重新报告检验及比较。"
+      }
+    }
+  ]
+}

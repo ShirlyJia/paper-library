@@ -11,12 +11,14 @@ export function paperContent(paper) {
   return JSON.stringify(values);
 }
 
-export function recordUpdates(catalog, previous, date = beijingDate()) {
+export function recordUpdates(catalog, previous, date = beijingDate(), withheld = []) {
   if (!isFullDate(date)) throw new Error('收录日期必须为有效的 YYYY-MM-DD。');
   const old = new Map(previous.papers.map(p => [p.id, p]));
+  const archived = new Map(withheld.map(entry => [entry.paper.id, entry]));
   const added = [], updated = [];
   for (const paper of catalog.papers) {
-    const prior = old.get(paper.id);
+    const restored = !old.has(paper.id) ? archived.get(paper.id) : null;
+    const prior = old.get(paper.id) || restored?.paper;
     if (!prior) {
       paper.addedAt = date;
       added.push(paper.id);
@@ -25,7 +27,18 @@ export function recordUpdates(catalog, previous, date = beijingDate()) {
       paper.addedAt = prior.addedAt || paper.addedAt;
       if (!isFullDate(paper.addedAt)) throw new Error(`${paper.id} 缺少已核实的历史收录日期。`);
       if (date < paper.addedAt) throw new Error(`${paper.id} 的更新日期不能早于收录日期。`);
-      if (paperContent(paper) !== paperContent(prior)) updated.push(paper.id);
+      if (restored) {
+        catalog.collectionUpdates ||= [];
+        const history = [{ date: prior.addedAt, kind: 'added' }, ...(restored.collectionHistory || [])];
+        for (const event of history) {
+          if (!isFullDate(event.date) || event.date > date || !['added', 'updated'].includes(event.kind)) throw new Error(`${paper.id} 的归档更新记录无效。`);
+          let day = catalog.collectionUpdates.find(item => item.date === event.date);
+          if (!day) { day = { date: event.date, added: [], updated: [] }; catalog.collectionUpdates.push(day); }
+          day[event.kind] = [...new Set([...day[event.kind], paper.id])].sort();
+          day.updated = day.updated.filter(id => !day.added.includes(id));
+        }
+      }
+      if (restored || paperContent(paper) !== paperContent(prior)) updated.push(paper.id);
     }
   }
   if (!added.length && !updated.length) return { added, updated };
@@ -51,7 +64,10 @@ async function main() {
   const before = await readFile(path, 'utf8');
   const catalog = JSON.parse(before);
   const previous = JSON.parse(execFileSync('git', ['show', `${base}:data/papers.json`], { cwd: root, encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 }));
-  const result = recordUpdates(catalog, previous, date);
+  let withheld = [];
+  try { withheld = JSON.parse(await readFile(new URL('../research/withheld-papers.json', import.meta.url), 'utf8')).papers; }
+  catch (error) { if (error.code !== 'ENOENT') throw error; }
+  const result = recordUpdates(catalog, previous, date, withheld);
   const after = JSON.stringify(catalog, null, 2) + '\n';
   if (after !== before) await writeFile(path, after);
   console.log(`本站收录记录：新增 ${result.added.length} 篇，资料更新 ${result.updated.length} 篇；日期 ${date}。`);

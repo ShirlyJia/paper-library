@@ -45,6 +45,29 @@ test('verification stamps and source ordering alone do not create content update
   assert.throws(() => recordUpdates(current, previous, '2026-10-14'), /不能随资料更新改写/);
 });
 
+test('restoring an audited paper preserves its inclusion date and history without a new badge', () => {
+  const previous = catalog(), current = structuredClone(previous);
+  const restored = { ...paper('restored'), summary: '补足材料后的说明' };
+  const archive = [{ paper: paper('restored'), collectionHistory: [
+    { date: '2026-10-12', kind: 'added' },
+    { date: '2026-10-13', kind: 'updated' },
+  ] }];
+  current.papers.push(restored);
+  assert.deepEqual(recordUpdates(current, previous, '2026-10-15', archive), { added: [], updated: ['restored'] });
+  assert.equal(restored.addedAt, '2026-10-12');
+  assert.deepEqual(current.collectionUpdates, [
+    { date: '2026-10-12', added: ['old', 'restored'], updated: [] },
+    { date: '2026-10-13', added: [], updated: ['restored'] },
+    { date: '2026-10-15', added: [], updated: ['restored'] },
+  ]);
+  assert.equal(todayAdditions(current, { now: new Date('2026-10-15T04:00:00Z') }).paperIds.size, 0);
+  const firstRun = structuredClone(current);
+  recordUpdates(current, previous, '2026-10-15', archive);
+  assert.deepEqual(current, firstRun);
+  current.papers[1].addedAt = '2026-10-15';
+  assert.throws(() => recordUpdates(current, previous, '2026-10-15', archive), /历史收录日期/);
+});
+
 test('activity uses Beijing dates, includes the 30-day boundary and excludes future events', () => {
   const now = new Date('2026-10-13T16:00:00Z');
   assert.equal(beijingDate(now), '2026-10-14');
