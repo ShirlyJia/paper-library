@@ -66,7 +66,8 @@
       "sources": [
         "https://arxiv.org/abs/2410.18164",
         "https://arxiv.org/abs/2608.01400",
-        "https://github.com/layer6ai-labs/TabDPT-inference"
+        "https://github.com/layer6ai-labs/TabDPT-inference",
+        "https://github.com/layer6ai-labs/TabDPT-inference/releases/tag/v1.3.0"
       ]
     },
     {
@@ -333,7 +334,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.08078",
-        "https://arxiv.org/html/2610.08078"
+        "https://arxiv.org/html/2610.08078",
+        "https://github.com/ChristopheMuller/ProximalFM"
       ]
     },
     {
@@ -375,6 +377,71 @@
       "sources": [
         "https://arxiv.org/abs/2605.06290",
         "https://arxiv.org/html/2605.06290"
+      ]
+    },
+    {
+      "name": "TILE",
+      "paperIds": [
+        "arxiv-2610.17065"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.17065",
+        "https://arxiv.org/html/2610.17065"
+      ]
+    },
+    {
+      "name": "TabGift",
+      "paperIds": [
+        "arxiv-2610.16990"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.16990",
+        "https://arxiv.org/html/2610.16990"
+      ]
+    },
+    {
+      "name": "TabWM",
+      "paperIds": [
+        "arxiv-2610.16763"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.16763",
+        "https://arxiv.org/html/2610.16763",
+        "https://github.com/oooranz/TabWM",
+        "https://huggingface.co/oooranz/TabWM"
+      ]
+    },
+    {
+      "name": "TabMosaic",
+      "paperIds": [
+        "arxiv-2610.15699"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.15699",
+        "https://arxiv.org/html/2610.15699"
+      ]
+    },
+    {
+      "name": "RASR",
+      "paperIds": [
+        "arxiv-2610.17994"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.17994",
+        "https://arxiv.org/html/2610.17994",
+        "https://github.com/automl/rasr"
+      ]
+    },
+    {
+      "name": "FlexTab",
+      "paperIds": [
+        "arxiv-2606.30336"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.30336",
+        "https://arxiv.org/html/2606.30336",
+        "https://github.com/SAP-samples/flextab",
+        "https://neurips.cc/virtual/2026/poster/153378"
       ]
     }
   ]

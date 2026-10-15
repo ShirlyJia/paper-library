@@ -66,10 +66,10 @@
     "id": "arxiv-2608.01400",
     "title": "TabDPT-Turbo: Efficient In-Context Learning for Tabular Prediction",
     "url": "https://arxiv.org/abs/2608.01400",
-    "reviewedAt": "2026-10-12",
+    "reviewedAt": "2026-10-15",
     "sourceUpdated": "2026-08-25",
     "decision": "included",
-    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+    "reason": "核对官方 TabDPT v1.3 发布说明与仓库沿革：在 v1.2/Turbo 条目中补充后续概率回归输出和别名，不将软件版本冒充独立论文，不将 v1.2 实验直接外推到 v1.3。"
   },
   {
     "id": "arxiv-2609.37959",
@@ -399,10 +399,10 @@
     "id": "arxiv-2610.13818",
     "title": "TabMF: Learning Dataset Representations with Tabular Foundation Models",
     "url": "https://arxiv.org/abs/2610.13818",
-    "reviewedAt": "2026-10-12",
-    "sourceUpdated": "2026-10-09",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-12",
     "decision": "included",
-    "reason": "已核对原始摘要与来源；相关模型版本或结构化数据方法。"
+    "reason": "核对新版全文，补充后训练/监督噪声机制、实验范围与外推限制；保留原始收录日期。"
   },
   {
     "id": "arxiv-2609.04901",
@@ -525,10 +525,10 @@
     "id": "arxiv-2610.08078",
     "title": "ProximalFM: Amortized Proximal Causal Inference under Hidden Confounding",
     "url": "https://arxiv.org/abs/2610.08078",
-    "reviewedAt": "2026-10-14",
+    "reviewedAt": "2026-10-15",
     "sourceUpdated": "2026-10-06",
     "decision": "included",
-    "reason": "核对 arXiv 首发及修订信息、原始摘要、方法与实验；沿现有目录收录，概览保留评测范围及结论限制。"
+    "reason": "核对现有全文与官方实现，补充蒙特卡洛监督噪声机制、实验范围与限制；arXiv 页面仅列 10 月 6 日 v1，未采用索引给出的 10 月 13 日修订时间；首次收录日期不变。"
   },
   {
     "id": "arxiv-2609.33114",
@@ -970,5 +970,248 @@
     "sourceUpdated": "2026-10-09",
     "decision": "existing",
     "reason": "核对今日 NeurIPS 官方程序与海报页的题名、作者、摘要和轨道，确认 Accept (poster)；合并会议与既有来源，保留最早公开日期及其精度。"
+  },
+  {
+    "id": "arxiv-2610.19814",
+    "title": "When Does Depth Help? Understanding Layerwise Inference in Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2610.19814",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-14",
+    "decision": "included",
+    "reason": "已核对原始摘要、方法、实验与限制；按结构化数据相关方向收录。"
+  },
+  {
+    "id": "arxiv-2610.17065",
+    "title": "TILE: Bridging LLMs and Table Foundation Models for Tabular Learning with Strings",
+    "url": "https://arxiv.org/abs/2610.17065",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-12",
+    "decision": "included",
+    "reason": "已核对原始摘要、方法、实验与限制；按结构化数据相关方向收录。"
+  },
+  {
+    "id": "arxiv-2610.16990",
+    "title": "TabGift: A Context-Efficient Foundation Model for Tabular Data Generation",
+    "url": "https://arxiv.org/abs/2610.16990",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-12",
+    "decision": "included",
+    "reason": "已核对原始摘要、方法、实验与限制；按结构化数据相关方向收录。"
+  },
+  {
+    "id": "arxiv-2610.16763",
+    "title": "Relational Learning as World Modeling",
+    "url": "https://arxiv.org/abs/2610.16763",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-12",
+    "decision": "included",
+    "reason": "已核对原始摘要、方法、实验与限制；按结构化数据相关方向收录。"
+  },
+  {
+    "id": "arxiv-2610.15699",
+    "title": "TabMosaic: Unified In-Context Diffusion for Tabular Generative Tasks",
+    "url": "https://arxiv.org/abs/2610.15699",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-11",
+    "decision": "included",
+    "reason": "已核对原始摘要、方法、实验与限制；按结构化数据相关方向收录。"
+  },
+  {
+    "id": "arxiv-2610.17994",
+    "title": "Improving Neural Symbolic Regression with a Diverse Prior and Post-training Alignment",
+    "url": "https://arxiv.org/abs/2610.17994",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-13",
+    "decision": "included",
+    "reason": "已核对原始摘要、方法、实验与限制；按结构化数据相关方向收录。"
+  },
+  {
+    "id": "arxiv-2610.17874",
+    "title": "Searching for What Matters: Open-Ended Discovery of Multiple Hypotheses with Agentic Data Exploration",
+    "url": "https://arxiv.org/abs/2610.17874",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-13",
+    "decision": "included",
+    "reason": "已核对原始摘要、方法、实验与限制；按结构化数据相关方向收录。"
+  },
+  {
+    "id": "arxiv-2610.16801",
+    "title": "When Repeated Measurements Hurt Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2610.16801",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-12",
+    "decision": "included",
+    "reason": "已核对原始摘要、方法、实验与限制；按结构化数据相关方向收录。"
+  },
+  {
+    "id": "arxiv-2606.30336",
+    "title": "FlexTab: A Flexible Encoder-Decoder Architecture for In-Context Learning Across Diverse Tabular Tasks",
+    "url": "https://arxiv.org/abs/2606.30336",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-12",
+    "decision": "included",
+    "reason": "已核对原始摘要、方法、实验与限制；补录已有首发论文，保留首发日期。已核对 NeurIPS 2026 官方 Poster 页面，未发现特殊展示标记；与 TabFlex 为不同论文。"
+  },
+  {
+    "id": "arxiv-2606.09004",
+    "title": "LATTEArena: An Evaluation Framework for LLM-powered Tabular Feature Engineering (Extended Version)",
+    "url": "https://arxiv.org/abs/2606.09004",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-12",
+    "decision": "included",
+    "reason": "已核对原始摘要、方法、实验与限制；补录已有首发论文，保留首发日期。"
+  },
+  {
+    "id": "arxiv-2607.03926",
+    "title": "TabQueryBench: A Query-Centric Benchmark for Synthetic Tabular Data",
+    "url": "https://arxiv.org/abs/2607.03926",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-11",
+    "decision": "included",
+    "reason": "已核对原始摘要、方法、实验与限制；补录已有首发论文，保留首发日期。"
+  },
+  {
+    "id": "arxiv-2609.07629",
+    "title": "Open Tabular Insight Extraction: Where Do We Stand, and Where Should We Go?",
+    "url": "https://arxiv.org/abs/2609.07629",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-12",
+    "decision": "included",
+    "reason": "已核对原始摘要、方法、实验与限制；补录已有首发论文，保留首发日期。"
+  },
+  {
+    "id": "arxiv-2605.24417",
+    "title": "Do You Even Need More Data? Rethinking LLM Deployment for Label-Scarce Tabular Classification with TabLens",
+    "url": "https://arxiv.org/abs/2605.24417",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-13",
+    "decision": "included",
+    "reason": "已核对原始摘要、方法、实验与限制；补录已有首发论文，保留首发日期。"
+  },
+  {
+    "id": "arxiv-2610.18037",
+    "title": "Weighting-Based Strategies for Classification: Analysis and Local Peak Dynamics with CART Trees",
+    "url": "https://arxiv.org/abs/2610.18037",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-13",
+    "decision": "included",
+    "reason": "已核对原始摘要与日期：表格类别不平衡、加权与阈值优化相关理论研究；概览仅采用摘要支持的结论，保留有限深度和渐近条件。"
+  },
+  {
+    "id": "arxiv-2610.19405",
+    "title": "Scaling LLM Inference via Parallelism: Throughput-Latency Trade-off",
+    "url": "https://arxiv.org/abs/2610.19405",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-14",
+    "decision": "excluded",
+    "reason": "原始摘要讨论通用 LLM 推理并行部署，未呈现表格或关系预测验证，暂不扩展到通用语言模型服务工程。"
+  },
+  {
+    "id": "arxiv-2610.19374",
+    "title": "A Critical Review of Grid Integration Challenges and Flexibility Opportunities for Large-Scale Data Centers",
+    "url": "https://arxiv.org/abs/2610.19374",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-14",
+    "decision": "excluded",
+    "reason": "原始摘要为数据中心电网接入与能源综述，不是结构化数据建模研究。"
+  },
+  {
+    "id": "arxiv-2610.18223",
+    "title": "Cryogenic characterisation of the FBK NUV-HD-cryo Silicon Photomultipliers for the DarkSide-20k dark matter experiment",
+    "url": "https://arxiv.org/abs/2610.18223",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-13",
+    "decision": "excluded",
+    "reason": "原始摘要为暗物质探测器光电器件实验，与表格模型无对应技术内容。"
+  },
+  {
+    "id": "arxiv-2610.19084",
+    "title": "Beyond Aggregate Accuracy: Item-Level Transitions in Prompt Optimization",
+    "url": "https://arxiv.org/abs/2610.19084",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-13",
+    "decision": "excluded",
+    "reason": "原始摘要为通用提示优化，评估法律、知识、数学等问答任务，尚未建立表格任务关联。"
+  },
+  {
+    "id": "arxiv-2610.17476",
+    "title": "$a$-Numbers, higher Cartier ranks and maximality of van der Geer-van der Vlugt curves",
+    "url": "https://arxiv.org/abs/2610.17476",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-12",
+    "decision": "excluded",
+    "reason": "原始摘要为代数曲线与 Cartier 算子理论，检索词偶合，非结构化数据建模。"
+  },
+  {
+    "id": "arxiv-2610.15906",
+    "title": "Singular Sampling in Nonlinear Observability: Higher-Order Minimax Laws and Timing Crossovers",
+    "url": "https://arxiv.org/abs/2610.15906",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-11",
+    "decision": "excluded",
+    "reason": "原始摘要为非线性动力系统可观测性与奇异采样理论，尚未建立表格模型或关系决策的直接方法验证。"
+  },
+  {
+    "id": "arxiv-2610.07657",
+    "title": "Where Rules End and Judges Begin: Measuring the Judgment Boundary in Multi-Agent Systems Security",
+    "url": "https://arxiv.org/abs/2610.07657",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-11",
+    "decision": "excluded",
+    "reason": "原始摘要为多智能体安全规则与裁判机制，未涉及当前结构化预测技术路线。"
+  },
+  {
+    "id": "arxiv-2608.21604",
+    "title": "Optically Coupled Noise Spectroscopy Quantifies Defect Passivation in Monolayer MoS2 FETs",
+    "url": "https://arxiv.org/abs/2608.21604",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-12",
+    "decision": "excluded",
+    "reason": "原始摘要为半导体器件缺陷与噪声谱实验，非表格预测模型研究。"
+  },
+  {
+    "id": "arxiv-2607.13591",
+    "title": "Memory as a Controlled Process: Learned Adaptive Memory Management for LLM Agents",
+    "url": "https://arxiv.org/abs/2607.13591",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-12",
+    "decision": "deferred",
+    "reason": "Agent 记忆控制机制可能可迁移，当前摘要未提供结构化数据预测实验；保留线索，待核对方法和任务迁移依据。"
+  },
+  {
+    "id": "arxiv-2607.13319",
+    "title": "Adapting Generalist Vehicle Models for High-Speed MPC Across Terrains",
+    "url": "https://arxiv.org/abs/2607.13319",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-14",
+    "decision": "deferred",
+    "reason": "车辆动力学基础模型的 FiLM 适配可能与上下文适配相关，但尚未核实其与表格技术路线的对应和实验条件。"
+  },
+  {
+    "id": "candidate-2c9ba49ff37f",
+    "title": "ABSP: Attention-Based Semantic Preservation for Faithful Context Compression",
+    "url": "https://doi.org/10.1145/3805696.3846019",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-12",
+    "decision": "deferred",
+    "reason": "已读聚合摘要，但尚未核对原文；先保留跨领域机制线索，不据聚合信息公开收录。"
+  },
+  {
+    "id": "candidate-778ee94d4372",
+    "title": "A Compounding Fingerprint: Telling Abstraction from Exemplar Reuse in Context",
+    "url": "https://doi.org/10.5281/zenodo.23318678",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-12",
+    "decision": "deferred",
+    "reason": "已读聚合摘要，但尚未核对原文；先保留跨领域机制线索，不据聚合信息公开收录。"
+  },
+  {
+    "id": "candidate-2d43d6d80fe9",
+    "title": "World Causal Model: A Unified Framework for Continual Causal Discovery, Intervention-Driven Learning, Counterfactual Simulation, and Adaptive Decision-Making",
+    "url": "https://doi.org/10.13140/rg.2.2.24289.26724",
+    "reviewedAt": "2026-10-15",
+    "sourceUpdated": "2026-10-11",
+    "decision": "deferred",
+    "reason": "聚合索引无原始摘要，尚未核验公开原文与实验，保留待查。"
   }
 ]
