@@ -119,8 +119,8 @@ function appendTodayCount(parent, nodeId) {
 
 function directoryCounts(count, nodeId, className) {
   const counts = el('span', 'directory-counts');
-  counts.append(el('span', className, count));
   appendTodayCount(counts, nodeId);
+  counts.append(el('span', className, count));
   return counts;
 }
 
