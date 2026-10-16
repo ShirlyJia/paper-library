@@ -72,5 +72,13 @@ class CollectionTests(unittest.TestCase):
             collect.prune_cache(Path(folder))
             self.assertEqual([p.name for p in Path(folder).iterdir()], ['new.txt'])
 
+    def test_local_setting_reads_env_file_without_quotes(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder, '.env')
+            path.write_text('# note\nOPENALEX_API_KEY="abc123"\n')
+            self.assertEqual(collect.local_setting('OPENALEX_API_KEY', path), 'abc123')
+            self.assertEqual(collect.local_setting('OTHER', path), '')
+
 if __name__ == '__main__':
     unittest.main()

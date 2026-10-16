@@ -168,6 +168,16 @@ def family_queries(families):
     return lanes, sorted(plain)
 
 
+def local_setting(name, path=ROOT / ".env"):
+    """Read NAME=value from the git-ignored .env, so scheduled runs work without shell profiles."""
+    if path.exists():
+        for line in path.read_text().splitlines():
+            key, _, value = line.partition("=")
+            if key.strip() == name:
+                return value.strip().strip("'\"")
+    return ""
+
+
 def prune_cache(cache, max_age=2 * 86400):
     """Responses are only reused for a day, so older files are dead weight."""
     now = time.time()
@@ -222,7 +232,7 @@ def main():
     # Ambiguous names (Retro, Mitra, ...) stay out of the keyword gate; tabular terms already cover them in context.
     config["relevancePattern"] += "|" + "|".join(r"\b" + re.escape(name) + r"\b" for name in names)
     config["arxivQueries"].extend(lanes)
-    api_key = os.environ.get("OPENALEX_API_KEY", "").strip()
+    api_key = os.environ.get("OPENALEX_API_KEY", "").strip() or local_setting("OPENALEX_API_KEY")
     config["_openalexKey"] = bool(api_key)
     if not api_key and channels & {"fulltext", "citations", "formal"}:
         print("提示：未设置 OPENALEX_API_KEY，OpenAlex 只能取第一页；免费申请见 https://openalex.org/settings/api", file=sys.stderr)
