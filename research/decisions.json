@@ -5770,5 +5770,366 @@
         "textSha256": "9907e3d62e4e5dc9f46f8287750c194297ea17ae9b3fa41e1b5d020bdcea009c"
       }
     }
+  },
+  {
+    "id": "arxiv-2610.19536",
+    "title": "Typed Decision Models on Tabular Data",
+    "url": "https://arxiv.org/abs/2610.19536",
+    "sourceUpdated": "2026-10-14",
+    "decision": "included",
+    "reviewedAt": "2026-10-16",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-10-16",
+      "reviewStatus": "completed",
+      "claim": "在本文的表格任务和信息保持改写下，固定选项稳定性不等于输入格式稳定性，置信度也不能直接替代错误风险。",
+      "contribution": "将 typed decision models 的表格格式鲁棒性、置信度和预测效用一起评估，并检查重查询与格式组合。",
+      "evidence": "正文第 2–6 节：10 个行分类数据集共 3,481 行、2,000 条 TabFact 主张和 ReTabAD 的 20 个来源共 5,059 个样本；21 类改写通过逆解析检查；设置重复查询噪声基线、任务对应指标和聚类自助法区间。约 31.7%–42.8% 行决策至少被一种改写翻转，汇总精度可能相互抵消。",
+      "limitations": "固定样本及模型 API 快照；格式集并非所有输入变换。成本试验中决策模型按 16 行批量、LLM 按单行请求，不能直接归因于架构效率。重查询优势主要出现在较弱原始格式，不能证明任何模型或任务都能获益；无真实线上路由验证。",
+      "value": "连接文本决策和结构化预测，为稳定性、校准和复核触发条件提供具体检查方式。",
+      "conclusion": "证据已支持",
+      "reproducibility": "已读取相关原文方法与实验材料；数值为作者报告，未独立运行或本地复现实验。",
+      "sources": [
+        "https://arxiv.org/html/2610.19536"
+      ],
+      "readScope": "第 2–6 节任务、改写、评测与结果；第 8 节讨论和局限；附录 A/B 的协议及附录 C 表 9–10。",
+      "sourceSnapshot": {
+        "url": "https://arxiv.org/html/2610.19536",
+        "retrievedAt": "2026-10-16T01:58:33.008425+00:00",
+        "textSha256": "441769248069a2223d0c65770b79a6426737dd615ddd5849ced20e89b77e6533"
+      }
+    }
+  },
+  {
+    "id": "arxiv-2607.05103",
+    "title": "Choosing a parallel heterogeneous ensemble method for tabular classification",
+    "url": "https://arxiv.org/abs/2607.05103",
+    "sourceUpdated": "2026-07-06",
+    "decision": "included",
+    "reviewedAt": "2026-10-16",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-10-16",
+      "reviewStatus": "completed",
+      "claim": "在本文非泄漏的验证协议中，组合规则相对单一最佳模型有收益；不能据此声称其显著优于所有单项集成。",
+      "contribution": "比较并行异构集成的选择条件，把常规学习器与 TabArena 中的 TFM、树模型和神经网络预测纳入同一方法研究。",
+      "evidence": "第 3–5 节：56 个 OpenML-CC18 任务、五次十折试验；28 个不重叠的 TabArena 任务使用预先计算的模型预测。比较包括投票、Blending、OOF Stacking 等，报告 Wilcoxon 检验及 Holm–Bonferroni 校正；在 TabArena 的主协议中，组合优于 Single Best，但与最强单项方法差异不显著。",
+      "limitations": "第 5.3 节另列的 Stacking 试验明确存在基础模型与元学习器评估数据交叉，故不采用其结果作公平排名。CC18 去除了大规模任务；TabArena 子集为 22 个二分类和 6 个多分类任务。校准、时间预算与模型池改变会影响方法选择，文中阈值不是通用规则。",
+      "value": "补足 TabArena 上非基础模型算法研究，帮助区分集成收益、选择成本及交叉拟合泄漏。",
+      "conclusion": "证据已支持",
+      "reproducibility": "已读取相关原文方法与实验材料；数值为作者报告，未独立运行或本地复现实验。",
+      "sources": [
+        "https://arxiv.org/html/2607.05103"
+      ],
+      "readScope": "第 3–5 节方法和实验设置、核心表格及结论，特别核对第 5.3 节 Stacking 泄漏声明；附录中的相关技术细节。",
+      "sourceSnapshot": {
+        "url": "https://arxiv.org/html/2607.05103",
+        "retrievedAt": "2026-10-16T02:02:44.262157+00:00",
+        "textSha256": "d109a3d51ee248ecd5fad495b1f16e11c8ab4fe9c42d676893c625ac9f83e399"
+      }
+    }
+  },
+  {
+    "id": "arxiv-2605.18702",
+    "title": "Distilling Tabular Foundation Models for Structured Health Data",
+    "url": "https://arxiv.org/abs/2605.18702",
+    "sourceUpdated": "2026-05-18",
+    "decision": "included",
+    "reviewedAt": "2026-10-16",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-10-16",
+      "reviewStatus": "completed",
+      "claim": "折外软标签蒸馏在作者所测医疗数据中对树学生提供初步精度保留证据，但不能扩展为所有学生模型或临床任务均有效。",
+      "contribution": "在健康数据上系统比较六个 TFM 教师、四类学生，并将校准、公平性和成本纳入蒸馏评估。",
+      "evidence": "第 3–4 节采用五折分层 OOF 教师预测，单条样本的标签不进入生成其软标签的上下文。19 个数据集含 16 个二分类、3 个多分类任务；树学生常保留接近教师的 AUC，MLP 收益不一致。附录提供数据集和硬件，消融表在 5 个数据集上针对 MLP。",
+      "limitations": "19 个数据集含 Wisconsin 数据的三个版本，不等于 19 个独立医疗队列。基线主要固定默认设置；外层患者或时间划分仍需额外验证。多分类回归式学生实现有失效；MLP 消融中硬标签基线可能更好。CPU 学生与 A100 教师耗时不可视为同硬件加速，离线蒸馏成本也需另计；未做临床有效性验证。",
+      "value": "为 TFM 到轻量树模型的部署路径提供可检查配方，并暴露学生选择、多分类与公平性取舍。",
+      "conclusion": "证据已支持",
+      "reproducibility": "已读取相关原文方法与实验材料；数值为作者报告，未独立运行或本地复现实验。",
+      "sources": [
+        "https://arxiv.org/html/2605.18702"
+      ],
+      "readScope": "第 3 节折外蒸馏算法；第 4 节性能、延迟、校准、公平性和消融表；第 5 节局限；附录 A/B 数据与硬件，附录 C 的相关说明。",
+      "sourceSnapshot": {
+        "url": "https://arxiv.org/html/2605.18702",
+        "retrievedAt": "2026-10-16T02:02:46.603167+00:00",
+        "textSha256": "300301d1e87b2a043c986a43feb82985bc89a43d10aa456743959f277de6876e"
+      }
+    }
+  },
+  {
+    "id": "arxiv-2607.04809",
+    "title": "Context-Constrained Transfer Learning for Tabular Foundation Models via Data Distillation",
+    "url": "https://arxiv.org/abs/2607.04809",
+    "sourceUpdated": "2026-07-06",
+    "decision": "included",
+    "reviewedAt": "2026-10-16",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-10-16",
+      "reviewStatus": "completed",
+      "claim": "在指定上下文预算和迁移任务中，源锚点选择与目标残差校准具有收益；无负迁移保证受模型类及验证误差假设约束。",
+      "contribution": "把源数据压缩、条件后验差异、标签平滑和目标残差校准结合，在预算约束下选择可迁移信息。",
+      "evidence": "第 2 节算法 1–2；第 3 节定理使用平滑性、先导估计精度、次高斯误差和独立验证集等假设；第 4–5 节以 TabPFN-2.5 做模拟及 California Housing、BRFSS 糖尿病实验，真实数据重复 30 次划分。候选含仅目标数据的退路。",
+      "limitations": "使用已观察到的测试特征分布，属于传导设置而非完全未知查询的归纳评估。仅两个真实数据源；糖尿病人为平衡类别。正文实验在选择后以全目标样本重拟合，定理对独立验证选择的保证不能直接套用至这一步。未逐行验算全部证明、未独立复现实验。",
+      "value": "连接上下文压缩与分布适配，适合研究有限显存下如何选择源信息及何时退回目标域模型。",
+      "conclusion": "证据已支持",
+      "reproducibility": "已读取相关原文方法与实验材料；数值为作者报告，未独立运行或本地复现实验。",
+      "sources": [
+        "https://arxiv.org/html/2607.04809"
+      ],
+      "readScope": "第 1–2 节问题定义和算法；第 3 节定理假设与结论；第 4–5 节模拟、实际数据及重拟合说明；未逐行核验全部证明。",
+      "sourceSnapshot": {
+        "url": "https://arxiv.org/html/2607.04809",
+        "retrievedAt": "2026-10-16T02:02:45.238155+00:00",
+        "textSha256": "0f3125b5f029462046a0ff0ee23754d3a81873e291e4f84909ad013f9d50ad8f"
+      }
+    }
+  },
+  {
+    "id": "arxiv-2610.20418",
+    "title": "OrionMoE-v1.0: A Mixture-of-Experts Foundation Model for Tabular In-Context Learning",
+    "url": "https://arxiv.org/abs/2610.20418",
+    "sourceUpdated": "2026-10-14",
+    "decision": "included",
+    "reviewedAt": "2026-10-16",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-10-16",
+      "reviewStatus": "completed",
+      "claim": "小规模、数据集条件化的稀疏表格架构在作者分类基准中具有竞争力；稀疏路由的独立因果贡献仍未建立。",
+      "contribution": "沿用 TabICLv2 分布感知列编码，结合双轴注意力、共享专家和受数据集寄存器调制的稀疏特征专家，以及八视图 logit 集成。",
+      "evidence": "第 2 节说明查询不反向改变支持集状态、支持上下文缓存；第 3 节覆盖 38 个 TabArena 分类任务、98 个 BeyondArena 任务，以及 CC18/TALENT/BCCO 的共同任务与完整覆盖比较。报告 37.7M 参数；明确未达到总体精度—耗时 Pareto 前沿。",
+      "limitations": "参数量不等于活动计算量或同预算公平性。缺少等参数稠密对照和受控路由消融，不能把综合性能差归因于 MoE。分组／时间分布、极端不平衡和大规模数据表现不一致。论文提供的 GitHub 入口本次为 404，权重许可入口为 401，不能确认公开制品可下载。",
+      "value": "补充表格 ICL 的稀疏计算路线，同时保留速度、泛化与复现条件的实际边界。",
+      "conclusion": "证据已支持",
+      "reproducibility": "已核对论文中的机制和基准协议；未运行模型。论文称发布推理代码和权重，但对应入口本次不可访问；训练代码和生成器未随该发布提供。许可性质仅按论文第 4 节记录，未声称已取得组织使用许可。",
+      "sources": [
+        "https://arxiv.org/html/2610.20418"
+      ],
+      "readScope": "第 2 节编码、双轴结构、专家路由及推理；第 3.1–3.7 节基准、切分、容量分组和受控消融缺口；第 4–5 节制品、许可与结论；附录数据清单定位。",
+      "sourceSnapshot": {
+        "url": "https://arxiv.org/html/2610.20418",
+        "retrievedAt": "2026-10-16T02:07:12.559014+00:00",
+        "textSha256": "e067938695efcfdebba226c2231ebedc99305bafc82b492299d8aa858b23014a"
+      }
+    }
+  },
+  {
+    "id": "arxiv-2610.20342",
+    "title": "When Does Task-Aware Imputation Matter? An Analysis of Robustness Under Train-Test Mismatch",
+    "url": "https://arxiv.org/abs/2610.20342",
+    "sourceUpdated": "2026-10-14",
+    "decision": "included",
+    "reviewedAt": "2026-10-16",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-10-16",
+      "reviewStatus": "completed",
+      "claim": "任务感知补全的收益依赖缺失难度与训练—测试偏移，重建误差不充分代表预测效用。",
+      "contribution": "统一可学习的逐样本缺失值和可泛化补全网络，以验证集选择的参考补全为锚点，联合训练分类器与补全修正。",
+      "evidence": "第 3–5 节与附录 A：98 个 OpenML 分类任务、36 个偏移子集；70/15/15 分层切分后独立制造缺失，训练统计量用于标准化；比较均值、中位数、KNN、MissForest、TabImpute，采用 Friedman/Nemenyi 与相关分析。总体同分布与简单方法差异不显著，严重缺失偏移有更明确收益。",
+      "limitations": "固定种子 42，分类器仅为 32 隐层单层 MLP，未验证 TFM 作为下游预测器；人工缺失和样本规模限制外推。作者的 best classical 为测试集事后最优，仅作报告，不可当部署选择器。TabImpute 按各 split 独立补全，与可共享训练统计的补全器信息条件不同。任务联合优化有额外训练开销。",
+      "value": "为表格缺失处理建立以预测效用和缺失偏移为中心的评测依据，可作为后续 TFM 输入适配实验的候选方案。",
+      "conclusion": "证据已支持",
+      "reproducibility": "已读取相关原文方法与实验材料；数值为作者报告，未独立运行或本地复现实验。",
+      "sources": [
+        "https://arxiv.org/html/2610.20342"
+      ],
+      "readScope": "第 3 节联合优化；第 4 节设置；第 5.1–5.3 节偏移、重建相关性与总体结果；附录 A.3–A.7 划分、补全基线、分类器和两种实现。",
+      "sourceSnapshot": {
+        "url": "https://arxiv.org/html/2610.20342",
+        "retrievedAt": "2026-10-16T02:07:04.759007+00:00",
+        "textSha256": "7149e62e61a9381345f947ee2dae16b1744c3fe002edde0a23b96cea21bbabcf"
+      }
+    }
+  },
+  {
+    "id": "arxiv-2610.20462",
+    "title": "Learning by Examples: Power Grid Steady State Analysis with a Tabular Foundation Model",
+    "url": "https://arxiv.org/abs/2610.20462",
+    "sourceUpdated": "2026-10-14",
+    "decision": "included",
+    "reviewedAt": "2026-10-16",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-10-16",
+      "reviewStatus": "completed",
+      "claim": "冻结 TabPFN 配合任务特征可在所测电网仿真任务中达到竞争性精度，但没有建立分布外安全性或低延迟优势。",
+      "contribution": "将物理近似、残差预测、特征解耦和线停运拓扑信息作为表格模型输入，统一多类电网稳态分析任务。",
+      "evidence": "第 III–V 节：118 与 2000 节点的 PFΔ/扩展仿真；潮流 80/10/10 划分，电压稳定按运行点家族隔离，三种随机种子。故障筛查仅在 118 节点，包含未见 N-2 情况。同时报告变量 RMSE、功率平衡残差、筛查及稳定裕度；表 IV 将上下文处理计入推理时间。",
+      "limitations": "未验证真实电网部署，仿真结果不能替代物理安全保证。低稳定裕度 OOD 条件所有模型表现差；物理约束模型的平衡残差可优于 TabPFN。逐目标推理代价高，2000 节点潮流测试总推理约 72,577 秒；基线按文献设置而非统一大规模调参。",
+      "value": "展示结构化应用中用领域特征和上下文完成适配的路径，同时提供分布外、物理一致性和推理开销的失败证据。",
+      "conclusion": "证据已支持",
+      "reproducibility": "已读取相关原文方法与实验材料；数值为作者报告，未独立运行或本地复现实验。",
+      "sources": [
+        "https://arxiv.org/html/2610.20462"
+      ],
+      "readScope": "第 III 节残差、功率解耦与拓扑编码；第 IV.A–E 节数据、切分、三项任务和结果；第 V–VI 节局限、耗时表及结论。",
+      "sourceSnapshot": {
+        "url": "https://arxiv.org/html/2610.20462",
+        "retrievedAt": "2026-10-16T02:07:06.493670+00:00",
+        "textSha256": "adf8a02a2d906624beda268e283200ff59ae2923f816ff9e769246b0fdd4cfbe"
+      }
+    }
+  },
+  {
+    "id": "arxiv-2610.17867",
+    "title": "RT-J: Large-Scale Pretraining of Relational Transformers for Context-Efficient Predictions",
+    "url": "https://arxiv.org/abs/2610.17867",
+    "sourceUpdated": "2026-10-15",
+    "decision": "included",
+    "reviewedAt": "2026-10-16",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-10-16",
+      "reviewStatus": "completed",
+      "claim": "在 RelBench 等标签协议下，关系上下文及其选择方式有助于样本利用率；不能把少量上下文标签等同于整个管线只需同样数量的标签。",
+      "contribution": "在已有 Relational Transformer 上组合随机游走目标行检索、局部 BFS、真实关系数据继续训练和上下文调参／集成，未宣称全新骨干。",
+      "evidence": "v3 第 3–7 节：排除与测试数据库同源的预训练数据；RelBench 为 7 个数据库上的 9 回归、12 分类任务，按时间限制可用行。固定上下文等标签比较优于所测回归管线；受控比较随机检索、BFS、向量检索和名称打乱。第 6 节显示调参主要改善回归，单种子分类平均下降。",
+      "limitations": "ICL 全管线在至多 4,096 条验证标签上搜索 120 个配置和 4 个种子，不能将文中 few-shot 比例解释为总标注成本；第 6 节部分结果在测试子样本上。只测 RelBench，未包含可比的全部商业 RFM；RT-PluRel 的 RelArena 系统名次不等于 RT-J 参加该榜单。项目页的旧倍数/参数表述与 v3 有差异，采用 v3 协议。",
+      "value": "为关系数据的检索、语义信息利用、上下文预算及后训练组合提供可操作的实验路线。",
+      "conclusion": "证据已支持",
+      "reproducibility": "已读取相关原文方法与实验材料；数值为作者报告，未独立运行或本地复现实验。",
+      "sources": [
+        "https://arxiv.org/html/2610.17867",
+        "https://star-project.stanford.edu/rt-j/",
+        "https://openreview.net/forum?id=oQINTd9din",
+        "https://openreview.net/forum?id=sMFUopPlwy",
+        "https://neurips.cc/virtual/2026/poster/149169",
+        "https://github.com/stanford-star/relational-transformer"
+      ],
+      "readScope": "v3 第 2–7 节结构、排重、检索与评测；第 8 节局限；附录 A 区分系统与模型和训练管线，附录 B 基线缺失原因，附录 J.3 调参标签与计算开销；项目页和官方会议目录。",
+      "sourceSnapshot": {
+        "url": "https://arxiv.org/html/2610.17867",
+        "retrievedAt": "2026-10-16T02:11:51.572083+00:00",
+        "textSha256": "6b7893946bbbaf2fa42a331dda796cba699a684697a583eed1bfe95925c4e8cf"
+      }
+    }
+  },
+  {
+    "id": "arxiv-2610.13724",
+    "title": "Amortized Counterfactual Prediction with Graph Neural Networks",
+    "url": "https://arxiv.org/abs/2610.13724",
+    "sourceUpdated": "2026-10-09",
+    "decision": "included",
+    "reviewedAt": "2026-10-16",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-10-16",
+      "reviewStatus": "completed",
+      "claim": "双图结构本身相对其他反事实学习器的普遍性能优势，目前尚未被等监督条件的实验充分隔离。",
+      "contribution": "用 GNN 汇总观测上下文并在对应事实—反事实变量间传递信息，以混合高斯输出模型平均的 backtracking 反事实分布，无需推理前先固定估计 DAG。",
+      "evidence": "第 4–5 节：Triangle、M-shape 以及半合成 German Loan；5 个种子的 MSE 汇总、10–30 节点规模迁移；附录 B 提供机制和训练参数。CheXpert 仅用属性分类器评估生成图像，不能作为真实反事实 ground truth。",
+      "limitations": "CFGNP 训练使用反事实对，而 BGM/VACA/CFM 等基线只获观测和图／顺序信息，属于不同监督条件；图规模试验给基线固定完整 DAG。German Loan 为半合成 SCM，而非真实银行干预。不可识别情形只能给出与训练先验相关的模型平均分布；观测上下文增加计算成本，未本地复现。",
+      "value": "保留可迁移的双图归纳偏置和摊销思想，同时防止把监督反事实预测误读为无假设的因果识别。",
+      "conclusion": "有迹象但证据不足",
+      "reproducibility": "已读取相关原文方法与实验材料；数值为作者报告，未独立运行或本地复现实验。",
+      "sources": [
+        "https://arxiv.org/html/2610.13724",
+        "https://github.com/Zelos1/CFGNP"
+      ],
+      "readScope": "第 3 节 SCM、backtracking 与可识别性；第 4 节结构及训练目标；第 5–6 节实验、监督不对称与局限；附录 B.1–B.3 超参数、CheXpert 和合成数据设置；未逐行验算附录证明。",
+      "sourceSnapshot": {
+        "url": "https://arxiv.org/html/2610.13724",
+        "retrievedAt": "2026-10-16T02:11:51.870667+00:00",
+        "textSha256": "eed945827175c2423c7934db4039b2678b1340d1c7fe0c7748975f7da48fc139"
+      }
+    }
+  },
+  {
+    "id": "arxiv-2605.09424",
+    "title": "TabFORGE: A Tabular Foundation Model for Generative Modelling",
+    "url": "https://arxiv.org/abs/2605.09424",
+    "sourceUpdated": "2026-10-15",
+    "decision": "included",
+    "reviewedAt": "2026-10-16",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-10-16",
+      "reviewStatus": "completed",
+      "claim": "冻结表格表征配合去噪对齐解码有助于所测生成效用；这些指标不能证明有效干预分布或严格隐私保护。",
+      "contribution": "保留逐特征身份的 PFN 潜空间，解耦扩散建模与解码，并让解码器在真实去噪输出上训练以缓解生成时表征偏移。",
+      "evidence": "v3 第 3–4 节：43 个预训练数据集与 45 个评测数据集排重；45 个任务来自 TabArena/TabStruct，31 分类、14 回归，每次 30/30/30/10 训练/测试/holdout/验证，重复 10 次。比较 22 种生成器和编码深度、解码器、去噪对齐消融；目标适配分别微调扩散和解码各 100 步。",
+      "limitations": "虽使用 TabArena 数据，切分不同，结果不能直接并入官方排行榜。C.5 对失败结果用其他方法均值填补；调参目标因方法类型不同，不能仅凭归一化总排名断言所有预算均占优。全局效用是依赖结构的代理指标，不是可识别因果图；DCR/Authenticity 不是 DP 保证。仅评估未见数据集，不是受控 OOD 验证；拟合计时不含预训练成本。",
+      "value": "连接 TFM 表征、潜扩散、目标数据微调和生成评测，为结构化数据生成提供可复查的模块比较。",
+      "conclusion": "证据已支持",
+      "reproducibility": "已读取相关原文方法与实验材料；数值为作者报告，未独立运行或本地复现实验。",
+      "sources": [
+        "https://arxiv.org/html/2605.09424",
+        "https://neurips.cc/virtual/2026/poster/149211",
+        "https://github.com/SilenceX12138/TabFORGE"
+      ],
+      "readScope": "v3 第 3–5 节机制、生成、数据划分、主结果与消融；附录 A.2 指标、B.2.6 训练配置、C.2–C.6 评测与复现、D.3–D.4 计算及局限；作者代码仓库。",
+      "sourceSnapshot": {
+        "url": "https://arxiv.org/html/2605.09424",
+        "retrievedAt": "2026-10-16T02:07:49.673097+00:00",
+        "textSha256": "2dfff8a0f3da65020da45a4504644754ed95b62e5bf05215ed589fd9501cf12b"
+      }
+    }
+  },
+  {
+    "id": "arxiv-2610.21134",
+    "title": "Predicting Live Birth After Fresh Embryo Transfer in IVF/ICSI: Differential ICM/Trophectoderm Morphology Encoding and a Hybrid Attention--Logistic Regression Ensemble",
+    "url": "https://arxiv.org/abs/2610.21134",
+    "sourceUpdated": "2026-10-15",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-16",
+    "reason": "仅完成元数据和摘要初筛；需阅读全文，核对同一患者或周期隔离、特征可用时间、插补与特征选择是否限于训练集、外部验证和 TabPFN 对照预算。"
+  },
+  {
+    "id": "arxiv-2610.20514",
+    "title": "Bayesian Learning to Select Fair Classifiers",
+    "url": "https://arxiv.org/abs/2610.20514",
+    "sourceUpdated": "2026-10-14",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-16",
+    "reason": "仅完成元数据和摘要初筛；需核对延迟标签与公平性约束的理论假设、遗憾界和表格分类器实验，不能把摘要中的收益视为已核验结论。"
+  },
+  {
+    "id": "doi-10.7717-peerj-cs.4117",
+    "title": "Towards efficient student performance prediction with tabular prior-data fitted network: a small-sample learning approach in data-scarce scenarios",
+    "url": "https://doi.org/10.7717/peerj-cs.4117",
+    "sourceUpdated": "2026-10-13",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-16",
+    "reason": "仅完成索引摘要初筛；需核对两个学生数据子集及合并集的样本重合、既有成绩的预测时间含义、切分与基线调参，取得出版方正文后再审。"
+  },
+  {
+    "id": "doi-10.5281-zenodo.23338620",
+    "title": "Causal AI and Structural Causal Models in Foundation Systems: Counterfactual Reasoning, Invariant Representation Learning, and Out-of-Distribution Robustness",
+    "url": "https://doi.org/10.5281/zenodo.23338620",
+    "sourceUpdated": "2026-10-13",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-16",
+    "reason": "仅完成索引摘要初筛；需核对因果假设、实际数据与实验协议及可复查结果，不能依据宽泛的能力主张和宣传式指标完成质量审核。"
+  },
+  {
+    "id": "arxiv-2606.26277",
+    "title": "From Clicks to Intent: Cross-Platform Session Embeddings with LLM-Distilled Taxonomy for Financial Services Recommendations",
+    "url": "https://arxiv.org/abs/2606.26277",
+    "sourceUpdated": "2026-10-14",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-16",
+    "reason": "仅完成元数据和摘要初筛；需阅读语义标签蒸馏、跨平台身份与时间隔离、对照方案及线上评测正文，再判断结构化特征和决策价值。"
+  },
+  {
+    "id": "doi-10.64898-2026.09.25.754520",
+    "title": "Where Tabular Foundation Models Falter on Genetic Data: Datasets That Expose and Provide a Path to Address the Gap",
+    "url": "https://doi.org/10.64898/2026.09.25.754520",
+    "sourceUpdated": "2026-09-28",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-16",
+    "reason": "已核对公开摘要、PubMed 首发信息和会议线索，但正文入口访问失败；取得完整方法、遗传数据划分及祖源控制实验后再审核，不凭摘要判断质量。"
+  },
+  {
+    "id": "zenodo-23157404",
+    "title": "Information Effects Are Not Incoherence: Fixed-Evidence Coherence Tests for Tabular Foundation Models",
+    "url": "https://zenodo.org/records/23157404",
+    "sourceUpdated": "2026-10-05",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-16",
+    "reason": "已取得 Zenodo v2 元数据和版本线索，但正文与最新版本未能核实；取得正文并明确其 fixed-evidence 协议、对前作的实证批评和最新版本后再审，不据未读批评改写已有论文。"
   }
 ]

@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-15",
+  "updatedAt": "2026-10-16",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -534,6 +534,360 @@
     }
   ],
   "papers": [
+    {
+      "id": "arxiv-2610.20342",
+      "title": "When Does Task-Aware Imputation Matter? An Analysis of Robustness Under Train-Test Mismatch",
+      "date": "2026-10-14",
+      "updated": "2026-10-14",
+      "category": 2,
+      "section": "prediction-quality",
+      "topicId": "missing-noisy-data",
+      "related": [
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把缺失值补全与分类损失联合优化，并区分部署时仍缺失和仅训练集缺失两种情况。在 98 个表格数据集上与 TabImpute 等比较，其中 36 个用于缺失偏移测试；收益集中于困难偏移，同分布总体未显著优于简单补全。下游只测试小型 MLP，尚不能直接推断对 TFM 预测同样有效。",
+      "url": "https://arxiv.org/abs/2610.20342",
+      "pdf": "https://arxiv.org/pdf/2610.20342",
+      "code": null,
+      "keywords": [
+        "Joint-AmortizedImpute",
+        "缺失补全与噪声清洗",
+        "结构化数据"
+      ],
+      "aliases": [
+        "Joint-AmortizedImpute",
+        "Joint-LatentImpute",
+        "Task-aware imputation"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.20342",
+        "https://arxiv.org/html/2610.20342"
+      ],
+      "topic": "缺失补全与噪声清洗",
+      "addedAt": "2026-10-16"
+    },
+    {
+      "id": "arxiv-2610.19536",
+      "title": "Typed Decision Models on Tabular Data",
+      "date": "2026-10-14",
+      "updated": "2026-10-14",
+      "category": 2,
+      "section": "prediction-decisions",
+      "topicId": "scores-routing",
+      "related": [
+        1,
+        4,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "比较 Jev 等四种决策模型与三种 LLM，在行分类、表格事实核验和异常检测中测试 21 类保持信息不变的改写。作者发现整体准确率可能掩盖单条决策翻转，置信度也更接近稳定性而非正确性。可用于设计格式测试与人工复核；成本比较受批量大小和 API 快照影响。",
+      "url": "https://arxiv.org/abs/2610.19536",
+      "pdf": "https://arxiv.org/pdf/2610.19536",
+      "code": null,
+      "keywords": [
+        "Typed Decision Models",
+        "评分、固定选项与路由",
+        "结构化数据"
+      ],
+      "aliases": [
+        "Typed Decision Models",
+        "Jev tabular decisions"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.19536",
+        "https://arxiv.org/html/2610.19536"
+      ],
+      "topic": "评分、固定选项与路由",
+      "addedAt": "2026-10-16"
+    },
+    {
+      "id": "arxiv-2610.20418",
+      "title": "OrionMoE-v1.0: A Mixture-of-Experts Foundation Model for Tabular In-Context Learning",
+      "date": "2026-10-14",
+      "updated": "2026-10-14",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        2,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "在双轴表格 Transformer 的特征轴引入稀疏专家，由支持集汇总的全表表示参与路由，默认组合八种输入视图。作者在 TabArena 等基准报告了小模型的竞争力，但分组／时间漂移和大数据仍有弱项，尚无等参数稠密模型消融来隔离路由贡献。论文注明采用限制性源码许可，制品下载尚待核实。",
+      "url": "https://arxiv.org/abs/2610.20418",
+      "pdf": "https://arxiv.org/pdf/2610.20418",
+      "code": null,
+      "keywords": [
+        "OrionMoE",
+        "通用表格模型",
+        "结构化数据"
+      ],
+      "aliases": [
+        "OrionMoE",
+        "OrionMoE-Small",
+        "OrionMoE v1.0"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.20418",
+        "https://arxiv.org/html/2610.20418"
+      ],
+      "topic": "通用表格模型",
+      "addedAt": "2026-10-16"
+    },
+    {
+      "id": "arxiv-2610.20462",
+      "title": "Learning by Examples: Power Grid Steady State Analysis with a Tabular Foundation Model",
+      "date": "2026-10-14",
+      "updated": "2026-10-14",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "related": [
+        2,
+        4,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "将电网潮流、故障筛查和电压稳定裕度写成表格任务，以直流潮流残差、功率解耦和拓扑特征辅助 TabPFN。118／2000 节点仿真显示部分任务可与专用网络竞争，但接近失稳的分布外情形仍明显退化，推理也更慢。价值在于用上下文与特征注入物理知识，尚非实时电网部署证据。",
+      "url": "https://arxiv.org/abs/2610.20462",
+      "pdf": "https://arxiv.org/pdf/2610.20462",
+      "code": null,
+      "keywords": [
+        "TabPFN power grid",
+        "工业与工程预测",
+        "结构化数据"
+      ],
+      "aliases": [
+        "TabPFN power grid",
+        "TabPFN-R",
+        "TabPFN-FD"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.20462",
+        "https://arxiv.org/html/2610.20462"
+      ],
+      "topic": "工业与工程预测",
+      "addedAt": "2026-10-16"
+    },
+    {
+      "id": "arxiv-2610.13724",
+      "title": "Amortized Counterfactual Prediction with Graph Neural Networks",
+      "date": "2026-10-09",
+      "updated": "2026-10-09",
+      "category": 3,
+      "section": "causal-models",
+      "topicId": "causal-unified",
+      "related": [
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "CFGNP 用观测上下文编码与事实—反事实双图消息传递学习反事实分布，并测试从 10 节点向 30 节点图迁移。合成实验有积极结果，但训练使用基线没有的反事实样本对，优势不能全部归因于架构；观测数据下不可识别的问题仍不可识别。适合作为摊销因果推理的探索路线。",
+      "url": "https://arxiv.org/abs/2610.13724",
+      "pdf": "https://arxiv.org/pdf/2610.13724",
+      "code": "https://github.com/Zelos1/CFGNP",
+      "keywords": [
+        "CFGNP",
+        "统一因果模型与路线",
+        "结构化数据"
+      ],
+      "aliases": [
+        "CFGNP",
+        "Counterfactual Graph Neural Process"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.13724",
+        "https://arxiv.org/html/2610.13724",
+        "https://github.com/Zelos1/CFGNP"
+      ],
+      "topic": "统一因果模型与路线",
+      "addedAt": "2026-10-16"
+    },
+    {
+      "id": "arxiv-2607.04809",
+      "title": "Context-Constrained Transfer Learning for Tabular Foundation Models via Data Distillation",
+      "date": "2026-07-06",
+      "updated": "2026-07-06",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "context-compression",
+      "related": [
+        2,
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "TL-ANDI 用带后验差异惩罚的最优传输选择源数据锚点，再平滑标签、校准目标残差，在有限上下文内做跨域迁移。TabPFN-2.5 的模拟与房价、糖尿病两个数据集实验提供初步支持；方法使用待预测样本的无标签特征。避免负迁移的理论依赖独立验证集，不能直接覆盖最终全量重拟合。",
+      "url": "https://arxiv.org/abs/2607.04809",
+      "pdf": "https://arxiv.org/pdf/2607.04809",
+      "code": null,
+      "keywords": [
+        "TL-ANDI",
+        "上下文压缩与信息迁移",
+        "结构化数据"
+      ],
+      "aliases": [
+        "TL-ANDI"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2607.04809",
+        "https://arxiv.org/html/2607.04809"
+      ],
+      "topic": "上下文压缩与信息迁移",
+      "addedAt": "2026-10-16"
+    },
+    {
+      "id": "arxiv-2607.05103",
+      "title": "Choosing a parallel heterogeneous ensemble method for tabular classification",
+      "date": "2026-07-06",
+      "updated": "2026-07-06",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "test-time-compute",
+      "related": [
+        1,
+        2
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "在 56 个 OpenML 分类任务上比较投票、Blending、Stacking 等方法，再用不重叠的 28 个 TabArena 任务验证组合规则。作者报告组合优于单一最佳模型，但未显著胜过最强单项集成；另列的 Stacking 试验存在数据泄漏，不能据其排名作公平比较。适合参考集成选择与评测协议。",
+      "url": "https://arxiv.org/abs/2607.05103",
+      "pdf": "https://arxiv.org/pdf/2607.05103",
+      "code": null,
+      "keywords": [
+        "Parallel heterogeneous ensembles",
+        "推理时计算与组合策略",
+        "结构化数据"
+      ],
+      "aliases": [
+        "Parallel heterogeneous ensembles",
+        "Robust Soft Voting"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2607.05103",
+        "https://arxiv.org/html/2607.05103"
+      ],
+      "topic": "推理时计算与组合策略",
+      "addedAt": "2026-10-16"
+    },
+    {
+      "id": "arxiv-2610.17867",
+      "title": "RT-J: Large-Scale Pretraining of Relational Transformers for Context-Efficient Predictions",
+      "date": "2026-05-25",
+      "updated": "2026-10-15",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "relational-releases",
+      "related": [
+        4,
+        5,
+        6
+      ],
+      "status": "published",
+      "venue": "NeurIPS 2026",
+      "summary": "RT-J 结合关系随机游走检索、局部邻域扩展与上下文调参／集成，在 RelBench 的 7 个数据库、21 项任务中提高有限上下文的利用率。作者的等标签比较支持回归收益，但完整调参另需最多 4,096 条验证标签，分类调参可能退化；不支持链接预测。连接语义、关系数据、推理和微调路线。",
+      "url": "https://arxiv.org/abs/2610.17867",
+      "pdf": "https://arxiv.org/pdf/2610.17867",
+      "code": "https://github.com/stanford-star/relational-transformer",
+      "keywords": [
+        "RT-J",
+        "关系数据模型",
+        "结构化数据"
+      ],
+      "aliases": [
+        "RT-J",
+        "RT-PluRel",
+        "Large-Scale Pretraining unlocks Few-Shot Prediction for Relational Data"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.17867",
+        "https://arxiv.org/html/2610.17867",
+        "https://star-project.stanford.edu/rt-j/",
+        "https://openreview.net/forum?id=oQINTd9din",
+        "https://openreview.net/forum?id=sMFUopPlwy",
+        "https://neurips.cc/virtual/2026/poster/149169",
+        "https://github.com/stanford-star/relational-transformer"
+      ],
+      "dateNote": "早期同作以 Large-Scale Pretraining unlocks Few-Shot Prediction for Relational Data 公开于 2026-05-25；arXiv 于 2026-10-13 首次提交，2026-10-15 修订。",
+      "topic": "关系数据模型",
+      "addedAt": "2026-10-16"
+    },
+    {
+      "id": "arxiv-2605.18702",
+      "title": "Distilling Tabular Foundation Models for Structured Health Data",
+      "date": "2026-05-18",
+      "updated": "2026-05-18",
+      "category": 6,
+      "section": "adaptation-distillation",
+      "topicId": "tree-distillation",
+      "related": [
+        1,
+        2,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用五折折外教师预测生成软标签，将六类 TFM 蒸馏为树模型或 MLP，在 19 个医疗数据集上检查精度、校准、公平性及成本。收益主要出现在树学生，MLP 可能退化，多分类实现也有缺口。提供避免上下文标签泄漏的部署思路；数据集含同一队列的不同版本，耗时比较采用不同硬件。",
+      "url": "https://arxiv.org/abs/2605.18702",
+      "pdf": "https://arxiv.org/pdf/2605.18702",
+      "code": null,
+      "keywords": [
+        "Healthcare TFM distillation",
+        "树模型蒸馏与 CPU 部署",
+        "结构化数据"
+      ],
+      "aliases": [
+        "Healthcare TFM distillation",
+        "OOF healthcare distillation"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.18702",
+        "https://arxiv.org/html/2605.18702"
+      ],
+      "topic": "树模型蒸馏与 CPU 部署",
+      "addedAt": "2026-10-16"
+    },
+    {
+      "id": "arxiv-2605.09424",
+      "title": "TabFORGE: A Tabular Foundation Model for Generative Modelling",
+      "date": "2026-05-10",
+      "updated": "2026-10-15",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        3,
+        6
+      ],
+      "status": "published",
+      "venue": "NeurIPS 2026",
+      "summary": "冻结 PFN 中间层编码，以潜空间扩散和去噪对齐解码器生成表格；目标数据需短步微调。在来自 TabArena／TabStruct 的 45 个数据集上比较 22 种方法，分开检查生成效用和过拟合。全局效用支持结构保真价值，但不等于因果识别或隐私保证，失败基线的指标填补也影响排名解释。",
+      "url": "https://arxiv.org/abs/2605.09424",
+      "pdf": "https://arxiv.org/pdf/2605.09424",
+      "code": "https://github.com/SilenceX12138/TabFORGE",
+      "keywords": [
+        "TabFORGE",
+        "通用表格模型",
+        "结构化数据"
+      ],
+      "aliases": [
+        "TabFORGE",
+        "Tabular Foundation Model for Generative Modelling"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.09424",
+        "https://arxiv.org/html/2605.09424",
+        "https://neurips.cc/virtual/2026/poster/149211",
+        "https://github.com/SilenceX12138/TabFORGE"
+      ],
+      "topic": "通用表格模型",
+      "addedAt": "2026-10-16"
+    },
     {
       "id": "arxiv-2610.10321",
       "title": "Estimating Uncoded Crash Factors with Tabular Foundation and System One Models: Kumo Tabular and Jev",
@@ -6002,6 +6356,22 @@
         "paper-e5eafe3ccc",
         "report-nvidia-kumo-tabular"
       ]
+    },
+    {
+      "date": "2026-10-16",
+      "added": [
+        "arxiv-2605.09424",
+        "arxiv-2605.18702",
+        "arxiv-2607.04809",
+        "arxiv-2607.05103",
+        "arxiv-2610.13724",
+        "arxiv-2610.17867",
+        "arxiv-2610.19536",
+        "arxiv-2610.20342",
+        "arxiv-2610.20418",
+        "arxiv-2610.20462"
+      ],
+      "updated": []
     }
   ]
 }

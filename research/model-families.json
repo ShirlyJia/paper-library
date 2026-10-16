@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-10-12",
+  "reviewedAt": "2026-10-16",
   "description": "已知模型家族及需保留的独立论文版本；用于防止汇总丢失，不代表模型全集。",
   "families": [
     {
@@ -442,6 +442,54 @@
         "https://arxiv.org/html/2606.30336",
         "https://github.com/SAP-samples/flextab",
         "https://neurips.cc/virtual/2026/poster/153378"
+      ]
+    },
+    {
+      "name": "OrionMoE",
+      "paperIds": [
+        "arxiv-2610.20418"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.20418",
+        "https://arxiv.org/html/2610.20418"
+      ]
+    },
+    {
+      "name": "RT-J / RT-PluRel",
+      "paperIds": [
+        "arxiv-2610.17867"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.17867",
+        "https://arxiv.org/html/2610.17867",
+        "https://star-project.stanford.edu/rt-j/",
+        "https://openreview.net/forum?id=oQINTd9din",
+        "https://openreview.net/forum?id=sMFUopPlwy",
+        "https://neurips.cc/virtual/2026/poster/149169",
+        "https://github.com/stanford-star/relational-transformer"
+      ]
+    },
+    {
+      "name": "CFGNP",
+      "paperIds": [
+        "arxiv-2610.13724"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.13724",
+        "https://arxiv.org/html/2610.13724",
+        "https://github.com/Zelos1/CFGNP"
+      ]
+    },
+    {
+      "name": "TabFORGE",
+      "paperIds": [
+        "arxiv-2605.09424"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.09424",
+        "https://arxiv.org/html/2605.09424",
+        "https://neurips.cc/virtual/2026/poster/149211",
+        "https://github.com/SilenceX12138/TabFORGE"
       ]
     }
   ]
