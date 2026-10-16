@@ -55,7 +55,8 @@
       "sources": [
         "https://arxiv.org/abs/2510.21204",
         "https://arxiv.org/abs/2609.04540"
-      ]
+      ],
+      "needsContext": true
     },
     {
       "name": "TabDPT",
@@ -163,7 +164,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.10317"
-      ]
+      ],
+      "needsContext": true
     },
     {
       "name": "RefineICL",
@@ -247,7 +249,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2402.16785"
-      ]
+      ],
+      "needsContext": true
     },
     {
       "name": "TARTE",
@@ -257,7 +260,8 @@
       "sources": [
         "https://arxiv.org/abs/2505.14415",
         "https://github.com/soda-inria/tarte-ai"
-      ]
+      ],
+      "needsContext": true
     },
     {
       "name": "GeneICL",
@@ -377,7 +381,8 @@
       "sources": [
         "https://arxiv.org/abs/2605.06290",
         "https://arxiv.org/html/2605.06290"
-      ]
+      ],
+      "needsContext": true
     },
     {
       "name": "TILE",
@@ -387,7 +392,8 @@
       "sources": [
         "https://arxiv.org/abs/2610.17065",
         "https://arxiv.org/html/2610.17065"
-      ]
+      ],
+      "needsContext": true
     },
     {
       "name": "TabGift",
@@ -430,7 +436,8 @@
         "https://arxiv.org/abs/2610.17994",
         "https://arxiv.org/html/2610.17994",
         "https://github.com/automl/rasr"
-      ]
+      ],
+      "needsContext": true
     },
     {
       "name": "FlexTab",

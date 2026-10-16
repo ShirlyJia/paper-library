@@ -14,7 +14,7 @@
 
 ## 每次检索
 
-1. 运行 `npm run collect`：同时采集 arXiv 元数据、正式会议完整目录与摘要、OpenAlex 全文索引、六个方向的语义近邻，以及种子论文的引用关系。默认重点覆盖近六个月；正式会议核对当年和上一年的目录，参考文献追溯不限首发时间。
+1. 运行 `npm run collect`（日常使用 `npm run collect:daily`，按渠道到期规则运行）：同时采集 arXiv 元数据、正式会议完整目录与摘要、OpenAlex 全文索引、六个方向的语义近邻，以及种子论文的引用关系。默认重点覆盖近六个月；正式会议核对当年和上一年的目录，参考文献追溯不限首发时间。
 2. 按 `model-families.json` 逐家核对官方仓库、模型卡、报告与版本沿革；每个新模型都补其别名、前作和相关版本。新发现的家族加入登记表，不能只检查已知名单。
 3. 正式会议来源由脚本自动查，不再留作人工待办。补查自动来源的失败／缺摘要条目和作者／机构发布页，并从综述、方法正文和模型对比表反查漏掉的基线。TabArena 单独检索名称与相关内容，追踪基准论文的双向引用、官方仓库和榜单中的模型论文；正文涉及 TabArena 而题名／摘要未提及时也保留候选。新发现的会议加入来源配置；社区列表、搜索引擎和新闻仅提供线索，技术内容及收录状态回到一手来源确认。
 4. 阅读候选的原始摘要作初筛；拟收录论文按“质量与价值审核”进一步阅读相关方法、实验或论证正文，对新模型和跨方向工作追溯参考文献。记录收录、已有、待核验或排除及理由。模型简称常不在论文题名中，须搜索摘要、代码仓库和全文中的方法名称。
@@ -32,7 +32,7 @@ npm run collect -- --channels fulltext,semantic,citations
 npm run collect -- --resume work/collection/latest.json --channels fulltext --output work/collection/resumed.json
 ```
 
-采集器只需 Python 3 标准库，不配置付费密钥或登录，OpenAlex 使用免密钥免费额度。每轮最多 75 次 OpenAlex 网络请求，达到预算或平台限额时保留缺口，不改用付费额度。输出位于 `work/collection/latest.json`，不直接写入公开目录。每条候选保留发现渠道、原始摘要、命中字段或检索方式、来源及是否已收录；已有条目仍进入更新核对，避免漏掉后续会议收录。
+采集器只需 Python 3 标准库，不使用付费额度。OpenAlex 自 2026 年起要求翻页（cursor）必须带免费 API key，否则第二页起返回 401：在 https://openalex.org/settings/api 免费申请后写入本机环境变量 `OPENALEX_API_KEY`（不要提交到仓库）。没有 key 时脚本只取第一页并把该检索标为截断、保留游标，不再发出注定失败的请求。有 key 时每轮最多 400 次请求，无 key 时 75 次；达到预算或平台限额时保留缺口。输出位于 `work/collection/latest.json`，不直接写入公开目录。每条候选保留发现渠道、原始摘要、命中字段或检索方式、来源及是否已收录。`npm run queue -- add 报告` 把候选并入跨天的待审队列 `work/collection/queue.json`，按标题命中、独立渠道数和是否近期首发排序；已有条目只在出现新修订或会议记录时重新进入更新核对，避免每天重复核对未变化的论文。
 
 arXiv 和 OpenAlex 普通查询自动翻页，默认最多十页／检索式；OpenAlex 语义搜索按服务限制只返回前 50 个近邻。API 失败、解析失败或触及分页上限都会记录并返回非零状态，不能把缺页视为空结果或宣称检索完整。429／503 后暂停该源的剩余请求，其他来源继续；下次运行补查。网络响应只缓存一天；`--refresh` 强制重新请求。
 
@@ -40,7 +40,7 @@ arXiv 和 OpenAlex 普通查询自动翻页，默认最多十页／检索式；O
 
 | 渠道 | 实际检查内容 | 保留的限制 |
 | --- | --- | --- |
-| arXiv | 题名、摘要、其他元数据；主题检索式加全部已登记家族名 | `all:` 不搜索 PDF 正文；索引延迟与接口失败需补查 |
+| arXiv | 题名、摘要、其他元数据；主题检索式加全部已登记家族名（"A / B" 拆成两个名称；`needsContext` 标记的歧义短名称须同时出现表格相关词） | `all:` 不搜索 PDF 正文；索引延迟与接口失败需补查 |
 | PMLR | 动态发现 ICML、AISTATS、UAI、COLT、CLeaR、AutoML、CoLLAs、CPAL、ALT、ACML、MLHC、CHIL 等当年及上一年卷册；下载官方完整 BibTeX，检查题名与摘要 | 按实际出版目录发现卷号；缺摘要单独计数，Workshop 保留完整名称 |
 | ICLR / NeurIPS | 从官方会议程序发现批量论文与摘要数据；保留各轨道和官方 decision | 不依赖 OpenReview API 能否匿名访问；未公布或无法访问的年份记录待补查，不冒充零篇 |
 | ACL Anthology | 从官方 XML 目录发现 ACL、EMNLP、NAACL、EACL、COLING、Findings、CoNLL、AACL、IJCNLP 及 TACL / CL | 保留卷册与轨道，Findings 不改成主会；不是 NLP 所有 Workshop 的全集 |

@@ -4,6 +4,7 @@ import calendar
 import gzip
 import hashlib
 import json
+import os
 import re
 import sys
 import time
@@ -155,6 +156,26 @@ def merge_candidates(records, papers):
     return sorted(result, key=lambda p: (p.get("date", ""), p.get("title", "")), reverse=True)
 
 
+def family_queries(families):
+    """arXiv lanes for registered families. Split "A / B" names; ambiguous short names need tabular context."""
+    plain, contextual = set(), set()
+    for family in families:
+        names = family.get("searchNames") or [part.strip() for part in family["name"].split("/")]
+        (contextual if family.get("needsContext") else plain).update(n.replace('"', '') for n in names if n.strip())
+    terms = ['all:"' + name + '"' for name in sorted(plain)]
+    terms += ['(all:"' + name + '" AND (all:tabular OR all:table OR all:"structured data"))' for name in sorted(contextual)]
+    lanes = [{"id": f"registered-families-{i // 12 + 1}", "query": " OR ".join(terms[i:i + 12])} for i in range(0, len(terms), 12)]
+    return lanes, sorted(plain)
+
+
+def prune_cache(cache, max_age=2 * 86400):
+    """Responses are only reused for a day, so older files are dead weight."""
+    now = time.time()
+    for path in cache.glob("*.txt"):
+        if now - path.stat().st_mtime > max_age:
+            path.unlink()
+
+
 def apply_decisions(candidates, decisions):
     by_key = {key: decision for decision in decisions for key in keys(decision)}
     for candidate in candidates:
@@ -197,14 +218,18 @@ def main():
     config["_resumeRuns"] = previous.get("runs", [])
     config["_resumeCandidates"] = previous.get("candidates", [])
     families = json.loads((ROOT / "research/model-families.json").read_text())["families"]
-    names = sorted({family["name"] for family in families})
+    lanes, names = family_queries(families)
+    # Ambiguous names (Retro, Mitra, ...) stay out of the keyword gate; tabular terms already cover them in context.
     config["relevancePattern"] += "|" + "|".join(r"\b" + re.escape(name) + r"\b" for name in names)
-    for index in range(0, len(names), 12):
-        config["arxivQueries"].append({"id": f"registered-families-{index // 12 + 1}",
-                                       "query": " OR ".join('all:"' + name.replace('"', '') + '"' for name in names[index:index + 12])})
+    config["arxivQueries"].extend(lanes)
+    api_key = os.environ.get("OPENALEX_API_KEY", "").strip()
+    config["_openalexKey"] = bool(api_key)
+    if not api_key and channels & {"fulltext", "citations", "formal"}:
+        print("提示：未设置 OPENALEX_API_KEY，OpenAlex 只能取第一页；免费申请见 https://openalex.org/settings/api", file=sys.stderr)
     papers = json.loads((ROOT / "data/papers.json").read_text())["papers"]
     cache = ROOT / "work/collection/cache"
     cache.mkdir(parents=True, exist_ok=True)
+    prune_cache(cache)
     last_arxiv, last_openalex, openalex_requests = 0.0, 0.0, 0
     unavailable_hosts = {}
 
@@ -220,11 +245,14 @@ def main():
             time.sleep(max(0, 3.1 - (time.monotonic() - last_arxiv)))
             last_arxiv = time.monotonic()
         if urllib.parse.urlparse(url).hostname == "api.openalex.org":
-            if openalex_requests >= config.get("openalexRequestLimit", 75):
-                raise RuntimeError("Keyless OpenAlex request budget reached; resume missing lanes in a later run")
+            limit = config.get("openalexKeyedRequestLimit", 400) if api_key else config.get("openalexRequestLimit", 75)
+            if openalex_requests >= limit:
+                raise RuntimeError("OpenAlex request budget reached; resume missing lanes in a later run")
             time.sleep(max(0, 1.1 - (time.monotonic() - last_openalex)))
             last_openalex = time.monotonic()
             openalex_requests += 1
+        if api_key and host == "api.openalex.org":
+            url += ("&" if "?" in url else "?") + urllib.parse.urlencode({"api_key": api_key})
         request = urllib.request.Request(url, headers={"User-Agent": "StructuredDataPaperLibrary/2.0 (shared research index)",
                                                        "Accept-Encoding": "gzip"})
         try:
@@ -234,7 +262,7 @@ def main():
                     body = gzip.decompress(body)
                 raw = body.decode("utf-8")
         except urllib.error.HTTPError as error:
-            if error.code in (429, 503):
+            if error.code in (429, 503) or (error.code == 401 and host == "api.openalex.org"):
                 unavailable_hosts[host] = f"HTTP {error.code}"
             raise
         path.write_text(raw)
@@ -257,9 +285,9 @@ def main():
                 count += len(entries)
                 if count >= total or not entries:
                     break
-            runs.append({"source": lane["id"], "query": query, "count": count, "total": total, "status": "complete" if count >= total else "truncated"})
+            runs.append({"source": lane["id"], "channel": "arxiv", "query": query, "count": count, "total": total, "status": "complete" if count >= total else "truncated"})
         except Exception as error:
-            runs.append({"source": lane["id"], "count": count, "status": "failed", "error": str(error)})
+            runs.append({"source": lane["id"], "channel": "arxiv", "count": count, "status": "failed", "error": str(error)})
         print(json.dumps(runs[-1], ensure_ascii=False), flush=True)
 
     new_records, new_runs = discover(config, fetch, args.since, args.until, args.max_pages, papers,
@@ -287,9 +315,9 @@ def main():
                     elif parsed.netloc == "proceedings.mlr.press" and parsed.path.endswith(".html"):
                         found.append({"url": link, "sources": [link], "discoveredVia": [source["url"]]})
             records.extend(found)
-            runs.append({"source": source["url"], "status": "complete", "linkedCandidates": len(found)})
+            runs.append({"source": source["url"], "channel": "references", "status": "complete", "linkedCandidates": len(found)})
         except Exception as error:
-            runs.append({"source": source["url"], "status": "failed", "error": str(error)})
+            runs.append({"source": source["url"], "channel": "references", "status": "failed", "error": str(error)})
         print(json.dumps(runs[-1], ensure_ascii=False), flush=True)
 
     candidates = merge_candidates(records, papers)

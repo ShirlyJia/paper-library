@@ -4,20 +4,23 @@
 
 ## 时间与排序
 
-- 日常检索最近七天的首发或修订，覆盖索引延迟；距上次完成日期额外重叠三天，停机后补查间隔内的内容。
-- 首次执行及距上次完整回查满七天时，回查近六个月，并检查全部已登记模型家族、正式会议和引用线索。关键旧作仍可收录。
+- 每个检索渠道单独记检查点（`work/collection/daily-state.json` 的 `channels`），一个来源失败不再拖着全部渠道每天重跑六个月：
+  - arXiv 每天检索最近七天的首发或修订，并与上次完成日期重叠三天；停机后自动补齐间隔。
+  - OpenAlex 全文、语义近邻、引用网络、正式会议目录和参考文献来源每七天回查近六个月（OpenAlex 按发表日期过滤，索引有延迟，故用半年窗口）；未到期的渠道当天跳过。
+  - 失败或截断的渠道不推进检查点，次日自动重跑，不需要手动续查游标。
+- 首次执行时全部渠道回查近六个月。每七天还要核对全部已登记模型家族的官方来源。关键旧作仍可收录。
 - 网站默认按论文最早已核实的公开日期从新到旧排列，支持反向排序。`updated` 只记录论文修订时间；补录时间不改变论文首发时间。同日论文按标题排列，只有年或月时保留原有日期精度。
 - `addedAt` 单独记录论文首次加入本站的北京时间日期，后续更正不得改写。`collectionUpdates` 记录每天新增与资料更新的论文 ID，同日按论文去重；当天新收录条目不重复计为资料更新。近期更新面板按这些记录汇总当前目录近 30 天的变化，不将页面改版、重新检索或核验时间刷新计为论文更新。
 - 目录绿色 `+N` 与卡片“今日收录”仅按当天的 `addedAt` 自动显示，零新增不显示，跨北京时间零点自动清除。无需每日手动设置或清理标记；历史日期与更新记录保留，资料更正不能触发新增提示。
 
 ## 每日执行
 
-1. **准备。** 读取 `AGENTS.md`、`research/COLLECTION.md`、来源配置、模型家族表与筛选记录。检查 Git 状态和远端：工作区干净时使用 `git pull --ff-only` 同步；有未提交修改时先保留并辨认归属，不覆盖、不强推。检查 `work/collection/daily-state.json` 和以往未完成的运行记录，同一天已完成且没有失败重试事项时不重复执行。
-2. **采集。** 运行 `npm run collect:daily`。脚本计算时间窗口，自动检查全部已配置的正式会议／期刊、arXiv、全文索引、六个方向的语义近邻和双向引用来源，将执行计划及候选保存在 `work/collection/daily/日期/运行编号/`。正式会议扫描当年与上一年的完整官方目录及摘要，保留轨道、录用信息和缺摘要计数。随后由 Codex 按 `research/connector-sources.json` 逐条执行 Consensus search、对去重结果执行 fetch，保存导出文件，再用 `npm run collect:consensus` 合并到本次候选；具体格式和限流策略见检索规则的“插件补查”。没有可用连接或重试后仍失败时记录缺口，继续其他来源和已核实内容的发布。退出非零或 `incomplete: true` 都代表来源失败或截断，不能视为没有新论文。保留未完成运行目录中的待处理候选，不因下一次窗口前移丢弃。
-3. **补查。** 每天补查自动采集的失败来源、缺失摘要、全文尚未索引的候选，以及六个方向的网页检索、已登记模型的官方版本动态、会议展示标记。TabArena 作为专项来源，补查官方仓库、榜单模型论文和基准论文的双向引用，按收录规则保留相关的非基础模型研究。对以往尚有 `nextCursor` 的 OpenAlex 报告，用 `npm run collect -- --resume 报告路径 --channels fulltext --max-pages 1 --output 本次目录/续查.json` 分批推进，后续从新的续查文件继续；预算不足则保存进度，不反复从第一页开始。从新论文的方法正文、相关工作、基线表和参考文献追踪未知家族。主题、方法同义词、模型简称和作者线索交叉搜索。语义和引用结果不得因不含原检索关键词而自动丢弃。每七天完整回查还要逐项核对全部家族、人工作者来源和自动会议覆盖；新增会议和来源加入配置。社区清单只作线索，聚合索引的会议字段不等于录用证明。
-4. **核验、质量审核与收录。** 按收录规则核对论文身份、首发日期、方法与实验背景、发表状态、官方代码及 PDF。每篇新增及涉及方法／实验结论的更正，按 `COLLECTION.md` 的“质量与价值审核”阅读相关正文，判断相对前作的贡献、证据是否支持核心主张、研究／应用价值和复现条件；仅摘要不能完成审核。将关键依据、局限和价值融入中文概览，更新别名、主分类及跨方向关联。重要新模型与跨方向论文追溯参考文献。同一论文合并不同来源，有独立贡献的模型版本分别保留。每个已处理候选在 `research/decisions.json` 记录收录／已有／暂缓／排除及理由，实际审核内容写入 `qualityReview`；资料不足时保留待核验和补查条件，不自动补写结论。不得为凑每日数量添加论文。
+1. **准备。** 读取 `AGENTS.md`、`research/COLLECTION.md`、来源配置、模型家族表与筛选记录。检查 Git 状态和远端：工作区干净时使用 `git pull --ff-only` 同步；有未提交修改时先保留并辨认归属，不覆盖、不强推。运行 `npm run collect:daily -- --dry-run` 查看今天到期的渠道；没有到期渠道时跳过采集，只处理待审队列。
+2. **采集。** 运行 `npm run collect:daily`（需要环境变量 `OPENALEX_API_KEY`，见检索规则）。脚本只运行到期渠道，计划和各组候选（`candidates-N.json`）保存在 `work/collection/daily/日期/运行编号/`，并自动并入跨天的待审队列 `work/collection/queue.json`。正式会议扫描当年与上一年的完整官方目录及摘要，保留轨道、录用信息和缺摘要计数。随后由 Codex 按 `research/connector-sources.json` 逐条执行 Consensus search、对去重结果执行 fetch，保存导出文件，再运行 `npm run collect:consensus -- --input 本次目录/consensus.json --output 本次目录/consensus-candidates.json` 和 `npm run queue -- add 本次目录/consensus-candidates.json`；具体格式和限流策略见检索规则的“插件补查”。没有可用连接或重试后仍失败时记录缺口，继续其他来源和已核实内容的发布。退出非零或 `incomplete: true` 都代表来源失败或截断，不能视为没有新论文。未处理的候选留在队列中，不因窗口前移丢失。
+3. **补查。** 每天补查自动采集的失败来源、缺失摘要、全文尚未索引的候选，以及六个方向的网页检索、已登记模型的官方版本动态、会议展示标记。TabArena 作为专项来源，补查官方仓库、榜单模型论文和基准论文的双向引用，按收录规则保留相关的非基础模型研究。失败的自动渠道由次日到期规则重跑，不手动续查游标。从新论文的方法正文、相关工作、基线表和参考文献追踪未知家族。主题、方法同义词、模型简称和作者线索交叉搜索。语义和引用结果不得因不含原检索关键词而自动丢弃。每七天（正式会议渠道到期时）用 `npm run fetch:sources -- --families --out 本次目录/families` 抓取全部家族的官方来源并逐项核对，同时核对人工作者来源和自动会议覆盖；新增会议和来源加入配置。其余日子不重复家族全量抓取。社区清单只作线索，聚合索引的会议字段不等于录用证明。
+4. **核验、质量审核与收录。** 用 `npm run queue -- top` 按优先级处理待审队列（标题命中、被多个独立渠道发现、近期首发排在前面；排序不删除任何候选）。摘要初筛的结论用 `npm run queue -- screen ID --verdict not-relevant|needs-fulltext --reason 理由` 记录，次日不再重复出现，论文有新修订时自动重开；初筛记录不是公开决定。需读正文的论文用 `npm run fetch:sources -- jobs.json --out 本次目录/primary` 取得文本（arXiv 优先用 HTML 版）。按收录规则核对论文身份、首发日期、方法与实验背景、发表状态、官方代码及 PDF。每篇新增及涉及方法／实验结论的更正，按 `COLLECTION.md` 的“质量与价值审核”阅读相关正文，判断相对前作的贡献、证据是否支持核心主张、研究／应用价值和复现条件；仅摘要不能完成审核。将关键依据、局限和价值融入中文概览，更新别名、主分类及跨方向关联。重要新模型与跨方向论文追溯参考文献。同一论文合并不同来源，有独立贡献的模型版本分别保留。本次的新增、更正、暂缓和排除写入一个 `本次目录/review-input.json`（格式见 `scripts/apply_review.py`），运行 `npm run apply:review -- 本次目录/review-input.json --briefing 本次目录/briefing-list.md`：脚本校验质量审核字段，统一写入 `data/papers.json`、`research/decisions.json` 和家族登记表，并生成小报的完整清单。不要再为这些步骤每天另写临时脚本。资料不足时保留待核验和补查条件，不自动补写结论。不得为凑每日数量添加论文。
 5. **检查并发布。** 有已核实的新增或更正时更新 `data/papers.json`、家族登记及必要的来源／决策记录。提交前运行 `npm run record:updates`，与当前 `HEAD` 比较，自动写入新论文的 `addedAt` 并合并当天 `collectionUpdates`；需要指定比较起点或日期时使用 `--base` / `--date`。再运行 `npm run check`；检查新条目的目录、别名检索、首发与收录时间、近期更新面板和原文／PDF／代码链接。只提交本次相关修改并推送当前站点的 `origin/main`，使用 `git remote get-url origin` 确认目标。等待 Pages 完成发布，核对线上 JSON 和页面。遇到推送冲突、测试失败或部署失败保留现场并报告，不重置远端、不强推。没有内容变化时不修改目录 `updatedAt`，不制造空发布。
-6. **记录完成。** 在本次运行目录保存 `review.json`，写明实际核验来源、候选处理数、新增／更正的论文 ID、暂缓项、失败项、验证结果和发布结果；另以 `qualityReviewedIds` 记录实际完成质量与价值审核的论文 ID，未完成项注明缺失材料或证据，不把来源核验算作质量审核。有实质内容更新时，按下节生成 `briefing.md`，并在 `review.json` 记录文件路径及小报覆盖的论文 ID。有未完成的来源检查或验证失败时不推进检查点。已完成检索与核验、必要发布已验证后，再原子更新 `work/collection/daily-state.json` 的 `lastCompleted`；完整回查完成时同时更新 `lastBackfill`。没有新论文但检索已完整完成，也可以推进检查点。暂缓候选保留理由和后续复查条件。
+6. **记录完成。** 有实质内容更新时，按下节写好 `briefing.md`（叙述部分加上 `briefing-list.md`）。然后运行 `npm run collect:finish -- 本次目录 --review-input 本次目录/review-input.json [--published] [--note 缺口说明]`：脚本按固定格式（schemaVersion 2）生成 `review.json`，记录各渠道状态与失败项、新增／更正／暂缓／排除 ID、`qualityReviewedIds`（仅限完成质量审核的新增和更正）、队列规模、小报路径和发布结果，并只推进本次完整完成的渠道检查点。检索检查点与审核进度分开：候选已进入队列，所以渠道完成即可推进，未审候选不会丢失。验证或发布失败时不加 `--published`，并用 `--note` 说明。暂缓候选保留理由和后续复查条件。
 
 ## 更新小报
 
@@ -31,22 +34,32 @@
 
 ## 检查点
 
-检查点仅记录实际完成日期，使用北京时间的 `YYYY-MM-DD`，不提交到公开目录：
+检查点按渠道记录实际完整完成的日期（北京时间 `YYYY-MM-DD`），不提交到公开目录：
 
 ```json
 {
-  "lastCompleted": "YYYY-MM-DD",
-  "lastBackfill": "YYYY-MM-DD"
+  "channels": {"arxiv": "YYYY-MM-DD", "fulltext": "YYYY-MM-DD", "semantic": "YYYY-MM-DD",
+               "citations": "YYYY-MM-DD", "formal": "YYYY-MM-DD", "references": "YYYY-MM-DD"}
 }
 ```
 
-`lastBackfill` 是最近一次完成六个月回查的日期，不能晚于 `lastCompleted`。没有检查点时自动执行首次完整回查；采集脚本本身从不推进检查点，防止把抓取成功当成研究与发布成功。
+没有记录的渠道自动执行六个月回查。采集命令本身从不推进检查点，只有 `npm run collect:finish` 根据本次运行报告推进完整完成的渠道。
 
 ```sh
 npm run collect:daily -- --dry-run
 npm run collect:daily
-npm run check
+npm run queue -- top
+npm run apply:review -- 本次目录/review-input.json --briefing 本次目录/briefing-list.md
+npm run record:updates && npm run check
+npm run collect:finish -- 本次目录 --review-input 本次目录/review-input.json --published
 ```
+
+## 资源使用
+
+- 网络缓存只保留两天，采集时自动清理；同一天重试复用缓存，不再强制全部重新下载。
+- 正式会议完整目录、OpenAlex 半年回查和家族官方来源每周各抓一次，不再每天重复下载。
+- 正文抓取默认只保存文本和 SHA-256，原始 HTML/PDF 仅在需要时加 `--keep-raw`。
+- 线上截图核对只在本次确有发布时进行。
 
 ## 发布边界
 

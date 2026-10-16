@@ -58,7 +58,7 @@
 
 每天北京时间 09:45 由当前 Codex 对话的定时任务执行[每日更新机制](research/DAILY_UPDATE.md)：增量检索、原始来源核验、补充中文概览、检查并发布。正式会议与摘要、全文索引、语义近邻、引用关系均自动采集；每七天回查近六个月，补查模型版本与会议录用。没有内容变化时不改目录更新日期。
 
-`npm run collect:daily` 自动计算检索窗口并保存候选与执行计划，不直接发布。`npm run collect:daily -- --dry-run` 只预览窗口。任务依赖本机 Codex 调度环境及网络；静态站点本身不执行采集，也不需要付费 API。实际调度时间以 Codex 定时任务设置为准。
+`npm run collect:daily` 按渠道检查点只运行到期的检索，候选并入跨天的待审队列（`npm run queue -- top` 查看），不直接发布；`npm run collect:daily -- --dry-run` 只预览。OpenAlex 翻页需要免费 API key，写入环境变量 `OPENALEX_API_KEY`。审核结果用 `npm run apply:review` 写入，运行记录用 `npm run collect:finish` 生成。任务依赖本机 Codex 调度环境及网络；静态站点本身不执行采集，也不需要付费 API。实际调度时间以 Codex 定时任务设置为准。
 
 已连接的 Consensus 由同一个每日 Codex 任务执行补充检索，先搜索、再读取完整记录，使用 `npm run collect:consensus` 合并候选后核验。插件不可用或限流时保留缺口，其他渠道继续；访问论文站无需安装插件。
 

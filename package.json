@@ -9,7 +9,13 @@
     "check": "node scripts/validate.mjs && node --test tests/*.test.mjs && python3 -m unittest discover -s tests -p '*_test.py'",
     "collect": "python3 scripts/collect.py",
     "collect:consensus": "python3 scripts/import_consensus.py",
-    "collect:daily": "python3 scripts/collect_daily.py"
+    "collect:daily": "python3 scripts/collect_daily.py",
+    "collect:finish": "python3 scripts/collect_daily.py --finish",
+    "queue": "python3 scripts/review_queue.py",
+    "apply:review": "python3 scripts/apply_review.py",
+    "fetch:sources": "python3 scripts/fetch_sources.py"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  }
 }

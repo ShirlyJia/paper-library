@@ -117,6 +117,22 @@ class DiscoveryTests(unittest.TestCase):
         self.assertEqual(scanner.runs[0]['count'], 101)
         self.assertEqual(scanner.runs[0]['status'], 'complete')
 
+    def test_without_api_key_only_the_first_page_is_requested(self):
+        calls = []
+        def fetch(url):
+            calls.append(url)
+            return json.dumps({'meta': {'count': 300, 'next_cursor': 'next'}, 'results': [self.work()]})
+        scanner = self.scanner(fetch, max_pages=5)
+        scanner.keyed = False
+        scanner.alex_pages({'search': 'tabular'}, 'fulltext')
+        self.assertEqual(len(calls), 1)
+        self.assertEqual((scanner.runs[0]['status'], scanner.runs[0]['nextCursor']), ('truncated', 'next'))
+        self.assertIn('OPENALEX_API_KEY', scanner.runs[0]['error'])
+        scanner.config['_resumeRuns'] = [{'source': 'resumed', 'status': 'truncated', 'count': 100,
+                                          'query': {'search': 'tabular'}, 'nextCursor': 'saved'}]
+        scanner.alex_pages({'search': 'tabular'}, 'resumed')
+        self.assertEqual(len(calls), 1)
+
     def test_acl_event_only_collection_is_not_a_parser_failure(self):
         self.assertEqual(discovery.parse_anthology('<collection id="2025.aacl"><event id="aacl-2025"/></collection>'), [])
         with self.assertRaises(ValueError):

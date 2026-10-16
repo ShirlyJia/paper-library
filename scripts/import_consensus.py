@@ -21,7 +21,7 @@ def normalize_export(bundle):
     for search in bundle["searches"]:
         lane = "consensus:" + search["id"]
         if search["status"] != "complete":
-            runs.append({"source": lane, "status": "failed", "query": search["query"],
+            runs.append({"source": lane, "channel": "consensus", "status": "failed", "query": search["query"],
                          "error": search.get("error", "Connector search failed")})
             continue
         hits = search["results"]
@@ -49,7 +49,7 @@ def normalize_export(bundle):
                 candidate["discoverySnippet"] = hit.get("text", "")
                 pending.append(hit["id"])
             candidates.append(candidate)
-        runs.append({"source": lane, "status": "complete", "query": search["query"],
+        runs.append({"source": lane, "channel": "consensus", "status": "complete", "query": search["query"],
                      "count": len(hits), "fullRecords": len(hits) - len(pending),
                      "pendingFetchIds": pending, "coverage": "ranked-results; not an exhaustive index"})
     return candidates, runs

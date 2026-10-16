@@ -54,5 +54,23 @@ class CollectionTests(unittest.TestCase):
         self.assertEqual(candidate['reviewState'],'deferred')
 
 
+    def test_family_queries_split_aliases_and_require_context_for_ambiguous_names(self):
+        lanes, names = collect.family_queries([{'name': 'ConTextTab / SAP-RPT-1-OSS'}, {'name': 'Retro', 'needsContext': True}])
+        query = ' OR '.join(lane['query'] for lane in lanes)
+        self.assertIn('all:"ConTextTab"', query)
+        self.assertIn('all:"SAP-RPT-1-OSS"', query)
+        self.assertNotIn(' / ', query)
+        self.assertIn('(all:"Retro" AND (all:tabular', query)
+        self.assertEqual(names, ['ConTextTab', 'SAP-RPT-1-OSS'])
+
+    def test_cache_pruning_keeps_fresh_responses(self):
+        import os, tempfile, time
+        with tempfile.TemporaryDirectory() as folder:
+            old, new = Path(folder, 'old.txt'), Path(folder, 'new.txt')
+            old.write_text('x'); new.write_text('y')
+            os.utime(old, (time.time() - 3 * 86400,) * 2)
+            collect.prune_cache(Path(folder))
+            self.assertEqual([p.name for p in Path(folder).iterdir()], ['new.txt'])
+
 if __name__ == '__main__':
     unittest.main()

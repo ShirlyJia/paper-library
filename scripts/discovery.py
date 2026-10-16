@@ -182,9 +182,12 @@ class Discovery:
         self.max_pages, self.papers, self.emit = max_pages, papers, emit
         self.records, self.runs = list(config.get("_resumeCandidates", [])), []
         self.terms = re.compile(config["relevancePattern"], re.I)
+        self.channel = None
+        # OpenAlex serves the first page without a key but rejects cursor paging (401).
+        self.keyed = config.get("_openalexKey", True)
 
     def report(self, source, **values):
-        run = {"source": source, **values}
+        run = {"source": source, "channel": self.channel, **values}
         self.runs.append(run)
         self.emit(run)
 
@@ -298,9 +301,14 @@ class Discovery:
             return []
         previous_count = 0
         if not semantic and previous and previous.get("nextCursor"):
+            if not self.keyed:
+                self.report(lane, status="truncated", count=previous.get("count", 0), query=params, nextCursor=previous["nextCursor"],
+                            error="Cursor paging needs OPENALEX_API_KEY; skipped instead of spending a failing request")
+                return []
             cursor, previous_count = previous["nextCursor"], previous.get("count", 0)
+        max_pages = 1 if semantic or not self.keyed else self.max_pages
         try:
-            for page in range(1, (1 if semantic else self.max_pages) + 1):
+            for page in range(1, max_pages + 1):
                 query = {**params, "per_page": 50 if semantic else 100}
                 if not semantic:
                     query["cursor"] = cursor
@@ -314,8 +322,9 @@ class Discovery:
                     break
             self.records.extend(fetched)
             complete = semantic or previous_count + len(fetched) >= total or not cursor
+            extra = {} if complete or self.keyed else {"error": "Only the first page is available without OPENALEX_API_KEY"}
             self.report(lane, status="complete" if complete else "truncated", count=previous_count + len(fetched), total=total,
-                        query=params, coverage="ranked-top-50" if semantic else "indexed-results", nextCursor=None if complete else cursor)
+                        query=params, coverage="ranked-top-50" if semantic else "indexed-results", nextCursor=None if complete else cursor, **extra)
         except Exception as error:
             self.records.extend(fetched)
             self.report(lane, status="failed", count=previous_count + len(fetched), query=params, error=str(error), nextCursor=cursor)
@@ -381,13 +390,11 @@ class Discovery:
 
 def discover(config, fetch, since, until, max_pages, papers, emit, channels):
     discovery = Discovery(config, fetch, since, until, max_pages, papers, emit)
-    if "formal" in channels:
-        discovery.formal()
-        discovery.indexed_venues()
-    if "fulltext" in channels:
-        discovery.fulltext()
-    if "semantic" in channels:
-        discovery.semantic()
-    if "citations" in channels:
-        discovery.citations()
+    steps = {"formal": [discovery.formal, discovery.indexed_venues], "fulltext": [discovery.fulltext],
+             "semantic": [discovery.semantic], "citations": [discovery.citations]}
+    for channel, functions in steps.items():
+        if channel in channels:
+            discovery.channel = channel
+            for function in functions:
+                function()
     return discovery.records, discovery.runs
