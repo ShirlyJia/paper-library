@@ -120,6 +120,11 @@ def main():
     previous = json.loads(log.read_text()) if log.exists() else []
     log.write_text(json.dumps(previous + results, ensure_ascii=False, indent=2) + "\n")
     failed = [r for r in results if r["status"] != "fetched"]
+    if args.families:
+        # Same run format as collector reports, so collect:finish can advance the weekly families checkpoint.
+        runs = [{"source": r["url"], "channel": "families", "status": "complete" if r["status"] == "fetched" else "failed",
+                 **({"error": r["error"]} if "error" in r else {})} for r in results]
+        (args.out.parent / "families-report.json").write_text(json.dumps({"runs": runs}, ensure_ascii=False, indent=2) + "\n")
     for result in failed:
         print(f"失败：{result['url']} — {result['error']}", file=sys.stderr)
     print(f"已获取 {len(results) - len(failed)}/{len(results)}；记录见 {log}")

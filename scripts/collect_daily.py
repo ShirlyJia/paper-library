@@ -26,7 +26,17 @@ CHANNELS = {
     "citations": (7, "six-months"),
     "formal": (7, "six-months"),
     "references": (7, "six-months"),
+    # Run by the reviewer, not collect.py: ranked connector results and official family pages change slowly.
+    "consensus": (7, "six-months"),
+    "families": (7, "six-months"),
 }
+MANUAL = {
+    "consensus": "按 research/connector-sources.json 执行 Consensus search/fetch，导出 本次目录/consensus.json 后运行 "
+                 "npm run collect:consensus -- --input 本次目录/consensus.json --output 本次目录/consensus-candidates.json "
+                 "&& npm run queue -- add 本次目录/consensus-candidates.json",
+    "families": "npm run fetch:sources -- --families --out 本次目录/families，逐项核对版本动态",
+}
+SITE = "https://shirlyjia.github.io/paper-library/"
 REVIEW_KEYS = {"schemaVersion", "date", "runDirectory", "baseCommit", "plan", "channels", "decisions",
                "qualityReviewedIds", "queue", "briefing", "publication", "checkpoint", "notes"}
 
@@ -71,6 +81,7 @@ def plan_window(today, state, only=None):
         "timezone": "Asia/Shanghai",
         "until": today.isoformat(),
         "groups": [{"since": since.isoformat(), "channels": names} for since, names in sorted(groups.items())],
+        "manual": [{"channel": name, "todo": MANUAL[name]} for names in groups.values() for name in names if name in MANUAL],
         "skipped": skipped,
         "previousCheckpoint": state,
     }
@@ -106,12 +117,71 @@ def validate_review(review):
     return review
 
 
+CHANNEL_NAMES = {"arxiv": "arXiv", "fulltext": "OpenAlex 全文", "semantic": "语义近邻", "citations": "引用网络",
+                 "formal": "正式会议", "references": "参考文献", "consensus": "Consensus", "families": "模型家族"}
+
+
+def write_briefing(run_dir, plan, applied):
+    """小报只写结论：一句速览 → 今天的看点（briefing-highlights.md，按 research/BRIEFING_PROMPT.md 撰写的叙述）→ 各方向一句话。
+
+    暂缓、检索失败、发布状态等过程信息写进 run-notes.md，不混入小报。无新增或更正时不生成。
+    """
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from apply_review import SHORT_DIRECTIONS, direction_digest
+    included, corrected = applied.get("included", []), applied.get("corrected", [])
+    if not included and not corrected:
+        return None
+    catalogue = json.loads((ROOT / "data/papers.json").read_text())
+    counts = {}
+    for entry in included + corrected:
+        counts[entry["paper"]["category"]] = counts.get(entry["paper"]["category"], 0) + 1
+    directions = "、".join(SHORT_DIRECTIONS.get(c, str(c)) for c, _ in sorted(counts.items(), key=lambda x: -x[1]))
+    recent = (date.fromisoformat(plan["until"]) - timedelta(days=30)).isoformat()
+    fresh = sum(1 for e in included if e["paper"]["date"] >= recent)
+    highlights = run_dir / "briefing-highlights.md"
+    if not highlights.exists():
+        print("提示：缺少 briefing-highlights.md（今天的看点），小报只含自动部分。", file=sys.stderr)
+    split = f"（{fresh} 篇是近一个月的新论文，{len(included) - fresh} 篇是补录的旧作）" if included else ""
+    overview = (f"今天收录 {len(included)} 篇{split}" + (f"，更正 {len(corrected)} 篇" if corrected else "")
+                + f"，覆盖{directions} {len(counts)} 个方向。目录现有 {len(catalogue['papers'])} 篇，"
+                + f"可在[论文库]({SITE}?sort=added)按收录时间查看。")
+    parts = [f"# 结构化数据研究小报｜{plan['until']}", "", overview, "",
+             highlights.read_text().strip() if highlights.exists() else "", "",
+             direction_digest(applied, catalogue).strip(), ""]
+    path = run_dir / "briefing.md"
+    path.write_text("\n".join(parts))
+    return path
+
+
+def write_run_notes(run_dir, plan, channels, applied, queue, published, notes):
+    """过程记录：需要你知道或处理的问题。与小报分开输出。"""
+    failed = [f"- {CHANNEL_NAMES.get(n, n)}：{len(info['failures'])} 项未完成（{sorted({(f.get('error') or f['status'])[:60] for f in info['failures']})[0]}），次日自动重试"
+              for n, info in channels.items() if info["status"] == "incomplete"]
+    done = [CHANNEL_NAMES.get(n, n) for n, info in channels.items() if info["status"] == "complete"]
+    open_items = [i for i in queue["items"] if i.get("open")]
+    changed = applied.get("included") or applied.get("corrected")
+    parts = [f"# 运行记录｜{plan['until']}", "",
+             "## 需要处理", "",
+             *(failed or ["- 无检索失败"]),
+             *([] if published or not changed else ["- 本次修改尚未上线或线上核对未完成"]),
+             *[f"- {note}" for note in notes], "",
+             "## 暂缓", "",
+             *([f"- [{d['title']}]({d['url']})：{d['reason']}" for d in applied.get("deferred", [])] or ["- 无"]), "",
+             "## 状态", "",
+             f"- 已完成渠道：{'、'.join(done) or '无'}",
+             f"- 待审队列：{len(open_items)} 条，其中高相关 {sum(1 for i in open_items if i.get('score', 0) >= 5)} 条",
+             f"- 发布：{'已上线并核对' if published else ('未上线' if changed else '本次无内容变化')}", ""]
+    path = run_dir / "run-notes.md"
+    path.write_text("\n".join(parts))
+    return path
+
+
 def finish(run_dir, review_input, published, notes):
     plan = json.loads((run_dir / "plan.json").read_text())
     reports = [json.loads(p.read_text()) for p in sorted(run_dir.glob("candidates*.json"))]
-    consensus = run_dir / "consensus-candidates.json"
-    if consensus.exists():
-        reports.append(json.loads(consensus.read_text()))
+    for extra in ("consensus-candidates.json", "families-report.json"):
+        if (run_dir / extra).exists():
+            reports.append(json.loads((run_dir / extra).read_text()))
     channels = channel_status(plan, reports)
     applied = json.loads(review_input.read_text()) if review_input else {}
     ids = lambda key: [item["paper"]["id"] if "paper" in item else item["id"] for item in applied.get(key, [])]
@@ -122,13 +192,14 @@ def finish(run_dir, review_input, published, notes):
     queue = json.loads(queue_path.read_text()) if queue_path.exists() else {"items": []}
     state = json.loads(STATE_PATH.read_text()) if STATE_PATH.exists() else {}
     advanced = [name for name, info in channels.items() if info["status"] == "complete"]
-    briefing = run_dir / "briefing.md"
+    briefing = write_briefing(run_dir, plan, applied)
+    write_run_notes(run_dir, plan, channels, applied, queue, published, notes)
     review = validate_review({
         "schemaVersion": 2, "date": plan["until"], "runDirectory": str(run_dir.relative_to(ROOT)),
         "baseCommit": subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip(),
         "plan": plan, "channels": channels, "decisions": decisions, "qualityReviewedIds": reviewed,
         "queue": {"open": sum(1 for item in queue["items"] if item.get("open")), "total": len(queue["items"])},
-        "briefing": str(briefing.relative_to(ROOT)) if briefing.exists() else None,
+        "briefing": str(briefing.relative_to(ROOT)) if briefing else None,
         "publication": {"published": published}, "checkpoint": {"advanced": advanced,
                         "kept": sorted(set(channels) - set(advanced))}, "notes": notes,
     })
@@ -172,10 +243,13 @@ def main():
     print(json.dumps(plan, ensure_ascii=False, indent=2), flush=True)
     status = 0
     for index, group in enumerate(plan["groups"], 1):
+        automatic = [name for name in group["channels"] if name not in MANUAL]
+        if not automatic:
+            continue
         output = run_dir / f"candidates-{index}.json"
         # No --refresh: a same-day retry reuses the one-day cache instead of downloading everything again.
         result = subprocess.run([sys.executable, str(ROOT / "scripts/collect.py"), "--since", group["since"],
-                                 "--until", plan["until"], "--channels", ",".join(group["channels"]), "--output", str(output)], cwd=ROOT)
+                                 "--until", plan["until"], "--channels", ",".join(automatic), "--output", str(output)], cwd=ROOT)
         status = status or result.returncode
         if output.exists():
             subprocess.run([sys.executable, str(ROOT / "scripts/review_queue.py"), "add", str(output)], cwd=ROOT, check=True)
@@ -183,6 +257,8 @@ def main():
         print("今天没有到期的检索渠道。")
     elif status:
         print("部分来源失败或截断；对应渠道的检查点不会推进，下次继续。", file=sys.stderr)
+    for item in plan["manual"]:
+        print(f"今日到期的手动渠道 {item['channel']}：{item['todo']}")
     print("候选已并入 work/collection/queue.json；用 npm run queue -- top 查看待审。")
     return status
 

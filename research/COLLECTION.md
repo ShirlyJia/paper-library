@@ -2,7 +2,7 @@
 
 以现有六个领域为浏览目录；检索同时沿主题、模型家族、正式会议、作者发布和引用关系展开。近半年新作重点覆盖，关键前作和方法来源保留。
 
-每日执行的时间窗口、核验、发布和故障补查遵循[每日更新机制](DAILY_UPDATE.md)，使用 `npm run collect:daily` 启动。
+执行步骤、频率和小报格式见[每日更新机制](DAILY_UPDATE.md)，小报"今天的看点"按[撰写提示词](BRIEFING_PROMPT.md)。
 
 ## 收录范围
 
@@ -12,70 +12,63 @@
 - 不为每类设置固定篇数，不因已有代表作或版本较旧删除不同工作。新版模型与有独立贡献的旧版分别收录，同一论文的预印本／会议版／更名版本合并。
 - 官方技术报告、模型卡和架构说明可收入业界类，明确标识来源类型；不得冒充正式会议论文。只有产品名而缺少技术资料的线索保留在待核验记录中。
 
-## 每次检索
+## 检索方法
 
-1. 运行 `npm run collect`（日常使用 `npm run collect:daily`，按渠道到期规则运行）：同时采集 arXiv 元数据、正式会议完整目录与摘要、OpenAlex 全文索引、六个方向的语义近邻，以及种子论文的引用关系。默认重点覆盖近六个月；正式会议核对当年和上一年的目录，参考文献追溯不限首发时间。
-2. 按 `model-families.json` 逐家核对官方仓库、模型卡、报告与版本沿革；每个新模型都补其别名、前作和相关版本。新发现的家族加入登记表，不能只检查已知名单。
-3. 正式会议来源由脚本自动查，不再留作人工待办。补查自动来源的失败／缺摘要条目和作者／机构发布页，并从综述、方法正文和模型对比表反查漏掉的基线。TabArena 单独检索名称与相关内容，追踪基准论文的双向引用、官方仓库和榜单中的模型论文；正文涉及 TabArena 而题名／摘要未提及时也保留候选。新发现的会议加入来源配置；社区列表、搜索引擎和新闻仅提供线索，技术内容及收录状态回到一手来源确认。
-4. 阅读候选的原始摘要作初筛；拟收录论文按“质量与价值审核”进一步阅读相关方法、实验或论证正文，对新模型和跨方向工作追溯参考文献。记录收录、已有、待核验或排除及理由。模型简称常不在论文题名中，须搜索摘要、代码仓库和全文中的方法名称。
-5. 按 arXiv ID、DOI、OpenReview ID、正式页面和规范化题名合并候选；同名不同论文不强行合并，改题名工作保留来源映射。核实首发、修订、正式发表三种日期；会议年份不能替代首发时间。
-6. 更新 `data/papers.json` 和家族登记表，运行 `npm run check`，检查新条目的别名搜索、目录归属、来源／PDF／代码链接，确认后发布。
+执行顺序和频率见[每日更新机制](DAILY_UPDATE.md)；这里规定检索要覆盖什么、结果如何解释。
 
-## 采集命令
+- **多线索并行。** 主题检索式、已登记模型家族、正式会议目录、OpenAlex 全文与语义近邻、引用网络、Consensus 同时使用，不只搜 arXiv 标题。模型简称常不在题名中，要搜摘要、代码仓库和全文中的方法名称。
+- **模型家族。** 按 `model-families.json` 核对官方仓库、模型卡、报告与版本沿革；新模型补其别名、前作和相关版本，新家族加入登记表。名称写成 "A / B" 的会拆成两个检索名；容易混淆的短名称标记 `needsContext`，检索时必须同时出现表格相关词。
+- **补查。** 从综述、方法正文、相关工作和基线表反查漏掉的模型与会议；作者／机构发布页、社区列表、搜索引擎和新闻只提供线索，技术内容和录用状态回到一手来源确认。新发现的会议加入来源配置。
+- **TabArena 专项。** 检索名称与相关内容，追踪基准论文的双向引用、官方仓库和榜单中的模型论文；正文涉及 TabArena 而题名／摘要未提及时也保留候选。
+- **身份合并。** 按 arXiv ID、DOI、OpenReview ID、正式页面和规范化题名合并；同名不同论文不强行合并，改题名的工作保留来源映射。首发、修订、正式发表三种日期分别核实，会议年份不能替代首发时间。
+- **候选不等于结论。** 采集结果只进入待审队列（`work/collection/queue.json`），不会自动发布。队列按题名命中、独立渠道数和是否近期首发排序，排序不删除候选；摘要初筛和公开决定分开记录：前者在 `work/collection/screening.json`，后者在 `decisions.json`。论文有新修订时，暂缓、排除和初筛结论都会重新打开。
+
+## 采集命令与限制
+
+日常使用 `npm run collect:daily`。需要单独补查时：
 
 ```sh
-npm run collect
-npm run collect -- --since 2026-04-12 --until 2026-10-12
-npm run collect -- --refresh
-npm run collect -- --channels formal
-npm run collect -- --channels fulltext,semantic,citations
-npm run collect -- --resume work/collection/latest.json --channels fulltext --output work/collection/resumed.json
+npm run collect -- --since 2026-04-12 --until 2026-10-12 --channels fulltext,semantic,citations
+npm run collect -- --resume 旧报告.json --channels fulltext --output 新报告.json
+npm run queue -- add 新报告.json
 ```
 
-采集器只需 Python 3 标准库，不使用付费额度。OpenAlex 自 2026 年起要求翻页（cursor）必须带免费 API key，否则第二页起返回 401：在 https://openalex.org/settings/api 免费申请后写入本机环境变量 `OPENALEX_API_KEY`（不要提交到仓库）。没有 key 时脚本只取第一页并把该检索标为截断、保留游标，不再发出注定失败的请求。有 key 时每轮最多 400 次请求，无 key 时 75 次；达到预算或平台限额时保留缺口。输出位于 `work/collection/latest.json`，不直接写入公开目录。每条候选保留发现渠道、原始摘要、命中字段或检索方式、来源及是否已收录。`npm run queue -- add 报告` 把候选并入跨天的待审队列 `work/collection/queue.json`，按标题命中、独立渠道数和是否近期首发排序；已有条目只在出现新修订或会议记录时重新进入更新核对，避免每天重复核对未变化的论文。
-
-arXiv 和 OpenAlex 普通查询自动翻页，默认最多十页／检索式；OpenAlex 语义搜索按服务限制只返回前 50 个近邻。API 失败、解析失败或触及分页上限都会记录并返回非零状态，不能把缺页视为空结果或宣称检索完整。429／503 后暂停该源的剩余请求，其他来源继续；下次运行补查。网络响应只缓存一天；`--refresh` 强制重新请求。
+- **依赖与 key。** 采集器只需 Python 3 标准库，不使用付费额度。OpenAlex 翻页（cursor）需要免费 API key，在 https://openalex.org/settings/api 申请，写入项目根目录被忽略的 `.env`（`OPENALEX_API_KEY=...`）或同名环境变量。没有 key 时只取第一页，并把该检索标为截断、保留游标。
+- **请求预算。** 有 key 时每轮最多 400 次 OpenAlex 请求，无 key 时 75 次；达到预算或平台限额时保留缺口。
+- **翻页与失败。** arXiv 和 OpenAlex 普通查询自动翻页，每个检索式最多十页；OpenAlex 语义搜索只返回前 50 个近邻。API 失败、解析失败或触及分页上限都会记录并返回非零状态，不能当作空结果或宣称检索完整。429／503／401 后暂停该来源，其他来源继续。
+- **缓存。** 网络响应缓存一天、保留两天。
 
 ## 自动检索渠道
 
 | 渠道 | 实际检查内容 | 保留的限制 |
 | --- | --- | --- |
-| arXiv | 题名、摘要、其他元数据；主题检索式加全部已登记家族名（"A / B" 拆成两个名称；`needsContext` 标记的歧义短名称须同时出现表格相关词） | `all:` 不搜索 PDF 正文；索引延迟与接口失败需补查 |
+| arXiv | 题名、摘要、其他元数据；主题检索式加全部已登记家族名 | `all:` 不搜索 PDF 正文；索引延迟与接口失败需补查 |
 | PMLR | 动态发现 ICML、AISTATS、UAI、COLT、CLeaR、AutoML、CoLLAs、CPAL、ALT、ACML、MLHC、CHIL 等当年及上一年卷册；下载官方完整 BibTeX，检查题名与摘要 | 按实际出版目录发现卷号；缺摘要单独计数，Workshop 保留完整名称 |
 | ICLR / NeurIPS | 从官方会议程序发现批量论文与摘要数据；保留各轨道和官方 decision | 不依赖 OpenReview API 能否匿名访问；未公布或无法访问的年份记录待补查，不冒充零篇 |
 | ACL Anthology | 从官方 XML 目录发现 ACL、EMNLP、NAACL、EACL、COLING、Findings、CoNLL、AACL、IJCNLP 及 TACL / CL | 保留卷册与轨道，Findings 不改成主会；不是 NLP 所有 Workshop 的全集 |
 | TMLR | 扫描官方已录用目录的完整题名，再按唯一期刊名／ISSN 匹配 OpenAlex，补查索引中的摘要与正文 | 官方目录没有摘要；聚合索引可能滞后，不能把索引零结果视为没有相关论文 |
 | OpenAlex 全文检索 | 题名、摘要、已索引正文和主题标签；覆盖上述名单以外的会议、期刊及预印本 | 全文不是每篇都有；接口通常不返回命中的正文段落，不能把一次命中写成已阅读正文 |
-| OpenAlex 语义检索 | 用六个方向的问题描述匹配意思接近的论文，保留不同术语和不含题名关键词的结果 | 嵌入依据题名与摘要，不是全文向量库；每个描述最多 50 篇，年过滤后保留背景工作供核验 |
-| 引用网络 | 已知论文及本轮找到的已收录论文作为种子，查近半年引用它们的新作，并反查参考文献 | 深度一层；不再用相同关键词排除邻居，故仍需判断相关性 |
+| OpenAlex 语义检索 | 用六个方向的问题描述匹配意思接近的论文，保留不同术语和不含题名关键词的结果 | 嵌入依据题名与摘要，不是全文向量库；每个描述最多 50 篇 |
+| 引用网络 | 已知论文及本轮找到的已收录论文作为种子，查近半年引用它们的新作，并反查参考文献 | 深度一层；不用关键词排除邻居，仍需判断相关性 |
 
-会议目录中即使题名没有关键词，摘要命中也会进入候选。语义检索和引用追踪的候选不经过题名关键词二次筛掉。不能据此声称覆盖所有会议或所有正文：新会议和未索引论文仍需从相关工作、作者发布和基线表扩展。
+会议目录中题名没有关键词但摘要命中的论文也进入候选；语义检索和引用追踪的候选不经过关键词二次筛选。即便如此，也不能声称覆盖了所有会议或所有正文；新会议和未索引论文仍需从相关工作、作者发布和基线表扩展。检索原理与限制依据 [arXiv API](https://info.arxiv.org/help/api/user-manual.html)、[OpenAlex 搜索](https://help.openalex.org/api/searching/)、[语义搜索](https://help.openalex.org/api/semantic-search/)及[认证与额度](https://help.openalex.org/api/authentication/)。
 
-遇到 OpenAlex 截断，使用 `--resume` 读取上一份报告的游标继续后续页，保留已有候选及未重试来源的失败记录；默认沿用原检索日期窗口。可以用 `--max-pages 1` 分批推进长尾，避免每天重复只看排名最前面的结果。若服务拒绝旧游标，记录失败并针对原窗口重新检索或缩小日期分批补查，不把游标失效当成完成。
+## Consensus 补查
 
-检索原理与限制依据 [arXiv API](https://info.arxiv.org/help/api/user-manual.html)、[OpenAlex 全文搜索](https://help.openalex.org/api/searching/)、[语义搜索](https://help.openalex.org/api/semantic-search/)及[免费额度](https://help.openalex.org/api/authentication/)。
+Consensus 是独立的论文检索渠道，由 Codex 连接器每周执行一次，查询模板见 `connector-sources.json`。Scite 尚未连接，不作依赖。
 
-## 插件补查
+- **调用方式。**
+  - 查询附 `date:起始YYYY-MM-结束YYYY-MM`，不锁定学科；逐条调用，间隔 30 秒（项目策略，不是供应商公布的速率）。
+  - 限流后至少等 60 秒重试一次，仍失败记录缺口；不调用付费升级或 Pro / Deep 任务。
+- **只引用 fetch 过的结果。** 对每个去重结果 `fetch(id)` 后才能引用；只返回年份时不补造月日。未 fetch 的结果保留为搜索片段，不能当作完整摘要。
+- **不等于同行评审或全文。** 命中不能认定为已通过同行评审，返回的摘要也不是 PDF 全文。发表状态、首发日期、质量判断和中文概览都回到原始来源核验。
+- **导出格式。** 运行目录保存 `consensus.json`：
+  - 顶层字段：`generatedAt`、`since`、`until`。
+  - `searches`：每项含 `id`、`query`、`status`、`results`，失败项附 `error`。
+  - `papers`：成功 fetch 的原始论文记录。
+- **导入命令。** `npm run collect:consensus -- --input 本次目录/consensus.json --output 本次目录/consensus-candidates.json`，再用 `npm run queue -- add 本次目录/consensus-candidates.json` 并入队列。
 
-- **Consensus**：已验证 `search` 和 `fetch` 可用，由每日 Codex 任务执行六方向及 TabArena 专项补查。查询模板见 `connector-sources.json`。它是独立的论文检索渠道；不能据工具说明把全部命中认定为已通过同行评审，也不能把返回的摘要当成 PDF 全文。
-- **Scite**：可补查引用上下文，目前尚未连接，不列为每日任务依赖。
-
-Consensus 执行方式：
-
-1. 读取当天采集计划，将查询附上 `date:起始YYYY-MM-结束YYYY-MM`；日期只到月份，候选首发日仍需回原文核验。默认不锁定学科，保留跨行业研究。配置中的查询逐条调用，搜索间隔按配置保守设置为 30 秒；这是项目策略，不是供应商公布的速率。
-2. 对每个去重结果调用 `fetch(id)`，之后才能引用该结果。保留完整返回的摘要、来源、作者及可用标识；只返回年份时不补造月日。限流后间隔至少 60 秒重试一次，仍失败则记录缺口，继续其他来源。不调用付费升级或额外的 Pro / Deep 任务。
-3. 在本次运行目录保存导出 JSON：`generatedAt`、`since`、`until`，`searches` 中各项含 `id/query/status/results`（结果沿用 search 返回值），`papers` 保存成功 fetch 的原始论文记录；失败项附 `error`。未 fetch 的结果保留为搜索片段，不能伪装成完整摘要。
-4. 使用下面的导入命令，与核心采集候选去重合并；保留已有失败、筛选记录和待核验状态。发表状态、质量判断、首发日期与中文概览仍须基于原始来源核验后入库。
-
-```sh
-npm run collect:consensus -- --input 本次目录/consensus.json --base 本次目录/candidates.json --output 本次目录/combined.json
-```
-
-`npm run collect` 本身不调用登录态插件；插件检索由已连接的 Codex 任务执行，命令行导入器只处理导出结果。站点访问者无需安装插件或登录。普通 search/fetch 的可用额度依连接账号而定，限流不能记成零结果或完整覆盖。
-
-自动采集不等于完整研究：未配置站点、没有可提取链接的参考文献、搜索尚未索引的新作，以及模型卡中的非论文更新，需要第 2–4 步补查。每轮记录实际完成的渠道，不声称穷尽所有论文。
-
-已完成的筛选记录存入 `decisions.json`。未决候选不会自动发布；暂缓或排除的理由会随下次采集保留，遇到较新的修订重新进入核验。首次补查见[2026-10-12 记录](review-2026-10-12.md)。
+自动采集不等于完整研究：未配置站点、没有可提取链接的参考文献、尚未索引的新作，以及模型卡中的非论文更新，仍需按上面的"补查"处理。每轮只记录实际完成的渠道，不声称穷尽所有论文。
 
 ## 质量与价值审核
 
@@ -107,7 +100,7 @@ npm run collect:consensus -- --input 本次目录/consensus.json --base 本次�
 - `value`、`reproducibility`：研究／应用价值与条件；公开材料及独立／本地复现的实际状态。
 - `conclusion`：上述三种证据判断之一；`sources`：实际读过的一手链接；`readScope`：实际阅读的章节或材料范围。
 
-暂缓或排除项至少在 `reason` 写明原因与后续复查条件，已读部分可保留在 `qualityReview` 中并明确缺失项。每日 `review.json` 记录完成质量审核的论文 ID 和暂缓原因；审核记录不等同于新增论文数。
+暂缓或排除项至少在 `reason` 写明原因与后续复查条件，已读部分可保留在 `qualityReview` 中并明确缺失项。这些记录统一通过 `npm run apply:review` 写入，脚本会拒绝缺少审核字段的新增或更正。每日 `review.json` 记录完成质量审核的论文 ID 和暂缓原因；审核记录不等同于新增论文数。
 
 卡片 `summary` 用简短自然语言交代问题与贡献、关键证据／局限、值得关注的原因；通常两三句话即可，不展示打分表或堆叠评审术语。更新小报沿用同样依据，不将作者主张改写成无条件的事实。
 

@@ -2,13 +2,13 @@
 
 Input (JSON), each list optional:
   {"date": "YYYY-MM-DD",
-   "included":  [{"paper": {...}, "qualityReview": {...}, "family": "Name"}],
-   "corrected": [{"paper": {...}, "qualityReview": {...}, "reason": "..."}],
+   "included":  [{"paper": {...}, "qualityReview": {...}, "brief": "一句话：它是什么", "name": "简称（可选）", "family": "Name"}],
+   "corrected": [{"paper": {...}, "qualityReview": {...}, "brief": "一句话：改了什么", "reason": "..."}],
    "deferred":  [{"id", "title", "url", "sourceUpdated", "reason", "qualityReview"?}],
    "excluded":  [{"id", "title", "url", "sourceUpdated", "reason"}]}
 
-Afterwards run `npm run record:updates` and `npm run check` as before. With --briefing PATH the
-mechanical "完整清单" section of the run briefing is written from the same data.
+Afterwards run `npm run record:updates` and `npm run check`. `npm run collect:finish` later builds the
+run briefing from the same file.
 """
 import argparse
 import json
@@ -20,7 +20,6 @@ REVIEW_FIELDS = ["claim", "contribution", "evidence", "limitations", "value", "r
                  "conclusion", "sources", "readScope"]
 CONCLUSIONS = {"证据已支持", "有迹象但证据不足", "现有证据不支持"}
 PAPER_FIELDS = ["id", "title", "date", "updated", "category", "section", "topicId", "status", "venue", "summary", "url"]
-STATUS = {"published": "已核实正式录用", "workshop": "Workshop", "preprint": "预印本；未核实正式录用", "report": "技术报告"}
 
 
 def check_review(review, paper_id):
@@ -58,6 +57,8 @@ def apply(bundle, catalogue, decisions, registry):
             if missing:
                 raise ValueError(f"{paper.get('id')} 缺少论文字段：{', '.join(missing)}")
             check_review(entry.get("qualityReview"), paper["id"])
+            if not 0 < len(entry.get("brief") or "") <= 80:
+                raise ValueError(f"{paper['id']} 需要 brief：一句话（不超过 80 字）说明它是什么；更正写明改了什么")
             if kind == "included" and paper["id"] in papers:
                 raise ValueError(f"{paper['id']} 已在目录中；请放入 corrected")
             if kind == "corrected":
@@ -86,31 +87,36 @@ def apply(bundle, catalogue, decisions, registry):
     return records
 
 
-def briefing_list(bundle, catalogue):
-    """The mechanical 完整清单; the narrative summary above it is still written by the reviewer."""
-    names = {c["id"]: c["name"] for c in catalogue["categories"]}
+# Short direction names used in the briefing; the catalogue keeps the full titles.
+SHORT_DIRECTIONS = {1: "业界进展", 2: "预测与决策", 3: "因果分析", 4: "语义结构化", 5: "上下文与推理", 6: "微调与蒸馏"}
+
+
+def display_name(paper):
+    """Short label for the briefing: the first short alias (model name) when there is one."""
+    alias = next((a for a in paper.get("aliases") or [] if len(a) <= 32), None)
+    return alias or paper["title"]
+
+
+def direction_digest(bundle, catalogue):
+    """各方向上新：每个方向列出篇数，每篇一句话说明是什么。细节留在站内卡片和 decisions.json。"""
+    names = {c["id"]: SHORT_DIRECTIONS.get(c["id"], c["name"]) for c in catalogue["categories"]}
     entries = [(kind, e) for kind in ("included", "corrected") for e in bundle.get(kind, [])]
-    lines = ["## 本次完整清单", ""]
+    lines = ["## 各方向上新", ""]
     for category in sorted({e["paper"]["category"] for _, e in entries}):
-        lines += [f"### {names.get(category, category)}", ""]
         rows = sorted((x for x in entries if x[1]["paper"]["category"] == category), key=lambda x: x[1]["paper"]["date"], reverse=True)
+        lines += [f"### {names.get(category, category)}（{len(rows)} 篇）", ""]
         for kind, entry in rows:
-            p, q = entry["paper"], entry["qualityReview"]
-            links = [f"[原文]({p['url']})"] + ([f"[PDF]({p['pdf']})"] if p.get("pdf") else []) + ([f"[代码]({p['code']})"] if p.get("code") else [])
-            lines += [f"#### [{p['title']}]({p['url']})", "",
-                      f"{'新增' if kind == 'included' else '更正'} · 首发 {p['date']} · 修订 {p['updated']} · {p['venue']}（{STATUS.get(p['status'], p['status'])}）", "",
-                      p["summary"], "", f"审核依据：{q['evidence']}", "", f"关键限制：{q['limitations']}", "",
-                      f"价值：{q['value']}", "", " · ".join(links), ""]
-    deferred = bundle.get("deferred", [])
-    if deferred:
-        lines += ["## 暂缓", ""] + [f"- [{d['title']}]({d['url']})：{d['reason']}" for d in deferred] + [""]
+            p = entry["paper"]
+            tag = "" if kind == "included" else "（更正）"
+            venue = "" if p["status"] == "preprint" else f"（{p['venue']}）"
+            lines.append(f"- **[{entry.get('name') or display_name(p)}]({p['url']})**{tag}：{entry['brief']}{venue}")
+        lines.append("")
     return "\n".join(lines)
 
 
 def main():
     cli = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     cli.add_argument("input", type=Path)
-    cli.add_argument("--briefing", type=Path, help="Write the 完整清单 markdown here")
     cli.add_argument("--dry-run", action="store_true")
     args = cli.parse_args()
     paths = {name: ROOT / path for name, path in [("catalogue", "data/papers.json"), ("decisions", "research/decisions.json"),
@@ -125,8 +131,6 @@ def main():
     if not args.dry_run:
         for name, path in paths.items():
             path.write_text(json.dumps(data[name], ensure_ascii=False, indent=2) + "\n")
-        if args.briefing:
-            args.briefing.write_text(briefing_list(bundle, data["catalogue"]))
     counts = {k: len(bundle.get(k, [])) for k in ("included", "corrected", "deferred", "excluded")}
     print(f"{'预检通过' if args.dry_run else '已写入'}：{counts}，决定记录 {len(records)} 条。下一步：npm run record:updates && npm run check")
     return 0

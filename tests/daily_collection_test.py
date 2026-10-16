@@ -20,10 +20,16 @@ class DailyWindowTests(unittest.TestCase):
 
     def test_one_failed_channel_does_not_force_others_into_backfill(self):
         state = {"channels": {"arxiv": "2026-10-12", "formal": "2026-10-10", "semantic": "2026-10-10",
-                              "citations": "2026-10-10", "references": "2026-10-10"}}
+                              "citations": "2026-10-10", "references": "2026-10-10", "consensus": "2026-10-10",
+                              "families": "2026-10-10"}}
         plan = daily.plan_window(date(2026, 10, 13), state)
         self.assertEqual(groups(plan), {"arxiv": "2026-10-06", "fulltext": "2026-04-13"})
-        self.assertEqual({s["channel"] for s in plan["skipped"]}, {"formal", "semantic", "citations", "references"})
+        self.assertEqual({s["channel"] for s in plan["skipped"]}, {"formal", "semantic", "citations", "references", "consensus", "families"})
+        self.assertEqual(plan["manual"], [])
+
+    def test_manual_weekly_channels_are_listed_when_due(self):
+        plan = daily.plan_window(date(2026, 10, 13), {})
+        self.assertEqual([item["channel"] for item in plan["manual"]], ["consensus", "families"])
 
     def test_weekly_channels_come_due_after_seven_days(self):
         state = {"channels": {name: "2026-10-06" for name in daily.CHANNELS}}
