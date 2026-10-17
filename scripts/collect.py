@@ -31,7 +31,8 @@ def arxiv_id(value):
 
 
 def keys(record):
-    values = [record.get("id", ""), record.get("url", ""), *record.get("sources", [])]
+    values = [record.get("id"), record.get("url"), *(record.get("sources") or [])]
+    values = [value for value in values if isinstance(value, str) and value]
     found = {"arxiv:" + aid for value in values if (aid := arxiv_id(value))}
     if record.get("consensusId"):
         found.add("consensus:" + record["consensusId"])
@@ -153,7 +154,7 @@ def merge_candidates(records, papers):
         record["existingIds"] = sorted({existing[k] for k in keys(record) if k in existing})
         record["reviewState"] = "existing-check-update" if record["existingIds"] else "needs-review"
         result.append(record)
-    return sorted(result, key=lambda p: (p.get("date", ""), p.get("title", "")), reverse=True)
+    return sorted(result, key=lambda p: (p.get("date") or "", p.get("title") or ""), reverse=True)
 
 
 def family_queries(families):

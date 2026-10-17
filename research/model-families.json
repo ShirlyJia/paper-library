@@ -498,6 +498,60 @@
         "https://neurips.cc/virtual/2026/poster/149211",
         "https://github.com/SilenceX12138/TabFORGE"
       ]
+    },
+    {
+      "name": "SurvICL",
+      "paperIds": [
+        "arxiv-2610.22242"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.22242"
+      ]
+    },
+    {
+      "name": "SelectPFN",
+      "paperIds": [
+        "arxiv-2610.21950"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.21950"
+      ]
+    },
+    {
+      "name": "Foundation Event Predictor",
+      "paperIds": [
+        "arxiv-2610.17503"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.17503"
+      ]
+    },
+    {
+      "name": "TACTICL",
+      "paperIds": [
+        "arxiv-2608.10837"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.10837"
+      ]
+    },
+    {
+      "name": "TabOrder",
+      "paperIds": [
+        "arxiv-2605.22335"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.22335"
+      ]
+    },
+    {
+      "name": "RelAgent",
+      "paperIds": [
+        "arxiv-2605.07840"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.07840"
+      ]
     }
   ]
 }

@@ -40,9 +40,25 @@ class CollectionTests(unittest.TestCase):
         self.assertTrue(a & b)
         self.assertEqual(collect.arxiv_id('https://arxiv.org/html/2610.07559v1'),'2610.07559')
 
+    def test_doi_only_screening_records_accept_null_ids(self):
+        record = {'id': None, 'url': 'https://doi.org/10.1234/example', 'sources': None}
+        identities = collect.keys(record)
+        self.assertIn('doi:10.1234/example', identities)
+        self.assertEqual(collect.keys({'id': None, 'url': None, 'sources': [None]}), set())
+
     def test_identical_titles_with_distinct_ids_remain_separate(self):
         records = [{'id':'arxiv-'+aid,'title':'Same title','sources':[],'discoveredVia':['arxiv']} for aid in ['2606.04485','2609.17488']]
         self.assertEqual(len(collect.merge_candidates(records,[])),2)
+
+    def test_missing_openalex_dates_and_titles_do_not_drop_candidates(self):
+        records = [
+            {'url': 'https://openalex.org/W1', 'title': None, 'date': None},
+            {'url': 'https://openalex.org/W2', 'title': 'Undated work'},
+            {'url': 'https://openalex.org/W3', 'title': 'Dated work', 'date': '2026-10-15'},
+        ]
+        merged = collect.merge_candidates(records, [])
+        self.assertEqual([p['url'] for p in merged], [records[i]['url'] for i in (2, 1, 0)])
+        self.assertIsNone(merged[-1]['date'])
 
     def test_new_revision_reopens_a_previously_deferred_candidate(self):
         old = {'id':'arxiv-2609.25541','decision':'deferred','sourceUpdated':'2026-09-22'}

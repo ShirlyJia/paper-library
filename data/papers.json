@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-16",
+  "updatedAt": "2026-10-17",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -6004,6 +6004,227 @@
         "https://arxiv.org/abs/2610.18037"
       ],
       "addedAt": "2026-10-15"
+    },
+    {
+      "id": "arxiv-2610.22242",
+      "title": "SurvICL: a Foundation Model for in-context Survival Analysis",
+      "date": "2026-10-15",
+      "updated": "2026-10-15",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "biomedical-applications",
+      "topic": "生命科学与医疗预测",
+      "related": [
+        2,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "在 TabICLv2 架构上接入删失标记与连续分位数输出，用合成的完整事件时间监督生存预测。作者将 103 个数据集分为 40 个开发集与 63 个留出集，报告留出集上 IBS 总体排名领先；小样本对 Cox 的差异未达统计显著，大样本仍以 SurvivalBoost 更强。适用于右删失单事件数据，尚未覆盖竞争风险与时变协变量。",
+      "url": "https://arxiv.org/abs/2610.22242",
+      "pdf": "https://arxiv.org/pdf/2610.22242",
+      "code": null,
+      "keywords": [
+        "生存分析",
+        "右删失",
+        "分位数",
+        "TabICLv2",
+        "概率预测"
+      ],
+      "aliases": [
+        "SurvICL"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.22242",
+        "https://arxiv.org/html/2610.22242v1"
+      ],
+      "addedAt": "2026-10-17"
+    },
+    {
+      "id": "arxiv-2610.21950",
+      "title": "SelectPFN: Amortized Bayesian Variable Selection for Sparse Nonlinear Regression with Prior-Data Fitted Networks",
+      "date": "2026-10-15",
+      "updated": "2026-10-15",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "topic": "通用表格模型",
+      "related": [
+        2,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "将变量筛选与预测分成共享骨干的两次计算：先输出变量入选概率，再仅用被选列预测。作者在 7200 个合成任务和四组真实特征矩阵上报告筛选收益；真实响应实验中平均 RMSE 仍比全特征 TabPFN 高约 30%。适合研究稀疏变量选择，精确错误发现率保证依赖有效 knockoff，不能把入选变量直接解释为因果变量。",
+      "url": "https://arxiv.org/abs/2610.21950",
+      "pdf": "https://arxiv.org/pdf/2610.21950",
+      "code": null,
+      "keywords": [
+        "变量选择",
+        "稀疏回归",
+        "贝叶斯推断",
+        "knockoff",
+        "错误发现率"
+      ],
+      "aliases": [
+        "SelectPFN",
+        "SelectPFN-L"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.21950",
+        "https://arxiv.org/html/2610.21950v1"
+      ],
+      "addedAt": "2026-10-17"
+    },
+    {
+      "id": "arxiv-2610.17503",
+      "title": "Foundation Models for Event Prediction Across Heterogeneous Event Logs",
+      "date": "2026-10-13",
+      "updated": "2026-10-13",
+      "category": 5,
+      "section": "context-selection",
+      "topicId": "retrieval-shots",
+      "topic": "检索与近邻选择",
+      "related": [
+        1,
+        2
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "FEP 将历史事件序列编码为查询和键，把上下文中已发生的下一事件作为值，通过交叉注意力预测事件类型和间隔。作者在 696 个事件数据集训练、50 个留出系统评估，无目标任务微调时接近强局部模型，并优于所测事件基础模型。当前只利用事件类型和时间，缺少业务属性；延迟实验测的是缓存上下文后的查询成本。",
+      "url": "https://arxiv.org/abs/2610.17503",
+      "pdf": "https://arxiv.org/pdf/2610.17503",
+      "code": null,
+      "keywords": [
+        "事件日志",
+        "上下文学习",
+        "交叉注意力",
+        "下一事件预测",
+        "结构化事件数据"
+      ],
+      "aliases": [
+        "FEP",
+        "Foundation Event Predictor"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.17503",
+        "https://arxiv.org/html/2610.17503v1"
+      ],
+      "addedAt": "2026-10-17"
+    },
+    {
+      "id": "arxiv-2608.10837",
+      "title": "TACTICL: Task-Aware Compression of Tabular ICL Models",
+      "date": "2026-08-11",
+      "updated": "2026-08-11",
+      "category": 6,
+      "section": "adaptation-distillation",
+      "topicId": "distillation-recipes",
+      "topic": "教师信号与学生比较",
+      "related": [
+        1,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "按目标任务验证集贪心选择 TabPFN 层，用小型 MLP 拟合被替换层，再只微调适配器。在 TabArena 的 47 个任务上，作者报告分类替换 25%–50% 层时 AUC 中位比值至少 0.995，推理约加速 1.25–1.63 倍；回归在 50% 替换时 RMSE 约增 16%。为保留上下文能力的压缩提供路线，但搜层、训练和跨任务迁移成本需另算。",
+      "url": "https://arxiv.org/abs/2608.10837",
+      "pdf": "https://arxiv.org/pdf/2608.10837",
+      "code": "https://github.com/Hebog/tfm_compression",
+      "keywords": [
+        "TabArena",
+        "TabPFN",
+        "层替换",
+        "适配器",
+        "压缩",
+        "蒸馏"
+      ],
+      "aliases": [
+        "TACTICL",
+        "Task-Aware Compression"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.10837",
+        "https://arxiv.org/html/2608.10837v1",
+        "https://github.com/Hebog/tfm_compression"
+      ],
+      "addedAt": "2026-10-17"
+    },
+    {
+      "id": "arxiv-2605.22335",
+      "title": "Learning Causal Orderings for In-Context Tabular Prediction",
+      "date": "2026-05-21",
+      "updated": "2026-05-21",
+      "category": 3,
+      "section": "causal-discovery",
+      "topicId": "causal-mechanisms",
+      "topic": "异质机制与结构推理",
+      "related": [
+        2,
+        5
+      ],
+      "status": "published",
+      "venue": "NeurIPS 2026",
+      "summary": "TabOrder 联合学习变量排序与受该排序约束的预测注意力，用缺失项似然训练，无需真值因果图标签。作者在合成因果数据、Sachs 信号数据及 56 个 OpenML 任务测试，报告高缺失率下的补全优势和合成机制干预下的预测稳定性。因果解释依赖可识别性等假设，输出是变量顺序而非完整因果图；实际表格实验另做了训练集微调。",
+      "url": "https://arxiv.org/abs/2605.22335",
+      "pdf": "https://arxiv.org/pdf/2605.22335",
+      "code": null,
+      "keywords": [
+        "TabOrder",
+        "因果排序",
+        "缺失补全",
+        "注意力约束",
+        "干预"
+      ],
+      "aliases": [
+        "TabOrder",
+        "Inducing Causal Order through Tabular In-Context Learning"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.22335",
+        "https://arxiv.org/pdf/2605.22335",
+        "https://neurips.cc/Downloads/2026",
+        "https://openreview.net/forum?id=Htb1iiN3Fx",
+        "https://www.jilles.nl/pubs/"
+      ],
+      "addedAt": "2026-10-17"
+    },
+    {
+      "id": "arxiv-2605.07840",
+      "title": "RelAgent: LLM Agents as Data Scientists for Relational Learning",
+      "date": "2026-05-08",
+      "updated": "2026-05-08",
+      "category": 4,
+      "section": "semantic-features",
+      "topicId": "feature-search",
+      "topic": "任务反馈与特征搜索",
+      "related": [
+        1,
+        5
+      ],
+      "status": "published",
+      "venue": "NeurIPS 2026",
+      "summary": "让 LLM 探索关系库、编写 SQL 特征并按验证反馈选择树模型；部署时只执行选定 SQL 和预测器。作者在 RelBench V1/V2 与 4DBInfer 报告有竞争力的分类回归表现，去除字段语义或反馈会退化。每任务多次搜索和复用验证标签带来额外预算与过拟合风险；时间过滤部分依赖提示约束，不能把可读 SQL 等同于已证明无泄漏。",
+      "url": "https://arxiv.org/abs/2605.07840",
+      "pdf": "https://arxiv.org/pdf/2605.07840",
+      "code": "https://anonymous.4open.science/r/RelAgent",
+      "keywords": [
+        "关系数据",
+        "特征工程",
+        "SQL",
+        "LLM Agent",
+        "验证反馈"
+      ],
+      "aliases": [
+        "RelAgent"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.07840",
+        "https://arxiv.org/html/2605.07840v1",
+        "https://neurips.cc/Downloads/2026",
+        "https://jw9730.github.io/publications.html"
+      ],
+      "addedAt": "2026-10-17"
     }
   ],
   "collectionUpdates": [
@@ -6370,6 +6591,18 @@
         "arxiv-2610.20342",
         "arxiv-2610.20418",
         "arxiv-2610.20462"
+      ],
+      "updated": []
+    },
+    {
+      "date": "2026-10-17",
+      "added": [
+        "arxiv-2605.07840",
+        "arxiv-2605.22335",
+        "arxiv-2608.10837",
+        "arxiv-2610.17503",
+        "arxiv-2610.21950",
+        "arxiv-2610.22242"
       ],
       "updated": []
     }

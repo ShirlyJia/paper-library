@@ -6131,5 +6131,237 @@
     "decision": "deferred",
     "reviewedAt": "2026-10-16",
     "reason": "已取得 Zenodo v2 元数据和版本线索，但正文与最新版本未能核实；取得正文并明确其 fixed-evidence 协议、对前作的实证批评和最新版本后再审，不据未读批评改写已有论文。"
+  },
+  {
+    "id": "arxiv-2610.22242",
+    "title": "SurvICL: a Foundation Model for in-context Survival Analysis",
+    "url": "https://arxiv.org/abs/2610.22242",
+    "sourceUpdated": "2026-10-15",
+    "decision": "included",
+    "reviewedAt": "2026-10-17",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在作者公开的 63 个留出数据集协议下，SurvICL 无任务微调即可获得有竞争力的右删失生存概率预测。",
+      "contribution": "继承 TabICLv2 的表示架构，增加删失指示输入、连续分位数头与潜在完整时间监督；相对已有生存 PFN，区分输出、监督目标与生存先验的贡献，并比较四类已有生存 TFM。",
+      "evidence": "已读 §3–7、附录 B.1–B.3。103 个数据集按 40/63 分开发与留出；设计和检查点选择只用开发集。留出评测采用十次事件分层 80/20 切分，最多 4096 条上下文；对照最多 50 次随机调参。作者报告 IBS 两两胜率 82.9%，Cox 71.3%；小于 1000 样本的子集虽排名靠前，但与 Cox 的差异不显著。大样本 IBS 仍由 SurvivalBoost 领先。结果均为作者报告。",
+      "limitations": "基线在 seed-0 训练分区调参后跨十次切分复用，调参样本可能进入其他种子的测试集，作者亦指出该问题；部分失败基线用平凡分数替代，会影响汇总排名。仅支持右删失、单事件及固定协变量，不能外推成临床部署有效性或每种数据规模都优于 Cox。",
+      "value": "把生存分布与删失处理接入上下文表格预测，补充从分类回归向时间到事件任务扩展的路线，并提供跨生存 TFM 的比较协议。",
+      "reproducibility": "正文给出数据来源、分区与调参表；作者称将代码和模型公开，但本次正文链接及检索未找到可核实的发布入口，卡片不填写代码链接。未运行实验、未确认独立复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.22242",
+        "https://arxiv.org/html/2610.22242v1"
+      ],
+      "readScope": "首发页；正文 §3–7；附录 B.1 基线、B.2 调参协议和 B.3 失败处理，B.4 数据来源开头；未逐项重算附录全部数据集指标。"
+    }
+  },
+  {
+    "id": "arxiv-2610.21950",
+    "title": "SelectPFN: Amortized Bayesian Variable Selection for Sparse Nonlinear Regression with Prior-Data Fitted Networks",
+    "url": "https://arxiv.org/abs/2610.21950",
+    "sourceUpdated": "2026-10-15",
+    "decision": "included",
+    "reviewedAt": "2026-10-17",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在论文所测稀疏非线性任务中，摊销入选概率可改善变量排序；其实际预测精度和错误控制需分别评估。",
+      "contribution": "共享表格 Transformer 的筛选与预测两次计算，预测时物理移除未选列；随机交错原列和 knockoff 列把冻结网络作为 knockoff 统计量。选择概率不是无假设的因果解释。",
+      "evidence": "已读 §3、§4.2、§5.1–5.4.1、§6–7。作者主实验为 7200 个模拟数据集，n=100/300、p=50/200/500，50 次重复；SelectPFN AUPRC 0.754、LassoNet 0.543。真实协变量配合合成响应另有 1400 个任务；四组真实响应加置换噪声列实验中 SelectPFN 的 RMSE/TabPFN=1.325，L 版为 1.299。理论明确要求精确 model-X knockoff，近似构造不继承无条件保证。",
+      "limitations": "主要筛选真值来自合成机制，真实响应的因果/完整相关变量集未知，置换噪声列只能检查部分假阳性。稀疏先验不覆盖稠密谱信号，变量间后验相关由独立边际近似；p>500 未验证。两种神经基线为作者简化实现，部分方法只在子集比较；FDP 与预测调参基线的目标也不同。",
+      "value": "提供把特征选择整合进 TFM 推理的机制，并明确揭示筛选质量、稀疏性与预测误差之间的取舍。",
+      "reproducibility": "正文披露设计、重复次数、比较协议和理论条件；本次未找到可核实的代码/权重链接。未独立复现实验；理论核对限于 §4.2 的条件与随机交错论证，不宣称逐行验证全篇证明。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.21950",
+        "https://arxiv.org/html/2610.21950v1"
+      ],
+      "readScope": "首发页；§3.1、3.3–3.9 方法与两遍推理，§4.2 定理条件和论证，§5.1–5.4.1 设计及主表，§5.5、§6–7 实际数据和局限；未逐行审核其余理论证明。"
+    }
+  },
+  {
+    "id": "arxiv-2610.17503",
+    "title": "Foundation Models for Event Prediction Across Heterogeneous Event Logs",
+    "url": "https://arxiv.org/abs/2610.17503",
+    "sourceUpdated": "2026-10-13",
+    "decision": "included",
+    "reviewedAt": "2026-10-17",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "事件级上下文注意力在所测异构日志上能够不调参数地进行下一事件预测，接近强任务专用模型。",
+      "contribution": "对历史做因果自注意力编码，以观测到的下一事件作为 value，交叉注意力聚合历史—结果对；事件 ID 重排或随机嵌入减少跨系统假语义，时间变换只拟合上下文。",
+      "evidence": "正文 §3–5 及附录 A、B.1 披露 696 个训练数据集和 50 个系统级留出集，按序列开始时间保留最新 15% 作测试，局部模型用训练/验证集六组配置和早停。冻结模型最多用 2048 条训练序列；五次运行的变异来源随方法不同。表 1–2 中 FEP 接近局部 GRU/Transformer，强于所测 FM-v2/FIM-PP；并有同架构本地训练对照、上下文及 ID/时间归一化消融。",
+      "limitations": "696/50 无重复或衍生流程重合是作者声明，未独立审计全部原始日志。部分消融使用 50 个测试集中的 23 个，不能视为完全未接触的设计验证；FIM-PP 将类别压成 22 类，标签空间不完全一致。按轨迹起始时间切分不等于逐事件时间截断，跨边界长轨迹的部署有效性仍需检查。只输入事件类型/时间；效率实验排除缓存构造，不是端到端延迟。",
+      "value": "将结构化预测的上下文单位从单行扩展到历史—后继事件，可为流程日志、运维事件与长上下文缓存设计提供参照。",
+      "reproducibility": "有数据列表、实现参数及缓存查询计时协议；本次正文未发现作者 FEP 实现或权重的明确公开链接。未执行训练/推理或独立数据去重。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.17503",
+        "https://arxiv.org/html/2610.17503v1"
+      ],
+      "readScope": "首发页；正文 §3–6、表 1–3；附录 A 的上下文和对照协议、B.1 的缓存查询计时、C 的数据处理与去重声明。"
+    }
+  },
+  {
+    "id": "arxiv-2608.10837",
+    "title": "TACTICL: Task-Aware Compression of Tabular ICL Models",
+    "url": "https://arxiv.org/abs/2608.10837",
+    "sourceUpdated": "2026-08-11",
+    "decision": "included",
+    "reviewedAt": "2026-10-17",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "任务感知的层替换可在所测 TabPFN 分类任务上用有限精度损失换取推理提速，但不能把同一压缩率直接迁移至回归。",
+      "contribution": "用独立保留集搜索要删除或替换的层，轻量 MLP 拟合隐状态映射，冻结 Transformer 后微调适配器；对照直接删层、从后往前替换以及浅层学生蒸馏。",
+      "evidence": "§2–4 与附录 C 显示 TabArena 47 个原生限制内任务（34 分类/13 回归），TabPFNv2 单折、v2.5 三折。训练数据拆成 8:1:1 用于适配器、验证与搜索，测试时重并上下文。§4.5 作者报告 25/50/85% 替换分类加速 1.25/1.63/2.83 倍，25–50% 的 AUC 中位比至少 0.995；回归 RMSE 约增 3/16/61%。有删除/替换对照、受控扰动和跨任务迁移实验。",
+      "limitations": "47 个任务是受模型规模限制筛选的 TabArena 子集；早期穷举 oracle 是分析上限，不能当可部署的选择成绩。真实任务推理与大合成任务最高 5.4 倍提速要分开；计时不含适配器训练和搜索。扰动仅列排列、加噪声列与标签重映射，不覆盖真实环境迁移；跨数据集负迁移说明需按任务重适配。",
+      "value": "直接对应表格 FM 后训练与推理效率，展示保留部分上下文电路、以适配器替换计算的可执行方案，并给出分类与回归不同的预算边界。",
+      "reproducibility": "已核实作者公开仓库含 src、eval、examples 与依赖声明；论文披露硬件、折数、计时预热及训练配置。仅阅读正文和仓库首页，未运行代码或独立复现加速结果。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2608.10837",
+        "https://arxiv.org/html/2608.10837v1",
+        "https://github.com/Hebog/tfm_compression"
+      ],
+      "readScope": "首发页；正文 §2–5；附录 C.1–C.3 数据/扰动/先验混合及 D 适配器训练开头；作者代码仓库首页。"
+    }
+  },
+  {
+    "id": "arxiv-2605.22335",
+    "title": "Learning Causal Orderings for In-Context Tabular Prediction",
+    "url": "https://arxiv.org/abs/2605.22335",
+    "sourceUpdated": "2026-05-21",
+    "decision": "included",
+    "reviewedAt": "2026-10-17",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在所设可识别机制与评测条件下，学习变量顺序并限制注意力能同时支持因果排序、补全与部分干预鲁棒预测。",
+      "contribution": "用双 Transformer 分别诱导顺序和执行受顺序约束的单元格预测，联合缺失值高斯似然训练，无需图标签；引入缺失前序变量导致的方差增量。",
+      "evidence": "已读 PDF 第 1–9 页及附录 B、C.1–C.2。合成训练使用 5–10 变量、512–1024 样本；排序与 CAM、SCORE、AVICI 等比较。真实表格为至少 80% 数值列的 33 个 CC18 与 23 个 CTR23 任务，80/20 切分、10–50% 完全随机遮蔽，只在训练集微调。高缺失率补全平均排名较好；三变量链中改变下游机制的对照支持所设干预鲁棒性。NeurIPS 官方目录与作者发表页确认主会录用。",
+      "limitations": "理论因果解释需 Markov/忠实性、无未观测混杂及适合的函数机制，缺失增强可识别性的结论带有信噪比条件，不是缺失越多越好。排序并不等于完整 DAG；Sachs 实验使用经作者调整的参考图。CTR23 直接预测缺失目标，与先补全再 XGBoost 的流程不同，不能把全部收益归因于排序。真实数据未覆盖一般非随机缺失和大规模复杂干预。",
+      "value": "把因果结构约束从独立图恢复接到表格预测器，适合跟踪补全、干预稳定性与因果信息注入的交叉路线。",
+      "reproducibility": "公开 PDF 含模型、合成过程和真实数据说明；本次未确认专用代码/权重入口，未运行实验。理论核查限于主文条件与机制，未逐行重证全部附录。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2605.22335",
+        "https://arxiv.org/pdf/2605.22335",
+        "https://neurips.cc/Downloads/2026",
+        "https://www.jilles.nl/pubs/"
+      ],
+      "readScope": "首发页；PDF 第 1–9 页方法、理论条件、实验与局限；附录 B、C.1–C.2 的实现、数据生成与 Sachs 参考图；官方会议目录和作者发表页。"
+    }
+  },
+  {
+    "id": "arxiv-2605.07840",
+    "title": "RelAgent: LLM Agents as Data Scientists for Relational Learning",
+    "url": "https://arxiv.org/abs/2605.07840",
+    "sourceUpdated": "2026-05-08",
+    "decision": "included",
+    "reviewedAt": "2026-10-17",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "验证反馈驱动的 SQL 特征与模型联合搜索，在所测关系基准上构成有竞争力、可执行的预测管线。",
+      "contribution": "数据库探索、特征验证、历史错误分析三类工具构成搜索闭环；选定 SQL 程序和传统预测器后移除 LLM，实现语义模式信息向结构化特征的转换。",
+      "evidence": "已读 §3–5 方法与主要实验、附录 A 防泄漏说明、E/F 预算和成本、G 任务表以及 J 局限。使用 RelBench V1、V2（不含许可受限 MIMIC）和 4DBInfer；GPT-5.2 五次搜索取验证最优，最多 60 轮。V1 分类平均 AUROC 78.38，KumoRFM-v2 79.60；去掉语义降至 74.44，去掉反馈为 66.86。V2/4DBInfer 作者报告分类均值更高；结果不能解释成同预算零样本胜出。官方 NeurIPS 目录和作者页确认主会录用。",
+      "limitations": "额外搜索、调参及多轮验证反馈与零样本基线预算不同，反复查询验证结果有过拟合风险；程序禁止访问评测工作区，但时间截断在说明中部分由提示要求实施，未审核所有查询实际满足。训练标签可进特征库，需逐目标时间核查。成本表按理想 100% prompt cache 估计且本地模型未计硬件费，不能作为实际账单。",
+      "value": "为语义字段、关系路径与传统表格预测器的结合提供具体方案，产物 SQL 可复查，也展示语义先验与验证反馈各自的贡献。",
+      "reproducibility": "正文提供匿名代码链接、提示和参数；此次未执行仓库、未核验全部 SQL 与远端模型版本，代码链接表示作者提供的入口而非成功复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2605.07840",
+        "https://arxiv.org/html/2605.07840v1",
+        "https://neurips.cc/Downloads/2026",
+        "https://jw9730.github.io/publications.html"
+      ],
+      "readScope": "首发页；§3–4、§5.1–5.4 的协议、分类主表/回归结论与消融；附录 A 防泄漏段、E/F 搜索预算和成本、G 任务表、J 局限；官方会议目录与作者页。"
+    }
+  },
+  {
+    "id": "arxiv-2607.26000",
+    "title": "Empirical Evaluation of Out-Of-Distribution Performance of Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2607.26000",
+    "sourceUpdated": "2026-07-28",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-17",
+    "reason": "已读主文，关于预训练来源的分组前后不一致，结果段同时声称全部 OOD 退化与部分组 OOD 改善，讨论还将三个数据集写成五个。待分组、结果表和检查点/上下文协议澄清后再审，暂不把其预训练来源解释写入公开概览。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "claim": "现有材料足以按预训练来源解释九类表格模型的分布外差异。",
+      "contribution": "比较九个模型在 HELOC、Childhood Lead 与 Voting 三个 TableShift 任务的 ID/OOD AUC。",
+      "evidence": "主文引言和 §2.2 对 TabFM 预训练来源归类不一致；结果段全部点位退化与后段负差距改善的叙述相冲突；讨论提到五个数据集而设置仅列三个。",
+      "limitations": "尚未独立核验全部结果图、实际模型配置与原始日志；这些冲突使来源类别解释缺少可靠依据，不代表已否定所有分布外退化观察。",
+      "value": "分布外评测相关，但需先使模型分组和报告结果一致。",
+      "reproducibility": "未运行实验；默认配置、内存限制导致的缺测及上下文处理仍待补充。",
+      "conclusion": "现有证据不支持",
+      "sources": [
+        "https://arxiv.org/html/2607.26000v1"
+      ],
+      "readScope": "正文 §1–5 文本；未重算图表或运行模型。"
+    }
+  },
+  {
+    "id": "doi-10.1038-s41598-026-75169-w",
+    "title": "Selecting and generating web search based features using small language models for tabular data classification",
+    "url": "https://www.nature.com/articles/s41598-026-75169-w",
+    "sourceUpdated": "2026-10-11",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-17",
+    "reason": "出版社已显示录用/提前上线日期，但下载入口仍返回仅含摘要与元数据的页面。取得方法、数据划分和检索特征生成的正文后再审，不能凭录用状态完成质量审核。"
+  },
+  {
+    "id": "doi-10.3390-app16209989",
+    "title": "Spatial Interpolation of BDS/GNSS Precipitable Water Vapor Using LimiX in the Beijing–Tianjin–Hebei Region",
+    "url": "https://www.mdpi.com/2076-3417/16/20/9989",
+    "sourceUpdated": "2026-10-09",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-17",
+    "reason": "出版社正文返回 HTTP 403，当前仅有检索元数据线索，正式标题及实验也待正文核对。取得作者公开稿或可访问的出版社正文后，核查时间切分、GNSS 场景、基线预算及 LimiX 版本；未完成质量审核。"
+  },
+  {
+    "id": "arxiv-2608.22594",
+    "title": "Tabular foundation models for non-tabular tasks",
+    "url": "https://arxiv.org/abs/2608.22594",
+    "sourceUpdated": "2026-08-23",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-17",
+    "reason": "已取得正文并读引言，涉及 MNIST、词语语言识别和 Tiny ImageNet，保留跨模态结构化线索。尚需核对三组任务的输入编码、预处理拟合范围、样本预算和对照；不把合成因果先验直接解释为跨模态泛化的原因。"
+  },
+  {
+    "id": "arxiv-2607.25532",
+    "title": "Entangled by Design: Spurious Intra-Variable Signal Routing in Tabular In-Context Learners",
+    "url": "https://arxiv.org/abs/2607.25532",
+    "sourceUpdated": "2026-07-28",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-17",
+    "reason": "已读路由实验与缓解段：S-swap 在合成 TabPFN 设置降低路由比，但 OOD RMSE 未改善；真实特征加合成混杂的实验中路由指标改善而 RMSE 从 1.74 升至 9.12。暂缓，继续核对理论假设、子空间估计所用标签/分区和重复实验；可作为诊断指标与任务误差分离的线索，不能先宣传为泛化修复。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "sources": [
+        "https://arxiv.org/html/2607.25532v1"
+      ],
+      "readScope": "主文 §5–7 实验、缓解和局限；部分理论讨论，未完整核对附录证明与 scIB 数据处理。"
+    }
+  },
+  {
+    "id": "report-chakratab-2026",
+    "title": "ChakraTab: in-context tabular prediction as a service",
+    "url": "https://huggingface.co/yhatlabs/ChakraTab",
+    "sourceUpdated": "2026-10-05",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-17",
+    "reason": "官方模型卡披露多个表格 FM 的 OOF 加权组合和 TabArena-Lite 自报结果；TabArena PR #643 已被 #654 接替，不能沿用模型卡的旧待审状态。完整评测、基模型配置、预算和概率校准依据仍待核实，先留作业界/TabArena 专项线索；模型集成接入不等于评测已获独立确认。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "sources": [
+        "https://huggingface.co/yhatlabs/ChakraTab",
+        "https://github.com/autogluon/tabarena/pull/643"
+      ],
+      "readScope": "官方模型卡的输入、组合机制、评测声明和适用限制；PR #643 提交及维护者转移说明，未执行 API 或复现榜单。"
+    }
   }
 ]
