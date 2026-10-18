@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-17",
+  "updatedAt": "2026-10-18",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -4115,13 +4115,28 @@
       "category": 5,
       "related": [],
       "topic": "上下文样本优化",
-      "status": "preprint",
-      "venue": "预印本",
-      "summary": "CRUMB 先聚类测试查询，再按 MMD 选择匹配的训练子集，共享短上下文批量推理。在 51 个 TabArena 任务、多种 PFN 和大样本补充任务上比较等预算检索及随机选样。需预先获得整批无标签查询，不能直接当在线逐条服务；欧氏聚类与核选择影响混合类型高维数据，重复种子也非独立任务。",
+      "status": "published",
+      "venue": "NeurIPS 2026",
+      "summary": "先聚类整批无标签测试查询，再用 MMD 选择匹配的训练子集，共享短上下文批量推理。作者在 51 个 TabArena 数据集上比较等上下文预算方法，并扩展到多种 PFN。已核实 NeurIPS 2026 主会录用；实验剔除了超时运行，重复种子也非独立任务，因此精度与效率优势仍需完整复核；不能直接当作逐条在线服务。",
       "url": "https://arxiv.org/abs/2606.11473",
       "pdf": "https://arxiv.org/pdf/2606.11473",
       "code": null,
-      "keywords": [],
+      "aliases": [
+        "CRUMB"
+      ],
+      "keywords": [
+        "TabArena",
+        "MMD",
+        "上下文选择",
+        "批量推理"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.11473",
+        "https://arxiv.org/html/2606.11473v1",
+        "https://neurips.cc/Downloads/2026",
+        "https://openreview.net/forum?id=z3XMLStVPC",
+        "https://neurips.cc/virtual/2026/poster/148277"
+      ],
       "section": "context-selection",
       "topicId": "representative-context",
       "addedAt": "2026-10-12"
@@ -6225,6 +6240,108 @@
         "https://jw9730.github.io/publications.html"
       ],
       "addedAt": "2026-10-17"
+    },
+    {
+      "id": "arxiv-2610.00907",
+      "title": "STEER: Reducing Inference Cost in Relational Foundation Models through Semantically Informed Sampling",
+      "date": "2026-10-01",
+      "updated": "2026-10-01",
+      "category": 5,
+      "related": [
+        1,
+        4
+      ],
+      "topic": "关系上下文采样",
+      "section": "context-selection",
+      "topicId": "representative-context",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用 LLM 根据数据库模式和任务说明给外键边分级，再按概率筛选关系模型的采样路径，每个任务复用同一配置。作者在 8 个 RelBench 数据库、24 项任务及 RT、RT-J、Griffin 上报告上下文平均缩减约四成，多数预测指标接近原模型。代码已公开；上下文规模下降不能直接等同端到端提速，收益依赖模式语义和排序质量。",
+      "url": "https://arxiv.org/abs/2610.00907",
+      "pdf": "https://arxiv.org/pdf/2610.00907",
+      "code": "https://github.com/lids-lab/steer",
+      "aliases": [
+        "STEER"
+      ],
+      "keywords": [
+        "RelBench",
+        "RFM",
+        "关系数据",
+        "语义采样",
+        "RT-J",
+        "Griffin"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.00907",
+        "https://arxiv.org/html/2610.00907v1",
+        "https://github.com/lids-lab/steer"
+      ],
+      "addedAt": "2026-10-18"
+    },
+    {
+      "id": "arxiv-2610.20514",
+      "title": "Bayesian Learning to Select Fair Classifiers",
+      "date": "2026-10-14",
+      "updated": "2026-10-14",
+      "category": 2,
+      "related": [],
+      "topic": "公平分类器选择",
+      "section": "prediction-decisions",
+      "topicId": "scores-routing",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "将固定分类器、LLM 或人工判断者视为候选，用 Thompson Sampling 权衡准确率、公平性差距和查询成本，并处理延迟标签。作者在含 4 个表格任务的 7 个主实验数据集上做离线重采样比较。部分候选阈值及权衡系数网格参考评测总体，不能视为完整部署泛化验证；选择不根据当前样本特征变化，也不提供因果公平保证。",
+      "url": "https://arxiv.org/abs/2610.20514",
+      "pdf": "https://arxiv.org/pdf/2610.20514",
+      "code": null,
+      "keywords": [
+        "Thompson Sampling",
+        "模型选择",
+        "公平性",
+        "延迟反馈",
+        "多臂老虎机"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.20514",
+        "https://arxiv.org/html/2610.20514v1"
+      ],
+      "addedAt": "2026-10-18"
+    },
+    {
+      "id": "arxiv-2609.12136",
+      "title": "The Anatomy and Boundary of Adaptation under Temporal Tabular Shift",
+      "date": "2026-09-10",
+      "updated": "2026-09-10",
+      "category": 6,
+      "related": [
+        2,
+        5
+      ],
+      "topic": "时间漂移下的冻结模型适配",
+      "section": "adaptation-distribution",
+      "topicId": "subpopulation-shift",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "审计冻结表格模型的流式残差校正，区分整体去偏、标签新鲜度、局部校正与排序校准。作者在 8 条 TabReD 数据流上观察到收益与负迁移，并揭示批量近邻混入未来标签的问题，可用于设计严格时间评测。结果来自预计算回放，部分模型选择和门控为回溯分析，复现资料待公开，尚不支持通用在线适配保证。",
+      "url": "https://arxiv.org/abs/2609.12136",
+      "pdf": "https://arxiv.org/pdf/2609.12136",
+      "code": null,
+      "aliases": [
+        "Temporal Tabular Shift"
+      ],
+      "keywords": [
+        "TabReD",
+        "时间漂移",
+        "冻结模型",
+        "残差校正",
+        "流式适配",
+        "数据泄漏"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.12136",
+        "https://arxiv.org/html/2609.12136v1"
+      ],
+      "addedAt": "2026-10-18"
     }
   ],
   "collectionUpdates": [
@@ -6605,6 +6722,17 @@
         "arxiv-2610.22242"
       ],
       "updated": []
+    },
+    {
+      "date": "2026-10-18",
+      "added": [
+        "arxiv-2609.12136",
+        "arxiv-2610.00907",
+        "arxiv-2610.20514"
+      ],
+      "updated": [
+        "arxiv-2606.11473"
+      ]
     }
   ]
 }

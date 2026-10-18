@@ -552,6 +552,15 @@
       "sources": [
         "https://arxiv.org/abs/2605.07840"
       ]
+    },
+    {
+      "name": "STEER",
+      "paperIds": [
+        "arxiv-2610.00907"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.00907"
+      ]
     }
   ]
 }

@@ -6363,5 +6363,157 @@
       ],
       "readScope": "官方模型卡的输入、组合机制、评测声明和适用限制；PR #643 提交及维护者转移说明，未执行 API 或复现榜单。"
     }
+  },
+  {
+    "id": "arxiv-2610.00907",
+    "title": "STEER: Reducing Inference Cost in Relational Foundation Models through Semantically Informed Sampling",
+    "url": "https://arxiv.org/abs/2610.00907",
+    "sourceUpdated": "2026-10-01",
+    "decision": "included",
+    "reviewedAt": "2026-10-18",
+    "reason": "阅读采样方法、实验协议和消融，并核对作者代码库；以关系模型的语义采样优化收录，限定规模收益与运行时收益的区别。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在作者所测的 24 个关系预测任务上，语义引导的采样可减少上下文规模，并在多数任务维持相近预测指标；此判断不涵盖等比例端到端加速。",
+      "contribution": "将已有 RFM 的邻域采样改为按数据库模式与任务说明给外键边分四级、按 1/0.6/0.2/0 的概率遍历。两个方向分别调用 LLM，配置按任务缓存；不更新模型参数，也不向排序 LLM 提供逐行数据。",
+      "evidence": "作者报告：8 个 RelBench 数据库、14 分类与 10 回归任务，每任务 1280 个测试项目；对 RT、RT-J、Griffin 比较原采样器、随机裁剪和语义采样。RT/RT-J 使用 1024-token 预算，Griffin 使用两跳 fanout 20；主结果约四成上下文缩减。§8.6 在验证集搜索概率配置，但部分 RT-J 分类任务测试性能下降，说明额外搜索并非必然获益。",
+      "limitations": "这是作者实验，无独立或本地复现。Griffin 的 token 数由节点及列数估算，与另外两个模型不完全同口径；随机裁剪不等同精确匹配每个语义方案的上下文预算。上下文缩减不证明实际耗时或费用同比缩减，LLM 调用、采样开销与硬件需另测；依赖语义清楚的模式名。预训练与评测数据独立性未在本地审计。",
+      "value": "可作为关系基础模型推理阶段的采样插件，与 RT/RT-J、Griffin 等已收录家族衔接；提供模式语义如何改善上下文组织的可复查实现。",
+      "reproducibility": "已阅读作者 GitHub README：提供三种宿主模型的推理副本、24 项任务排序、固定采样配置、数据与 checkpoint 下载说明。需要 Linux/NVIDIA GPU；此处只核对材料，未安装、下载权重或运行模型。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2610.00907v1",
+        "https://arxiv.org/abs/2610.00907",
+        "https://github.com/lids-lab/steer"
+      ],
+      "readScope": "正文 §1–5（问题与采样方法）、§6–8.2（实现、设置及主结果）、§8.6（概率调参消融）、§9 相关工作；官方代码库 README。未逐项复算附录中的所有任务表。"
+    }
+  },
+  {
+    "id": "arxiv-2610.20514",
+    "title": "Bayesian Learning to Select Fair Classifiers",
+    "url": "https://arxiv.org/abs/2610.20514",
+    "sourceUpdated": "2026-10-14",
+    "decision": "included",
+    "reviewedAt": "2026-10-18",
+    "reason": "补完此前暂缓的正文审核；具有结构化决策和模型选择价值，以离线固定候选集上的算法证据收录，不表述为已验证的真实部署公平性保证。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在固定候选分类器与给定公平性权重的离线模拟中，贝叶斯采样有较好的效用遗憾表现；真实部署中的泛化公平收益仍缺少独立验证。",
+      "contribution": "把准确率、人口统计公平差距与成本组合为效用，分别维护标签准确率及各敏感组预测率的后验，标签延迟时只更新已经可见的统计量。属于非上下文多臂老虎机，选模型不依赖当前个体特征。",
+      "evidence": "已读 §3–7 和附录 B：主实验包括 Bank、Adult、Credit、ACSIncome 四个表格任务与 Toxicity、Bios、Twitter，共 7 个数据集；表格模型在 60% 数据训练、40% 作为流总体；10,000 次 Monte Carlo 运行，每次从同一流总体有放回采样 50,000 轮，与 UCB1、Bayes-UCB、epsilon-greedy 比较。作者报告 14 个只重准确率或只重公平的端点中 12 个最低遗憾；主实验等成本、无延迟，附录再模拟几何分布延迟。",
+      "limitations": "附录 B.1.1 的 GBM 操作阈值在流总体上选择，权衡参数网格也参考 oracle 转折点，因此只支持给定候选族的选择实验，不能当作完整独立测试。流由有限离线样本反复重采样；长延迟、短预算、多类别时优势减弱。理论依赖平稳 IID、组别有正概率等条件；本文公平指标非因果公平或硬约束，权重由使用者指定。未逐行验证全部理论证明。",
+      "value": "为结构化预测系统选择模型、设置公平性与费用取舍、利用延迟反馈提供算法参考；可据其评测限制设计独立的候选构造、调参和测试数据划分。",
+      "reproducibility": "正文给出算法、数据及模拟协议；作者表示最终版本将发布代码，当前未核实可用仓库。未独立或本地复现，不把作者模拟结果当作实地运行证据。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2610.20514v1",
+        "https://arxiv.org/abs/2610.20514"
+      ],
+      "readScope": "§3–4 问题与算法、§5 定理条件及证明提要、§6–7 实验与讨论；附录 B.1/B.1.1 数据和候选构造、B.5 延迟标签实验及 B.4 部分敏感性实验。未完成附录 A 的逐行证明复核。"
+    }
+  },
+  {
+    "id": "arxiv-2609.12136",
+    "title": "The Anatomy and Boundary of Adaptation under Temporal Tabular Shift",
+    "url": "https://arxiv.org/abs/2609.12136",
+    "sourceUpdated": "2026-09-10",
+    "decision": "included",
+    "reviewedAt": "2026-10-18",
+    "reason": "作为时序适配机制与评测协议研究收录，保留局部校正的负结果和未来信息风险；不采纳其筛选规则已获部署验证的扩大解释。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "时序局部残差校正的收益需区分去偏、标签新鲜度与近邻信息；回溯近邻可能高估可部署收益。其通用在线适配筛选规则尚缺充分验证。",
+      "contribution": "对冻结表格预测器的适配作四通道机制审计，并把缺少标签与表示丢失的信息障碍分别分析；强调先预测、后揭示标签的历史缓冲协议，而非直接提出一个普遍更强的模型。",
+      "evidence": "作者在 8 条 TabReD 流（5 回归、3 分类）上回放单先验残差校正，k=20、校正系数 0.7、block=64，采用配对 moving-block bootstrap（1000 次）及块长敏感性检查。报告回归 RMSE 收益 0.59%–3.94%，分类中出现 homecredit 的 -2.28 AUC 点负迁移。时间对称近邻含约 49.5%–53.2% 的未来邻居；改为只用过去或严格时间切分会降低可用信号估计。",
+      "limitations": "模型先验的完整可复现实例及作者承诺的存档包尚未公开核实；历史七先验系统不共享逐样本输出。附录 J.1 的 C4 码本大小在同一未来评测段选择，§7.1 的噪声阈值用整段流回溯估计，不能据此声称真实在线门控已有效。理论正则分支有平稳性、MCAR 锚点、覆盖和平滑性条件，若干下界仍为条件性或未解决结论；未逐行证明复核全部在线附录。",
+      "value": "可用于审查测试时适配中的未来信息、区分简单去偏与复杂局部校正、建立同时记录改善和负迁移的时间评测。收录其机制与协议价值，不把回溯规则当作部署保证。",
+      "reproducibility": "正文及附录 J.1 有详细回放和 bootstrap 协议；复现包、模型输出与部分监控组件仍需补充。当前证据为作者报告，未进行独立或本地模型复现。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2609.12136v1",
+        "https://arxiv.org/abs/2609.12136"
+      ],
+      "readScope": "摘要、§1–3 问题/相关工作/假设、§4.1–4.2 经验分解、§5.1–5.6 诊断实验、§6.1 与 §6.4 的条件及论证提要、§7.1 筛选规则和回溯边界、附录 J.1 复现测量协议。未逐行验证所有理论附录。"
+    }
+  },
+  {
+    "id": "arxiv-2606.11473",
+    "title": "CRUMB: Efficient Prior Fitted Network Inference via Distributionally Matched Context Batching",
+    "url": "https://arxiv.org/abs/2606.11473",
+    "sourceUpdated": "2026-06-09",
+    "decision": "existing",
+    "reviewedAt": "2026-10-18",
+    "reason": "NeurIPS 官方 2026 目录与已采集的主会录用记录相符；重新阅读方法及实验正文后补充超时删失和统计边界，保留原始首发及本站收录日期。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "测试侧聚类配合 MMD 检索可共享 PFN 上下文并减少前向调用；其普遍精度及时间优势不能由当前汇总结果充分确证。",
+      "contribution": "相对逐查询 kNN，把测试查询聚成 K 组，每组按 MMD 核 herding 选择兼顾邻近性与多样性的训练子集，再批量前向；与训练侧聚类 MICP 的差别是围绕查询分布组织共享上下文。",
+      "evidence": "§4 给出 k-means、RBF 核、贪心 MMD、随机傅里叶加速和可选早停。§5.1 在 51 个 TabArena 数据集、TabICL-v2、10 seeds 上比较：共享方法用 10% 上下文、K=20，full context 单独列为全量参照；§5.2 扩展 38 分类任务、3 种 PFN 和多种采样预算。§5.3–5.4 提供大样本与人工协变量漂移实验。官方 NeurIPS 2026 下载目录列出同名论文，已有正式采集记录的主会 Accept(poster) 相符。",
+      "limitations": "附录 A.3 将超时运行从分析剔除，未见完整失败分布，效率与精度均可能受删失影响；以 dataset×seed 汇总检验不能把重复种子当作独立任务证据。kNN 与 CRUMB 差异不显著不是等价性证明。§5.4 的大样本数据口径及主文时间报告需进一步核实，因此本次不沿用漂移提升百分比或十倍端到端提速的表述。须提前取得整批无标签查询，欧氏聚类和核对混合类型高维表格的适用性需验证。",
+      "value": "作为 TabArena 上研究上下文质量与批处理折中的方法保留；算法可用于离线批量预测，但部署比较应完整报告失败、采样开销和预测时间。会议录用不作为质量结论依据。",
+      "reproducibility": "已读公开方法、参数、硬件及实验说明；当前未核实作者可用代码仓库。结果均为作者报告，未独立或本地复现。正式状态核验与实验评价分别记录。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2606.11473v1",
+        "https://arxiv.org/abs/2606.11473",
+        "https://neurips.cc/Downloads/2026"
+      ],
+      "readScope": "正文 §4 方法、§5.1–5.4 数据/预算/主结果/漂移实验、§6 结论、附录 A.1–A.3 模型与实验设置；当日 NeurIPS 官方下载目录和现有正式采集记录。未运行模型或逐项复算附录消融。"
+    }
+  },
+  {
+    "id": "arxiv-2606.21212",
+    "title": "DCD-PFN: A Decoupling-Aware Foundation Model for Causal Discovery",
+    "url": "https://arxiv.org/abs/2606.21212",
+    "sourceUpdated": "2026-06-19",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-18",
+    "reason": "已读方法及实验，但当前正文缺少明确的预训练规模、训练超参数和完整基线预算，解耦保证依赖前作且尚未补核。先保留因果基础模型候选；补足训练/比较协议及继承理论的适用假设后再决定，不因没有代码单独排除。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "claim": "以解耦加权和 Markov boundary 预测摊销因果发现，组合为 CPDAG。",
+      "evidence": "已读 §3.1–3.4 双分支注意力、HSIC 加权、MB 预测与定向算法，以及 §4.1–4.3 的 10/15/20 节点、800 样本、25 seeds 合成实验及 Sachs。所有输出转 CPDAG 比较；Sachs 报告 precision=1、recall=0.3，不能只用精确率宣称恢复完整因果图。",
+      "limitations": "小图结果不足以验证大规模可扩展性；MB 子集枚举的成本、训练细节、基线预算与所借用解耦理论的条件仍待补核，未完成质量审核。",
+      "sources": [
+        "https://arxiv.org/html/2606.21212v1",
+        "https://arxiv.org/abs/2606.21212"
+      ],
+      "readScope": "正文 §3.1–3.4、§4.1–4.3 和结论；未读引用前作的完整理论证明，未做本地复现。"
+    }
+  },
+  {
+    "id": "doi-10.7717-peerj-cs.4102",
+    "title": "cueEM: human-like entity matching via text-centric hybrid attention",
+    "url": "https://doi.org/10.7717/peerj-cs.4102",
+    "sourceUpdated": "2026-10-14",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-18",
+    "reason": "发现实体匹配相关新作，出版社正文请求返回 HTTP 403，尚未读到方法和实验。保留候选；取得合法可访问的作者稿或出版社正文后审核分割、负例、基线与成本，不把元数据命中当作已收录。"
+  },
+  {
+    "id": "report-timestral-2026",
+    "title": "Timestral",
+    "url": "https://mistral.ai/news/timestral/",
+    "sourceUpdated": "2026-10-15",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-18",
+    "reason": "官方发布页可读，披露多变量时序、未来协变量与概率预测路线；完整技术报告尚待发布，训练评测重叠、对照预算与实现细节不足以完成质量审核。作为业界线索保留，待技术报告/可核验基准协议补齐；正文保存请求超时已记录。"
+  },
+  {
+    "id": "report-chakratab-2026",
+    "title": "ChakraTab: in-context tabular prediction as a service",
+    "url": "https://huggingface.co/yhatlabs/ChakraTab",
+    "sourceUpdated": "2026-10-05",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-18",
+    "reason": "补核 TabArena PR #654：10 月 9 日已合并，维护者完成 medium/full 两配置评测、上传带校验和的结果，提交方确认；不能继续描述为仅待跑。仍需核对具体排名表、服务端训练/推理计时、基模型配置与版本等，之后再决定是否以技术报告收录。此次未读原始结果文件、未运行模型，不将评测接入等同核心机制已审核。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "sources": [
+        "https://github.com/autogluon/tabarena/pull/654"
+      ],
+      "readScope": "PR 描述、维护者审计问题、10 月 9 日运行完成/提交方确认/结果上传评论及合并状态；未下载原始基准结果或调用 API。"
+    }
   }
 ]
