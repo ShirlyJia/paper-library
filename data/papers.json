@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-18",
+  "updatedAt": "2026-10-19",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -6342,6 +6342,115 @@
         "https://arxiv.org/html/2609.12136v1"
       ],
       "addedAt": "2026-10-18"
+    },
+    {
+      "id": "arxiv-2610.22770",
+      "title": "Unit-level aggregation breaks coverage in causal foundation models",
+      "date": "2026-10-16",
+      "updated": "2026-10-16",
+      "category": 3,
+      "related": [
+        2,
+        6
+      ],
+      "topic": "群体因果效应区间与冻结模型输出头",
+      "section": "causal-models",
+      "topicId": "causal-reliability",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "指出独立平均个体效应的边际分布会遗漏跨样本误差相关性，导致群体效应区间过窄；提出共享潜变量及群体输出头。作者在 6 类合成／半合成基准上验证，冻结 CausalPFN 后训练的输出头改善覆盖率，但部分场景仍未达到名义覆盖，点估计也可能变差。可用于群体决策的不确定性审计，不能替代混杂控制或提供通用校准保证。",
+      "url": "https://arxiv.org/abs/2610.22770",
+      "pdf": "https://arxiv.org/pdf/2610.22770",
+      "code": "https://github.com/gabeschulman-nyu/subset-cate-coverage",
+      "aliases": [
+        "subset-cate-coverage"
+      ],
+      "keywords": [
+        "CausalPFN",
+        "subset-CATE",
+        "群体效应",
+        "区间覆盖",
+        "误差协方差",
+        "冻结模型",
+        "输出头"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.22770",
+        "https://arxiv.org/html/2610.22770v1",
+        "https://github.com/gabeschulman-nyu/subset-cate-coverage"
+      ],
+      "addedAt": "2026-10-19"
+    },
+    {
+      "id": "arxiv-2610.23073",
+      "title": "Path to Prior-Data Fitted Relational Models via Learned Latent Multi-table Representations",
+      "date": "2026-10-16",
+      "updated": "2026-10-16",
+      "category": 1,
+      "related": [
+        5
+      ],
+      "topic": "关系编码器与冻结上下文预测器",
+      "section": "industry-models",
+      "topicId": "relational-releases",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用 Griffin 编码多表关系，再把冻结表征交给冻结 TabICLv2，在目标任务上免梯度更新。作者在 16 项关系分类任务、5 个种子上报告合成训练表征的收益，提供关系编码与上下文预测组合的路线。不同课程的总预算与数据量尚未完全匹配，不能把增益单独归因于课程顺序；尚缺回归和强端到端基线比较。",
+      "url": "https://arxiv.org/abs/2610.23073",
+      "pdf": "https://arxiv.org/pdf/2610.23073",
+      "code": null,
+      "aliases": [
+        "Griffin + TabICL",
+        "Latent Multi-table Representations"
+      ],
+      "keywords": [
+        "Griffin",
+        "TabICLv2",
+        "关系数据",
+        "多表表征",
+        "冻结编码器",
+        "上下文学习",
+        "课程学习"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.23073",
+        "https://arxiv.org/html/2610.23073v1"
+      ],
+      "addedAt": "2026-10-19"
+    },
+    {
+      "id": "arxiv-2610.23272",
+      "title": "DeDiCa: A Scalable Deconfounding Discrete Causal Generative Model",
+      "date": "2026-10-16",
+      "updated": "2026-10-16",
+      "category": 3,
+      "related": [],
+      "topic": "已知图上的离散因果生成与精确推断",
+      "section": "causal-estimation",
+      "topicId": "treatment-effects",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "将已知因果图写成张量化贝叶斯网络，在观测数据上拟合一次后，对满足代理识别条件的干预查询精确边缘化隐混杂。作者在 4 个合成／半合成图基准上报告 CPU 推断效率，可作为因果基础模型的结构化替代方案。优势依赖已知图、离散变量和可识别性；与 CausalPFN 的比较输入信息不同，且须计入逐数据集拟合成本。",
+      "url": "https://arxiv.org/abs/2610.23272",
+      "pdf": "https://arxiv.org/pdf/2610.23272",
+      "code": null,
+      "aliases": [
+        "DeDiCa"
+      ],
+      "keywords": [
+        "离散因果模型",
+        "隐混杂",
+        "代理变量",
+        "贝叶斯网络",
+        "张量化",
+        "CausalPFN",
+        "树宽"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.23272",
+        "https://arxiv.org/html/2610.23272v1"
+      ],
+      "addedAt": "2026-10-19"
     }
   ],
   "collectionUpdates": [
@@ -6733,6 +6842,15 @@
       "updated": [
         "arxiv-2606.11473"
       ]
+    },
+    {
+      "date": "2026-10-19",
+      "added": [
+        "arxiv-2610.22770",
+        "arxiv-2610.23073",
+        "arxiv-2610.23272"
+      ],
+      "updated": []
     }
   ]
 }

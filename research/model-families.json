@@ -555,11 +555,31 @@
     },
     {
       "name": "STEER",
+      "needsContext": true,
       "paperIds": [
         "arxiv-2610.00907"
       ],
       "sources": [
         "https://arxiv.org/abs/2610.00907"
+      ]
+    },
+    {
+      "name": "Griffin",
+      "needsContext": true,
+      "paperIds": [
+        "arxiv-2610.23073"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.23073"
+      ]
+    },
+    {
+      "name": "DeDiCa",
+      "paperIds": [
+        "arxiv-2610.23272"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.23272"
       ]
     }
   ]
