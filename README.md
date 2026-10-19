@@ -56,7 +56,7 @@
 
 ## 每日维护
 
-每天北京时间 09:45 由当前 Codex 对话的定时任务执行[每日更新机制](research/DAILY_UPDATE.md)：arXiv 每天增量检索；正式会议、OpenAlex 全文与语义近邻、引用关系、Consensus 和模型家族官方来源每周回查近六个月。候选进入跨天待审队列，经原始来源核验和质量审核后才发布；有实质变化时自动生成《结构化数据研究小报》。没有内容变化时不改目录更新日期。
+每天北京时间 09:00 由当前 Codex 对话的定时任务触发[每日更新机制](research/DAILY_UPDATE.md)：arXiv 每天增量检索；正式会议、OpenAlex 全文与语义近邻、引用关系、Consensus 和模型家族官方来源每周回查近六个月。候选进入跨天待审队列，经原始来源核验和质量审核后才发布；有实质变化时自动生成《结构化数据研究小报》。本机配置获授权的飞书话题群后，上线核验完成的小报可自动发送并回读去重。没有内容变化时不改目录更新日期。
 
 `npm run collect:daily` 按渠道检查点只运行到期的检索，候选并入跨天的待审队列（`npm run queue -- top` 查看），不直接发布；`npm run collect:daily -- --dry-run` 只预览。OpenAlex 翻页需要免费 API key，写入环境变量 `OPENALEX_API_KEY`。审核结果用 `npm run apply:review` 写入，运行记录用 `npm run collect:finish` 生成。任务依赖本机 Codex 调度环境及网络；静态站点本身不执行采集，也不需要付费 API。实际调度时间以 Codex 定时任务设置为准。
 

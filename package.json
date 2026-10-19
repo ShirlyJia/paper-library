@@ -11,6 +11,7 @@
     "collect:consensus": "python3 scripts/import_consensus.py",
     "collect:daily": "python3 scripts/collect_daily.py",
     "collect:finish": "python3 scripts/collect_daily.py --finish",
+    "briefing:send": "python3 scripts/send_briefing.py",
     "queue": "python3 scripts/review_queue.py",
     "apply:review": "python3 scripts/apply_review.py",
     "fetch:sources": "python3 scripts/fetch_sources.py"

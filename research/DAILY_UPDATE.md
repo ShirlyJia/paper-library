@@ -1,6 +1,6 @@
 # 每日更新机制
 
-每天北京时间 09:45 由 Codex 定时任务执行；收录标准和质量审核见 [检索与收录规则](COLLECTION.md)，本文件只写执行顺序。调度依赖本机 Codex 环境与网络；访问静态站点不触发采集。
+每天北京时间 09:00 由 Codex 定时任务触发；收录标准和质量审核见 [检索与收录规则](COLLECTION.md)，本文件只写执行顺序。调度依赖本机 Codex 环境与网络，实际完成时间取决于检索和审核；访问静态站点不触发采集。
 
 ## 检索节奏
 
@@ -25,6 +25,7 @@
 5. **写入。** 把本次新增、更正、暂缓、排除写进一个 `本次目录/review-input.json`（格式见 `scripts/apply_review.py` 开头；新增和更正各附一句 `brief`），运行 `npm run apply:review -- 本次目录/review-input.json`。脚本校验质量审核字段，统一写入 `data/papers.json`、`research/decisions.json` 和家族登记表。不要为这些步骤另写一次性脚本。不得为凑数量添加论文。
 6. **检查并发布。** `npm run record:updates && npm run check`，再在站内按目录、年份和简称搜索新条目。只提交本次相关修改，推送 `origin/main`（先用 `git remote get-url origin` 确认），等待 Pages 发布后核对线上 JSON 与页面；截图核对只在本次确有发布时做。推送冲突、测试或部署失败时保留现场并报告，不重置远端、不强推。没有内容变化时不修改 `updatedAt`，不制造空发布。
 7. **收尾。** 有新增或更正时，先按["今天的看点"撰写提示词](BRIEFING_PROMPT.md)写 `本次目录/briefing-highlights.md`，再运行 `npm run collect:finish -- 本次目录 --review-input 本次目录/review-input.json [--published] [--note 缺口说明]`。脚本生成固定格式的 `review.json`、小报 `briefing.md` 和运行记录 `run-notes.md`，并只推进本次完整完成的渠道检查点。候选已在队列里，所以检索检查点与审核进度分开推进，未审候选不会丢失。发布或核对未完成时不加 `--published`。
+8. **群内发布。** 本机已配置飞书发送时，`collect:finish` 自动调用 `lark-cli`，将已上线的小报和站点链接发布到获授权的话题群，并回读核验；同时重试启用日期以来尚未送达的小报。通知失败保留回执，收录检查点不回退。补发可独立运行 `npm run briefing:send`，无需重跑检索。
 
 ```sh
 npm run collect:daily
@@ -43,7 +44,16 @@ npm run collect:finish -- 本次目录 --review-input 本次目录/review-input.
 | `briefing.md`（小报） | 有新增或实质更正时 | 只写结论。开头一句速览（自动）：收录篇数、新论文与补录各几篇、覆盖哪些方向、论文库链接。"今天的看点"：审核者按[撰写提示词](BRIEFING_PROMPT.md)写入 `briefing-highlights.md`，用 150–300 字平实地讲清今天的主线和两三篇重点论文。各方向上新（自动）：按方向分组，每篇一行简称、链接和 `brief`。 |
 | `run-notes.md`（运行记录） | 每次 | 过程信息。需要处理的问题：检索失败渠道、未上线、`--note`。暂缓论文及理由。渠道完成情况、待审队列规模、发布状态。 |
 
-在当前对话里先输出小报全文和文件链接。只有运行记录的"需要处理"一节有内容时，才另起一段简短列出问题。没有新增也没有问题时保持安静。不发送给其他人或外部工具。
+在当前对话里先输出小报全文和文件链接。只有运行记录的"需要处理"一节有内容时，才另起一段简短列出问题。没有新增也没有问题时保持安静。获用户明确授权后，只向本机飞书配置指定的话题群自动发送公开小报和站点链接；不发送运行记录、候选、内部备注、本机路径或聊天内容，不向其他接收方发送。
+
+## 飞书小报发送
+
+- 通过已安装的 `lark-cli` 发送 Markdown 富文本。每次实质更新创建一个新话题，保留论文原文链接和网站入口；无更新不发空小报，不自动 @ 群成员。
+- 目标与身份仅保存在 Git 忽略的 `work/notifications/feishu.json`：`enabled`、`identity`（`user` 或 `bot`）、`chatName`、`notBefore`（启用日期），首次精确匹配唯一话题群后写入 `chatId`。不按模糊名称自动选群，不自动切换身份。凭证由飞书 CLI 管理，不写入仓库。
+- 用户身份须完成飞书授权；机器人身份须具备权限并已加入目标群。身份失效或目标不匹配时停止发送，在当前对话报告处理方式。
+- 只发送 `publication.published=true` 的运行，发送前再次核对本次论文线上与本地一致。只读取该运行的 `briefing.md`，核对日期及论文链接覆盖。
+- 按群、北京时间日期和论文 ID 清单去重；回执保存在 `work/notifications/receipts/`，成功回读后也保存到运行目录的 `feishu-delivery.json`。同一清单正文变更不另发重复话题，先核对已有消息。CLI 请求使用固定幂等键；网络结果不明时先回查群历史，超过安全重试窗口不盲目重发。
+- `npm run briefing:send -- --run 本次目录 --dry-run` 预览；去掉 `--dry-run` 发送该次小报；不传 `--run` 重试启用日期以来尚未发送的已发布小报。换机器时需迁移本机配置和回执，或设置新的启用日期，避免补发历史内容。
 
 每篇新增或更正在 `review-input.json` 里附 `brief`（不超过 80 字，说明它是什么；更正写明改了什么），可选 `name` 指定简称。`apply:review` 会检查 `brief`。
 

@@ -210,6 +210,15 @@ def finish(run_dir, review_input, published, notes):
     os.replace(temporary, STATE_PATH)
     print(f"已记录 {run_dir.relative_to(ROOT)}/review.json；推进渠道：{', '.join(advanced) or '无'}；"
           f"保留：{', '.join(review['checkpoint']['kept']) or '无'}。")
+    # Delivery has its own receipts; a failure never rolls back research checkpoints.
+    from send_briefing import CONFIG, send_pending
+    if CONFIG.exists():
+        try:
+            result = send_pending()
+            print("飞书小报：" + json.dumps(result, ensure_ascii=False))
+        except (RuntimeError, ValueError, OSError, KeyError) as error:
+            print(f"研究记录已保存；飞书小报待重试：{error}", file=sys.stderr)
+            return 1
 
 
 def main():
