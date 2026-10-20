@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-19",
+  "updatedAt": "2026-10-20",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -6451,6 +6451,82 @@
         "https://arxiv.org/html/2610.23272v1"
       ],
       "addedAt": "2026-10-19"
+    },
+    {
+      "id": "arxiv-2610.24278",
+      "title": "Dataset Inference for Data Provenance and Privacy Auditing in Tabular Foundation Models",
+      "date": "2026-10-16",
+      "updated": "2026-10-16",
+      "category": 1,
+      "related": [
+        6
+      ],
+      "topic": "训练数据来源与数据集成员审计",
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "通过扰动上下文、交换预测目标等操作提取数据集指纹，判断一张表是否用于模型训练。作者在 SAP-RPT-1-OSS 上的内部审计报告 AUC 0.994，仅知未训练表的外部审计为 0.652，仍须控制数据来源差异。实验以 51 个 TabArena 数据集作为 Real-TabPFN-2.5 的未训练对照，可用于训练数据来源核查；结果不等同于跨模型隐私排名。",
+      "url": "https://arxiv.org/abs/2610.24278",
+      "pdf": "https://arxiv.org/pdf/2610.24278",
+      "code": "https://github.com/layer6ai-labs/tfm-di",
+      "aliases": [
+        "TFM Dataset Inference",
+        "Dataset Inference for TFMs"
+      ],
+      "keywords": [
+        "数据集成员推断",
+        "训练数据来源",
+        "隐私审计",
+        "TabArena",
+        "SAP-RPT-1-OSS",
+        "TabDPT",
+        "Real-TabPFN-2.5",
+        "盲基线"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.24278",
+        "https://arxiv.org/html/2610.24278v1",
+        "https://github.com/layer6ai-labs/tfm-di"
+      ],
+      "addedAt": "2026-10-20"
+    },
+    {
+      "id": "arxiv-2610.24798",
+      "title": "Table Serialization Determines Which Relations Language Models Preserve",
+      "date": "2026-10-17",
+      "updated": "2026-10-17",
+      "category": 5,
+      "related": [
+        4
+      ],
+      "topic": "表格序列化与行列关系保持",
+      "section": "inference-strategies",
+      "topicId": "inference-mechanisms",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "固定表格内容与查询，对比按行和按列序列化，发现两种表示分别更容易保留行关系和列关系，且优势随表格形状反转。作者用 3 个小型指令模型、256 单元格的 5 种形状及独立行列网格做配对实验，为表格输入格式选择提供诊断依据。结论限于合成精确查找任务，尚不能外推到真实复杂表格或大型模型；完整实验产物待公开。",
+      "url": "https://arxiv.org/abs/2610.24798",
+      "pdf": "https://arxiv.org/pdf/2610.24798",
+      "code": null,
+      "aliases": [
+        "Table Serialization",
+        "表格序列化与关系保持"
+      ],
+      "keywords": [
+        "表格序列化",
+        "行列关系",
+        "结构保持",
+        "表格推理",
+        "输入表示",
+        "语言模型",
+        "配对实验"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.24798",
+        "https://arxiv.org/html/2610.24798v1"
+      ],
+      "addedAt": "2026-10-20"
     }
   ],
   "collectionUpdates": [
@@ -6849,6 +6925,14 @@
         "arxiv-2610.22770",
         "arxiv-2610.23073",
         "arxiv-2610.23272"
+      ],
+      "updated": []
+    },
+    {
+      "date": "2026-10-20",
+      "added": [
+        "arxiv-2610.24278",
+        "arxiv-2610.24798"
       ],
       "updated": []
     }
