@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-15",
-  "description": "暂缓公开的原始条目；保留稳定 ID、原收录日期和完整历史，补足证据后可恢复。",
+  "updatedAt": "2026-10-20",
+  "description": "暂缓或按用户选择移出公开目录的原始条目；保留稳定 ID、原收录日期和完整历史，满足各条目恢复条件后可恢复。",
   "papers": [
     {
       "paper": {
@@ -179,6 +179,99 @@
         },
         "restoreWhen": "提供不依赖测试标签确定预测方向的原始 AUC，或为翻转后的统计量构造有效零分布并重新报告检验及比较。"
       }
+    },
+    {
+      "paper": {
+        "id": "arxiv-2610.24278",
+        "title": "Dataset Inference for Data Provenance and Privacy Auditing in Tabular Foundation Models",
+        "date": "2026-10-16",
+        "updated": "2026-10-16",
+        "category": 1,
+        "related": [
+          6
+        ],
+        "topic": "训练数据来源与数据集成员审计",
+        "section": "industry-benchmarks",
+        "topicId": "general-benchmarks",
+        "status": "preprint",
+        "venue": "预印本",
+        "summary": "通过扰动上下文、交换预测目标等操作提取数据集指纹，判断一张表是否用于模型训练。作者在 SAP-RPT-1-OSS 上的内部审计报告 AUC 0.994，仅知未训练表的外部审计为 0.652，仍须控制数据来源差异。实验以 51 个 TabArena 数据集作为 Real-TabPFN-2.5 的未训练对照，可用于训练数据来源核查；结果不等同于跨模型隐私排名。",
+        "url": "https://arxiv.org/abs/2610.24278",
+        "pdf": "https://arxiv.org/pdf/2610.24278",
+        "code": "https://github.com/layer6ai-labs/tfm-di",
+        "aliases": [
+          "TFM Dataset Inference",
+          "Dataset Inference for TFMs"
+        ],
+        "keywords": [
+          "数据集成员推断",
+          "训练数据来源",
+          "隐私审计",
+          "TabArena",
+          "SAP-RPT-1-OSS",
+          "TabDPT",
+          "Real-TabPFN-2.5",
+          "盲基线"
+        ],
+        "sources": [
+          "https://arxiv.org/abs/2610.24278",
+          "https://arxiv.org/html/2610.24278v1",
+          "https://github.com/layer6ai-labs/tfm-di"
+        ],
+        "addedAt": "2026-10-20"
+      },
+      "withheldAt": "2026-10-20",
+      "reason": "用户明确要求删除该论文并保留表格序列化论文；按收录选择移出公开目录。原正文审核及收录历史保留，本次不作论文质量否定。",
+      "restoreWhen": "用户明确要求恢复收录后，核对当前版本和既有审核，再按原 ID 与收录日期恢复。",
+      "collectionHistory": [
+        {
+          "date": "2026-10-20",
+          "kind": "added"
+        }
+      ],
+      "qualityReview": {
+        "reviewStatus": "completed",
+        "claim": "在作者测试的固定训练语料模型和已知成员／非成员条件下，数据集指纹可提取超出盲基线的训练成员信号；不主张对任意模型和未知分布均能准确审计。",
+        "contribution": "将单样本成员推断扩展到表级数据来源审计，组合输入扰动、预测信号与聚合统计为 678 维指纹；区分仅掌握非成员的外部异常检测与掌握成员标签的内部分类，并引入未训练于被审计数据的 TabPFN-2.5 盲基线。",
+        "evidence": "作者报告：内部审计使用逐数据集留一验证，每折在训练数据内划分验证集做 SHAP 特征选择；SAP-RPT-1-OSS 使用 TabPFN-2.5 审计分类器时 AUC 为 0.994，盲基线 0.689。外部 Isolation Forest 审计为 0.652±0.041，盲基线 0.442±0.013。其余模型增量更弱或接近零。附录 D.1 明确 Real-TabPFN-2.5 使用 20 个 OpenML 训练成员与 51 个 TabArena 未训练表作对照。数据来源差异在盲模型上也能产生非随机区分，因此不能只引用 0.99 而省略条件。",
+        "limitations": "SAP 成员来自 T4 chunk-002 中超过 150 行的表，非成员为至多 150 行的表；作者去除尺寸相关指纹并用盲基线控制，但分布差异仍是使用时必须检查的因素。四个模型训练语料不同，不能直接作隐私强弱排名。外部审计结果明显较弱；无信号也不能证明无泄漏。多次模型查询的成本未形成统一部署预算；结论主要适用于固定真实／真实衍生语料。",
+        "value": "提供模型交付时核查训练数据来源、分析评测污染的算法与诊断基线；TabArena 在本文中是未训练对照数据，并非新的榜单结果。",
+        "reproducibility": "官方 GitHub 公开了代码、配置、审计说明和复现入口；部分信号、模型权重及 T4 数据需申请访问或接受条款。已阅读官方 README 并核对数据构成，未下载大型数据、未运行代码，当前证据属于作者报告而非独立或本地复现。",
+        "conclusion": "证据已支持",
+        "sources": [
+          "https://arxiv.org/html/2610.24278v1",
+          "https://arxiv.org/abs/2610.24278",
+          "https://github.com/layer6ai-labs/tfm-di"
+        ],
+        "readScope": "arXiv v1 第 4.1–4.4 节（指纹、两种审计、盲基线）、第 5.1–5.4 节及表 1–2（设置、结果、消融）、第 6 节、附录 A（限制）、附录 D.1（数据集及成员划分）；官方摘要页首发时间与 GitHub README。未逐项复核其余附录表格，未作实验复现。"
+      },
+      "decisionHistory": [
+        {
+          "id": "arxiv-2610.24278",
+          "title": "Dataset Inference for Data Provenance and Privacy Auditing in Tabular Foundation Models",
+          "url": "https://arxiv.org/abs/2610.24278",
+          "sourceUpdated": "2026-10-16",
+          "decision": "included",
+          "reviewedAt": "2026-10-20",
+          "reason": "正文给出了数据集级审计方法、逐数据集留出验证及盲基线，对模型来源核查和 TabArena 训练污染检查具有直接价值；公开概览保留内部／外部审计边界。",
+          "qualityReview": {
+            "reviewStatus": "completed",
+            "claim": "在作者测试的固定训练语料模型和已知成员／非成员条件下，数据集指纹可提取超出盲基线的训练成员信号；不主张对任意模型和未知分布均能准确审计。",
+            "contribution": "将单样本成员推断扩展到表级数据来源审计，组合输入扰动、预测信号与聚合统计为 678 维指纹；区分仅掌握非成员的外部异常检测与掌握成员标签的内部分类，并引入未训练于被审计数据的 TabPFN-2.5 盲基线。",
+            "evidence": "作者报告：内部审计使用逐数据集留一验证，每折在训练数据内划分验证集做 SHAP 特征选择；SAP-RPT-1-OSS 使用 TabPFN-2.5 审计分类器时 AUC 为 0.994，盲基线 0.689。外部 Isolation Forest 审计为 0.652±0.041，盲基线 0.442±0.013。其余模型增量更弱或接近零。附录 D.1 明确 Real-TabPFN-2.5 使用 20 个 OpenML 训练成员与 51 个 TabArena 未训练表作对照。数据来源差异在盲模型上也能产生非随机区分，因此不能只引用 0.99 而省略条件。",
+            "limitations": "SAP 成员来自 T4 chunk-002 中超过 150 行的表，非成员为至多 150 行的表；作者去除尺寸相关指纹并用盲基线控制，但分布差异仍是使用时必须检查的因素。四个模型训练语料不同，不能直接作隐私强弱排名。外部审计结果明显较弱；无信号也不能证明无泄漏。多次模型查询的成本未形成统一部署预算；结论主要适用于固定真实／真实衍生语料。",
+            "value": "提供模型交付时核查训练数据来源、分析评测污染的算法与诊断基线；TabArena 在本文中是未训练对照数据，并非新的榜单结果。",
+            "reproducibility": "官方 GitHub 公开了代码、配置、审计说明和复现入口；部分信号、模型权重及 T4 数据需申请访问或接受条款。已阅读官方 README 并核对数据构成，未下载大型数据、未运行代码，当前证据属于作者报告而非独立或本地复现。",
+            "conclusion": "证据已支持",
+            "sources": [
+              "https://arxiv.org/html/2610.24278v1",
+              "https://arxiv.org/abs/2610.24278",
+              "https://github.com/layer6ai-labs/tfm-di"
+            ],
+            "readScope": "arXiv v1 第 4.1–4.4 节（指纹、两种审计、盲基线）、第 5.1–5.4 节及表 1–2（设置、结果、消融）、第 6 节、附录 A（限制）、附录 D.1（数据集及成员划分）；官方摘要页首发时间与 GitHub README。未逐项复核其余附录表格，未作实验复现。"
+          }
+        }
+      ]
     }
   ]
 }

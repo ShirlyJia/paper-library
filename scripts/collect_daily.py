@@ -141,9 +141,15 @@ def write_briefing(run_dir, plan, applied):
     highlights = run_dir / "briefing-highlights.md"
     if not highlights.exists():
         print("提示：缺少 briefing-highlights.md（今天的看点），小报只含自动部分。", file=sys.stderr)
-    split = f"（{fresh} 篇是近一个月的新论文，{len(included) - fresh} 篇是补录的旧作）" if included else ""
+    age_counts = []
+    if fresh:
+        age_counts.append(f"近一个月的新论文 {fresh} 篇")
+    if len(included) > fresh:
+        age_counts.append(f"补录旧作 {len(included) - fresh} 篇")
+    split = f"（{'，'.join(age_counts)}）" if age_counts else ""
+    coverage = f"归入{directions}方向" if len(counts) == 1 else f"覆盖{directions} {len(counts)} 个方向"
     overview = (f"今天收录 {len(included)} 篇{split}" + (f"，更正 {len(corrected)} 篇" if corrected else "")
-                + f"，覆盖{directions} {len(counts)} 个方向。目录现有 {len(catalogue['papers'])} 篇，"
+                + f"，{coverage}。目录现有 {len(catalogue['papers'])} 篇，"
                 + f"可在[论文库]({SITE}?sort=added)按收录时间查看。")
     parts = [f"# 结构化数据研究小报｜{plan['until']}", "", overview, "",
              highlights.read_text().strip() if highlights.exists() else "", "",

@@ -154,6 +154,11 @@ def deliver(run_dir, config, config_path=CONFIG, root=ROOT, dry_run=False):
     key = str(uuid.uuid5(uuid.NAMESPACE_URL, json.dumps([chat_id, prepared["date"], prepared["ids"]], ensure_ascii=False)))
     path = root / "work/notifications/receipts" / f"{key}.json"
     digest = hashlib.sha256(prepared["body"].encode()).hexdigest()
+    prior_path = run_dir / "feishu-delivery.json"
+    if prior_path.exists():
+        prior = read_json(prior_path)
+        if prior.get("messageId") and prior.get("idempotencyKey") != key:
+            raise ValueError("本次小报已有已发消息，论文清单已变化；须更正原消息并回读更新回执，不会另发重复话题")
     receipt = read_json(path) if path.exists() else {"status": "pending", "idempotencyKey": key, "bodySha256": digest}
     if receipt["bodySha256"] != digest:
         raise ValueError("同一日期和论文清单的小报正文已变化，请核对已发消息；不会另发重复话题")

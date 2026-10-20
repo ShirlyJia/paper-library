@@ -120,6 +120,18 @@ class BriefingDeliveryTests(unittest.TestCase):
             self.deliver()
         self.assertEqual(self.sends(), 1)
 
+    def test_changed_paper_list_does_not_create_duplicate_topic(self):
+        self.deliver()
+        second = {"id": "paper-2", "title": "Paper Two", "url": "https://arxiv.org/abs/2610.54321"}
+        sender.save_json(self.root / "data/papers.json", {"papers": [self.paper, second]})
+        self.review["decisions"]["included"].append(second["id"])
+        sender.save_json(self.run / "review.json", self.review)
+        path = self.run / "briefing.md"
+        path.write_text(path.read_text() + f"\n[Paper Two]({second['url']})\n")
+        with self.assertRaisesRegex(ValueError, "论文清单已变化"):
+            self.deliver()
+        self.assertEqual(self.sends(), 1)
+
     def test_missing_paper_link_or_private_paths_block_delivery(self):
         path = self.run / "briefing.md"
         original = path.read_text()

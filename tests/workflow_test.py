@@ -89,7 +89,7 @@ class BriefingTests(unittest.TestCase):
                        "deferred": [{"title": "D", "url": "https://d", "reason": "需全文"}]}
             queue_state = {"items": [{"open": True, "score": 7}, {"open": True, "score": 1}]}
             text = daily.write_briefing(run, plan, applied).read_text()
-            for expected in ["今天收录 1 篇（1 篇是近一个月的新论文，0 篇是补录的旧作）", "覆盖业界进展 1 个方向", "## 今天的看点", "### 业界进展（1 篇）", "：一句话"]:
+            for expected in ["今天收录 1 篇（近一个月的新论文 1 篇）", "归入业界进展方向", "## 今天的看点", "### 业界进展（1 篇）", "：一句话"]:
                 self.assertIn(expected, text)
             self.assertLess(text.index("今天的看点"), text.index("各方向上新"))
             for process in ["暂缓", "队列", "OpenAlex", "上线", "贡献：", REVIEW["limitations"] + " "]:
