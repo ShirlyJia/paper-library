@@ -6766,32 +6766,6 @@
     }
   },
   {
-    "id": "arxiv-2606.02106",
-    "title": "When Tabular Foundation Models Transfer Across Modalities: A Systematic Evaluation Across 95 Datasets, 7 Modalities, and Two Regimes",
-    "url": "https://arxiv.org/abs/2606.02106",
-    "sourceUpdated": "2026-06-01",
-    "decision": "deferred",
-    "reviewedAt": "2026-10-21",
-    "reason": "暂缓：正文称留出面板含60个TabArena数据集，版本及完整映射未核实；表9各模态oracle胜平计数相加为34/35，汇总写33/35；附录D用Panel B转移表现参与簇数选择，独立留出性质存疑。匿名代码页仅返回空壳，Zenodo连接失败。补足逐数据集结果、基准映射、计数说明及选择流程后复查。",
-    "qualityReview": {
-      "reviewStatus": "partial",
-      "claim": "冻结多模态特征经ETF预处理接TabICL，可在统一分类流程中匹敌同特征调参基线。",
-      "contribution": "按训练侧几何统计停止ETF训练，将验证选择和测试集oracle分别报告。",
-      "evidence": "作者报告两组面板和三种子实验，未独立或本地复现。",
-      "limitations": "表9计数矛盾；Panel B参与选择；60表TabArena清单未核实。",
-      "value": "可能启发语义向量接入TFM，现有材料不足以确认主张。",
-      "reproducibility": "匿名仓库仅返回页面壳，Zenodo连接拒绝，尚未取得逐数据集制品。",
-      "conclusion": "有迹象但证据不足",
-      "sources": [
-        "https://arxiv.org/html/2606.02106v1",
-        "https://github.com/autogluon/tabarena",
-        "https://anonymous.4open.science/r/tabicl-pipeline-2026-XYZW/",
-        "https://doi.org/10.5281/zenodo.19982636"
-      ],
-      "readScope": "v1主文1–8、复现声明、附录A–E与I；附录F/G/H仅定位部分片段，不算完成全文审核。"
-    }
-  },
-  {
     "id": "arxiv-2408.10548",
     "title": "Language Modeling on Tabular Data: A Survey of Foundations, Techniques and Evolution",
     "url": "https://arxiv.org/abs/2408.10548",
@@ -6799,5 +6773,78 @@
     "decision": "deferred",
     "reviewedAt": "2026-10-21",
     "reason": "出版方核实2026-10-17 early access；预印本首发2024-08-20，不能当本周新首发。出版页仅取得摘要，PDF返回404；旧版HTML已保存但未通读。取得并核对录用版正文、综述覆盖与引用后再审。"
+  },
+  {
+    "id": "arxiv-2610.26794",
+    "title": "On Data Scaling in Tabular ML: More Data, Better Generalization?",
+    "url": "https://arxiv.org/abs/2610.26794",
+    "sourceUpdated": "2026-10-19",
+    "decision": "included",
+    "reviewedAt": "2026-10-21",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在所测真实表格任务中，数据扩容的收益受模型版本和验证分布影响；更贴近测试条件的验证数据如何被使用，影响大规模泛化。",
+      "contribution": "同一任务内固定特征和评测集、使用嵌套训练子集，分离数据量变化与跨数据集差异；对比随机留出与自然时间/查询分组偏移，并分析验证数据用于模型选择或作为TFM上下文的差异。",
+      "evidence": "作者在八个任务上从1万至约千万规模评估参数化模型，TFM另测可支持规模（约百万以内），主实验十种子；MLP和GBDT每个规模100次TPE，TabPack为64配置，TFM默认。第5.2节固定训练和调参预算仅替换验证分布；第5.3节在Weather、Aeolus、Cooking Time受限历史窗口下改变验证样本量。附录H Cooking Time可见TabICLv2从10k的RMSE0.4940降至640k的0.4881，支持多数任务扩容有益的有限主张。作者结果，无独立或本地复现。",
+      "limitations": "只有八个任务，不是通用胜负榜；TFM与树/MLP数据上限、调参和验证使用方法不一致。第5.3节人为加大偏移且只比较MLP与TabPFNv3.5，不能外推所有TFM。Jane Street使用此前评测时段的响应作滞后特征，适用于历史响应已可取得的在线假设；Aeolus限制训练窗口仍保留原历史特征，不能把结果解释为完全无后续历史信息。附录表格排名为未校正多重比较，不以排名断言显著普遍优势。",
+      "value": "为历史数据扩容、上下文选择、目标分布验证及验证数据分配提供实验设计；能引出TFM显式验证机制研究，而不是简单增加上下文。",
+      "reproducibility": "官方仓库可访问，含src与experiments；正文提供数据来源、切分和搜索空间。本轮未下载数据训练、未执行独立复现；部分竞赛数据获取条件需复现时另核。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2610.26794v1",
+        "https://github.com/yandex-research/tabular-dl-more-data"
+      ],
+      "readScope": "主文1–7、复现声明；附录B、C说明、D预处理及调参协议、E/F图注与协议、H Cooking Time数值片段。未逐项复算全附录表格或重跑实验。"
+    }
+  },
+  {
+    "id": "arxiv-2505.14984",
+    "title": "CRAFT: Training-Free Cascaded Retrieval for Tabular QA",
+    "url": "https://aclanthology.org/2026.acl-long.149/",
+    "sourceUpdated": "2026-04-21",
+    "decision": "included",
+    "reviewedAt": "2026-10-21",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "免任务微调的多阶段检索和相关行压缩，在NQ-Tables上提供有用的召回与问答收益；不声称所有任务最佳或在线快33倍。",
+      "contribution": "组合SPLADE、行级语义筛选与更强嵌入重排，用LLM生成标题/描述及分解问题；以mini-table缩小上下文。属于现有模块的检索与输入优化组合，不是新基础模型。",
+      "evidence": "ACL正式版第2–5节：NQ-Tables约17万表、966测试查询（919唯一），OTT-QA约42万表、2214测试查询。表2大嵌入版本R@1=49.84，THYME48.55；表3OTT-QA R@1=55.56低于THYME66.67；表5同回答模型下比较检索器，表7比较mini-table/整表输入长度，表11删除无关行后R@10从79.21至82.91。均为作者报告，未独立复现。",
+      "limitations": "数据集间使用不同嵌入模型，不是固定流水线的无条件跨域泛化。OTT-QA问答提供gold passages，不是完整开放多跳检索。预训练模型语料重合未排除；比较的基线训练条件不同，缺统一计算预算。第4.4节33倍为相对逐表嵌入的调用量计算，不能当端到端提速；自身承认查询时延可能增加。表3与表8的OTT-QA Stage2 R@10分别81.88和87.35，故不采用该消融数值作精确结论；不影响机制和其他已核实结果的有限收录价值。",
+      "value": "可借鉴逐级召回/重排和先选相关行再交给模型的工程方案；用实际业务表验证召回、信息遗漏与推理成本取舍。",
+      "reproducibility": "正式PDF、官方项目页及代码仓库公开，项目提供生成的表描述和查询扩展数据；本轮只核对正文和项目资料，未运行代码；商业嵌入与生成API会影响复现成本及版本一致性。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://aclanthology.org/2026.acl-long.149.pdf",
+        "https://arxiv.org/abs/2505.14984",
+        "https://coral-lab-asu.github.io/CRAFT/",
+        "https://github.com/coral-lab-asu/CRAFT/blob/main/README.md"
+      ],
+      "readScope": "ACL正式版第1–5节方法、数据与实验（表1–3、5–12）、第6–7节结论局限；项目页及仓库README；首发与修订核对arXiv记录。附录未完整逐页审核，未独立复现实验。"
+    }
+  },
+  {
+    "id": "arxiv-2606.02106",
+    "title": "When Tabular Foundation Models Transfer Across Modalities: A Systematic Evaluation Across 95 Datasets, 7 Modalities, and Two Regimes",
+    "url": "https://arxiv.org/abs/2606.02106",
+    "sourceUpdated": "2026-06-01",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-21",
+    "reason": "更正本日早先审核中的算术错误：表9各行oracle胜平数6+4+3+2+5+3+5+5=33，与33/35汇总一致，撤销计数矛盾理由。暂缓仍因60个TabArena数据集的版本/映射未核实，以及附录D使用Panel B表现选择簇数的独立留出问题待厘清；此前匿名仓库只取得页面壳、Zenodo连接失败仅代表访问未完成。取得逐数据集资料和选择流程后复查。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "claim": "冻结多模态特征经ETF预处理接TabICL，可匹敌同特征调参基线。",
+      "contribution": "按训练侧几何统计停止ETF训练，分开报告验证选择和测试oracle。",
+      "evidence": "作者的两面板三种子结果；本次复核附录E表9计数为33，与总计一致。",
+      "limitations": "60表TabArena版本映射与Panel B参与超参选择仍需核验；表9算术不再构成疑点。",
+      "value": "语义向量接入TFM的潜在线索，完整结论仍待审。",
+      "reproducibility": "原访问失败记录保留，不能据此认定代码或制品不存在；未独立或本地复现。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2606.02106v1"
+      ],
+      "readScope": "本次重新阅读附录E表9并逐项相加；其他范围沿用本日早先已读主文1–8及附录A–E、I，未宣称完成全面复审。"
+    }
   }
 ]

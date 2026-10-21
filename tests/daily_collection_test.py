@@ -1,5 +1,9 @@
 import importlib.util
 import unittest
+import json
+import tempfile
+from unittest.mock import patch
+from types import SimpleNamespace
 from datetime import date
 from pathlib import Path
 
@@ -23,13 +27,13 @@ class DailyWindowTests(unittest.TestCase):
                               "citations": "2026-10-10", "references": "2026-10-10", "consensus": "2026-10-10",
                               "families": "2026-10-10"}}
         plan = daily.plan_window(date(2026, 10, 13), state)
-        self.assertEqual(groups(plan), {"arxiv": "2026-10-06", "fulltext": "2026-04-13"})
-        self.assertEqual({s["channel"] for s in plan["skipped"]}, {"formal", "semantic", "citations", "references", "consensus", "families"})
-        self.assertEqual(plan["manual"], [])
+        self.assertEqual(groups(plan), {"arxiv": "2026-10-06", "fulltext": "2026-04-13", "references": "2026-10-06", "web": "2026-04-13"})
+        self.assertEqual({s["channel"] for s in plan["skipped"]}, {"formal", "semantic", "citations", "consensus", "families"})
+        self.assertEqual([x["channel"] for x in plan["manual"]], ["web"])
 
     def test_manual_weekly_channels_are_listed_when_due(self):
         plan = daily.plan_window(date(2026, 10, 13), {})
-        self.assertEqual([item["channel"] for item in plan["manual"]], ["consensus", "families"])
+        self.assertEqual([item["channel"] for item in plan["manual"]], ["web", "consensus", "families"])
 
     def test_weekly_channels_come_due_after_seven_days(self):
         state = {"channels": {name: "2026-10-06" for name in daily.CHANNELS}}
@@ -51,6 +55,51 @@ class DailyWindowTests(unittest.TestCase):
         status = daily.channel_status(plan, reports)
         self.assertEqual({k: v["status"] for k, v in status.items()},
                          {"arxiv": "complete", "fulltext": "incomplete", "semantic": "incomplete"})
+
+    def test_daily_alternatives_and_weekly_backfill_are_independent(self):
+        state = {"channels": {n: "2026-10-20" for n in daily.CHANNELS}, "backfills": {"fulltext": "2026-10-15"}}
+        first = daily.plan_window(date(2026, 10, 21), state)
+        self.assertEqual(set(groups(first)), {"arxiv", "fulltext", "references", "web"})
+        self.assertEqual(groups(first)["fulltext"], "2026-10-14")
+        state["channels"]["fulltext"] = "2026-10-21"
+        second = daily.plan_window(date(2026, 10, 22), state)
+        self.assertEqual(groups(second)["fulltext"], "2026-04-22")
+        self.assertEqual(second["backfillChannels"], ["fulltext"])
+
+    def test_quota_cooldown_preserves_gap_and_resumes_at_reset(self):
+        state = {"channels": {"consensus": "2026-10-01"}, "cooldowns": {"consensus": {"retryAfter": "2026-11-01", "reason": "monthly quota"}}}
+        plan = daily.plan_window(date(2026, 10, 21), state)
+        self.assertNotIn("consensus", groups(plan))
+        self.assertIn("web", groups(plan))
+        self.assertEqual(state["channels"]["consensus"], "2026-10-01")
+        self.assertIn("consensus", groups(daily.plan_window(date(2026, 11, 1), state)))
+
+    def test_web_sweep_requires_evidence_for_all_lanes(self):
+        lanes = json.loads(daily.WEB_CONFIG.read_text())["lanes"]
+        report = {"runs": [{"source": l["id"], "channel": "web", "status": "complete", "query": "actual query", "evidence": ["https://example.org"], "note": "no relevant new result"} for l in lanes]}
+        self.assertEqual(daily.web_report_errors(report), [])
+        report["runs"][0]["evidence"] = []
+        self.assertEqual(daily.web_report_errors(report), [lanes[0]["id"]])
+        self.assertTrue(daily.web_report_errors({"runs": []}))
+
+    def test_crashed_source_and_failed_queue_do_not_block_next_source(self):
+        plan = {"until": "2026-10-21", "groups": [{"since": "2026-10-14", "channels": ["arxiv", "fulltext", "references"]}]}
+        collected = []
+        def fake_run(command, **kwargs):
+            if command[1].endswith("collect.py"):
+                name = command[command.index("--channels") + 1]
+                collected.append(name)
+                if name == "arxiv":
+                    raise OSError("provider unavailable")
+                Path(command[-1]).write_text(json.dumps({"runs": [], "candidates": []}))
+                return SimpleNamespace(returncode=0)
+            return SimpleNamespace(returncode=1 if command[-1].endswith("fulltext.json") else 0)
+        with tempfile.TemporaryDirectory() as folder, patch.object(daily.subprocess, "run", side_effect=fake_run):
+            result = daily.run_automatic(plan, Path(folder))
+            self.assertNotEqual(result, 0)
+            self.assertEqual(collected, ["arxiv", "fulltext", "references"])
+            self.assertTrue((Path(folder) / "candidates-fulltext.json").exists())
+            self.assertTrue((Path(folder) / "candidates-fulltext-error.json").exists())
 
     def test_review_schema_rejects_drift_and_false_checkpoints(self):
         review = {key: None for key in daily.REVIEW_KEYS}

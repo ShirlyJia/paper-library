@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-20",
+  "updatedAt": "2026-10-21",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -6488,6 +6488,77 @@
         "https://arxiv.org/html/2610.24798v1"
       ],
       "addedAt": "2026-10-20"
+    },
+    {
+      "id": "arxiv-2610.26794",
+      "title": "On Data Scaling in Tabular ML: More Data, Better Generalization?",
+      "date": "2026-10-19",
+      "updated": "2026-10-19",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "related": [
+        5,
+        6
+      ],
+      "topic": "通用评测与分布泛化",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "在八个真实表格任务中固定测试集、逐步增加训练数据，比较树模型、MLP 与表格基础模型各自的规模变化规律。作者发现更多数据通常有益，但在训练与部署分布不同的条件下，部分模型会随数据增加而退化；用接近部署环境的验证集选模型更稳，仅把这些样本加入 TabPFN 上下文未消除退化。可用于设计数据扩容和验证方案；两类模型的数据规模与调参方式不同，不能据此判定谁全面更强。",
+      "url": "https://arxiv.org/abs/2610.26794",
+      "pdf": "https://arxiv.org/pdf/2610.26794",
+      "code": "https://github.com/yandex-research/tabular-dl-more-data",
+      "keywords": [
+        "数据规模",
+        "分布偏移",
+        "模型选择",
+        "上下文学习"
+      ],
+      "aliases": [
+        "On Data Scaling in Tabular ML",
+        "Tabular Data Scaling"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.26794",
+        "https://arxiv.org/html/2610.26794v1",
+        "https://github.com/yandex-research/tabular-dl-more-data"
+      ],
+      "addedAt": "2026-10-21"
+    },
+    {
+      "id": "arxiv-2505.14984",
+      "title": "CRAFT: Training-Free Cascaded Retrieval for Tabular QA",
+      "date": "2025-05-21",
+      "updated": "2026-04-21",
+      "category": 5,
+      "section": "context-selection",
+      "topicId": "retrieval-shots",
+      "related": [
+        4
+      ],
+      "topic": "检索与近邻选择",
+      "status": "published",
+      "venue": "ACL 2026 主会",
+      "summary": "面向从大量表格中寻找问答证据，用稀疏检索初筛、相关行组成的小表和稠密重排逐级缩小候选，无需针对任务微调检索器。作者在 NQ-Tables 上改善召回和问答表现，展示了减少无关行、缩短输入的价值；OTT-QA 的首位召回仍弱于所比强基线，其问答实验还提供了正确文本段落，不能当作完整多跳检索能力。依赖额外摘要生成与查询时重排，需实测端到端成本。",
+      "url": "https://aclanthology.org/2026.acl-long.149/",
+      "pdf": "https://aclanthology.org/2026.acl-long.149.pdf",
+      "code": "https://github.com/coral-lab-asu/CRAFT",
+      "keywords": [
+        "表格检索",
+        "问答",
+        "上下文压缩",
+        "级联重排"
+      ],
+      "aliases": [
+        "CRAFT"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2505.14984",
+        "https://aclanthology.org/2026.acl-long.149/",
+        "https://aclanthology.org/2026.acl-long.149.pdf",
+        "https://coral-lab-asu.github.io/CRAFT/"
+      ],
+      "addedAt": "2026-10-21"
     }
   ],
   "collectionUpdates": [
@@ -6893,6 +6964,14 @@
       "date": "2026-10-20",
       "added": [
         "arxiv-2610.24798"
+      ],
+      "updated": []
+    },
+    {
+      "date": "2026-10-21",
+      "added": [
+        "arxiv-2505.14984",
+        "arxiv-2610.26794"
       ],
       "updated": []
     }

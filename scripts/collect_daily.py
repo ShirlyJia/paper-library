@@ -21,21 +21,24 @@ TIMEZONE = ZoneInfo("Asia/Shanghai")
 # checkpoint), "six-months" re-reads half a year because index dates lag publication dates.
 CHANNELS = {
     "arxiv": (1, "incremental"),
-    "fulltext": (7, "six-months"),
+    "fulltext": (1, "incremental"),
     "semantic": (7, "six-months"),
     "citations": (7, "six-months"),
     "formal": (7, "six-months"),
-    "references": (7, "six-months"),
+    "references": (1, "incremental"),
+    "web": (1, "incremental"),
     # Run by the reviewer, not collect.py: ranked connector results and official family pages change slowly.
     "consensus": (7, "six-months"),
     "families": (7, "six-months"),
 }
 MANUAL = {
+    "web": "按 research/web-sources.json 用网页检索工具逐项补查，保存 web-report.json（检索记录、证据链接及候选），运行 npm run queue -- add 本次目录/web-report.json；不能因其他接口失败而跳过。",
     "consensus": "按 research/connector-sources.json 执行 Consensus search/fetch，导出 本次目录/consensus.json 后运行 "
                  "npm run collect:consensus -- --input 本次目录/consensus.json --output 本次目录/consensus-candidates.json "
                  "&& npm run queue -- add 本次目录/consensus-candidates.json",
     "families": "npm run fetch:sources -- --families --out 本次目录/families，逐项核对版本动态",
 }
+WEB_CONFIG = ROOT / "research/web-sources.json"
 SITE = "https://shirlyjia.github.io/paper-library/"
 REVIEW_KEYS = {"schemaVersion", "date", "runDirectory", "baseCommit", "plan", "channels", "decisions",
                "qualityReviewedIds", "queue", "briefing", "publication", "checkpoint", "notes"}
@@ -66,11 +69,17 @@ def plan_window(today, state, only=None):
         last = checkpoints.get(name)
         if last and last > today:
             raise ValueError(f"{name} 检查点晚于今天，请核对")
+        cooldown = state.get("cooldowns", {}).get(name)
+        if cooldown and today < date.fromisoformat(cooldown["retryAfter"]):
+            skipped.append({"channel": name, "status": "cooldown", "nextDue": cooldown["retryAfter"], "reason": cooldown["reason"]})
+            continue
         if last and (today - last).days < cadence:
             skipped.append({"channel": name, "lastCompleted": last.isoformat(), "nextDue": (last + timedelta(days=cadence)).isoformat()})
             continue
         if not last:
             since = six_months_before(today)
+        elif name == "fulltext" and (today - date.fromisoformat(state.get("backfills", {}).get(name, last.isoformat()))).days >= 7:
+            since = min(six_months_before(today), last - timedelta(days=3))
         elif window == "incremental":
             since = min(today - timedelta(days=7), last - timedelta(days=3))
         else:
@@ -84,6 +93,8 @@ def plan_window(today, state, only=None):
         "manual": [{"channel": name, "todo": MANUAL[name]} for names in groups.values() for name in names if name in MANUAL],
         "skipped": skipped,
         "previousCheckpoint": state,
+        "backfillChannels": [name for since, names in groups.items() for name in names
+                             if name == "fulltext" and since <= six_months_before(today)],
     }
 
 
@@ -97,8 +108,46 @@ def channel_status(plan, reports):
         failures = [{k: run.get(k) for k in ("source", "status", "error") if run.get(k)} for run in own if run.get("status") != "complete"]
         result[name] = {"status": "complete" if own and not failures else "incomplete", "runs": len(own), "failures": failures}
     for item in plan.get("skipped", []):
-        result[item["channel"]] = {"status": "not-due", "nextDue": item["nextDue"]}
+        result[item["channel"]] = {"status": item.get("status", "not-due"), "nextDue": item["nextDue"]}
     return result
+
+
+def web_report_errors(report):
+    """A daily web sweep is finite coverage, never a claim of exhaustive search."""
+    expected = {lane["id"] for lane in json.loads(WEB_CONFIG.read_text())["lanes"]}
+    runs = report.get("runs", [])
+    errors = []
+    for lane in sorted(expected):
+        own = [r for r in runs if r.get("source") == lane and r.get("channel") == "web"]
+        if not own or any(r.get("status") != "complete" or not r.get("query")
+                          or not r.get("evidence") or not r.get("note") for r in own):
+            errors.append(lane)
+    return errors
+
+
+def run_automatic(plan, run_dir):
+    """Isolate process crashes and queue failures as well as HTTP failures."""
+    status = 0
+    for group in plan["groups"]:
+        for name in group["channels"]:
+            if name in MANUAL:
+                continue
+            output = run_dir / f"candidates-{name}.json"
+            try:
+                result = subprocess.run([sys.executable, str(ROOT / "scripts/collect.py"), "--since", group["since"],
+                                         "--until", plan["until"], "--channels", name, "--output", str(output)], cwd=ROOT)
+                status = status or result.returncode
+                if not output.exists():
+                    raise RuntimeError(f"Collector exited {result.returncode} without a report")
+                queued = subprocess.run([sys.executable, str(ROOT / "scripts/review_queue.py"), "add", str(output)], cwd=ROOT)
+                if queued.returncode:
+                    raise RuntimeError(f"Queue import exited {queued.returncode}; candidates retained")
+            except (OSError, RuntimeError) as error:
+                status = status or 2
+                (run_dir / f"candidates-{name}-error.json").write_text(json.dumps({"runs": [
+                    {"channel": name, "source": "runner", "status": "failed", "error": str(error)}], "candidates": []}, indent=2))
+                print(f"{name} 未完成：{error}；继续其他渠道。", file=sys.stderr)
+    return status
 
 
 def validate_review(review):
@@ -118,7 +167,7 @@ def validate_review(review):
 
 
 CHANNEL_NAMES = {"arxiv": "arXiv", "fulltext": "OpenAlex 全文", "semantic": "语义近邻", "citations": "引用网络",
-                 "formal": "正式会议", "references": "参考文献", "consensus": "Consensus", "families": "模型家族"}
+                 "formal": "正式会议", "references": "参考文献", "consensus": "Consensus", "families": "模型家族", "web": "每日网页补查"}
 
 
 def write_briefing(run_dir, plan, applied):
@@ -161,8 +210,9 @@ def write_briefing(run_dir, plan, applied):
 
 def write_run_notes(run_dir, plan, channels, applied, queue, published, notes):
     """过程记录：需要你知道或处理的问题。与小报分开输出。"""
-    failed = [f"- {CHANNEL_NAMES.get(n, n)}：{len(info['failures'])} 项未完成（{sorted({(f.get('error') or f['status'])[:60] for f in info['failures']})[0]}），次日自动重试"
+    failed = [f"- {CHANNEL_NAMES.get(n, n)}：{len(info['failures'])} 项未完成（{next(iter(sorted({(f.get('error') or f['status'])[:60] for f in info['failures']})), '未提交执行记录')}），保留缺口"
               for n, info in channels.items() if info["status"] == "incomplete"]
+    failed += [f"- {CHANNEL_NAMES.get(n, n)}：冷却至 {info['nextDue']}，其他渠道继续" for n, info in channels.items() if info["status"] == "cooldown"]
     done = [CHANNEL_NAMES.get(n, n) for n, info in channels.items() if info["status"] == "complete"]
     open_items = [i for i in queue["items"] if i.get("open")]
     changed = applied.get("included") or applied.get("corrected")
@@ -185,10 +235,16 @@ def write_run_notes(run_dir, plan, channels, applied, queue, published, notes):
 def finish(run_dir, review_input, published, notes):
     plan = json.loads((run_dir / "plan.json").read_text())
     reports = [json.loads(p.read_text()) for p in sorted(run_dir.glob("candidates*.json"))]
-    for extra in ("consensus-candidates.json", "families-report.json"):
+    for extra in ("consensus-candidates.json", "families-report.json", "web-report.json"):
         if (run_dir / extra).exists():
             reports.append(json.loads((run_dir / extra).read_text()))
     channels = channel_status(plan, reports)
+    if "web" in {name for group in plan["groups"] for name in group["channels"]}:
+        web_path = run_dir / "web-report.json"
+        missing = web_report_errors(json.loads(web_path.read_text())) if web_path.exists() else ["web-report.json"]
+        if missing:
+            channels["web"] = {"status": "incomplete", "runs": 0, "failures": [
+                {"source": lane, "status": "missing-evidence", "error": "缺少本轮检索式、证据链接或结果说明"} for lane in missing]}
     applied = json.loads(review_input.read_text()) if review_input else {}
     ids = lambda key: [item["paper"]["id"] if "paper" in item else item["id"] for item in applied.get(key, [])]
     decisions = {key: ids(key) for key in ("included", "corrected", "deferred", "excluded")}
@@ -211,6 +267,12 @@ def finish(run_dir, review_input, published, notes):
     })
     (run_dir / "review.json").write_text(json.dumps(review, ensure_ascii=False, indent=2) + "\n")
     state.setdefault("channels", {}).update({name: plan["until"] for name in advanced})
+    # Seed the weekly clock before the daily fulltext checkpoint moves forward.
+    previous = plan.get("previousCheckpoint", {})
+    if "fulltext" in advanced:
+        state.setdefault("backfills", {}).setdefault("fulltext", previous.get("channels", {}).get("fulltext", plan["until"]))
+    for name in set(advanced) & set(plan.get("backfillChannels", [])):
+        state.setdefault("backfills", {})[name] = plan["until"]
     temporary = STATE_PATH.with_suffix(".tmp")
     temporary.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n")
     os.replace(temporary, STATE_PATH)
@@ -235,9 +297,22 @@ def main():
     cli.add_argument("--review-input", type=Path, help="File passed to apply_review.py for this run")
     cli.add_argument("--published", action="store_true", help="Public changes were pushed and checked online")
     cli.add_argument("--note", action="append", default=[], help="Gap or follow-up to keep in review.json")
+    cli.add_argument("--defer-channel", choices=sorted(CHANNELS), help="Record a provider-announced cooldown without advancing its checkpoint")
+    cli.add_argument("--retry-after", type=date.fromisoformat)
+    cli.add_argument("--reason")
     args = cli.parse_args()
     try:
         state = json.loads(STATE_PATH.read_text()) if STATE_PATH.exists() else {}
+        if args.defer_channel:
+            if not args.retry_after or not args.reason:
+                cli.error("冷却需要 --retry-after 和 --reason，日期来自供应商提示")
+            state.setdefault("cooldowns", {})[args.defer_channel] = {"retryAfter": args.retry_after.isoformat(), "reason": args.reason}
+            STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+            temporary = STATE_PATH.with_suffix(".tmp")
+            temporary.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n")
+            os.replace(temporary, STATE_PATH)
+            print(f"{args.defer_channel} 冷却至 {args.retry_after}；检查点未推进。")
+            return 0
         if args.finish:
             return finish(args.finish.resolve(), args.review_input, args.published, args.note) or 0
         only = set(args.channels.split(",")) if args.channels else None
@@ -256,18 +331,7 @@ def main():
     plan["runDirectory"] = str(run_dir.relative_to(ROOT))
     (run_dir / "plan.json").write_text(json.dumps(plan, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps(plan, ensure_ascii=False, indent=2), flush=True)
-    status = 0
-    for index, group in enumerate(plan["groups"], 1):
-        automatic = [name for name in group["channels"] if name not in MANUAL]
-        if not automatic:
-            continue
-        output = run_dir / f"candidates-{index}.json"
-        # No --refresh: a same-day retry reuses the one-day cache instead of downloading everything again.
-        result = subprocess.run([sys.executable, str(ROOT / "scripts/collect.py"), "--since", group["since"],
-                                 "--until", plan["until"], "--channels", ",".join(automatic), "--output", str(output)], cwd=ROOT)
-        status = status or result.returncode
-        if output.exists():
-            subprocess.run([sys.executable, str(ROOT / "scripts/review_queue.py"), "add", str(output)], cwd=ROOT, check=True)
+    status = run_automatic(plan, run_dir)
     if not plan["groups"]:
         print("今天没有到期的检索渠道。")
     elif status:
