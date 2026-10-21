@@ -96,7 +96,9 @@ def prepare(run_dir, root=ROOT):
     for paper_id in changed:
         if paper_id not in papers or papers[paper_id]["url"] not in body:
             raise ValueError(f"小报未覆盖已发布论文：{paper_id}")
-    body += f"\n\n访问站点：{SITE}"
+    # A user-edited briefing may already have the public footer (plain or linked).
+    if not any(line.startswith("访问站点：") and SITE in line for line in body.splitlines()):
+        body += f"\n\n访问站点：{SITE}"
     if len(body.encode()) > 28000:
         raise ValueError("小报超过单条消息预算，请缩短文字后重试")
     return {"date": review["date"], "title": title, "body": body, "ids": changed,

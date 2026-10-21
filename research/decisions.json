@@ -6764,5 +6764,40 @@
       ],
       "readScope": "arXiv v1 第 4.1–4.4 节（指纹、两种审计、盲基线）、第 5.1–5.4 节及表 1–2（设置、结果、消融）、第 6 节、附录 A（限制）、附录 D.1（数据集及成员划分）；官方摘要页首发时间与 GitHub README。未逐项复核其余附录表格，未作实验复现。"
     }
+  },
+  {
+    "id": "arxiv-2606.02106",
+    "title": "When Tabular Foundation Models Transfer Across Modalities: A Systematic Evaluation Across 95 Datasets, 7 Modalities, and Two Regimes",
+    "url": "https://arxiv.org/abs/2606.02106",
+    "sourceUpdated": "2026-06-01",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-21",
+    "reason": "暂缓：正文称留出面板含60个TabArena数据集，版本及完整映射未核实；表9各模态oracle胜平计数相加为34/35，汇总写33/35；附录D用Panel B转移表现参与簇数选择，独立留出性质存疑。匿名代码页仅返回空壳，Zenodo连接失败。补足逐数据集结果、基准映射、计数说明及选择流程后复查。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "claim": "冻结多模态特征经ETF预处理接TabICL，可在统一分类流程中匹敌同特征调参基线。",
+      "contribution": "按训练侧几何统计停止ETF训练，将验证选择和测试集oracle分别报告。",
+      "evidence": "作者报告两组面板和三种子实验，未独立或本地复现。",
+      "limitations": "表9计数矛盾；Panel B参与选择；60表TabArena清单未核实。",
+      "value": "可能启发语义向量接入TFM，现有材料不足以确认主张。",
+      "reproducibility": "匿名仓库仅返回页面壳，Zenodo连接拒绝，尚未取得逐数据集制品。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2606.02106v1",
+        "https://github.com/autogluon/tabarena",
+        "https://anonymous.4open.science/r/tabicl-pipeline-2026-XYZW/",
+        "https://doi.org/10.5281/zenodo.19982636"
+      ],
+      "readScope": "v1主文1–8、复现声明、附录A–E与I；附录F/G/H仅定位部分片段，不算完成全文审核。"
+    }
+  },
+  {
+    "id": "arxiv-2408.10548",
+    "title": "Language Modeling on Tabular Data: A Survey of Foundations, Techniques and Evolution",
+    "url": "https://arxiv.org/abs/2408.10548",
+    "sourceUpdated": "2026-10-17",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-21",
+    "reason": "出版方核实2026-10-17 early access；预印本首发2024-08-20，不能当本周新首发。出版页仅取得摘要，PDF返回404；旧版HTML已保存但未通读。取得并核对录用版正文、综述覆盖与引用后再审。"
   }
 ]

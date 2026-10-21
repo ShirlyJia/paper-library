@@ -71,6 +71,15 @@ class BriefingDeliveryTests(unittest.TestCase):
         self.assertEqual(self.deliver(dry_run=True)["status"], "preview")
         self.assertEqual(self.calls, [])
 
+    def test_existing_site_footer_is_preserved_without_duplicate(self):
+        path = self.run / "briefing.md"
+        original = path.read_text()
+        for footer in [f"访问站点：{sender.SITE}", f"访问站点：[{sender.SITE}]({sender.SITE})"]:
+            path.write_text(original + "\n" + footer + "\n")
+            body = sender.prepare(self.run, self.root)["body"]
+            self.assertEqual(body.count("访问站点："), 1)
+            self.assertTrue(body.endswith(footer))
+
     def test_send_readback_and_deduplicate_across_runs(self):
         self.assertEqual(self.deliver()["status"], "sent-and-verified")
         self.assertEqual(self.deliver()["status"], "already-sent")
