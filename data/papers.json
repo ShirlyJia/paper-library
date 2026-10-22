@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-21",
+  "updatedAt": "2026-10-22",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -6559,6 +6559,81 @@
         "https://coral-lab-asu.github.io/CRAFT/"
       ],
       "addedAt": "2026-10-21"
+    },
+    {
+      "id": "arxiv-2610.25558",
+      "title": "FTFM: Factorized Tabular Foundation Models",
+      "date": "2026-10-18",
+      "updated": "2026-10-18",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "topic": "通用表格模型",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用每行、每列各一个上下文表示共同更新单元格，保留单元格信息，同时减少逐行逐列重复计算的注意力。作者在 TabArena 的 38 个和 BeyondArena 的 98 个分类数据集上展示了可竞争的结果，为表格模型架构提供另一种选择；但部分大表增加了时间预算、两项缩减训练上下文，不能把总榜结果视为等预算优势。仅验证分类，官方推理代码已公开，权重标注非商业使用。",
+      "url": "https://arxiv.org/abs/2610.25558",
+      "pdf": "https://arxiv.org/pdf/2610.25558",
+      "code": "https://github.com/machinelearningnuremberg/ftfm-official",
+      "aliases": [
+        "FTFM",
+        "FTFM-1",
+        "Factorized Tabular Foundation Models"
+      ],
+      "keywords": [
+        "TabArena",
+        "BeyondArena",
+        "因子化",
+        "单元格表示",
+        "注意力效率",
+        "支持集缓存"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.25558",
+        "https://arxiv.org/html/2610.25558v1",
+        "https://github.com/machinelearningnuremberg/ftfm-official"
+      ],
+      "addedAt": "2026-10-22"
+    },
+    {
+      "id": "arxiv-2610.25993",
+      "title": "Graph-to-Table Interfaces Control Relational Generalisation",
+      "date": "2026-10-19",
+      "updated": "2026-10-19",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "inference-mechanisms",
+      "related": [
+        1,
+        4
+      ],
+      "topic": "模型机制与行为分析",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把图关系转成表格后，增加信息并不一定改善预测。作者固定任务，分别改变路径编码、示例选择和下游模型：CLUTRR 中绝对位置容易学到短路径捷径，GraphLog 中较好的编码随模型改变；57 个知识图谱上，给局部特征加入 ULTRA 分数通常有益，反向加入局部特征的收益不稳定。可用于拆解关系模型收益来源；结果限于所测接口，上游模型与部分评测数据谱系重合。",
+      "url": "https://arxiv.org/abs/2610.25993",
+      "pdf": "https://arxiv.org/pdf/2610.25993",
+      "code": null,
+      "aliases": [
+        "Graph-to-Table Interfaces",
+        "图表接口与关系泛化"
+      ],
+      "keywords": [
+        "图表转换",
+        "关系推理",
+        "上下文选择",
+        "ULTRA",
+        "TabPFN-3",
+        "受控比较"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.25993",
+        "https://arxiv.org/pdf/2610.25993"
+      ],
+      "addedAt": "2026-10-22"
     }
   ],
   "collectionUpdates": [
@@ -6972,6 +7047,14 @@
       "added": [
         "arxiv-2505.14984",
         "arxiv-2610.26794"
+      ],
+      "updated": []
+    },
+    {
+      "date": "2026-10-22",
+      "added": [
+        "arxiv-2610.25558",
+        "arxiv-2610.25993"
       ],
       "updated": []
     }

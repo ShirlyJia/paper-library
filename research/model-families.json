@@ -581,6 +581,15 @@
       "sources": [
         "https://arxiv.org/abs/2610.23272"
       ]
+    },
+    {
+      "name": "FTFM",
+      "paperIds": [
+        "arxiv-2610.25558"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.25558"
+      ]
     }
   ]
 }

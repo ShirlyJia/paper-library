@@ -6846,5 +6846,73 @@
       ],
       "readScope": "本次重新阅读附录E表9并逐项相加；其他范围沿用本日早先已读主文1–8及附录A–E、I，未宣称完成全面复审。"
     }
+  },
+  {
+    "id": "arxiv-2610.25558",
+    "title": "FTFM: Factorized Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2610.25558",
+    "sourceUpdated": "2026-10-18",
+    "decision": "included",
+    "reviewedAt": "2026-10-22",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "因子化行列交互可在保留单元格状态的同时减少重复轴向注意力，并构成具有实用分类表现的 TFM；不采纳无条件最优、架构单独带来收益或全面最快的主张。",
+      "contribution": "每层从单元格池化行与列 latent，行仅读带标签支持行，列从支持行池化；行间/列间注意力后以 Hadamard 交互和 MLP 残差更新单元格。相对轴向注意力将重复交互项从 MN²+NM² 降为 N²+M²，仍有 NMD² 的单元格计算且行注意力仍为平方复杂度。支持侧计算可缓存。",
+      "evidence": "已读 §3 的公式1–6和复杂度表、§4全实验、§5局限与附录A/B/E/F及D表7/8部分汇总。作者报告 TabArena 38分类数据集594划分与 BeyondArena 98分类数据集结果；阶段A/B/C和单模型/集成对照支持路线可行。附录F称真实表语料排除与两基准重合表后由123减至108，预处理矩仅在支持行拟合，未独立审计数据指纹。表4中 tiny/small 与随机划分较好，大表、高基数、时序及文本切片较弱。所有结果为作者报告，未本地运行。",
+      "limitations": "预训练分布、参数量、训练计算和集成策略与基线不完全一致，同步数不等于同算力；未做完整同预算架构替换。附录E的98项中88项rung0、2项rung1、6项rung2、2项rung3；后续层级增加时间预算、减集成，2项支持集封顶500k，8项拆开bagging作业允许每折使用完整时间预算。因此总榜不能解释为严格等预算领先。仅实证分类；保留单元格状态不证明与任意轴向模型表达能力等价。",
+      "value": "补充保留单元格与提前压缩整行之外的结构选择，直接关联 TabArena/BeyondArena；可用于研究行列交互、支持缓存及精度/运行成本取舍。",
+      "reproducibility": "已读取官方仓库及原始README，提供推理代码、FTFM-1检查点地址和scikit-learn接口，回归接口尚未实现；README区分代码Apache-2.0与权重CC BY-NC4.0。Hugging Face权重页工具访问失败，未下载权重、未训练或复现实验，不声称全训练流程可复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2610.25558v1",
+        "https://raw.githubusercontent.com/machinelearningnuremberg/ftfm-official/main/README.md"
+      ],
+      "readScope": "正文§1–5、相关工作和参考文献、公式1–6、表1–4、附录A/B、D的表7说明与表8汇总、附录E/F；官方README。未逐项重算全部基准分数。"
+    }
+  },
+  {
+    "id": "arxiv-2610.25993",
+    "title": "Graph-to-Table Interfaces Control Relational Generalisation",
+    "url": "https://arxiv.org/abs/2610.25993",
+    "sourceUpdated": "2026-10-19",
+    "decision": "included",
+    "reviewedAt": "2026-10-22",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "图表编码的效用依赖上下文和下游预测器；保留更多可区分信息不足以保证分布外泛化，局部特征与上游图模型分数的贡献不对称。",
+      "contribution": "采用固定任务的编码器—上下文—预测器配对诊断，比较base/permuted/aligned特征、行等价上界与singleton质量，并拆开局部特征、冻结ULTRA分数、上下文正负样本构造及排名聚合方式。相对端到端排行榜更明确区分收益来源。",
+      "evidence": "CLUTRR官方短路径2–3到长路径4–10；位置block匹配/置乱/后缀置零与同预算增加长度4示例对照支持短路径捷径解释。GraphLog57worlds中逻辑回归与CatBoost/TabPFN-3的编码偏好反向；深度1–7对照定位CatBoost多重集退化。57KG/16谱系采用每图64测试三元组、3seed、全部实体过滤排名，512-query敏感性保留五项对比方向。加ULTRA分数到Local六项对比方向为正，其中五项通过校正；反向加Local没有一项通过联合校正。所有证据为作者实验，未独立复现。",
+      "limitations": "CLUTRR/GraphLog从已给定符号路径开始，未测试文本抽取或完整图证据检索。基准负样本存在少量已知正例，附录D.7另做过滤对照，不能把原主表称作零污染。上下文正例来自目标图 held-out池但与评测查询不重叠，属于有目标标签的ICL，非无监督零样本。ULTRA预训练含FB15k-237、WN18RR、CoDEx-Medium、NELL-995，部分谱系与评测重合；剔除谱系敏感性不构成所有模型无污染证明。64条查询及固定面板限制外推，均值随谱系/数据集权重改变；只比较固定模型配置，非穷尽调优后的架构排名。",
+      "value": "为结构化关系预测提供可迁移的诊断方法：加入图特征、选择演示样本或替换表格预测器时分别做配对控制，避免把上游图模型已有能力归因给表格模块。",
+      "reproducibility": "PDF附录G给出固定模型参数、预处理在上下文拟合、上下文内调参敏感性、随机种子及hash记录要求。作者给出代码/产物项目页，但本机DNS与网页工具访问均失败，尚未验证产物可下载；未本地运行。首页自述LoG2026录用，会议官方页面检索未获核验，目录暂按预印本标注且不补造展示标签。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/pdf/2610.25993",
+        "https://arxiv.org/abs/2610.25993"
+      ],
+      "readScope": "PDF正文§1–6、参考文献、附录A、C.1部分协议、D.1/D.7/D.8概要/D.9及G.1–G.3；未逐项重算附录每张表或审计作者代码。"
+    }
+  },
+  {
+    "id": "arxiv-2610.27569",
+    "title": "Two Is Enough: Binary Classification Priors Suffice for Multi-Class In-Context Tabular Prediction",
+    "url": "https://arxiv.org/abs/2610.27569",
+    "sourceUpdated": "2026-10-20",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-22",
+    "reason": "§3.2明确写 TabICLv2 是否保留所述层次解码机制未核实，§3.3将核心编码/输出机制列为待核代码检查单；无法确认所谓二分类训练直接多分类是单次输出还是分解重组。§3.4/4.2/5说明540K两阶段与550K三阶段、优化器/集成配置未逐项对齐，+22.1 Elo不能归因类别上限；缺逐数据集指标和完整复现配置。保留研究线索，待提供准确模型版本、推理实现、按类别数分层结果和配方对齐证据后重审；不是因包含预训练排除。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "claim": "仅二分类先验训练仍可直接K分类，并减少先验成本。",
+      "evidence": "已读正文§1–6和附录A；表1 Elo置信区间重叠、基线来自公开数值未重跑；表2为作者60机构内部二分类实验，AUC均值增量0.0019、推理耗时增加1.49%，不是独立复现亦不能证明多分类机制。",
+      "limitations": "论文对核心架构的说明尚待核验；先验成本论证没有控制类别数的实测，缓存命中/未命中比较不能证明二分类先验更省；内部单次holdout未详述时间/用户隔离。",
+      "sources": [
+        "https://arxiv.org/html/2610.27569v1",
+        "https://arxiv.org/abs/2610.27569"
+      ],
+      "readScope": "HTML正文§1–6及附录A；未完成官方代码版本与作者checkpoint对应核验。"
+    }
   }
 ]
