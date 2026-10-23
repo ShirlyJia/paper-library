@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-22",
+  "updatedAt": "2026-10-23",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -6634,6 +6634,45 @@
         "https://arxiv.org/pdf/2610.25993"
       ],
       "addedAt": "2026-10-22"
+    },
+    {
+      "id": "arxiv-2610.28314",
+      "title": "Debiased Prior-Data Fitted Networks for Amortized Bayesian Semi-Parametric Inference",
+      "date": "2026-10-20",
+      "updated": "2026-10-20",
+      "category": 3,
+      "related": [
+        2,
+        5
+      ],
+      "topic": "PFN 的目标去偏与统计保证",
+      "section": "causal-models",
+      "topicId": "causal-reliability",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "针对 PFN 在估计平均处理效应等目标时可能保留的先验偏差，把校正前移到训练阶段：修正合成任务的目标标签，或调整数据生成分布。作者给出带条件的收敛保证，并在同架构、同训练步数的合成实验中观察到大样本时误差下降，可用于设计因果模型的目标函数；但实际网络仍未达到理论中的区间近似，不能当作真实数据上的可靠性保证，也不是现成模型的免训练补丁。",
+      "url": "https://arxiv.org/abs/2610.28314",
+      "pdf": "https://arxiv.org/pdf/2610.28314",
+      "code": null,
+      "aliases": [
+        "Debiased PFNs",
+        "Ortho-PFN"
+      ],
+      "keywords": [
+        "PFN",
+        "因果效应",
+        "半参数推断",
+        "标签校正",
+        "先验校正",
+        "有效影响函数",
+        "Bernstein-von Mises",
+        "OSPC"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.28314",
+        "https://arxiv.org/html/2610.28314v1"
+      ],
+      "addedAt": "2026-10-23"
     }
   ],
   "collectionUpdates": [
@@ -7055,6 +7094,13 @@
       "added": [
         "arxiv-2610.25558",
         "arxiv-2610.25993"
+      ],
+      "updated": []
+    },
+    {
+      "date": "2026-10-23",
+      "added": [
+        "arxiv-2610.28314"
       ],
       "updated": []
     }

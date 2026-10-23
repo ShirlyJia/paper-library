@@ -6914,5 +6914,57 @@
       ],
       "readScope": "HTML正文§1–6及附录A；未完成官方代码版本与作者checkpoint对应核验。"
     }
+  },
+  {
+    "id": "arxiv-2610.28314",
+    "title": "Debiased Prior-Data Fitted Networks for Amortized Bayesian Semi-Parametric Inference",
+    "url": "https://arxiv.org/abs/2610.28314",
+    "sourceUpdated": "2026-10-20",
+    "decision": "included",
+    "reviewedAt": "2026-10-23",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在理想化PFN及明确正则条件下，目标标签或先验校正能消去慢的一阶误差项；受控合成任务中的大样本误差改善为有限实证支持。该结论不包含现有TFM普遍校准或真实数据效果保证。",
+      "contribution": "相较已收录的2603.12037在推断后执行OSPC，新作利用有效影响函数，把Bayesian-bootstrap的一步校正写入预训练目标，或沿最不利方向扰动先验生成过程；不在测试时另做后验校正。目标包括均值、MAR下均值、WATE，非通用分类精度优化。",
+      "evidence": "实际阅读§3–5、附录D定理1–3条件及定理2完整证明。标签校正以von Mises展开得到误差=(BB_n-P0)phi_P+二阶项；利用bootstrap方差、CLT和随机等度连续条件得到n^-1/2的一阶项。先验校正另外假设LAN/先验局部平坦及校正方向集中条件。附录F：ATE每维度/样本数/方法单独训练网络，维度5/10、n=256至2048，同架构同初始化同数据顺序、126900更新；65536训练群体、4096验证群体，评测200个不重叠群体各200数据集，后者改变倾向得分与结果函数依赖。标签法4个bootstrap标签，先验法独立生成校正分布数据，并非三者训练样本完全相同。作者报告维度5在n>=1024、维度10在n>=2048时误差改善。均值补充实验也支持受控场景收益。仅作者实验，未独立复现。",
+      "limitations": "理论假设精确恢复后验的理想化网络，真实分布在先验支持内、有限矩及正则性；BvM还要求二阶余项o(n^-1/2)等，minimax还需匹配下界和限定模型类。没有把多样先验必然变差当通则。仅合成ATE与均值，一套每类网络，误差条条件于该训练实例，不反映跨训练种子波动；未与估计辅助函数的A-IPTW/TMLE或OSPC作实际预算匹配竞争。§5和附录G1中实际ATE后验与有效正态近似距离随n增大，n最大时约0.86–0.97；不能据条件定理宣称实验已实现可靠区间。附录F均值评估100×100与G图注200×200有口径差异，因此不将均值精确误差条数字写入公开结论。",
+      "value": "为因果基础模型提供目标特定的去偏训练设计，并把目标估计误差与普通预测误差区分；用于研究路线和损失设计。需已知合成机制及相应影响函数，涉及重新训练，不能直接套在现成模型推断输出上宣称同样保证。",
+      "reproducibility": "正文和附录完整可读；作者提供anonymous.4open.science/r/Ortho-PFN-Anonymized-E4B7，本轮网页工具不可访问，未验证代码内容或权重，因此公开code留空。没有运行训练、统计检验或逐条独立证明全部定理；审核范围仅所列论证及实验。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.28314",
+        "https://arxiv.org/html/2610.28314v1",
+        "https://proceedings.mlr.press/v306/melnychuk26a.html"
+      ],
+      "readScope": "全文§1–5；附录A相关工作、D定理1条件、定理2条件与完整证明、定理3条件、F1–F3实现和实验限制、G1–G2结果。定理4正文条件与解释已读，未逐行独立验证附录D全部后续证明或E的所有minimax下界。"
+    }
+  },
+  {
+    "id": "arxiv-2606.24995",
+    "title": "Are Tabular Foundation Models Robust to Realistic Query Distribution Shifts in Microbiome Data?",
+    "url": "https://arxiv.org/abs/2606.24995",
+    "sourceUpdated": "2026-06-23",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-23",
+    "reason": "已读相关方法、实验、局限及官方实现，但核心“保持判别信号不变，仅测非关键特征变化”的归因仍需补证：保护特征在全量标签上预选，随后CV；正文§3.1逐步相邻AUROC差、§4.1相对baseline差与代码保护k-1而正文保护到k的口径不同；全行重归一化实际改变受保护特征数值。需固定版本、训练折内选择及隔离归一化效应的敏感性结果，再判断是否以受限压力测试收录。保留候选，未因会议级别、篇数或未复现排除。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "claim": "仅改变不重要菌群即可证明TFM对整体分布结构脆弱，且模型差异由架构/预训练造成。",
+      "contribution": "在6个微生物二分类数据集上对比4个TFM和RF/XGBoost的测试侧移除特征、增加零值及填充零值压力测试。",
+      "evidence": "已读§3–7；代码select_protected_features.py先对完整X,y做ANOVA再CV找阈值；generate_perturbed_datasets.py用全量标签选保护列；perturbation_core.py的_renormalize除以全行和。保留代码原文、SHA256及来源。作者报告零填充退化较强，但也报告删特征和增加零值时某模型/数据集改善，不能照抄摘要“所有扰动均下降”。",
+      "limitations": "测试标签参与压力测试设计不是直接模型训练泄漏，但不代表未知部署样本上的独立协议。所谓保护列仍经归一化改变数值；架构归因没有匹配消融。小样本5折，多重DeLong比较未见校正。正文8100评估与10+5+5档位不一致，先不据此数量评价。",
+      "value": "可为组成型表格的分布偏移测试提供线索，独立价值仍保留；需厘清固定信号条件和实验工件对应后再决定公开表述。",
+      "reproducibility": "官方README及三个脚本已读取，未运行；作者README称ECML PKDD 2026 ADS，OpenAlex提供Springer章节DOI但官方页本轮不可访问，未确认最终会议版是否修正协议。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2606.24995",
+        "https://github.com/UMMISCO/metagenomics-fm",
+        "https://raw.githubusercontent.com/UMMISCO/metagenomics-fm/main/data_generation/select_protected_features.py",
+        "https://raw.githubusercontent.com/UMMISCO/metagenomics-fm/main/data_generation/generate_perturbed_datasets.py",
+        "https://raw.githubusercontent.com/UMMISCO/metagenomics-fm/main/data_generation/perturbation_core.py"
+      ],
+      "readScope": "§2–7、README、三个官方脚本相关选择/生成/归一化实现；未审统计检验实现与附录所有表格，未本地复现。"
+    }
   }
 ]
