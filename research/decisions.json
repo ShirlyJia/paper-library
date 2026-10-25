@@ -6966,5 +6966,227 @@
       ],
       "readScope": "§2–7、README、三个官方脚本相关选择/生成/归一化实现；未审统计检验实现与附录所有表格，未本地复现。"
     }
+  },
+  {
+    "id": "arxiv-2605.18971",
+    "title": "Shaping the Prior: How Synthetic Task Distributions Determine Tabular Foundation Model Quality",
+    "url": "https://arxiv.org/abs/2605.18971",
+    "sourceUpdated": "2026-05-18",
+    "decision": "included",
+    "reviewedAt": "2026-10-25",
+    "reason": "按队列最高优先项补审；虽核心涉及预训练分布，仍有明确 TabArena 对照实验和模型能力归因价值，按有限证据收录，不外推完整模型排名。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在固定 nanoTabPFN 和有限训练预算下，合成任务中的机制多样性与观测扰动会影响分类迁移；完整先验组合和课程调度并不必然最好。对真实分布偏移鲁棒性的普遍提升尚未获得直接验证。",
+      "contribution": "把混合 SCM 生成器、观测扰动、支持集与查询集偏移、课程调度拆成可组合模块；使用同一轻量架构与训练流程比较九个组合和三个已有生成器，而不是比较完整发布的 TabPFN/TabICL 模型。",
+      "evidence": "正文2.1–2.4说明混合MLP/树/卷积/GP/时滞机制、缺失和偏移，约定所有拟合统计只使用支持行。3.1固定40,000个合成任务、每任务512–1024行、3–50特征、batch4、10 epochs，无条件间调参。表2汇总21个TabArena v0.1与31个OpenML-CC18分类任务：TabArena平均ROC-AUC的TabICL-v2生成器基线0.7910、混合机制G1b0.8335、全组合G4为0.8194；CC18的G1c0.8313高于G4的0.8245。表3在四个真实参考表做10次生成采样重复，评估边缘和相关谱；表4给七个数据集的六层线性探针，容易线性分离的数据上随机网络也很高。这些均是作者报告，未独立复现。",
+      "limitations": "主体分类结果只给跨数据集均值，未提供多次预训练的种子方差/置信区间；3.1引用TFM-Playground切分但正文未展开每个任务的全部切分/调参细节，未审查代码实施。相同合成任务数不等于已测相同生成墙钟成本。表2不支持所有组合都优于简单变体，正文对若干模块收益的概括比表格更强；尤其G3a的TabArena F1低于G1a。标准基准不是专门的时间/分组/OOD鲁棒性试验，作者把针对性偏移评测列为未来工作；小型nanoTabPFN结果不能外推到完整发布模型。结构相似性指标只检验四张参考表，不能代替预测鲁棒性证据。",
+      "value": "用于区分架构与任务分布对预测收益的贡献，并借TabArena子集形成可控消融；对缺失、伪相关和偏移的诊断具有方法参考价值。保留完整组合并非最佳的发现，不宣传为通用优胜模型。",
+      "reproducibility": "arXiv HTML公开、附录B列数据ID；论文声称代码公开，但2026-10-25实际访问 https://github.com/o-prior/O-prior 返回404，故不标已验证开源。没有本地训练或独立复现实验。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/abs/2605.18971",
+        "https://arxiv.org/html/2605.18971v1",
+        "https://lexsi.ai/resources/research-papers/shaping-the-prior-how-synthetic-task-distributions-determine-tabular-foundation-model-quality",
+        "https://github.com/o-prior/O-prior"
+      ],
+      "readScope": "阅读全文HTML第2章方法、第3章实验协议及表1–4、第4章相关工作、第5章结论；附录B读取TabArena任务清单与CC18清单开头并检索切分/种子描述；核对arXiv首发记录与作者官方技术页，检查代码地址可达性。未运行实验，未核验完整代码和所有附录图。"
+    }
+  },
+  {
+    "id": "arxiv-2610.31147",
+    "title": "PriMa-Causa: Causal Prescriptive Maintenance",
+    "url": "https://arxiv.org/abs/2610.31147",
+    "sourceUpdated": "2026-10-22",
+    "decision": "included",
+    "reviewedAt": "2026-10-25",
+    "reason": "完成相关方法、实验和局限正文审核；相较作者早期无图模型增加部分图条件及扩展评测，作为工业因果决策路线收录，不把论文整篇标为主会或已验证工业成效。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在所测合成与半合成生产线任务中，冻结的图条件 PFN 可估计二元干预效应，并支持预算约束下的行动排序；不主张已证明现场维护收益。",
+      "contribution": "在生产线拓扑先验上构建约 4.9M 参数的双轴 PFN，采用 Reuter 等前作的三值祖先关系注意力偏置；将估计接入维修候选与行动分配。图条件机制有明确前作，并非本文原创。",
+      "evidence": "第6章描述支持集统计标准化、查询不互相注意及离散分布输出；第8章测试任务独立抽样但与预训练共享生成器。上下文行数与基线训练行数匹配；同架构同预算的 CPG/随机图比较在5组工业来源协变量（3实测、1校准模拟、1合成）的20个模拟条件中16个有利。OEE策略评估的处理及结果是模拟值。",
+      "limitations": "效应实验主要为先验内任务，半合成每数据集/难度只有一次机制抽样，四级难度仅最后一级有异质效应。对照含线性调整及树模型，未核对完整调参公平性；延迟不含加载，单查询反而慢于树。部分图用于硬筛候选可能漏掉真因，异常排序不弱于其根因排序。二元处理、35变量、无现场闭环；反事实、隐混杂、时变结构及副作用模式未验证。",
+      "value": "提供把表格因果估计嵌入工业行动选择的具体接口，并说明已知图应如何进入模型及如何约束结论。",
+      "reproducibility": "仅核对作者报告，未独立或本地复现。正文称已开放代码/权重，但2026-10-25两个官方仓库均仅有待发布README，按当前仓库状态记录未公开，不展示代码可用标签。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2610.31147v1",
+        "https://github.com/FelixSaretzky/PriMaCausa",
+        "https://github.com/FelixSaretzky/ProductionLineSimulator",
+        "https://proceedings.mlr.press/v306/reuter26a.html"
+      ],
+      "readScope": "第5章目标、生成器概要及第4节半合成设定；第6章完整方法（1–6节）；第7章集成与成熟度声明；第8章1–9节实验、表2–4及第10节结论；第9章局限；参考文献16、126、138、139；官方仓库README。已保存正文文本及SHA256，未执行模型或复现评测。"
+    }
+  },
+  {
+    "id": "arxiv-2610.25822",
+    "title": "Conflicting History in Foundation Model Return Forecasts",
+    "url": "https://arxiv.org/abs/2610.25822",
+    "sourceUpdated": "2026-10-19",
+    "decision": "included",
+    "reviewedAt": "2026-10-25",
+    "reason": "相关方法、主实验和局限已读。直接包含把历史转成8个滞后特征的TabPFN，提供结构化模型上下文选择的反例与评测方法；不将金融预测误差写成投资收益。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在指定三类模拟中，冲突旧历史降低高信号条件下胜过零预测的概率；这一结果不足以推出截短真实历史会改善预测。",
+      "contribution": "构造近期序列与目标条件分布相同、旧历史相关方向不同的成对输入，分离当前信号与历史依赖；评估TabPFN v3、四种时序模型和零预测/中位数/AR参照。",
+      "evidence": "第2–3节每生成过程1024条独立路径，模型与方向逐路径配对，概率采用同时界。第4节56资产、434日期比较64/256窗口，检查点和输出规则保持固定；按日期块bootstrap，TabPFN短窗口MAE更高。表1–2区分有界均值推断和未截断均值的描述统计。",
+      "limitations": "符号构造要求对称扰动、奇函数及特定波动递推。后续模拟设计和真实面板分析包含探索性选择；真实数据有回看选样、潜在预训练重叠和检查点时序风险。TabPFN截短时上下文训练行数也由248变56，不能归因于单一机制。未比较适配算法或公平计算预算。",
+      "value": "为上下文淘汰、漂移处理和ICL评测提供成对诊断设计，避免把输入敏感性误当作直接删旧样本的依据。",
+      "reproducibility": "作者实验，未独立或本地复现。已获取官方PDF文本和哈希；正文给出主要构造与协议，但补充方法/结果需向作者索取，未见文内公开复现实验仓库。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.25822",
+        "https://arxiv.org/pdf/2610.25822"
+      ],
+      "readScope": "PDF第1–9页：摘要、相关工作、2.1–2.3方法、3.1–3.3模拟、4.1–4.2真实样本、表1–2、5节局限与6节结论；第10页参考文献。网页PDF截图失败，表格以可解析PDF文本核验；未审未公开补充材料。"
+    }
+  },
+  {
+    "id": "arxiv-2610.25131",
+    "title": "Data.Readme: Documenting Table Relationships for Diverse Data Tasks",
+    "url": "https://arxiv.org/abs/2610.25131",
+    "sourceUpdated": "2026-10-18",
+    "decision": "included",
+    "reviewedAt": "2026-10-25",
+    "reason": "与跨表语义整合直接相关；已读方法、实验和相关工作。限定收录价值为跨表关系索引及作者所测查表/分析结果，不将预测收益恢复率或未来会议模板当作准确率及已录用证明。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在本文构建的数据湖与任务设置内，将跨表关系组织成可检索文档，可改善模型的数据发现与分析；本次不审核其在真实企业、严格无泄漏预测或百万表规模上的普遍有效性主张。",
+      "contribution": "相较逐表生成说明的 AutoDDG 和单次/多轮表检索，在逐表描述上增加易混淆、可连接、可合并三类解释性关系；先用嵌入和数据包含关系筛候选，再由模型判别语义，保留多种合理连接到查询时决定。另以历史查询表集合的覆盖为目标，提出受预算约束的 DensitySelect。",
+      "evidence": "作者报告：四个公开基准 BIRD、Spider、KramaBench、BI-Bench 的去重表形成 4,127 表的 LakeOriginal，加入聚合和分区表形成 12,829 表的 LakeAugmented。表2/3在6种骨干模型、4类工作负载、2座湖上比较逐表注释、词法/向量检索和编码代理；默认同为4轮调用，并补充无限轮代理。图6在相同代理上加/不加 Readme，图7逐项加入关系，支持关系文档在这些任务中的增量作用。§5.5的查询历史实验明确采用80%历史/20%评估。以上为作者实验，无独立或本地复现。",
+      "limitations": "两个湖均由公开基准拼接而成，较大湖有大量人工派生表；改写问题并不能证明底模无污染，使用模型排除可由多表回答的歧义问题也缩小了评估范围。默认同轮数不等于相同总成本，离线关系建设需计入。预测实验包含16分类/45回归任务，但已读正文未充分说明训练测试划分、跨表连接中的标签泄漏控制；其 gain recovery 是相对 Gold 增益的比值，不是准确率。预算实验依赖模拟幂律查询日志，代表性与新工作负载泛化未验证；未见重复运行误差范围。HTML首页的 SIGMOD 2027 模板含占位 DOI，不能证明已录用。",
+      "value": "为结构化数据模型前端的数据发现、跨表连接和语义消歧提供可复用的索引机制，可作为关系数据任务输入组织的研究线索；当前证据支持研究试验，仍需在实际数据、权限和更新频率条件下评估。",
+      "reproducibility": "arXiv v1全文和算法伪代码可读，说明6种模型及本地评估服务器、云API推理配置；未从正文和本轮官方检索核到作者实现、构建后的湖或完整运行脚本。无独立复现、无本地训练或性能复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.25131",
+        "https://arxiv.org/html/2610.25131v1"
+      ],
+      "readScope": "v1 §1–3任务、关系生成算法与在线工具；§4预算目标、DensitySelect和证明；§5.1–5.5全部实验设置、主表2/3、消融与效率；§6相关工作与§7结论。首发核对 arXiv submission history 为2026-10-18；未见可核实正式录用记录。"
+    }
+  },
+  {
+    "id": "arxiv-2610.20418",
+    "title": "OrionMoE-v1.0: A Mixture-of-Experts Foundation Model for Tabular In-Context Learning",
+    "url": "https://arxiv.org/abs/2610.20418",
+    "sourceUpdated": "2026-10-18",
+    "decision": "existing",
+    "reviewedAt": "2026-10-25",
+    "reason": "官方 10 月 23 日发布链接指向同一论文的 v2，核对首发及修订日期后合并更新；替换旧概览中制品下载尚待核实的表述，不将产品发布重复记为新论文。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "数据集条件稀疏专家路由可形成具有竞争力的紧凑表格分类模型；核心性能增量是否由路由本身带来，需要独立于模型规模、先验及推理配置的对照。",
+      "contribution": "沿用 TabICLv2 的支持集条件列编码，在保留单元格与双轴交互的主干中使用稀疏专家，并用从支持行更新的数据集寄存器参与专家选择。查询行不改变支持状态；固定支持集和推理配置时可复用支持表示。",
+      "evidence": "已读 v2 第 2 节的方法和支持／查询信息隔离，第 3 节及附录 A 的分类结果。作者报告 TabArena 38 个分类任务、BeyondArena 98 个分类任务，并分别给出共同可运行任务与完整 CC18/TALENT/BCCO 套件的比较；共同任务分别为48/148/86，完整套件为72/181/106，比较模型池随之变化。第3.3节称沿用CC18预定义划分；合成先验需拟合的统计量仅用支持集。结果属于作者实验，未做独立或本地复现。",
+      "limitations": "第3.7节明确没有等参数稠密架构控制实验，不能隔离稀疏路由贡献。参数量也不能代替训练或推理预算；第3.1、3.2及附录A未达到整体性能与耗时前沿，分组／时间漂移和大样本存在差距。不同任务子集及模型池的Elo不能直接相减。严重不平衡分析主要用accuracy，不能推出少数类识别改善。第3.7节部分排名叙述与表1存在不一致，概览不引用相关最优排名。",
+      "value": "提供按支持表统计性质分配专家计算的结构化模型设计线索；其使用价值在于紧凑模型与条件计算的权衡，不能据现有比较声称稀疏架构普遍优于稠密模型。",
+      "reproducibility": "v2第4节及10月23日官方发布均明确模型权重和训练实现未公开，只提供托管API申请访问；本次未调用该API、未获得制品、未运行复现实验。报告公开机制和数据集列表，但不足以在本地独立重建全部训练与评测。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/abs/2610.20418",
+        "https://arxiv.org/html/2610.20418v2",
+        "https://lexsi.ai/resources/articles/orionmoe-small-v1-0-rethinking-how-tabular-models-spend-their-computation"
+      ],
+      "readScope": "arXiv提交历史；v2第2节方法，第3节评测设置、共同任务/完整套件和容量分组结果，第4节可用性，第5节结论，附录A任务/成本/不平衡分析；附录B数据集表头和划分说明。官方10月23日发布的架构介绍、评测与许可/制品可用性段落。未阅读或运行私有实现。"
+    }
+  },
+  {
+    "id": "https://doi.org/10.3390/make8080244",
+    "title": "The Current Generation of Tabular Foundation Models: A Critical Review",
+    "url": "https://doi.org/10.3390/make8080244",
+    "sourceUpdated": "2026-08-13",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-25",
+    "reason": "高优先队列项补查：本次出版社页面抓取403，网页打开429，尚未获得综述正文，不能判断覆盖与比较是否准确。保留待核验，取得出版社或作者公开全文后再审。"
+  },
+  {
+    "id": "auditable-distillation-fuzzy-2026",
+    "title": "Auditable distillation of tabular foundation models into percentile-based fuzzy rules under a concept bottleneck",
+    "url": "https://drtc.isibang.ac.in/wordpress/index.php/author/sciencedirect-publication-information-sciences/",
+    "sourceUpdated": null,
+    "decision": "deferred",
+    "reviewedAt": "2026-10-25",
+    "reason": "10月22日二手RSS搜索摘要提示 Information Sciences 新作及10月21日online日期；原聚合页面403，精确题名检索未取得出版社唯一原文/DOI或作者正文。日期、发表状态、方法与实验均待一手核验，不写入公开目录。"
+  },
+  {
+    "id": "doi-10.2139/ssrn.7545720",
+    "title": "Where Missingness Occurs Matters: Context-Query Asymmetry in Tabular Foundation Models",
+    "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7545720",
+    "sourceUpdated": "2026-09-30",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-25",
+    "reason": "官方SSRN搜索摘要显示与TabPFN/TabICLv2缺失鲁棒性直接相关；官方摘要页及搜索发现的PDF都返回403，未读方法与实验正文。待可访问官方全文后核对预注册、划分、缺失机制与修复对照；不因摘要数据看起来完整而收录。",
+    "qualityReview": {
+      "reviewStatus": "pending-fulltext",
+      "claim": "作者摘要称相同缺失比例发生在query和context会产生不同预测损失。",
+      "sources": [
+        "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7545720"
+      ],
+      "readScope": "仅SSRN搜索索引摘要；直接访问摘要与PDF均403，未完成正文审核。"
+    }
+  },
+  {
+    "id": "https://aclanthology.org/2026.emnlp-main.2019/",
+    "title": "SchemaToken: Tokenizing Database Schemas for Efficient and Robust Text-to-SQL Linking",
+    "url": "https://aclanthology.org/2026.emnlp-main.2019/",
+    "sourceUpdated": "2026-10",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-25",
+    "reason": "已获取并阅读官方23页PDF，暂缓原因已从正文不可得变为关键结果口径冲突。Qwen3-8B在表1的Spider2总体SRR为80.0，而同模型表7的三个规模组为79.2/65.7/47.8；按§C.4的逐问题比例定义，若为同一评估集的分组，总体不应高于最大组，文中未交代不同评估口径。表6同时报告计数min=1、max=56、mean=6.17、std=32.52，无法在所给区间及均值下同时成立。已查看原PDF表格图像确认并非文字提取错误。官方代码链接2026-10-25返回404，无法通过运行材料澄清；首发仅核到会议2026-10月份与作者8月录用消息，不把会议月或会期第一天补造为首次公开日。待作者更正/提供评估集、代码或清晰统计口径后复核，未认定其研究无价值或存在学术不端。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "把列表示成专用单token并经语义与集合输出对齐，可改善大模式的列链接质量和推理效率；本轮判断的是其已报告实证能否支撑该主张。",
+      "contribution": "扩展LLM词表和输出头，用表/列残差量化码本构建列token；第一阶段冻结底模、学习语义与多样性，第二阶段冻结码本、以Jaccard奖励和GRPO学习无序列集合输出，并结合RSL-SQL。",
+      "evidence": "已读§3–4、表1–3及附录B/C/D，作者比较Qwen3-1.7B、Qwen3-8B与LLaMA3.1-8B，在Spider/BIRD/Spider2上报告改进，含去token但保留SFT/RL、奖励和组件消融。§C.3声称只用目标库模式元数据与合成伪任务，不用评估问题或gold SQL；Spider2 SQL生成使用GPT-4。表8提供5次种子统计。上述为作者报告，关键总体/分组与码本统计数值冲突尚未解决。",
+      "limitations": "表1/表7的Spider2总体与分组SRR无法按所给定义直接对齐；表6计数均值、范围、标准差不一致。§C.2和表4对Spider2的DB/domain数描述亦有歧义。逐数据库两阶段适配带来一次性训练成本，不能当作新库零样本；依赖列描述，黑盒底模污染不可绝对排除。表3把输入/输出token数列在Infer Latency标题下，不能据此直接换算墙钟加速倍数；文中RAG普遍无效的结论超出所测检索设置。",
+      "value": "模式token化和无序集合奖励对语义字段链接有方法启发，但需先澄清实验口径，当前不适合在公开概览发布性能结论。",
+      "reproducibility": "官方PDF已落地；代码页面https://github.com/MrBlankness/SchemaToken经网页和直接获取均404，未运行实现，也未核到独立复现。已渲染查看PDF第6、17、18页核对表1、6、7。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://aclanthology.org/2026.emnlp-main.2019/",
+        "https://aclanthology.org/2026.emnlp-main.2019.pdf",
+        "https://mrblankness.github.io/"
+      ],
+      "readScope": "官方PDF主文§3方法、§4实验、§5讨论及Limitations；附录B方法提示、C数据/指标/基线/训练细节、D.1–D.8消融、规模分组、随机种子、库更新与检索比较；原图核对表1/6/7。没有完整阅读E案例及F盈亏平衡，不对这些部分作完成审核声明。"
+    }
+  },
+  {
+    "id": "report-tabstar-v1-1",
+    "title": "TabSTAR v1.1 model cards",
+    "url": "https://github.com/alanarazi7/TabSTAR",
+    "sourceUpdated": null,
+    "decision": "deferred",
+    "reviewedAt": "2026-10-25",
+    "reason": "官方仓库确认v1.1分类与回归检查点和代码，TabArena官方变更记录10月19日已替换旧版本。已读两份模型卡：六通道数值表示、文本数值融合、分任务模型和下游微调Elo选点均有说明，但详细报告仍标待发布，缺少可核验的同预算效果对照和完整验证划分；暂不单独作为已审论文收录，后续补报告或完整实验协议。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "sources": [
+        "https://github.com/alanarazi7/TabSTAR",
+        "https://github.com/alanarazi7/TabSTAR/blob/master/docs/model_cards/tabstar-v1.1-cls.md",
+        "https://github.com/alanarazi7/TabSTAR/blob/master/docs/model_cards/tabstar-v1.1-reg.md",
+        "https://huggingface.co/spaces/TabArena/leaderboard/blob/main/website_texts.py"
+      ],
+      "readScope": "仓库版本说明；分类和回归模型卡的预训练、下游微调、相对v1差异及caveats；TabArena10月19日变更记录。未完成效果质量审核。"
+    }
+  },
+  {
+    "id": "report-synthefy-nori",
+    "title": "Synthefy Nori: Tabular Foundation Model for Regression",
+    "url": "https://huggingface.co/Synthefy/Nori",
+    "sourceUpdated": null,
+    "decision": "deferred",
+    "reviewedAt": "2026-10-25",
+    "reason": "从AutoGluon集成与TabArena关联追溯到官方模型卡、仓库和Zenodo软件引文；已确认回归ICL模型、公开架构与TabArena13个回归任务结果。尚未审完评测脚本的划分、基线和预算条件，也未核实最早公开日及6M/30M/关系版本边界，保留技术资料候选，不将官方平均R²或营销标题当作优势结论。"
+  },
+  {
+    "id": "report-chakratab",
+    "title": "ChakraTab",
+    "url": "https://huggingface.co/yhatlabs/ChakraTab",
+    "sourceUpdated": null,
+    "decision": "deferred",
+    "reviewedAt": "2026-10-25",
+    "reason": "TabArena关联的闭源API系统：模型卡称对多个表格基础模型做表内验证后加权，未披露完整后端组成与训练实现。官方TabArena记录只核验客户端及调用过程，不核验服务内部；模型卡中的medium/full配置与榜单变更文字亦不完全一致。待补精确版本、核心方法与可比评测资料，不能仅凭排名收录为已审基础模型论文。"
   }
 ]

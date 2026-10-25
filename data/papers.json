@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-23",
+  "updatedAt": "2026-10-25",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -607,7 +607,7 @@
       "id": "arxiv-2610.20418",
       "title": "OrionMoE-v1.0: A Mixture-of-Experts Foundation Model for Tabular In-Context Learning",
       "date": "2026-10-14",
-      "updated": "2026-10-14",
+      "updated": "2026-10-18",
       "category": 1,
       "section": "industry-models",
       "topicId": "tabular-releases",
@@ -617,7 +617,7 @@
       ],
       "status": "preprint",
       "venue": "预印本",
-      "summary": "在双轴表格 Transformer 的特征轴引入稀疏专家，由支持集汇总的全表表示参与路由，默认组合八种输入视图。作者在 TabArena 等基准报告了小模型的竞争力，但分组／时间漂移和大数据仍有弱项，尚无等参数稠密模型消融来隔离路由贡献。论文注明采用限制性源码许可，制品下载尚待核实。",
+      "summary": "在双轴表格 Transformer 中引入稀疏专家，由支持集汇总的全表表示参与路由。作者在 38 个 TabArena 分类任务等基准报告了小模型的竞争力，但分组／时间漂移和大数据仍有弱项，尚无等参数稠密模型对照来隔离路由贡献。10 月修订明确仅通过托管 API 提供推理，权重和训练代码未公开，可关注按数据集分配计算的思路，尚不能本地复现。",
       "url": "https://arxiv.org/abs/2610.20418",
       "pdf": "https://arxiv.org/pdf/2610.20418",
       "code": null,
@@ -629,11 +629,14 @@
       "aliases": [
         "OrionMoE",
         "OrionMoE-Small",
-        "OrionMoE v1.0"
+        "OrionMoE v1.0",
+        "OrionMoE-Small-v1.0"
       ],
       "sources": [
         "https://arxiv.org/abs/2610.20418",
-        "https://arxiv.org/html/2610.20418"
+        "https://arxiv.org/html/2610.20418",
+        "https://arxiv.org/html/2610.20418v2",
+        "https://lexsi.ai/resources/articles/orionmoe-small-v1-0-rethinking-how-tabular-models-spend-their-computation"
       ],
       "topic": "通用表格模型",
       "addedAt": "2026-10-16"
@@ -6673,6 +6676,153 @@
         "https://arxiv.org/html/2610.28314v1"
       ],
       "addedAt": "2026-10-23"
+    },
+    {
+      "id": "arxiv-2605.18971",
+      "title": "Shaping the Prior: How Synthetic Task Distributions Determine Tabular Foundation Model Quality",
+      "date": "2026-05-18",
+      "updated": "2026-05-18",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "topic": "通用评测与分布泛化",
+      "related": [
+        2,
+        3
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "固定 nanoTabPFN 架构和 4 万个合成训练任务，比较变量生成机制、缺失与分布偏移等设计。在 TabArena 和 OpenML-CC18 分类子集上，作者发现混合生成机制带来较大收益，加入全部模块和课程调度并非最好。可用于设计模型对照实验；主结果缺少多次训练的不确定性，针对真实分布偏移的收益尚待专门验证。",
+      "url": "https://arxiv.org/abs/2605.18971",
+      "pdf": "https://arxiv.org/pdf/2605.18971",
+      "code": null,
+      "aliases": [
+        "O'Prior",
+        "O’Prior",
+        "Shaping the Prior"
+      ],
+      "keywords": [
+        "TabArena",
+        "nanoTabPFN",
+        "合成任务",
+        "控制实验",
+        "分布偏移"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.18971",
+        "https://arxiv.org/html/2605.18971v1",
+        "https://lexsi.ai/resources/research-papers/shaping-the-prior-how-synthetic-task-distributions-determine-tabular-foundation-model-quality"
+      ],
+      "addedAt": "2026-10-25"
+    },
+    {
+      "id": "arxiv-2610.31147",
+      "title": "PriMa-Causa: Causal Prescriptive Maintenance",
+      "date": "2026-10-22",
+      "updated": "2026-10-22",
+      "category": 3,
+      "related": [
+        1,
+        2,
+        5
+      ],
+      "topic": "工业维护中的图条件干预估计",
+      "section": "causal-estimation",
+      "topicId": "causal-policy",
+      "status": "preprint",
+      "venue": "学位论文预印本",
+      "summary": "面向产线故障后的维修选择，把观测表格与部分已知的因果关系一起输入冻结的 PFN，估计不同操作对结果的影响，再按预算安排干预。作者在合成生产线及保留真实工业特征的半合成任务中验证了效应估计与排序，但处理和结果仍由模拟生成，尚无现场闭环收益证据；当前验证限于二元处理、最多 35 个变量，官方仓库仍待公开代码与权重。",
+      "url": "https://arxiv.org/abs/2610.31147",
+      "pdf": "https://arxiv.org/pdf/2610.31147",
+      "code": null,
+      "aliases": [
+        "PriMa-Causa",
+        "PriMaCausa"
+      ],
+      "keywords": [
+        "因果基础模型",
+        "工业维护",
+        "干预估计",
+        "部分因果图",
+        "干预分配",
+        "半合成评测"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.31147",
+        "https://arxiv.org/html/2610.31147v1",
+        "https://github.com/FelixSaretzky/PriMaCausa",
+        "https://github.com/FelixSaretzky/ProductionLineSimulator"
+      ],
+      "addedAt": "2026-10-25"
+    },
+    {
+      "id": "arxiv-2610.25822",
+      "title": "Conflicting History in Foundation Model Return Forecasts",
+      "date": "2026-10-19",
+      "updated": "2026-10-19",
+      "category": 5,
+      "related": [
+        2
+      ],
+      "topic": "分布变化后的历史上下文诊断",
+      "section": "context-selection",
+      "topicId": "stream-context",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "研究旧数据中的规律改变后，模型会不会继续受旧上下文影响：固定近期观测与下一步目标分布，只改变较早历史，比较 TabPFN v3 与四种时序基础模型。作者的三类模拟中，冲突历史均降低高信号条件下胜过零预测的比例；但真实资产样本中把窗口从 256 缩至 64 条反而更差，不能据此直接删旧数据。可用于设计上下文诊断，真实数据结果仍受回看选样、预训练重叠及样本依赖限制。",
+      "url": "https://arxiv.org/abs/2610.25822",
+      "pdf": "https://arxiv.org/pdf/2610.25822",
+      "code": null,
+      "aliases": [
+        "Conflicting History"
+      ],
+      "keywords": [
+        "TabPFN v3",
+        "上下文选择",
+        "分布变化",
+        "受控评测",
+        "历史窗口"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.25822",
+        "https://arxiv.org/pdf/2610.25822"
+      ],
+      "addedAt": "2026-10-25"
+    },
+    {
+      "id": "arxiv-2610.25131",
+      "title": "Data.Readme: Documenting Table Relationships for Diverse Data Tasks",
+      "date": "2026-10-18",
+      "updated": "2026-10-18",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "data-integration",
+      "topic": "端到端数据整合",
+      "related": [
+        1,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "先离线记录数据湖中哪些表容易混淆、可以连接或合并，再让模型沿这些关系查表并完成分析。作者在由公开基准构成的两座数据湖、6种模型上报告查表和分析收益，并通过增删关系信息检验其贡献；较大的数据湖含合成派生表，尚不足以证明真实企业环境的普遍收益。可借鉴其跨表语义索引，但应计入离线构建成本，不能把预测任务中相对理想方案的收益恢复率当作预测准确率。",
+      "url": "https://arxiv.org/abs/2610.25131",
+      "pdf": "https://arxiv.org/pdf/2610.25131",
+      "code": null,
+      "keywords": [
+        "Data.Readme",
+        "数据湖",
+        "跨表关系",
+        "端到端数据整合"
+      ],
+      "aliases": [
+        "Data.Readme",
+        "Data Readme"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.25131",
+        "https://arxiv.org/html/2610.25131v1"
+      ],
+      "addedAt": "2026-10-25"
     }
   ],
   "collectionUpdates": [
@@ -7103,6 +7253,18 @@
         "arxiv-2610.28314"
       ],
       "updated": []
+    },
+    {
+      "date": "2026-10-25",
+      "added": [
+        "arxiv-2605.18971",
+        "arxiv-2610.25131",
+        "arxiv-2610.25822",
+        "arxiv-2610.31147"
+      ],
+      "updated": [
+        "arxiv-2610.20418"
+      ]
     }
   ]
 }

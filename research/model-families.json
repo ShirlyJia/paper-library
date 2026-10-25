@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-10-16",
+  "reviewedAt": "2026-10-25",
   "description": "已知模型家族及需保留的独立论文版本；用于防止汇总丢失，不代表模型全集。",
   "families": [
     {
@@ -590,6 +590,16 @@
       "sources": [
         "https://arxiv.org/abs/2610.25558",
         "https://github.com/machinelearningnuremberg/ftfm-official"
+      ]
+    },
+    {
+      "name": "PriMa-Causa",
+      "paperIds": [
+        "arxiv-2610.31147"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.31147",
+        "https://github.com/FelixSaretzky/PriMaCausa"
       ]
     }
   ]
