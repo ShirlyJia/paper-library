@@ -69,6 +69,35 @@ class CollectionTests(unittest.TestCase):
         collect.apply_decisions([candidate],[old])
         self.assertEqual(candidate['reviewState'],'deferred')
 
+    def test_unknown_revision_dates_preserve_the_previous_decision(self):
+        missing = object()
+        for decision in ('deferred', 'excluded'):
+            for updated in (missing, None, '', '2026-10-25'):
+                for source_updated in (missing, None, '', '2026-10-01'):
+                    if isinstance(updated, str) and updated and isinstance(source_updated, str) and source_updated:
+                        continue  # Known dates are covered by the revision test above.
+                    with self.subTest(decision=decision, updated=updated, source_updated=source_updated):
+                        previous = {'url': 'https://example.org/undated-report', 'decision': decision}
+                        candidate = {'url': 'https://example.org/undated-report', 'existingIds': [], 'reviewState': 'needs-review'}
+                        if updated is not missing:
+                            candidate['updated'] = updated
+                        if source_updated is not missing:
+                            previous['sourceUpdated'] = source_updated
+                        original = dict(previous)
+                        collect.apply_decisions([candidate], [previous])
+                        self.assertEqual(candidate['reviewState'], decision)
+                        self.assertEqual(previous, original)
+                        self.assertEqual(candidate.get('updated', missing), updated)
+
+    def test_undated_included_and_existing_candidates_keep_their_review_paths(self):
+        previous = {'url': 'https://example.org/undated-report', 'decision': 'included', 'sourceUpdated': None}
+        candidate = {'url': 'https://example.org/undated-report', 'updated': None, 'existingIds': [], 'reviewState': 'needs-review'}
+        collect.apply_decisions([candidate], [previous])
+        self.assertEqual(candidate['reviewState'], 'needs-review')
+        candidate.update(existingIds=['catalogue-id'], reviewState='existing-check-update')
+        collect.apply_decisions([candidate], [previous])
+        self.assertEqual(candidate['reviewState'], 'existing-check-update')
+
 
     def test_family_queries_split_aliases_and_require_context_for_ambiguous_names(self):
         lanes, names = collect.family_queries([{'name': 'ConTextTab / SAP-RPT-1-OSS'}, {'name': 'Retro', 'needsContext': True}])

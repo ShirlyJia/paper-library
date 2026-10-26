@@ -196,7 +196,9 @@ def apply_decisions(candidates, decisions):
         candidate["previousDecision"] = previous
         if candidate["existingIds"]:
             continue
-        revised = candidate.get("updated", "") > previous.get("sourceUpdated", "")
+        updated, source_updated = candidate.get("updated"), previous.get("sourceUpdated")
+        # Unknown dates cannot establish that a previously reviewed source was revised.
+        revised = bool(updated and source_updated and updated > source_updated)
         candidate["reviewState"] = "needs-review" if revised or previous["decision"] == "included" else previous["decision"]
 
 
