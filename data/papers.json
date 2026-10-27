@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-25",
+  "updatedAt": "2026-10-27",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -2325,14 +2325,19 @@
       "topic": "预测概率与分布优化",
       "status": "preprint",
       "venue": "预印本",
-      "summary": "用边缘化一致性与分解顺序一致性检验 TFM 多目标预测能否对应同一联合分布。对多种 TFM 和 OpenML 成对目标比较总变差距离，并分析一致性与预测精度的关系。回归一致性依赖离散化近似，样本删除缺失行；观察到的不一致不等于所有单目标预测失效。",
+      "summary": "在 17 个 OpenML 表格（含 TabArena 整理的数据）上比较多种 TFM 的边缘化与分解顺序差异，显示按不同目标顺序构造的预测分布可能不同。检验中删列会改变训练上下文，因此这些差异不能单独证明模型不具备贝叶斯一致性；后续 Fixed-Evidence Coherence 给出了反例及固定证据对照。回归结果还依赖离散化，单目标准确性应另行评估。",
       "url": "https://arxiv.org/abs/2608.06004",
       "pdf": "https://arxiv.org/pdf/2608.06004",
       "code": null,
       "keywords": [],
       "section": "prediction-distributions",
       "topicId": "probability-calibration",
-      "addedAt": "2026-10-12"
+      "addedAt": "2026-10-12",
+      "sources": [
+        "https://arxiv.org/abs/2608.06004",
+        "https://arxiv.org/html/2608.06004v1",
+        "https://zenodo.org/records/23393077"
+      ]
     },
     {
       "id": "arxiv-2605.31272",
@@ -6211,7 +6216,7 @@
       "id": "arxiv-2605.07840",
       "title": "RelAgent: LLM Agents as Data Scientists for Relational Learning",
       "date": "2026-05-08",
-      "updated": "2026-05-08",
+      "updated": "2026-10-21",
       "category": 4,
       "section": "semantic-features",
       "topicId": "feature-search",
@@ -6222,10 +6227,10 @@
       ],
       "status": "published",
       "venue": "NeurIPS 2026",
-      "summary": "让 LLM 探索关系库、编写 SQL 特征并按验证反馈选择树模型；部署时只执行选定 SQL 和预测器。作者在 RelBench V1/V2 与 4DBInfer 报告有竞争力的分类回归表现，去除字段语义或反馈会退化。每任务多次搜索和复用验证标签带来额外预算与过拟合风险；时间过滤部分依赖提示约束，不能把可读 SQL 等同于已证明无泄漏。",
+      "summary": "让 LLM 按验证反馈搜索关系库的 SQL 特征及预测器，部署时只执行选定程序。10 月修订版在 RelBench V1 固定 TabPFN-2.5 后仍报告特征收益，三个任务的消融显示时间窗口尤其重要；但多次搜索增加预算与验证集过拟合风险，可读 SQL 不等于已证明无泄漏。",
       "url": "https://arxiv.org/abs/2605.07840",
       "pdf": "https://arxiv.org/pdf/2605.07840",
-      "code": "https://anonymous.4open.science/r/RelAgent",
+      "code": "https://github.com/HxyScotthuang/RelAgent",
       "keywords": [
         "关系数据",
         "特征工程",
@@ -6240,7 +6245,9 @@
         "https://arxiv.org/abs/2605.07840",
         "https://arxiv.org/html/2605.07840v1",
         "https://neurips.cc/Downloads/2026",
-        "https://jw9730.github.io/publications.html"
+        "https://jw9730.github.io/publications.html",
+        "https://arxiv.org/html/2605.07840v2",
+        "https://github.com/HxyScotthuang/RelAgent"
       ],
       "addedAt": "2026-10-17"
     },
@@ -6823,6 +6830,295 @@
         "https://arxiv.org/html/2610.25131v1"
       ],
       "addedAt": "2026-10-25"
+    },
+    {
+      "id": "arxiv-2610.29530",
+      "title": "Residual-Based Causal Discovery via Pretrained In-Context Quantile Regression",
+      "date": "2026-10-21",
+      "updated": "2026-10-21",
+      "category": 3,
+      "related": [
+        2,
+        5
+      ],
+      "section": "causal-discovery",
+      "topicId": "causal-mechanisms",
+      "topic": "表格数据的因果发现",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "将冻结 TabPFN-3 的均值与分位数预测接入残差独立性检验，把 RESIT 扩展到噪声尺度随输入变化的因果发现。作者在 19 组双变量基准及图恢复实验中验证了分位数插件的价值，但真实 Light Tunnel 实验仍落后于 FoundCause 和 CDFM。方法依赖无隐藏混杂等识别条件；同上下文估计残差尚未进行分样本检验，不能将理论一致性直接归于 TabPFN 插件。",
+      "url": "https://arxiv.org/abs/2610.29530",
+      "pdf": "https://arxiv.org/pdf/2610.29530",
+      "code": "https://github.com/causality-lab/loscar",
+      "keywords": [
+        "因果发现",
+        "分位数回归",
+        "异方差",
+        "残差独立性",
+        "TabPFN"
+      ],
+      "aliases": [
+        "Loscar",
+        "Location-Scale RESIT"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.29530",
+        "https://arxiv.org/html/2610.29530v1",
+        "https://github.com/causality-lab/loscar"
+      ],
+      "addedAt": "2026-10-27"
+    },
+    {
+      "id": "zenodo-23157404",
+      "title": "Information Effects Are Not Incoherence: Fixed-Evidence Coherence Tests for Tabular Foundation Models",
+      "date": "2026-09-28",
+      "updated": "2026-10-15",
+      "category": 2,
+      "related": [
+        5
+      ],
+      "section": "prediction-distributions",
+      "topicId": "probability-calibration",
+      "topic": "预测概率与分布优化",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "指出删掉训练表的一列会改变模型看到的信息，因此预测差异不能单独证明联合分布不一致；提出固定上下文的检验。v3 在 TabICLv2 和 TabPFNv2 的小型二元表实验中进一步用线性规划检出不相容，限定了早期版本“差异接近随机噪声”的概括。适合用于设计概率一致性测试，但不覆盖回归、所有底座或真实大表；结果来自作者实验。",
+      "url": "https://zenodo.org/records/23393077",
+      "pdf": "https://zenodo.org/records/23393077/files/fixed-evidence-coherence-v3.pdf",
+      "code": null,
+      "keywords": [
+        "概率一致性",
+        "固定证据",
+        "TabPFN",
+        "TabICL",
+        "联合分布"
+      ],
+      "aliases": [
+        "Fixed-Evidence Coherence"
+      ],
+      "sources": [
+        "https://zenodo.org/records/23015076",
+        "https://zenodo.org/records/23393077",
+        "https://zenodo.org/records/23393077/files/fixed-evidence-coherence-v3.pdf",
+        "https://zenodo.org/api/records/23393077/versions"
+      ],
+      "addedAt": "2026-10-27"
+    },
+    {
+      "id": "arxiv-2610.32487",
+      "title": "State Estimation as In-context Tabular Prediction",
+      "date": "2026-10-23",
+      "updated": "2026-10-23",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "topic": "工业与工程预测",
+      "related": [
+        2,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把历史电网测量及对应状态整理成上下文表，利用冻结的 TabPFN／TabICL 分别预测各节点电压和线路相角差。作者在五种电网的仿真与公开基准中检验了缺测、坏数据和拓扑变化；仍需要目标拓扑的带标签历史样本，部分对照使用真值标签，推理也比 WLS 慢。可参考工业多输出问题的表格化方式，尚非无需数据即可迁移的状态估计器。",
+      "url": "https://arxiv.org/abs/2610.32487",
+      "pdf": "https://arxiv.org/pdf/2610.32487",
+      "code": null,
+      "keywords": [
+        "ICTP",
+        "电网状态估计",
+        "工业预测",
+        "上下文学习",
+        "缺失测量"
+      ],
+      "aliases": [
+        "ICTP",
+        "In-context Tabular Prediction"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.32487",
+        "https://arxiv.org/html/2610.32487v1"
+      ],
+      "addedAt": "2026-10-27"
+    },
+    {
+      "id": "lead-5a5cc8230b8c",
+      "title": "A Sling Against Giants: LightPFN, a 4.6M-parameter tabular in-context classifier designed to stay small",
+      "date": "2026-10-08",
+      "updated": "2026-10-12",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "topic": "通用表格模型",
+      "related": [
+        2,
+        5,
+        6
+      ],
+      "status": "report",
+      "venue": "官方技术报告",
+      "summary": "LightPFN 在约460万参数内，用临时摘要 token 交换行内特征信息，再经第二次列处理后压缩为行表示；同时通过缓存分块、归一化折叠和上下文 KV 缓存降低推理成本。技术报告含消融及 TabArena 38个分类任务评测，官方榜单已接入；高基数类别和中大型表仍有弱项，小参数量不代表 CPU 比树模型更快。代码、权重和训练流程公开，可参考小模型结构与推理实现。",
+      "url": "https://github.com/GioOtto/LightPFN/blob/main/paper/LightPFN_report.pdf",
+      "pdf": "https://raw.githubusercontent.com/GioOtto/LightPFN/main/paper/LightPFN_report.pdf",
+      "code": "https://github.com/GioOtto/LightPFN",
+      "keywords": [
+        "LightPFN",
+        "TabArena",
+        "小模型",
+        "缓存",
+        "分类",
+        "推理效率"
+      ],
+      "aliases": [
+        "LightPFN",
+        "LightPFN v1",
+        "A Sling Against Giants"
+      ],
+      "sources": [
+        "https://github.com/GioOtto/LightPFN/blob/main/paper/LightPFN_report.pdf",
+        "https://raw.githubusercontent.com/GioOtto/LightPFN/main/paper/LightPFN_report.tex",
+        "https://github.com/GioOtto/LightPFN/releases/tag/v1.0.0",
+        "https://github.com/GioOtto/LightPFN/blob/main/docs/en/RESULTS.md",
+        "https://huggingface.co/spaces/TabArena/leaderboard/blob/main/website_texts.py"
+      ],
+      "addedAt": "2026-10-27"
+    },
+    {
+      "id": "arxiv-2610.29520",
+      "title": "Beyond the Vote: When Do LLMs Add Value to Retrieval-Based Tabular Classification?",
+      "date": "2026-10-21",
+      "updated": "2026-10-21",
+      "category": 5,
+      "section": "context-selection",
+      "topicId": "retrieval-shots",
+      "topic": "检索与近邻选择",
+      "related": [
+        2,
+        4
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "固定检索到的同一组样本，比较交给语言模型判断和按距离直接投票。作者在19个分类数据集、5个随机种子上发现，近邻投票平均准确率最高，但与最强的Gemma3-27B差异不显著；语言模型的收益主要集中在标签分歧较大的部分近距离或中距离邻域，低共识组内的最远邻域均未获益。可用于检查收益来自检索还是模型推断；结论限于所测通用语言模型，不能外推为TabPFN等专用表格模型无效。",
+      "url": "https://arxiv.org/abs/2610.29520",
+      "pdf": "https://arxiv.org/pdf/2610.29520",
+      "code": null,
+      "aliases": [
+        "Beyond the Vote"
+      ],
+      "keywords": [
+        "检索增强分类",
+        "近邻投票",
+        "上下文样本",
+        "语言模型"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.29520",
+        "https://arxiv.org/html/2610.29520v1"
+      ],
+      "addedAt": "2026-10-27"
+    },
+    {
+      "id": "arxiv-2610.25142",
+      "title": "Image Dehazing as In-Context Tabular Inference",
+      "date": "2026-10-18",
+      "updated": "2026-10-18",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "topic": "工业与工程预测",
+      "related": [
+        4,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "DehazeTab把图像块的颜色、纹理或视觉表征整理成表格，用冻结的TabPFN-3.5根据参考图块预测透射率，再重建去雾图像。作者的两组配对基准中，物理手工特征优于单独视觉嵌入；但主基准采用500张测试图像间留一互作参考，另一个独立子集仅10张，且比较方法的监督条件不同。作为视觉任务转为表格回归的探索收录，尚不能据此认定通用去雾优势；官方仓库目前只有说明页。",
+      "url": "https://arxiv.org/abs/2610.25142",
+      "pdf": "https://arxiv.org/pdf/2610.25142",
+      "code": null,
+      "aliases": [
+        "DehazeTab"
+      ],
+      "keywords": [
+        "TabPFN-3.5",
+        "视觉转表格",
+        "图像去雾",
+        "上下文检索"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.25142",
+        "https://arxiv.org/html/2610.25142v1",
+        "https://github.com/tranleanh/dehazetab"
+      ],
+      "addedAt": "2026-10-27"
+    },
+    {
+      "id": "https://aclanthology.org/2026.emnlp-main.1103/",
+      "title": "ObSchema: From Local Observations to Global Entity Attribute Schemas in Scientific Literature",
+      "date": "2026-10",
+      "updated": "2026-10",
+      "category": 4,
+      "section": "semantic-features",
+      "topicId": "text-structure",
+      "topic": "文本到字段与记录",
+      "related": [],
+      "status": "published",
+      "venue": "EMNLP 2026",
+      "summary": "从科学文献中抽出实体、属性、取值和实验条件，再根据跨文档证据合并同义字段、组织属性层级。作者在电池与地学语料上报告了较少重复和较清晰的字段体系，可为文本结构化提供思路；但主要依赖模型评审，支持度门槛会漏掉低频属性，尚未验证表格预测收益。",
+      "url": "https://aclanthology.org/2026.emnlp-main.1103/",
+      "pdf": "https://aclanthology.org/2026.emnlp-main.1103.pdf",
+      "code": null,
+      "keywords": [
+        "语义结构化",
+        "模式归纳",
+        "属性抽取",
+        "科学文献"
+      ],
+      "aliases": [
+        "ObSchema"
+      ],
+      "sources": [
+        "https://aclanthology.org/2026.emnlp-main.1103/",
+        "https://aclanthology.org/2026.emnlp-main.1103.pdf"
+      ],
+      "dateNote": "官方仅核实 2026 年 10 月；未找到更早预印本或精确首发日，不以会议日期代替首发日期。",
+      "addedAt": "2026-10-27"
+    },
+    {
+      "id": "https://aclanthology.org/2026.findings-emnlp.1543/",
+      "title": "Agentic Open-Domain Tabular Question Answering with Self-Supervised Multi-Table Retriever",
+      "date": "2026-10",
+      "updated": "2026-10",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "data-integration",
+      "topic": "端到端数据整合",
+      "related": [
+        5
+      ],
+      "status": "published",
+      "venue": "Findings of EMNLP 2026",
+      "summary": "面向不知道答案在哪张表的数据湖问答，用表格生成 SQL 与问题来训练多表检索器，再规划连接或合并并执行 SQL。作者在四套原生或构造的多表任务上报告收益，为检索和跨表整合提供可拆解流程；代价是更多模型调用，部分任务来自表格拆分或翻译，真实业务外推及复现版本仍需核对。",
+      "url": "https://aclanthology.org/2026.findings-emnlp.1543/",
+      "pdf": "https://aclanthology.org/2026.findings-emnlp.1543.pdf",
+      "code": "https://github.com/guaiyoui/ArrTab",
+      "keywords": [
+        "多表问答",
+        "表格检索",
+        "SQL",
+        "数据整合",
+        "LLM Agent"
+      ],
+      "aliases": [
+        "ArrTab",
+        "MuRe"
+      ],
+      "sources": [
+        "https://aclanthology.org/2026.findings-emnlp.1543/",
+        "https://aclanthology.org/2026.findings-emnlp.1543.pdf",
+        "https://github.com/guaiyoui/ArrTab"
+      ],
+      "dateNote": "官方仅核实 2026 年 10 月；未核到精确首发日或更早预印本，不把会议开幕日视为首发日。",
+      "addedAt": "2026-10-27"
     }
   ],
   "collectionUpdates": [
@@ -7264,6 +7560,23 @@
       ],
       "updated": [
         "arxiv-2610.20418"
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "added": [
+        "arxiv-2610.25142",
+        "arxiv-2610.29520",
+        "arxiv-2610.29530",
+        "arxiv-2610.32487",
+        "https://aclanthology.org/2026.emnlp-main.1103/",
+        "https://aclanthology.org/2026.findings-emnlp.1543/",
+        "lead-5a5cc8230b8c",
+        "zenodo-23157404"
+      ],
+      "updated": [
+        "arxiv-2605.07840",
+        "arxiv-2608.06004"
       ]
     }
   ]

@@ -601,6 +601,15 @@
         "https://arxiv.org/abs/2610.31147",
         "https://github.com/FelixSaretzky/PriMaCausa"
       ]
+    },
+    {
+      "name": "LightPFN",
+      "paperIds": [
+        "lead-5a5cc8230b8c"
+      ],
+      "sources": [
+        "https://github.com/GioOtto/LightPFN/blob/main/paper/LightPFN_report.pdf"
+      ]
     }
   ]
 }

@@ -7188,5 +7188,444 @@
     "decision": "deferred",
     "reviewedAt": "2026-10-25",
     "reason": "TabArena关联的闭源API系统：模型卡称对多个表格基础模型做表内验证后加权，未披露完整后端组成与训练实现。官方TabArena记录只核验客户端及调用过程，不核验服务内部；模型卡中的medium/full配置与榜单变更文字亦不完全一致。待补精确版本、核心方法与可比评测资料，不能仅凭排名收录为已审基础模型论文。"
+  },
+  {
+    "id": "arxiv-2610.29530",
+    "title": "Residual-Based Causal Discovery via Pretrained In-Context Quantile Regression",
+    "url": "https://arxiv.org/abs/2610.29530",
+    "sourceUpdated": "2026-10-21",
+    "decision": "included",
+    "reviewedAt": "2026-10-27",
+    "reason": "阅读一手方法、理论条件、主要实验与附录，收录表格底座分布预测能力用于因果发现的算法。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "冻结的上下文分位数预测器可以为位置—尺度噪声模型提供尺度估计，作为残差因果发现的实用插件；这不是对任意机制、任意维度或 TabPFN 估计一致性的保证。",
+      "contribution": "将 RESIT 的去均值残差推广为同时去位置与尺度的残差，提出分位数差和 Gauss–Legendre 两种尺度估计方案，并给出依赖一致估计及独立性检验条件的图恢复论证；无需再训练底座即可使用 TabPFN-3 的分布预测能力。",
+      "evidence": "作者在 19 组双变量基准报告 Loscar 平均准确率 90.04，对比 FGLS 74.97、ROCHE 89.52；ROCHE 的平均 AUDRC 仍略高。100 图/设置、1000 行、6/12 节点的合成实验比较 ANM 与 LSNM，分位数插件在 LSNM 上优于 FGLS，但 FGLS 在 ANM 上占优。还评估 Sachs（853 行、11 节点）及 Light Tunnel（10000 行、20 节点）；后者 Loscar F1 0.430，低于 FoundCause 0.687、CDFM 0.727。因此支持特定机制下的可行性，不支持普遍最优。均为作者报告，本轮未独立运行。",
+      "limitations": "识别依赖无隐藏混杂、无环及位置—尺度噪声等条件；TabPFN 估计器的一致性未证明。均值与分位数在同一上下文上拟合并形成残差，论文将样本拆分列为后续工作，有限样本独立性检验仍需检查。真实图真值可能有争议，逐节点回归及 HSIC 增加规模成本、排序错误会传播；Light Tunnel 单次约 85 分钟。部分基线的合成机制接近其预训练机制；CPU/GPU 不同配置不能直接作公平速度比较。",
+      "value": "为表格模型分布预测能力提供明确的因果图发现接口，可跟踪分位数质量、分样本检验和推理缓存是否改善传统残差方法；同时提供底座升级并不必然改善因果任务的对照。",
+      "reproducibility": "作者仓库公开算法及实验入口，README 列出 checkpoint 与运行方法；代码许可和底座权重许可须分别核对，仓库说明默认 TabPFN-3 权重有非商业使用限制。本轮仅核验正文和仓库，未本地复现实验。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.29530",
+        "https://arxiv.org/html/2610.29530v1",
+        "https://github.com/causality-lab/loscar"
+      ],
+      "readScope": [
+        "正文 §2：位置—尺度模型、标准化残差、RESIT 排序与剪枝及一致性前提",
+        "正文 §3：分位数差、Gauss–Legendre 尺度估计与 FGLS",
+        "正文 §4–6：相关工作、完整实验结果、局限",
+        "附录 A.2–A.5：数据、checkpoint、超参数、基线及运行时间",
+        "附录 B.1.2、B.1.3、B.2：部分消融、TabPFN-3.5 对照、Sachs 及运行时间结果",
+        "官方 GitHub README：安装、许可与复现入口"
+      ]
+    }
+  },
+  {
+    "id": "zenodo-23157404",
+    "title": "Information Effects Are Not Incoherence: Fixed-Evidence Coherence Tests for Tabular Foundation Models",
+    "url": "https://zenodo.org/records/23393077",
+    "sourceUpdated": "2026-10-15",
+    "decision": "included",
+    "reviewedAt": "2026-10-27",
+    "reason": "取得并审核 v3 正文；此前只获得 v2 元数据的待审项现可完成审核，保留既有规范 ID。按 Zenodo 版本历史将首发记为 2026-09-28。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "删列改变训练证据时，边缘化或分解差异不能单独证明预测器不相容；在固定证据下，所测两种 TFM 的部分三变量查询仍不能来自同一联合分布。",
+      "contribution": "用信息效应分解与精确贝叶斯反例说明旧检验的归因问题，提出固定证据的成对条件分布残差；v3 增加联合概率律的线性规划可行性检验及精确有理数证书，区分信息变化、查询不相容和集成随机噪声。固定证据残差建立在已有条件分布相容性方法之上。",
+      "evidence": "正文给出精确贝叶斯预测器 C1=12/25、固定证据差为 0 的反例及推导。20 类六变量二元合成族、每设置 30 个训练表与 8 个测试点、样本数 8/32/128：旧检验在 14/20 类精确贝叶斯族上产生非零信息差，固定证据残差处于数值误差。TabICLv2 与 TabPFNv2 默认集成下，成对残差均未在 60 个设置中超过主种子噪声阈值三倍；这不能证明完整联合相容。v3 在两类三变量小表、每类 20 个独立行块及最多 64 个外部单估计器集成（子集 256）上，报告每模型—族至少 19/20 行块含一个在 0.01 容差下无法相容的表；用精确 Farkas 证书核验并进行 68 项检验 Bonferroni 校正。另有三张真实分类表对照旧 C1 值。本轮核对论证和作者结果，未独立复现。",
+      "limitations": "只测试两种既有模型、小型二元表和有限集成规模；成对残差较小不等于存在全局联合分布。行块结论是至少一个状态不相容，不应改写为所有样本都失败；最大不相容量与平均查询噪声采用不同聚合，不能不加限定放大倍数。真实表预处理与原作并不完全一致；未覆盖回归，不能据此否定单目标预测质量。有限可交换性只是贝叶斯表示的必要条件，不能凭通过测试证明存在某个先验。",
+      "value": "为库中概率一致性论文提供重要后续反例及更严格的对照，帮助在评估表格模型时固定训练证据、区分信息改变与模型不相容，并避免把单项审计解释为所有预测功能失效。",
+      "reproducibility": "Zenodo 公布 v1（2026-09-28）、v2（2026-10-05）、v3（2026-10-15）及完整 PDF，附录给出模型 checkpoint、软件和求解细节；本轮未找到可核验的实验代码仓库，未本地执行精确证书或复现结果。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://zenodo.org/records/23015076",
+        "https://zenodo.org/records/23393077",
+        "https://zenodo.org/records/23393077/files/fixed-evidence-coherence-v3.pdf",
+        "https://zenodo.org/api/records/23393077/versions",
+        "https://arxiv.org/html/2608.06004v1"
+      ],
+      "readScope": [
+        "v3 PDF 第 1–13 页 §1–10：定义、命题与反例、合成与真实数据结果、固定证据分解、联合 LP 证书、局限和结论",
+        "附录 I 第 21–23 页：线性规划、精确 Farkas 证书、全部检验、控制实验与计算配置",
+        "附录 G/H：真实数据与因子分解对照、条件查询处理相关部分",
+        "Zenodo versions API 核对 v1/v2/v3 日期与同一作品关系",
+        "对照原作 arXiv:2608.06004v1 §2–4 的训练表删列定义与实验协议"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2610.32487",
+    "title": "State Estimation as In-context Tabular Prediction",
+    "url": "https://arxiv.org/abs/2610.32487",
+    "sourceUpdated": "2026-10-23",
+    "decision": "included",
+    "reviewedAt": "2026-10-27",
+    "reason": "补查最近七天工业应用论文后阅读完整方法与实验正文；原站仅显示10月23日v1，未采用聚合站所谓10月26日修订。保留标签条件、模拟环境与延迟限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在有目标电网带标签上下文的条件下，冻结表格模型可执行状态估计，并在所测缺测及偏置条件下保持可用预测；不等于无需新拓扑数据的零样本迁移或全面优于物理估计器。",
+      "contribution": "将每次运行快照作为一行，测量作输入列，电压与线路相角差作目标列，逐目标调用冻结的TabPFN v2和TabICL v2.1。相角差最后通过支路—节点关联矩阵最小二乘还原绝对相角；预测阶段不使用测量雅可比，但后处理仍需要拓扑。",
+      "evidence": "第II—IV节：30/33/118节点仿真用扰动负载生成快照，500行上下文、100次估计，测试删测量、噪声与注入偏置，比较WLS、稳健WLS、上下文均值及同上下文ridge。DSS²的14/70节点基准使用1080条独立测试记录及500条训练集上下文，此处改用真值标签。TAPINE比较的上下文与查询为各拓扑互不重叠抽样，但每拓扑仍需500条WLS标签。结果为作者报告，未本地复现。",
+      "limitations": "没有真实电网闭环证据。新拓扑实验补充该拓扑标签，不能称无样本迁移。DSS²原方法无真值监督，而ICTP该对照使用真值上下文，信息条件不同。WLS误差仅统计收敛样本，须结合失败率。500行时ridge具有竞争力，全测量时ICTP相角误差高于WLS。缺少重复随机种子区间和同预算对照；118节点100次估计耗239—393秒，WLS为81秒。",
+      "value": "提供把工业多输出估计转换为表格上下文预测的设计及缺测、异常传感器、拓扑变化测试范式。适合已有可用历史状态样本时作为补充基线，不能据此替代物理约束或上线可靠性验证。",
+      "reproducibility": "公开3页正文及测试设置，引用TabPFN/TabICL与pandapower；精确题名检索未找到可核实的专用代码或完整随机划分文件，code留空。未执行模型，未做独立复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.32487",
+        "https://arxiv.org/html/2610.32487v1"
+      ],
+      "readScope": "arXiv提交历史；v1完整正文I引言、II输入/目标与相角还原、III压力测试/上下文规模/ridge/DSS²/TAPINE比较、图1—5图注、IV结论与耗时及参考文献。未从HTML图形本身额外读取数值。"
+    }
+  },
+  {
+    "id": "lead-5a5cc8230b8c",
+    "title": "A Sling Against Giants: LightPFN, a 4.6M-parameter tabular in-context classifier designed to stay small",
+    "url": "https://github.com/GioOtto/LightPFN/blob/main/paper/LightPFN_report.pdf",
+    "sourceUpdated": "2026-10-12",
+    "decision": "included",
+    "reviewedAt": "2026-10-27",
+    "reason": "恢复10月14日TabArena待核验线索，保留原候选ID。找到并阅读技术报告的方法、选择协议、消融、成本、TabArena和限制。GitHub首个公开版本明确10月8日发布，报告源文件最后更新10月12日。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在约4.6M参数预算内，压缩前行/列交互与图加规则先验的组合可取得有竞争力的分类结果；缓存分块等优化可在舍入误差范围内保持预测并改善特定硬件成本。不能据此声称普遍胜过调优树模型或笔记本CPU同速。",
+      "contribution": "借鉴Causilo的压缩前细化，以4个临时token进行3轮行内收集/广播，再做独立第二列编码及行池化，删除一个ICL块控制参数。上下文只读取带标签行，查询之间不交互，ICL查询使用MQA与缓存。缓存分块、RMSNorm参数折入线性层、GPU估计器批处理保持计算函数，区别于减少上下文。",
+      "evidence": "D1为1536个独立种子合成任务，D2为25种探针各5种子，D3为55个非TabArena的CC18任务（最多1000行100列、分层5折）；它们用于选模型，并非独立最终测试。8000步单种子B4消融同时改行细化、第二列阶段、ICL深度，支持配置整体效果而非单模块归因。作者自建TabArena评估38分类任务首个repeat，另有维护者全split验证；官方10月11日变更页确认入榜。固定EPYC9654八线程六种合成表形状的推理优化报告1.1—4.1倍加速，38任务首fold检查概率差异。本次未重跑。",
+      "limitations": "D3参与设计，不能作未触碰测试；作者披露早期r2探索过TabArena，不能称全程盲测。消融单种子，任务bootstrap不含训练随机性。自建默认树基线与官方调参/集成榜单须分开，Elo边际区间重叠也不是配对显著性结论。GPU模型和CPU树的时间不构成同硬件比较，中大表CPU仍较慢。仅评估2—10类，缺精确列序不变性和模块独立归因，高基数类别适配器未获得可靠改善。",
+      "value": "提供紧凑TFM架构、保持函数的推理优化和负面适配结果，可用于讨论参数预算分配、缓存实现与小模型适用范围。TabArena关联提供公共协议下的定位，仍需在自有数据和硬件验证精度及延迟。",
+      "reproducibility": "仓库公开报告TeX/PDF、训练及评测代码、Apache-2.0权重与固定版本下载，v1.0发布附原始TabArena-Lite结果。仅核对资料和版本历史，未执行训练或推理；官方榜单verified并非本次本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://github.com/GioOtto/LightPFN/blob/main/paper/LightPFN_report.pdf",
+        "https://raw.githubusercontent.com/GioOtto/LightPFN/main/paper/LightPFN_report.tex",
+        "https://github.com/GioOtto/LightPFN/releases/tag/v1.0.0",
+        "https://github.com/GioOtto/LightPFN/blob/main/docs/en/RESULTS.md",
+        "https://huggingface.co/spaces/TabArena/leaderboard/blob/main/website_texts.py"
+      ],
+      "readScope": "报告第3节完整结构、掩码、对称性和参数；第6节评估/统计协议；第7节设置、结构与先验消融、早期TabArena使用披露；第10节缓存分块/折叠/批处理与等价成本表；第11节TabArena两套协议和成本；第12节类别负面结果、第13节限制和结论。补读README、RESULTS.md、TRAINING.md、首发release及报告文件提交历史；未完整重算CSV，未执行代码。"
+    }
+  },
+  {
+    "id": "arxiv-2610.29520",
+    "title": "Beyond the Vote: When Do LLMs Add Value to Retrieval-Based Tabular Classification?",
+    "url": "https://arxiv.org/abs/2610.29520",
+    "sourceUpdated": "2026-10-21",
+    "decision": "included",
+    "reviewedAt": "2026-10-27",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在相同检索邻居的分类对照中，通用LLM没有获得稳定的平均准确率优势；局部收益与标签分歧和邻居距离有关。",
+      "contribution": "用shared-neighbor设计拆开检索与LLM预测的贡献，并按标签共识和距离分析改判；是受控负面结果和诊断方法，不是新表格基础模型。",
+      "evidence": "实际阅读§3–5及附录A/B/C。19个UCI/OpenML分类数据集按类别分层8:1:1划分，主结果5个种子，共享候选池和k=8近邻，归一化和缺失统计只在当前训练候选池拟合。四个冻结模型为Qwen3-8B/32B、Gemma3-12B/27B；关闭Qwen thinking，只比较一步标签概率。全训练池KNN平均85.50%，Gemma3-27B为85.26%，差值-0.24个百分点、95%CI[-1.12,0.53]、Holm校正p=0.625，不构成KNN显著胜过最强模型；其余三模型显著落后。低标签共识组出现部分LLM收益，但该组内最远邻域均落后。3种子补充改变k=4/8/16、提示、嵌入检索、标签均衡采样，大体保留趋势。以上为作者报告，非本地复现。",
+      "limitations": "只对比4个冻结通用LLM和共享邻居投票，未测专用TFM或独立优化端到端方案；KNN直接用数值距离而LLM提示不含距离，控制的是邻居身份而非完全相同的信息表示。1-token/top20-logprob打分限制生成策略；未审计公开基准与LLM预训练重叠，未统一测算端到端成本。距离分位在测试查询集合内定义，分层是事后描述，不是已经验证的在线路由器。分层多次探索不等于全体条件统计显著。",
+      "value": "为检索型表格分类提供低成本必要基线，以及按邻居标签分歧/相似度分析LLM额外价值的方法，避免将检索贡献误算给推理模型。",
+      "reproducibility": "正文附模型、提示、数据规模、划分、统计检验细节；论文虽提released configuration，但本轮未找到可核实官方实现链接，code为空。未运行任何模型或独立复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.29520",
+        "https://arxiv.org/html/2610.29520v1"
+      ],
+      "readScope": "arXiv v1：§1–6、Limitations；附录A.1–A.4、B.1/B.2/B.3、C.1–C.4的方法及表1–7；未逐格核对附录D所有组合。"
+    }
+  },
+  {
+    "id": "arxiv-2610.25142",
+    "title": "Image Dehazing as In-Context Tabular Inference",
+    "url": "https://arxiv.org/abs/2610.25142",
+    "sourceUpdated": "2026-10-18",
+    "decision": "included",
+    "reviewedAt": "2026-10-27",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "冻结表格基础模型可以通过图块特征到透射率的上下文回归完成去雾；所测配置下物理手工特征具备独立价值。",
+      "contribution": "将低层视觉的物理中间量重写为结构化回归，比较44维手工描述、128维CNN、192维ViT、172维混合特征，并改变参考图/patch检索预算。未提出新的基础模型或无需配对监督的去雾机制。",
+      "evidence": "读§III方法、§IV-A–E和表III–VIII。256×256图像按16×16、步幅8形成961图块，默认每参考图取100块、检索5张参考图，500行上下文输入冻结TabPFN-3.5。透射率标签依赖配对清晰图和估计大气光。SOTS-Outdoor500对采用leave-one-image-out：排除当前图，但其余测试图带标签作为参考；HSTS10对另用SOTS参考。作者报告默认手工特征在两组PSNR均高于单独CNN/ViT；混合只在SOTS略增，HSTS未超过手工或若干外部方法。真实图仅4张用无参考指标；运行时间含单图特征/检索/初始化/预测/重建，排除encoder加载与离线参考准备。为作者报告，未复现。",
+      "limitations": "主基准使用SOTS测试集内其余带标签图像作为参考，与独立参考集评测的信息条件不同；是否存在同场景跨图重叠尚未核验。没有等配对监督/等预算比较强专用监督网络，不能声称优于专用去雾。HSTS只有10对、真实场景4图，未报告随机种子区间；CNN/ViT空间分辨率不同混杂表征对照。未用同特征下树/近邻回归检验TFM的独立贡献。标签误差和物理假设会传递至重建；图块平均丢失细节，运行成本数秒而非实时。",
+      "value": "展示从图像提取物理相关结构化特征、以冻结TFM回归中间量的可迁移问题改写；可研究样本检索与表征作用，但应用价值目前仅属探索。",
+      "reproducibility": "arXiv正文包含方法、指标与参数；官方github/tranleanh/dehazetab本轮仅README(to be updated)，没有可运行实现，故code=null。TabPFN版本指明3.5，尚未独立/本地复现。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/abs/2610.25142",
+        "https://arxiv.org/html/2610.25142v1",
+        "https://github.com/tranleanh/dehazetab"
+      ],
+      "readScope": "arXiv v1 §I–V，重点III-A–D、IV-A–E及表I–VIII；核对官方GitHub文件列表/README。未对图3–5作逐像素视觉评价。"
+    }
+  },
+  {
+    "id": "https://aclanthology.org/2026.emnlp-main.1103/",
+    "title": "ObSchema: From Local Observations to Global Entity Attribute Schemas in Scientific Literature",
+    "url": "https://aclanthology.org/2026.emnlp-main.1103/",
+    "sourceUpdated": "2026-10",
+    "decision": "included",
+    "reviewedAt": "2026-10-27",
+    "reason": "完成方法与实验审核；语义到统一字段体系有直接贡献，概览限定为两领域证据。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在所测电池和地学语料中，先抽取实体属性观察，再用跨文档证据整理，可形成较紧凑、连贯的属性层级。",
+      "contribution": "区别于仅按字段名聚合，局部观察保留实体、属性定义、取值、粗类别及实验条件；按文档与实体支持度提升候选属性，结合值和单位合并近义字段并自适应分组。需指定实体类型与少量粗类别。",
+      "evidence": "303 篇论文、1,305 个实体相关段落（电池 185 篇/927 段；地学 118 篇/378 段）。同语料、粗类别与底模比较 Chain-of-Layer、TaxoAdapt、迭代 LLM 归纳，作者报告多个底模下有效性、粒度、同层连贯性及唯一性改善。主要指标由 GPT-5-mini 判断；附录 E.1 每指标随机 100 项的人类一致率为 82%、78%、70%、85%，五个评审种子不是完整流水线重复。电池专家参考 60 项中覆盖 50 项；组件消融支持证据门槛和数值感知合并的作用。",
+      "limitations": "两类物理科学语料且预选实体密集段落。专家参考只覆盖电池且来自同一语料，不能当作跨领域独立测试；七个低频但合理属性停留在候选池。评审偏差、人工粗类别和语料选择限制外推。并行度与 token 预算不同，不作等成本全面胜出结论；未验证下游预测收益。",
+      "value": "将文献中的异构语义整理为保留单位和测量条件的统一字段体系，对文本结构化及跨文档特征定义有直接启发。",
+      "reproducibility": "论文提供语料筛选、提示和超参数；作者页面核验发表。未找到可核验公开实现，未独立或本地复现实验。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://aclanthology.org/2026.emnlp-main.1103.pdf",
+        "https://aclanthology.org/2026.emnlp-main.1103/",
+        "https://wonbinkweon.github.io/publications/",
+        "https://jimengshi.github.io/publication/"
+      ],
+      "readScope": "正文第 3–4 节、Limitations；附录 B.2–B.3、C、D、E.1、F.3；作者发表页面。未逐条审计全部提示或语料。"
+    }
+  },
+  {
+    "id": "https://aclanthology.org/2026.findings-emnlp.1543/",
+    "title": "Agentic Open-Domain Tabular Question Answering with Self-Supervised Multi-Table Retriever",
+    "url": "https://aclanthology.org/2026.findings-emnlp.1543/",
+    "sourceUpdated": "2026-10",
+    "decision": "included",
+    "reviewedAt": "2026-10-27",
+    "reason": "全文有可拆分的跨表检索整合机制和消融；保留任务构造、预算及复现版本限制，不据此声称生产可用或普遍优势。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "所测多表问答条件下，自监督多表检索和显式整合、SQL 反馈组合具有研究价值；所报收益不能直接外推到企业数据湖。",
+      "contribution": "MuRe 从候选表对生成 SQL 再转自然语言问题，用双编码器学习所需表的排序；四代理依次检索、规划 Join/Union、执行 SQL、核查证据充分性，最多三轮重检索。惰性执行将整合计划推迟到抽取时执行。",
+      "evidence": "WikiTables、RETQA 为原生多表，FeTaQA、TabFact 由单表拆分并注入缺失或字段改写，RETQA 经中译英。开放域基线用同语料与问题；闭域参考获得金标准表，不能视为相同检索条件。默认 DeepSeek-V3、top-10 检索。移除检索训练、规划、反思和充分性核查的消融显示下降。自监督训练使用目标表语料，附录承认 66.2% 生成问题退化为单表。",
+      "limitations": "部分场景人为拆分或翻译；未充分说明全部生成问题与评测问题的近重复排查，不能证明无污染。更多调用和时间意味着总预算不配平，无完整重复运行置信区间。主文最多 4,000 与附录 4,420 训练样本口径不一致；当前仓库描述学生检索器/教师重排/融合，与正文双编码器不完全一致，不能宣称已忠实复现论文数值。这些限制不抹去可拆解的方法贡献。",
+      "value": "从异构表检索证据、生成整合计划、执行查询和核查回答的链路有直接参考价值，可分别评估检索、整合及反馈模块。",
+      "reproducibility": "官方仓库有实现和部分 FeTaQA 样例/检查点，但基础编码器与全部索引未完整分发，版本需对齐。未运行代码或独立复现实验。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://aclanthology.org/2026.findings-emnlp.1543.pdf",
+        "https://github.com/guaiyoui/ArrTab",
+        "https://jianwei-cse.github.io/"
+      ],
+      "readScope": "正文第 3–6 节、局限；附录 A.6 通信机制、B 数据构造、C.1–C.4 实现及样本审计；代码 README。"
+    }
+  },
+  {
+    "id": "arxiv-2608.06004",
+    "title": "Do Tabular Foundation Models Agree with Themselves?",
+    "url": "https://arxiv.org/abs/2608.06004",
+    "sourceUpdated": "2026-08-06",
+    "decision": "existing",
+    "reviewedAt": "2026-10-27",
+    "reason": "对照原作方法实验及后续固定证据反例，更正卡片对检测差异的解释；保留原 ID、首发、版本日期与入库日期。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "原文将删列后出现的边缘化与因子分解差异作为不能对应贝叶斯预测/有效联合分布的判据；这些跨不同训练证据的差异不足以单独支持该解释。",
+      "contribution": "以总变差距离量化多目标预测在目标顺序与删列条件下的差异，并比较预测精度与这些差异；其协议观察仍有用于多目标构造与输入敏感性诊断的价值。",
+      "evidence": "重读原文 §2–3，确认 C1/C2 的不同分支使用删除目标列后的训练表，并非完全相同的证据。原文 §4 对 10 个分类与 7 个回归 OpenML 数据集比较 6 个分类器、4 个回归器，采用 5 折评估；其中若干来自 TabArena 的整理，所报告差异可作为这一具体协议的作者实验结果保留。后续 Coherence v3 提供共享潜变量的精确贝叶斯反例，删除训练列改变潜变量后验，仍可出现 C1=12/25；本轮对照其推导与原作定义。这反驳无条件将跨证据差异归为不相容的判据，不是否认原实验观测，亦不是本地独立重复原实验。",
+      "limitations": "原作删除缺失行并因数据集选择处理部分高缺失列，可能改变适用样本；模型间预处理存在差异。回归的条件分布一致性通过量化与分箱近似，不能视为精确连续分布检验。后续论文固定证据 LP 下仍发现两模型的部分查询不相容，故不能从反例反向推断所有 TFM 已满足一致性；两篇论文的模型、查询和证据集合应分别解释。",
+      "value": "保留多目标分布构造与目标顺序诊断的研究价值，同时更正公开卡片对检测结果的归因与贝叶斯解释，避免把输入证据变化误认为已证实的模型缺陷。",
+      "reproducibility": "本轮复核原文方法、主要实验与预处理/离散化附录，并交叉阅读后续反例；未下载并重跑所有模型或数据，不宣称独立复现。公开条目保持原首发 2026-08-06 与入库 2026-10-12。",
+      "conclusion": "现有证据不支持",
+      "sources": [
+        "https://arxiv.org/abs/2608.06004",
+        "https://arxiv.org/html/2608.06004v1",
+        "https://zenodo.org/records/23393077",
+        "https://zenodo.org/records/23393077/files/fixed-evidence-coherence-v3.pdf"
+      ],
+      "readScope": [
+        "原作 arXiv:2608.06004v1 §2–3：C1/C2、删列及不同训练表的定义",
+        "原作 §4 与表 1/2：分类/回归模型、数据集、五折实验及结果",
+        "原作附录 B/C：缺失与编码处理、回归离散化",
+        "Coherence v3 §2–3：信息效应分解及精确贝叶斯反例；§5–7：作者对照结果及固定证据 LP"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2605.07840",
+    "title": "RelAgent: LLM Agents as Data Scientists for Relational Learning",
+    "url": "https://arxiv.org/abs/2605.07840",
+    "sourceUpdated": "2026-10-21",
+    "decision": "existing",
+    "reviewedAt": "2026-10-27",
+    "reason": "v2 新增实质实验，更新修订日期、概览及代码；保留原首发和首次收录日期。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "10 月修订版的固定预测器对照表明，所测 RelBench V1 分类收益部分来自任务相关 SQL 特征，而非仅模型选择。",
+      "contribution": "新增 TabPFN-2.5 固定预测器、字段表示比较、三任务 SQL 操作消融及 turn/best-of-R 预算分析；公开代码替代匿名仓库。",
+      "evidence": "v2 表 8(a) 固定 TabPFN-2.5 后，RelAgent 特征/DFS/人工字段/实体表平均 AUROC 为 78.13/75.55/74.92/61.63，支持限定条件下的独立特征贡献。表 8(b) 三项任务去除时间特征均下降，不能外推所有任务。附录 F 表 12 的 10/20/30/60 turns 得分 77.81/77.48/78.87/78.38，不支持加预算单调改善；表 13 多轨搜索边际收益因基准而异。使用时间划分，验证选择方案，最后训练加验证拟合后测试。",
+      "limitations": "每任务五次独立搜索，工作区可见验证标签及错误，存在验证集过拟合风险。时间过滤依赖提示和查询谓词；检查 row_id 对齐不等于逐查询无泄漏证明。新操作消融仅三任务，总搜索预算不完全配平。附录费用是假定完全提示缓存的 trace 估算，本地模型也有算力成本，不能称免费。未审计每条生成 SQL。",
+      "value": "补充语义引导特征搜索的贡献归因，并提供固定 TabPFN 接 SQL 特征的可检验方案；部署需单独检查时间约束和真实成本。",
+      "reproducibility": "作者公开 GitHub 可访问。已读版本差异和关键正文，未运行代码或独立重跑。原 NeurIPS 2026 录用记录保留，不重复认定展示标记。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2605.07840",
+        "https://arxiv.org/html/2605.07840v1",
+        "https://arxiv.org/html/2605.07840v2",
+        "https://github.com/HxyScotthuang/RelAgent"
+      ],
+      "readScope": "v1/v2 文本差异；v2 第 3–5 节、表 8、附录 A 的时间约束、E–F 预算、G 的 SQL 统计、J 局限；代码首页。"
+    }
+  },
+  {
+    "id": "arxiv-2610.27569",
+    "title": "Two Is Enough: Binary Classification Priors Suffice for Multi-Class In-Context Tabular Prediction",
+    "url": "https://arxiv.org/abs/2610.27569",
+    "sourceUpdated": "2026-10-20",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-27",
+    "reason": "全文核心机制与官方固定版本代码不一致，实际模型与解码路径未给出可核实版本；待补代码/权重、单步或分层推理说明、匹配训练配置及逐任务评测后再审。不是因涉及预训练或未开源自动排除。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "作者将二分类先验模型的多分类能力解释为不改TabICLv2架构的动态类别原型比较，并主张先验成本下降。",
+      "contribution": "探索二分类先验训练与多分类推断及 TabArena 表现的关系；方向相关，但报告混合了训练配方、输出头和分层分类机制。",
+      "evidence": "读 v1 全文方法、实验、限制、表 1–2、附录 A。作者在 38 个 TabArena 分类任务报告 1590.1 对 1568.0 Elo，采用公开参考评分，未统一重跑；内部 60 机构二分类 AUC 均值增加 0.0019，仅是作者报告。§3.2 承认未核验 TabICLv2 是否保留分层机制，§3.3 是待核验清单。官方 c91f00df184a5097e584cb376f7e699e9f3444c4 源码中分类 out_dim=max_classes；ICLearning 使用 OneHotAndLinear(max_classes,d_model) 和固定 MLP 头，超限走分层分类。这与正文未改架构的动态原型解码解释不一致。",
+      "limitations": "缺少论文实际代码版本、权重、运行记录，无法区分自定义实现、只改采样器或连模型头一起修改。540K 两阶段与 550K 三阶段、未逐项核对的 bagging/优化器均混杂；未报告协议匹配的逐任务数据。Elo 边际区间重叠不能替代配对差值检验；60 机构均二分类不能验证多分类外推。缓存 0 对 11.5 秒是无控制观察，不是上限 2 对 10 的成本实验。 上述判断针对机制及成本解释，作者报告的多分类结果仍待核验。",
+      "value": "与模型输出类别扩展及 TabArena 直接相关，保留待核验；核心机制与实现冲突，不能作为已核实的新能力公开。",
+      "reproducibility": "按官方固定 commit 保存源码和 SHA256；论文专属代码、权重及逐数据集预测未核验。未运行训练或推断。",
+      "conclusion": "现有证据不支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.27569",
+        "https://arxiv.org/html/2610.27569v1",
+        "https://raw.githubusercontent.com/soda-inria/tabicl/c91f00df184a5097e584cb376f7e699e9f3444c4/src/tabicl/_model/tabicl.py",
+        "https://raw.githubusercontent.com/soda-inria/tabicl/c91f00df184a5097e584cb376f7e699e9f3444c4/src/tabicl/_model/learning.py"
+      ],
+      "readScope": "v1 全部方法/结果/限制、表 1–2、附录 A；官方 TabICL 固定 commit 初始化、编码、解码和分层推理分支。判断针对动态原型解码解释，不否认二分类模型可通过分层组成多分类。"
+    }
+  },
+  {
+    "id": "arxiv-2610.30220",
+    "title": "When Reconstruction Is Not Enough: Doubly Robust Counterfactual and Interventional Mediation Analysis with Learned Multimodal Representations",
+    "url": "https://arxiv.org/abs/2610.30220",
+    "sourceUpdated": "2026-10-21",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-27",
+    "reason": "已阅读主要理论、方法与合成实验。表征重构与因果充分性的区分有价值，但模拟把带噪声的潜变量代理描述为近乎确定原潜变量，需要进一步核对其条件可交换性与有效性结论；作者列出的 GitHub 仓库本轮返回 404，尚未验证实现/Zenodo 附件。保留补查，并非因未开源自动排除。"
+  },
+  {
+    "id": "arxiv-2610.30957",
+    "title": "Doubly Robust Distributionally Robust Offline Contextual Pricing",
+    "url": "https://arxiv.org/abs/2610.30957",
+    "sourceUpdated": "2026-10-22",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-27",
+    "reason": "已取得 arXiv 正文，并核对 PMLR v306/xu26bz 为 ICML 2026 论文；arXiv 10 月上传不是最早公开时间。需要继续核验会议首发日期、方法假设、数据划分及离线收入评估，当前仅完成初筛，不完成质量审核。"
+  },
+  {
+    "id": "arxiv-2610.31701",
+    "title": "Tradeoff-Aware Territory Design: A Multi-Objective Decision System for Enterprise Customer-to-Seller Allocation",
+    "url": "https://arxiv.org/abs/2610.31701",
+    "sourceUpdated": "2026-10-21",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-27",
+    "reason": "已取得正文并初读预测评分、观测连续性成本与混合整数规划组合。需进一步核对历史策略选择偏差、上线实验/业务收益证据和可复现条件；部署计划合规性不能等同收入因果提升。保留后续审核。"
+  },
+  {
+    "id": "report-synthefy-nori",
+    "title": "Synthefy Nori: Tabular Foundation Model for Regression",
+    "url": "https://huggingface.co/Synthefy/Nori",
+    "sourceUpdated": null,
+    "decision": "deferred",
+    "reviewedAt": "2026-10-27",
+    "reason": "补读官方README及evaluation.md：现列Nori 1.5（21M、两阶段编码、4成员），6M/30M/100M属另一结构。95任务比较用2M元素预算，默认脚本8M；TabArena子集自行按70/30种子42切分，并非官方榜单协议。尚未核对新版本首发、准确检查点/脚本及外部同预算基线，保留待审。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "sources": [
+        "https://github.com/Synthefy/synthefy-nori",
+        "https://raw.githubusercontent.com/Synthefy/synthefy-nori/main/docs/evaluation.md",
+        "https://pypi.org/project/synthefy-nori/0.22.0/"
+      ],
+      "readScope": "官方README结构、benchmark协议、版本和引用；evaluation.md数据来源/拆分/预算。未审核训练及评测实现，未运行模型。"
+    }
+  },
+  {
+    "id": "report-tabstar-v1-1",
+    "title": "TabSTAR v1.1 model cards",
+    "url": "https://github.com/alanarazi7/TabSTAR",
+    "sourceUpdated": null,
+    "decision": "deferred",
+    "reviewedAt": "2026-10-27",
+    "reason": "本次官方仓库/PyPI仍称详细变更报告稍后发布；TabArena10月19日替换旧版已记录。没有发现补齐原待审问题的新报告，继续等待完整方法差异、划分和同预算评测。"
+  },
+  {
+    "id": "report-chakratab",
+    "title": "ChakraTab",
+    "url": "https://huggingface.co/yhatlabs/ChakraTab",
+    "sourceUpdated": null,
+    "decision": "deferred",
+    "reviewedAt": "2026-10-27",
+    "reason": "复查模型卡和TabArena说明，卡片仍写旧待审PR及medium 8-fold，榜单记录medium 3-fold；服务内部组成和训练未披露，榜单核验仅覆盖客户端。无新资料解决版本/预算差异，继续待核验。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "sources": [
+        "https://huggingface.co/yhatlabs/ChakraTab",
+        "https://huggingface.co/spaces/TabArena/leaderboard/blob/main/website_texts.py"
+      ],
+      "readScope": "模型卡机制/输入/评测/限制及TabArena10月11日版本说明；未调用私有API或读取服务实现。"
+    }
+  },
+  {
+    "id": "lead-20b33f76280e",
+    "title": "TabArena 线索：PrismBoost",
+    "url": "https://github.com/PrismBoost/PrismBoost",
+    "sourceUpdated": null,
+    "decision": "deferred",
+    "reviewedAt": "2026-10-27",
+    "reason": "已读README的SEFR斜分裂、自动容量规则、正则及121个PMLB结果。项目明确旧编译-ffast-math使分裂搜索错误，已修复但完整重跑待完成；默认规则在PMLB最优参数上校准。需补读完整论文/评测实现，区分选型集与测试集、锁定版本后再审，不能仅凭入榜判断优势。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "sources": [
+        "https://github.com/PrismBoost/PrismBoost",
+        "https://huggingface.co/spaces/TabArena/leaderboard/blob/main/website_texts.py"
+      ],
+      "readScope": "官方README机制、auto配置来源、正则/停止与PMLB旧结果；未读完整报告或复算原始结果。"
+    }
+  },
+  {
+    "id": "arxiv-2602.14622",
+    "title": "Tabular Foundation Models Can Learn Association Rules",
+    "url": "https://arxiv.org/abs/2602.14622",
+    "sourceUpdated": "2026-10-20",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-27",
+    "reason": "已读预印本，但核心规则置信度公式与当前实现口径不一致，当前代码和 TMLR 扩展版不同于所读版本。补查可读期刊正文或对应实验 commit，确认指标与逐折预处理后再决定；不按会议或新旧筛除。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "claim": "TabProbe 用表格模型条件预测抽取关联规则；规则是统计关联而非因果。",
+      "contribution": "构造探针检验前件及后件概率，逐特征调用条件预测器，替代频繁项集挖掘。",
+      "evidence": "10 个 UCI 表，TabPFN-2.5/TabICL/TabDPT 对比 Aerial+ 和 FP-Growth；规则质量部分在原表统计，另用 10 种子五折在训练折生成规则、测试 CBA/CORELS。小表有收益，大表并非普遍胜出。",
+      "limitations": "预印本 Eq.9 分母是后件支持度，与条件概率定义及当前代码 full_count/antecedent_count 不一致。当前代码已扩展新底模和树模型，不能证明论文表格对应版本；离散化是否逐训练折拟合待核验。官方 TMLR 目录确认扩展版录用，但 PDF 403，未读期刊新增对照。",
+      "value": "从 TFM 提取可读规则以及小样本规则分类值得继续审核，不将未能读到期刊正文当作低质量证据。",
+      "reproducibility": "公开 MIT 代码和 UCI 配置可访问；已读 rule_quality.py，未锁定论文实验 commit，未运行实验。",
+      "sources": [
+        "https://arxiv.org/html/2602.14622v3",
+        "https://jmlr.org/tmlr/papers/",
+        "https://github.com/DiTEC-project/tabprobe",
+        "https://raw.githubusercontent.com/DiTEC-project/tabprobe/master/src/utils/rule_quality.py"
+      ],
+      "readScope": "arXiv v3 第 1–6 节、附录 B.1–B.2、B.3 分类设置；TMLR 录用目录；README 和 rule_quality.py。期刊正文未读。"
+    }
+  },
+  {
+    "id": "https://aclanthology.org/2026.findings-acl.759/",
+    "title": "TabularMath: Understanding Math Reasoning over Tables with Large Language Models",
+    "url": "https://aclanthology.org/2026.findings-acl.759/",
+    "sourceUpdated": null,
+    "decision": "deferred",
+    "reviewedAt": "2026-10-27",
+    "reason": "正式目录及摘要确认相关，本轮未读生成校验与实验正文；须与同名 computational extrapolation TabularMath 区分。"
+  },
+  {
+    "id": "arxiv-2610.13823",
+    "title": "Same Query, Different Answer: Run-to-Run Variance in Semantic Query Processing",
+    "url": "https://arxiv.org/abs/2610.13823",
+    "sourceUpdated": "2026-10-09",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-27",
+    "reason": "原始摘要确认语义查询重复执行研究相关；未读实验正文和原始日志，保留候选。"
+  },
+  {
+    "id": "arxiv-2605.23105",
+    "title": "Conceptual Schema Inference for Tabular Datasets using Large Language Models",
+    "url": "https://arxiv.org/abs/2605.23105",
+    "sourceUpdated": "2026-05-25",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-27",
+    "reason": "原始 arXiv 页面标为撤回，聚合索引仍保留原摘要。需找作者替代版本并核对原因和正文；不据撤回本身判断方法质量。"
   }
 ]
