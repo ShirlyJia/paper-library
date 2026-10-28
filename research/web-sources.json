@@ -5,9 +5,16 @@
     {"id": "web-prediction", "query": "tabular foundation model calibration missing data robustness distribution shift"},
     {"id": "web-causal", "query": "causal foundation model treatment effects causal discovery structured data"},
     {"id": "web-semantic", "query": "table schema matching semantic features language model tabular prediction"},
-    {"id": "web-inference", "query": "tabular in context learning retrieval context compression inference efficiency"},
+    {"id": "web-inference", "query": "tabular in context learning retrieval context compression inference efficiency OOM GPU memory latency throughput", "stageQueries": [
+      {"stage": "deployment", "query": "tabular foundation model weight quantization pruning early exit runtime memory"},
+      {"stage": "input", "query": "tabular relational context compression feature folding long wide table inference cost"},
+      {"stage": "context-cache", "query": "tabular foundation model KV cache compression context compilation reuse peak memory"},
+      {"stage": "forward", "query": "tabular attention kernel tensor layout activation quantization chunking GPU memory"},
+      {"stage": "serving", "query": "tabular foundation model batched inference parallel serving offloading latency throughput"},
+      {"stage": "llm-transfer", "query": "LLM KV cache compression paged attention prefix caching quantization continuous batching offloading inference", "note": "不强制加 tabular；定位具体可迁移阶段并回查一手论文，LLM 实验不等于表格验证。"}
+    ]},
     {"id": "web-adaptation", "query": "tabular foundation model fine tuning distillation test time adaptation"},
-    {"id": "web-formal", "query": "site:proceedings.mlr.press OR site:aclanthology.org OR site:openreview.net tabular structured causal", "sources": ["https://proceedings.mlr.press/", "https://aclanthology.org/", "https://icml.cc/Downloads/2026", "https://jmlr.org/tmlr/"]},
+    {"id": "web-formal", "query": "site:proceedings.mlr.press OR site:aclanthology.org OR site:openreview.net tabular structured causal", "additionalQueries": ["MLSys OSDI SOSP ASPLOS EuroSys SC accepted papers efficient inference KV cache memory serving"], "note": "系统会议补查到官方议程、论文或作者版本；保留会议、轨道及年份，不把网站搜索命中当录用。", "sources": ["https://proceedings.mlr.press/", "https://aclanthology.org/", "https://icml.cc/Downloads/2026", "https://jmlr.org/tmlr/"]},
     {"id": "web-tabarena", "query": "TabArena benchmark datasets evaluation efficiency reproducibility new models", "sources": ["https://github.com/autogluon/tabarena", "https://huggingface.co/spaces/TabArena/leaderboard"]},
     {"id": "web-citations", "query": "从本轮相关候选的方法正文、相关工作、基线表或官方参考文献追溯；并检索引用 TabArena / 模型家族的论文"}
   ],

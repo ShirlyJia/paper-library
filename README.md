@@ -6,6 +6,8 @@
 
 ## 更新论文
 
+第 5 类下的“推理显存与速度优化”按部署准备、输入压缩、上下文编码、前向计算和在线服务整理 OOM 与效率研究，另设跨阶段的 LLM 方法借鉴入口。现有相关论文按核心贡献归类；空议题表示尚无已核验条目。LLM 方法收录时注明适用前提和是否已有表格任务验证，详见[专题规则](research/COLLECTION.md#推理显存与速度专题)。
+
 1. 按[检索与收录规则](research/COLLECTION.md)运行 `npm run collect`，结合会议、模型家族、作者发布与引用追溯核验候选。
 2. 编辑 [`data/papers.json`](data/papers.json)，并更新[模型家族与版本登记](research/model-families.json)；保留已有条目的 `id`，避免收藏失效。
 3. 提交前运行 `npm run record:updates`，自动记录新增与资料更新、填写新论文的收录日期并更新 `updatedAt`。再运行 `npm run check`，验证页面后推送到 `main`，GitHub Pages 自动发布。

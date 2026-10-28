@@ -1,6 +1,14 @@
 {
   "arxivQueries": [
     {
+      "id": "tabular-inference-resources",
+      "query": "(all:tabular OR all:TabPFN OR all:TabICL OR all:\"relational foundation\") AND (all:\"out of memory\" OR all:OOM OR all:latency OR all:throughput OR all:cache OR all:quantization OR all:compression OR all:batching OR all:\"efficient attention\")"
+    },
+    {
+      "id": "llm-inference-transfer",
+      "query": "(all:\"large language model\" OR all:LLM OR all:transformer) AND (all:\"KV cache\" OR all:\"key-value cache\" OR all:\"paged attention\" OR all:\"prefix caching\" OR all:\"memory efficient attention\" OR all:\"inference quantization\" OR all:\"weight quantization\" OR all:\"post-training quantization\" OR all:pruning OR all:\"early exit\" OR all:\"continuous batching\" OR all:\"inference offloading\")"
+    },
+    {
       "id": "models-and-families",
       "query": "all:\"tabular foundation\" OR all:\"table foundation\" OR all:\"structured-data model\" OR all:TabPFN OR all:TabICL OR all:LimiX OR all:TabDPT OR all:TAFFY OR all:TabSwift OR all:TabH2O OR all:RefineICL"
     },
@@ -17,7 +25,7 @@
       "query": "all:TabArena OR all:\"Tab Arena\""
     }
   ],
-  "relevancePattern": "tabular|tab[ -]?arena|tabpfn|tabicl|limix|prior.data.fitted|prior.fitted.network|structured.data|relational.(?:data|learning|foundation)|table.(?:foundation|representation|understanding)|schema.(?:matching|linking)|entity.(?:matching|resolution)|text.to.(?:table|sql)|feature.engineering|causal.(?:foundation|inference|discovery|representation)|treatment.effect|counterfactual.(?:prediction|estimation)|decision.foundation|in.context.(?:regression|classification)|in.context.learning.*(?:numeric|table|data)|(?:numeric|table|data).*in.context.learning",
+  "relevancePattern": "tabular|tab[ -]?arena|tabpfn|tabicl|limix|prior.data.fitted|prior.fitted.network|structured.data|relational.(?:data|learning|foundation)|table.(?:foundation|representation|understanding)|schema.(?:matching|linking)|entity.(?:matching|resolution)|text.to.(?:table|sql)|feature.engineering|causal.(?:foundation|inference|discovery|representation)|treatment.effect|counterfactual.(?:prediction|estimation)|decision.foundation|in.context.(?:regression|classification)|in.context.learning.*(?:numeric|table|data)|(?:numeric|table|data).*in.context.learning|flash.?attention|paged.?attention|(?:language.model|\\bllm\\b|transformer)[\\s\\S]*(?:kv.cache|key.value.cache|prefix.cach|memory.efficient.attention|inference.quantization|weight.quantiz|post.training.quantiz|model.prun|early.exit|continuous.batching|inference.offload)|(?:kv.cache|key.value.cache|prefix.cach|memory.efficient.attention|inference.quantization|weight.quantiz|post.training.quantiz|model.prun|early.exit|continuous.batching|inference.offload)[\\s\\S]*(?:language.model|\\bllm\\b|transformer)",
   "formalSources": {
     "pmlr": {
       "index": "https://proceedings.mlr.press/",
@@ -39,6 +47,8 @@
   },
   "openalexRequestLimit": 75,
   "openalexQueries": [
+    {"id": "tabular-inference-resources", "query": "(tabular OR TabPFN OR TabICL OR \"relational foundation\") AND (\"out of memory\" OR latency OR throughput OR cache OR quantization OR compression OR batching)"},
+    {"id": "llm-inference-transfer", "query": "(\"large language model\" OR LLM OR transformer) AND (\"KV cache\" OR \"key-value cache\" OR \"paged attention\" OR \"prefix caching\" OR \"memory efficient attention\" OR \"inference quantization\" OR \"weight quantization\" OR \"post-training quantization\" OR pruning OR \"early exit\" OR \"continuous batching\" OR \"inference offloading\")"},
     {"id": "tabarena-related", "query": "TabArena OR \"Tab Arena\""},
     {"id": "models", "query": "\"tabular foundation\" OR \"prior-data fitted\" OR \"TabPFN\" OR \"TabICL\" OR \"LimiX\""},
     {"id": "inference-adaptation", "query": "tabular AND (\"in-context learning\" OR \"test-time\" OR distillation OR adaptation)"},
@@ -46,6 +56,7 @@
     {"id": "causal-relational", "query": "\"causal foundation\" OR \"relational foundation\" OR \"structured data foundation\""}
   ],
   "semanticQueries": [
+    {"id": "inference-memory-and-serving", "query": "Reduce out-of-memory failures, peak GPU memory, first prediction latency and repeated-query cost in tabular or relational foundation models. Find transferable language-model methods for KV-cache compression and reuse, weight quantization, efficient attention, query chunking, batching, offloading and parallel serving. Distinguish model file size, cache construction and runtime memory."},
     {"id": "tabular-models", "query": "Foundation models that predict labels or numeric values on unseen tabular datasets by conditioning on example rows, without training a new model for each dataset."},
     {"id": "context-and-inference", "query": "Improve in-context prediction for tabular and relational data by selecting relevant training rows, retrieval, context compression, ensembling or efficient inference."},
     {"id": "model-adaptation", "query": "Adapt pretrained tabular foundation models to a new dataset using fine tuning, parameter efficient adaptation, distillation, calibration or test time optimization."},

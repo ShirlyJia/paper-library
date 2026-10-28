@@ -1,4 +1,4 @@
-import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo, recentCollectionUpdates, beijingDate, todayAdditions, millisecondsUntilBeijingMidnight, defaultSort, searchTerms, highlightParts } from './library.js?v=10';
+import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo, recentCollectionUpdates, beijingDate, todayAdditions, millisecondsUntilBeijingMidnight, defaultSort, searchTerms, highlightParts } from './library.js?v=11';
 
 const $ = id => document.getElementById(id);
 const STORE_KEY = 'structured-data-paper-library:saved:v1';
@@ -416,7 +416,9 @@ function render({ push = false } = {}) {
   $('papers').setAttribute('aria-busy', 'false');
   $('result-count').replaceChildren(el('strong', '', String(filtered.length)), document.createTextNode(` 篇论文${filtered.length ? `  /  显示 ${start + 1}–${Math.min(start + PAGE_SIZE, filtered.length)}` : ''}`));
   $('empty-state').hidden = filtered.length > 0;
-  $('empty-description').textContent = state.savedOnly ? '点击论文右上角的书签图标，将它加入收藏。' : '换一个关键词，或放宽筛选条件。';
+  const scope = scopePath(catalog.categories, state).at(-1);
+  const emptyScope = scope && !catalog.papers.some(paper => belongsTo(paper, scope));
+  $('empty-description').textContent = state.savedOnly ? '点击论文右上角的书签图标，将它加入收藏。' : emptyScope ? '此方向尚无已核验论文，后续审核通过后收录。' : '换一个关键词，或放宽筛选条件。';
   $('reset').hidden = !state.query && !state.category && state.period === 'all' && state.status === 'all' && !state.codeOnly && !state.savedOnly;
   $('export-csv').disabled = !filtered.length;
   renderPages(filtered.length); syncURL(push);

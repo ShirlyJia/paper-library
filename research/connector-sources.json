@@ -7,6 +7,7 @@
     "rateLimitBackoffSeconds": 60,
     "retriesPerQuery": 1,
     "queries": [
+      {"id": "inference-memory-and-serving", "query": "reducing out of memory failures and inference latency in tabular foundation models and transferable LLM methods for KV cache compression prefix reuse efficient attention quantization batching offloading parallel serving"},
       {"id": "tabular-models", "query": "foundation models for prediction on unseen tabular datasets using example rows"},
       {"id": "context-and-inference", "query": "selecting training examples retrieval context compression tabular in-context prediction"},
       {"id": "model-adaptation", "query": "fine tuning distillation test-time adaptation tabular foundation models"},
