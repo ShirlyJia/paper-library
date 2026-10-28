@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-27",
+  "updatedAt": "2026-10-28",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -1207,10 +1207,10 @@
       "topic": "模型与产品动态",
       "status": "report",
       "venue": "技术报告",
-      "summary": "LimiX-2 采用单元格级双轴建模和上下文条件掩码任务，扩展固定目标列预测。TabArena 沿用官方评测，TALENT 与 BCCO 使用 15 个随机种子，并单独评估因果骨架恢复。注意力恢复骨架不等于识别因果方向或干预效果；多个任务表现不能直接推出通用业务决策能力。",
+      "summary": "LimiX-2 以单元格级双轴建模和上下文条件掩码支持分类、回归、缺失补全，并探索因果骨架恢复；骨架不等于因果方向。TabArena 于 10 月 27 日给其公开权重增加数据泄漏警示：维护者在 diabetes 与 blood-transfusion 两表观察到异常的列序敏感性，相关成绩需谨慎作为未见数据泛化证据。统一任务接口仍有研究价值，这项警示不能外推为其余任务均失效。",
       "url": "https://arxiv.org/abs/2609.17488",
       "pdf": "https://arxiv.org/pdf/2609.17488",
-      "code": null,
+      "code": "https://github.com/limix-ldm-ai/LimiX",
       "keywords": [
         "LimiX",
         "TFM"
@@ -1222,7 +1222,17 @@
         "LimiX2",
         "LimiX 2"
       ],
-      "addedAt": "2026-10-12"
+      "addedAt": "2026-10-12",
+      "sources": [
+        "https://arxiv.org/abs/2609.17488",
+        "https://arxiv.org/html/2609.17488v1",
+        "https://github.com/limix-ldm-ai/LimiX",
+        "https://github.com/autogluon/tabarena/issues/648",
+        "https://andrejtschalzev.substack.com/p/who-is-cheating-on-tabarena",
+        "https://huggingface.co/spaces/TabArena/leaderboard/blob/main/website_texts.py",
+        "https://raw.githubusercontent.com/autogluon/tabarena/main/packages/tabarena/src/tabarena/models/limix_2/model.py",
+        "https://raw.githubusercontent.com/autogluon/tabarena/main/packages/tabarena/src/tabarena/models/limix_2/info.py"
+      ]
     },
     {
       "id": "arxiv-2609.17895",
@@ -7119,6 +7129,225 @@
       ],
       "dateNote": "官方仅核实 2026 年 10 月；未核到精确首发日或更早预印本，不把会议开幕日视为首发日。",
       "addedAt": "2026-10-27"
+    },
+    {
+      "id": "arxiv-2610.34035",
+      "title": "Prior-Data Fitted Networks for In-Context Off-Policy Evaluation",
+      "date": "2026-10-25",
+      "updated": "2026-10-25",
+      "category": 3,
+      "section": "causal-estimation",
+      "topicId": "causal-policy",
+      "topic": "干预分配与策略学习",
+      "related": [
+        2,
+        5
+      ],
+      "status": "preprint",
+      "venue": "arXiv",
+      "summary": "在上线新策略之前，用旧策略留下的状态、动作和回报记录估计新策略的累计收益。InCOPE 将记录整理成统计量，结合目标策略和状态转移做冻结前向预测；作者在四类离散任务中报告误差降低，为少量历史数据下的策略评估提供思路。临床部分来自模拟环境，常规基线未获得同等预训练数据，不能据此认定真实业务决策有效。",
+      "url": "https://arxiv.org/abs/2610.34035",
+      "pdf": "https://arxiv.org/pdf/2610.34035",
+      "code": null,
+      "keywords": [
+        "离线策略评估",
+        "PFN",
+        "上下文学习",
+        "序贯决策",
+        "状态转移"
+      ],
+      "aliases": [
+        "InCOPE",
+        "In-Context Off-Policy Evaluation"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.34035",
+        "https://arxiv.org/html/2610.34035v1"
+      ],
+      "addedAt": "2026-10-28"
+    },
+    {
+      "id": "arxiv-2610.32863",
+      "title": "A Foundation Model for Policy In-Context Longitudinal Causal Effect Estimation",
+      "date": "2026-10-23",
+      "updated": "2026-10-23",
+      "category": 3,
+      "related": [
+        1,
+        2,
+        5
+      ],
+      "section": "causal-estimation",
+      "topicId": "treatment-effects",
+      "topic": "处理效应与干预分布",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "PICLE-PFN 把多步治疗规则表示成“历史状态—治疗选择”示例，与观测轨迹一起输入冻结模型，直接估计不同策略和时间窗口的平均潜在结果。作者在七种合成或半合成设置中报告六种平均误差最低，省去新任务拟合；速度比较包含基线训练成本。因果识别仍要求无未观测混杂与充分重叠，预测区间含结果噪声，不是潜在均值的置信区间；真实 MIMIC 实验只验证事实预测。",
+      "url": "https://arxiv.org/abs/2610.32863",
+      "pdf": "https://arxiv.org/pdf/2610.32863",
+      "code": null,
+      "keywords": [
+        "纵向因果推断",
+        "动态治疗策略",
+        "CAPO",
+        "上下文学习",
+        "多步预测"
+      ],
+      "aliases": [
+        "PICLE-PFN",
+        "Policy In-Context Longitudinal causal Effect estimation with Prior-data Fitted Networks"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.32863",
+        "https://arxiv.org/html/2610.32863v1",
+        "https://anonymous.4open.science/r/PICLE-02FE/"
+      ],
+      "addedAt": "2026-10-28"
+    },
+    {
+      "id": "arxiv-2609.02766",
+      "title": "Do Tabular Foundation Models Know Physics? Contamination, Units, and the Deterministic Limit",
+      "date": "2026-09-02",
+      "updated": "2026-10-22",
+      "category": 2,
+      "related": [
+        1
+      ],
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions",
+      "topic": "预测概率与分布优化",
+      "status": "workshop",
+      "venue": "NeurIPS 2026 Representations for the Physical Sciences Workshop（Poster）",
+      "summary": "从 316 个物理方程重新生成表格，对比四种 TFM 与六类基线的插值、外推和预测区间。作者发现所测 TFM 插值较强，但无噪声任务的区间偏宽，数值预测优势也不能证明利用了物理单位。研究补充了 TabArena/BeyondArena 对确定性函数的评测缺口；调参基线留出 20% 验证数据而 TFM 使用全部上下文，污染排查的检出能力亦有限。",
+      "url": "https://arxiv.org/abs/2609.02766",
+      "pdf": "https://arxiv.org/pdf/2609.02766",
+      "code": null,
+      "keywords": [
+        "物理方程",
+        "外推",
+        "不确定性",
+        "TabArena",
+        "预测区间",
+        "确定性机制"
+      ],
+      "aliases": [
+        "TFMs Know Physics"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.02766",
+        "https://arxiv.org/html/2609.02766v3",
+        "https://representations-physical-sciences.github.io/workshop-2026/papers/paper-94.html"
+      ],
+      "addedAt": "2026-10-28"
+    },
+    {
+      "id": "arxiv-2610.33936",
+      "title": "Bridging Search Intent and Tabular Data in Dataset Search",
+      "date": "2026-10-24",
+      "updated": "2026-10-24",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "data-integration",
+      "topic": "端到端数据整合",
+      "related": [
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "先按分析任务生成假设表结构，再把它与原查询一起用于检索真实数据集，并将筛选条件转成 SQL。作者在 Kaggle 合成查询和 NQ-Tables 人工问题上报告召回改善，可用于数据准备与查表；但只验证检索，单一相关表标注、元数据质量及额外模型调用限制真实数据湖外推。",
+      "url": "https://arxiv.org/abs/2610.33936",
+      "pdf": "https://arxiv.org/pdf/2610.33936",
+      "code": null,
+      "keywords": [
+        "数据集检索",
+        "假设表结构",
+        "语义检索",
+        "结构化筛选",
+        "KaggleDS"
+      ],
+      "aliases": [
+        "HySE",
+        "FlexPrune"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.33936",
+        "https://arxiv.org/html/2610.33936v1",
+        "https://huggingface.co/datasets/trl-lab/KaggleDS"
+      ],
+      "addedAt": "2026-10-28"
+    },
+    {
+      "id": "arxiv-2610.34589",
+      "title": "HARP-LoRA: Hierarchy-Conditioned Rank Projection for Low-Rank Adaptation in Scientific Table Understanding",
+      "date": "2026-10-25",
+      "updated": "2026-10-25",
+      "category": 4,
+      "section": "semantic-fusion",
+      "topicId": "text-tabular-models",
+      "topic": "文本与表格联合建模",
+      "related": [
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把单元格对应的多层行、列表头用于生成各 token 的 LoRA 投影，让语言模型微调时利用表格层级。作者在药代信息抽取和 WikiTQ 上报告 8B／27B 模型收益且训练参数较少；但依赖已解析表结构，按表划分存在同文献信息重叠风险，逐 token 投影还增加前向计算。",
+      "url": "https://arxiv.org/abs/2610.34589",
+      "pdf": "https://arxiv.org/pdf/2610.34589",
+      "code": null,
+      "keywords": [
+        "表格理解",
+        "科学表格",
+        "层级表头",
+        "LoRA",
+        "参数高效微调",
+        "WikiTQ"
+      ],
+      "aliases": [
+        "HARP-LoRA"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.34589",
+        "https://arxiv.org/html/2610.34589v1"
+      ],
+      "addedAt": "2026-10-28"
+    },
+    {
+      "id": "arxiv-2607.24688",
+      "title": "Beyond Scale and Generation: Understanding Language Model-based Entity Matching",
+      "date": "2026-07-27",
+      "updated": "2026-07-27",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "entity-matching",
+      "topic": "实体匹配与记录对齐",
+      "related": [
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "在同一 Qwen3 家族内，比较独立编码两条记录、联合分类和生成答案三种实体匹配方式，拆开架构、模型版本与规模的影响。作者在九个数据集及跨数据集测试中发现生成式优势集中于分布变化，缓存复用则有利于双编码器；提供划分诊断和成本实测，但结论限于所测家族，未单独隔离输出头作用。",
+      "url": "https://arxiv.org/abs/2607.24688",
+      "pdf": "https://arxiv.org/pdf/2607.24688",
+      "code": "https://github.com/Jantory/llm-trained-matcher",
+      "keywords": [
+        "实体匹配",
+        "数据整合",
+        "双编码器",
+        "交叉编码器",
+        "生成式匹配",
+        "分布偏移",
+        "LoRA"
+      ],
+      "aliases": [
+        "Beyond Scale and Generation"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2607.24688",
+        "https://arxiv.org/pdf/2607.24688",
+        "https://github.com/Jantory/llm-trained-matcher",
+        "https://www.deem.berlin/publication/"
+      ],
+      "addedAt": "2026-10-28"
     }
   ],
   "collectionUpdates": [
@@ -7577,6 +7806,20 @@
       "updated": [
         "arxiv-2605.07840",
         "arxiv-2608.06004"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "added": [
+        "arxiv-2607.24688",
+        "arxiv-2609.02766",
+        "arxiv-2610.32863",
+        "arxiv-2610.33936",
+        "arxiv-2610.34035",
+        "arxiv-2610.34589"
+      ],
+      "updated": [
+        "arxiv-2609.17488"
       ]
     }
   ]

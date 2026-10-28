@@ -610,6 +610,24 @@
       "sources": [
         "https://github.com/GioOtto/LightPFN/blob/main/paper/LightPFN_report.pdf"
       ]
+    },
+    {
+      "name": "InCOPE",
+      "paperIds": [
+        "arxiv-2610.34035"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.34035"
+      ]
+    },
+    {
+      "name": "PICLE-PFN",
+      "paperIds": [
+        "arxiv-2610.32863"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.32863"
+      ]
     }
   ]
 }

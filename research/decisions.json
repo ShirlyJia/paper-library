@@ -7627,5 +7627,378 @@
     "decision": "deferred",
     "reviewedAt": "2026-10-27",
     "reason": "原始 arXiv 页面标为撤回，聚合索引仍保留原摘要。需找作者替代版本并核对原因和正文；不据撤回本身判断方法质量。"
+  },
+  {
+    "id": "arxiv-2610.34035",
+    "title": "Prior-Data Fitted Networks for In-Context Off-Policy Evaluation",
+    "url": "https://arxiv.org/abs/2610.34035",
+    "sourceUpdated": "2026-10-25",
+    "decision": "included",
+    "reviewedAt": "2026-10-28",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在文中有限状态/动作、有限时域且初始分布已知的四类任务，合成任务训练的冻结 InCOPE 能用有限行为日志更准确估计目标策略回报。",
+      "contribution": "区别于每任务重新拟合或轨迹生成，按状态-动作统计量编码，结合目标策略加权、经验转移传播及初始分布池化输出策略价值；不是直接把 TabPFN 用于分类。",
+      "evidence": "作者报告：正文表1的6700个日志-策略查询，四领域各5个测试批、每配置5次训练，specialist相对各域最佳所测基线MAE降低19.7%–67.1%。统一模型同参数量、无域ID，在四域均好于基线其中GridWorld与specialist几乎持平，Dispatch/Clinical误差更高，Tumor更低。5.4/5.5节固定预算先验干预、去除日志输入重训及完整输入回归对照，支持当前数据和结构化估计器的贡献。训练/验证按MDP组分离，测试生成器另设；主表SD是批间差异，不是独立训练SD。",
+      "limitations": "Clinical五个测试块来自同一公开ICU-Sepsis-v2参数集的五次聚类，不是五个人群队列；日志由聚合模拟器产生。假设目标策略支持被行为策略覆盖，已知初始分布、时域、折扣，未解决未观测混杂。六常规OPE基线不享有合成预训练预算；FQE/MIS按时间单独估计且不平滑，DR-PPI/OPERA是文中指定变体。另有同源监督完整输入回归对照，但其固定超参及约9.8万维展平不证明所有强基线已充分调优。理论仅理想条件均值相容下的平方风险性质，不是有限样本或任意域外保证。",
+      "value": "将结构化历史轨迹与待评策略作为上下文，提供在新任务上无需更新参数的策略评估路线；可借鉴输入统计量、转移传播和完整信息对照设计。",
+      "reproducibility": "已阅读arXiv v1正文、附录与提交历史；附录提供25维特征、91681参数结构、模拟器、预算和基线公式。当前论文未给出可核实代码或权重链接，原题与作者检索未找到官方实现；未做本地或独立实验复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.34035",
+        "https://arxiv.org/html/2610.34035v1"
+      ],
+      "readScope": "正文1–5节、表1–4、附录A、B.1–B.3、C.1.1和C.1.4、C.2–C.3、C.4部分及C.6完整输入对照；复现声明和参考文献。"
+    }
+  },
+  {
+    "id": "arxiv-2610.32863",
+    "title": "A Foundation Model for Policy In-Context Longitudinal Causal Effect Estimation",
+    "url": "https://arxiv.org/abs/2610.32863",
+    "sourceUpdated": "2026-10-23",
+    "decision": "included",
+    "reviewedAt": "2026-10-28",
+    "reason": "完整阅读方法、证明及实验协议后收录动态策略的纵向因果基础模型；概览限定识别条件、速度计量和区间含义。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "将目标动态策略在观测历史上的动作示例作为上下文，可在标准纵向识别条件下支持多步 CAPO 估计；固定 PICLE-PFN 在所测任务中能省去逐任务拟合并取得有竞争力的误差。",
+      "contribution": "提出策略示例的总体识别充分性论证，使用 5.4M 参数 PFN 的时间掩码、跨轨迹注意力和分窗口读出，同时预测多个干预起止窗口。区别于单步均值逐步回填，训练标签直接来自目标策略下模拟的多步结果；条件均值即目标 CAPO。策略示例提供统一接口，不需为每类动态规则单独设计参数编码。",
+      "evidence": "已读 §3–6、附录 A/B/D/E/F。七个设置包含肿瘤模拟器及六个基于 MIMIC 协变量的半合成设置；每设置 20 个任务，共用 1000 条上下文与 1000 条独立查询轨迹，评估 2/4/6/8/10 步窗口。基线在独立调参任务上用事实 RMSE 选择超参，之后固定超参并在每个任务训练；没有使用反事实真值选择超参。作者报告六个设置平均误差最低，mimic_y1 则比最佳 CT 高 12.6%；动态设置仅与支持的基线比较。计时复用已调超参，不含 HPO，比较 PICLE 的前向与基线训练加预测，因此 100–5000 倍不是纯推理加速。名义 95% 区间的 CAPO 覆盖约 0.9、优于所测 IGC-Net MC dropout，但不是有保证的均值区间。全部结果为作者报告，未本地复现。",
+      "limitations": "理论是总体层面识别，不保证有限策略示例完整表达复杂政策或网络估计一致性。要求一致性、序贯可忽略性与正值性，隐藏混杂消融不消除这些条件；极低经验重叠的任务覆盖偏差仍大。模型目前是离散时间、多维二元治疗、无右删失，受合成先验失配及上下文二次成本限制。单次潜在结果监督混合结果随机性，不能将预测分位数当 CAPO 置信区间。真实 MIMIC 只做事实血压预测，前后向填充可能引入预测时尚不可见的信息，不能据其小幅收益声称真实治疗效果已验证。",
+      "value": "为结构化轨迹上的动态策略比较提供可复用的上下文接口，值得跟踪策略示例选取、重复策略查询缓存、重叠诊断和后续区间校准；区别于一般预测模型和把多步条件均值简单回填的路线。",
+      "reproducibility": "公开 arXiv 方法、证明、模型配置与数据/基线协议已取得。作者提供 Anonymous GitHub 入口，本轮网页工具不可访问、直接抓取仅返回前端壳，未核验代码内容、权重下载与运行状态。MIMIC 数据访问另有条件；未本地训练或复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.32863",
+        "https://arxiv.org/html/2610.32863v1",
+        "https://anonymous.4open.science/r/PICLE-02FE/"
+      ],
+      "readScope": [
+        "§1–2：问题、相关工作及 CausalPFN/CausalLongPFN 等引用",
+        "§3 与附录 A：目标、识别条件、策略示例的总体充分性证明",
+        "§4、附录 B：多步监督、时间/轨迹掩码、窗口读出、先验与模型配置",
+        "§5–6：主实验、真实事实预测、区间、样本量和先验外策略消融及局限",
+        "附录 C 主结果/计时表相关行；附录 D.1–D.7：生成机制、基线/调参、拆分、计时、不确定性及混杂实验",
+        "附录 E–F：与 CausalLongPFN 比较的范围和复杂度"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2609.02766",
+    "title": "Do Tabular Foundation Models Know Physics? Contamination, Units, and the Deterministic Limit",
+    "url": "https://arxiv.org/abs/2609.02766",
+    "sourceUpdated": "2026-10-22",
+    "decision": "included",
+    "reviewedAt": "2026-10-28",
+    "reason": "补审近一周修订的既有待审论文，完整核验评测与限制；保留 9 月首发，不将 10 月 v3 冒充新首发。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在选定方程生成的数值表格上，预测误差优势、确定性任务的区间校准以及利用物理量纲是不同能力；所测 TFM 的插值排名不能证明它们已学到可可靠外推的物理规律。",
+      "contribution": "将常规表格模型评测扩展到确定性物理关系，重新采样已知方程以独立控制噪声、样本量和外推区域，并分别审计实表预训练污染线索、条件区间与量纲结构。通过已知真函数把点预测、分布表现和领域结构利用分开检验。",
+      "evidence": "完整阅读 v3 §1–4 与附录 A–D、E 的审计说明及列表范围。120 个 Feynman、111 个 LSR-Transform、85 个 LSR-Synth 方程；上下文 50/200/2000，噪声 0/.01/.1，域内与训练箱两倍半宽的外壳，3 次独立采样、每次 2000 测试点。四种模型 TabPFN-3、TabICLv2、Real-TabPFN-2.5、TabDPT 对比 RealMLP/TabM/MLP/CatBoost/GP/Ridge；基线 25 配置调参并可贪心集成，TFM 采用 1/8 集成成员。作者报告 TabPFN-3 通常排名领先，但外推各模型差距收缩。Feynman 域内的中央 80% 区间在无噪声数据上中位覆盖接近 100%，两种 TabPFN 最明显、TabICLv2 较轻；这是区间相对误差过宽的诊断，未证明具体架构/先验原因。量纲自由度对误差的解释较弱，n_pi=0 的 26 题同时是幂律，存在函数难度混杂。均为作者结果，未本地复现。",
+      "limitations": "只代表重新采样的方程任务，不能外推到全部物理业务；强平均排名也不保证绝对外推误差可用。调参基线用 80% 行拟合、20% 验证，TFM 用全量上下文，在 50 行时差异尤其重要，不能称匹配有效训练行数或算力。作者基于有限预训练列表及匹配池未检测出污染，但约一个排名位置以下的效应可能不可检出。量纲仅作关联诊断，未给模型显式单位并做受控注入，不能据此证明其永远不能利用单位。覆盖是任务/种子中位数，不是逐任务保障；10000 行扩展只含 40 个任务，绘图还要求至少 80% 任务覆盖。缺失败运行按 NMSE=1 的约定可能影响排名，预训练成本未计。",
+      "value": "为科学与工业的表格回归提供实用评估设计：分别检验外推区域、无噪声极限、区间宽度和真实单位信息，而不是仅看总体准确率。与 TabArena 相关：文中使用 TabArena/OpenML-CTR23 的 37 个匹配表检查暴露差异，并讨论最终 51 表基准不含 Feynman 方程的覆盖缺口。",
+      "reproducibility": "arXiv v3 完整协议与审计数据列表公开，作者描述按配置哈希保存实验记录、总计算约 1300 GPU 小时及 4200 CPU 小时。本轮未找到该研究可直接核验的实验仓库，未复跑。RPS 2026 官方单篇页面确认 Workshop accepted 与 Poster（时间待定），不视为 NeurIPS 主会。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2609.02766",
+        "https://arxiv.org/html/2609.02766v3",
+        "https://representations-physical-sciences.github.io/workshop-2026/papers/paper-94.html"
+      ],
+      "readScope": [
+        "arXiv 元数据：v1 2026-09-02，v2 10-21，v3 10-22",
+        "v3 §1–4：方程评测协议、预训练污染分析、调参结果、区间与量纲诊断、结论",
+        "附录 A/B：阻尼振子例子、训练型基线说明",
+        "附录 C/D：外壳测试、失败计量、验证切分、区间子集、成本、26 个模型-流程排名与绘图覆盖规则",
+        "附录 E：两种实表底座预训练列表的来源、范围与审计说明；未逐条重新下载全部原始数据集",
+        "RPS 2026 官方单篇录用页及 accepted list"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2610.33936",
+    "title": "Bridging Search Intent and Tabular Data in Dataset Search",
+    "url": "https://arxiv.org/abs/2610.33936",
+    "sourceUpdated": "2026-10-24",
+    "decision": "included",
+    "reviewedAt": "2026-10-28",
+    "reason": "核对原始首发与正文后收录；是结构化数据获取阶段的算法组合，保留真实元数据、标注与检索指标边界，不当作 TFM 预测提升。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-10-28",
+      "claim": "在论文规定的数据集检索任务中，将原查询与 LLM 生成的假设表结构结合可提高召回，结构化约束可进一步帮助筛选；不扩展为下游问答准确率或业务预测改善。",
+      "contribution": "HySE 将 HyDE 式查询扩展改为表名、列名与少量示例行的结构化假设，使用两个假设模式并按 0.5 权重与原查询嵌入融合；FlexPrune 将自然语言约束转为 metadata registry 上的 SQL，在固定候选集上筛选。组合重用已有 LLM、embedding 和向量索引，没有训练新的表格基础模型。",
+      "evidence": "已读作者主文及附录。KaggleDS 包含 3,141 个数据集、6,503 张表，按数据集划分，测试包含 2,337 张表和 7,011 个任务查询；查询主要由 LLM 根据描述生成，每个问题只有一个标注相关表。表中 HySE 的 Recall@10 为 0.609，同嵌入器直接语义检索为 0.589；在人工问题 NQ-Tables 上分别为 0.837 和 0.819。FlexPrune 全流程报告 0.704，对照语义检索加 tag filter 为 0.644，但该差异同时包含检索与筛选两项变化。附录验证集消融覆盖假设数量、查询融合和序列化。数据集官方卡与主要规模一致。这里均为作者报告，未独立或本地复现。",
+      "limitations": "Kaggle 任务查询与部分元数据由 LLM 生成，可能引入风格偏差；同一来源数据集内的表不跨拆分，但未见跨数据集重复表的独立审计。单一相关表标签不能完整判断真实多相关结果，过滤也依赖元数据准确性。主文 NQ-Tables 数据准备写 966 个测试问题、结果部分评估 959 个，未明确说明差额；不使用该数量作无条件覆盖结论。与不同大小的 DTR 对比不等同容量预算，额外生成调用没有完整端到端成本或延迟对照。摘要含 QA 表述但实验主要测检索，不据此声称回答或预测质量提高；没有置信区间。",
+      "value": "提供从分析需求到可检索字段假设、再到结构化过滤的实现路径，适合研究数据发现、查表与后续数据整合；价值是输入准备与查询表达，不是生成的数据天然真实或可直接用于模型训练。",
+      "reproducibility": "KaggleDS 官方 Hugging Face 数据卡可访问，附录公开提示词与索引/嵌入配置；本次未核实到作者实现仓库，因此 code 留空。使用 GPT-4o-mini、text-embedding-3-small 等外部模型，模型快照、调用费用及生成随机性需在复现时固定。只阅读原文和数据卡，未运行实验。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2610.33936v1",
+        "https://huggingface.co/datasets/trl-lab/KaggleDS",
+        "https://arxiv.org/abs/2610.33936"
+      ],
+      "readScope": "v1 主文第 1–7 节及 Limitations；附录 A 的提示词、B 样本与 C 消融；官方 KaggleDS 数据卡和 arXiv submission history"
+    }
+  },
+  {
+    "id": "arxiv-2610.34589",
+    "title": "HARP-LoRA: Hierarchy-Conditioned Rank Projection for Low-Rank Adaptation in Scientific Table Understanding",
+    "url": "https://arxiv.org/abs/2610.34589",
+    "sourceUpdated": "2026-10-25",
+    "decision": "included",
+    "reviewedAt": "2026-10-28",
+    "reason": "表格层级驱动参数适配有直接研究价值；初步实验可准确界定，保留数据划分、计算开销及代码可访问性限制后收录。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-10-28",
+      "claim": "在给定已解析表结构的两个任务上，层级条件化的投影 LoRA 为部分主干带来效果与可训练参数量的折中；尚不能证明减少整体推理成本或具有普遍泛化收益。",
+      "contribution": "在 projected LoRA 的冻结高维随机投影与可训练低维向量基础上，以单元格所在的多级行/列表头路径生成各 token 的低维向量，再构造 token-specific 的 A 投影；B 投影共享。层级池化与 RMS 归一化保留不同表头层级并控制尺度。不是 OCR 或自动恢复表结构，也不是新 TFM。",
+      "evidence": "已读 III–VII 节机制、实验及局限。PK 任务有 587 篇文章中的 950 张表，570/95/285 张表作训练/验证/测试；WikiTQ 使用标准按表区分的划分。比较 LoRA、TableLoRA 的公开二维组件、projected LoRA 与 HARP，使用相同输入和各自固定适配设置。8B 上 PK F1 从 projected LoRA 的 56.78 到 57.64，WikiTQ 从 48.97 到 53.15；27B 也有提升。3B 上 PK 比普通 LoRA 略低，WikiTQ 也不及 projected LoRA，不能称所有设置最好。8B PK 移除行、列、层级池化或归一化的消融均下降。作者报告 3B/8B/27B 可训练参数分别为 172K/197K/547K，但不计冻结随机投影。PK 重复三次，未报告对应标准差；本次未独立复现。",
+      "limitations": "PK 随机按表划分而非按文章划分，且输入含文章标题/摘要、表注，可能存在同一文章的信息跨集合，未确认已发生泄漏。抽取指标含模糊字符串与领域嵌入匹配，不等同严格单元格精确率或临床正确性。依赖 XML 单元格/表头关系，不覆盖 OCR 噪声。每 token 构造投影额外增加 O(N*r*d*k) 计算；论文未测端到端显存/延迟，因此训练参数少不代表运行成本低。只有两个基准、部分较小增益、缺少完整不确定性与全部学习率/批量细节。",
+      "value": "提供在微调入口直接加入行列层级的可解释设计选项，可用于科学文献表格抽取与表格问答；实际采用需先验证文章级拆分、表结构解析误差及长表延迟。",
+      "reproducibility": "公开正文给出 rank=8、alpha=16、k=1024、K/V 模块、三轮训练与单 GH200 等条件。作者声明的 https://github.com/hosseinsholehrasa/HARP-LoRA 本次网页与 HTTP 请求均返回 404，故不标注有代码；404 不作为低质量或排除依据。未运行实现、训练或独立复现实验。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2610.34589v1",
+        "https://arxiv.org/abs/2610.34589",
+        "https://github.com/hosseinsholehrasa/HARP-LoRA"
+      ],
+      "readScope": "v1 III–IV 的 projected LoRA 与层级条件投影、V 数据/任务/实现、VI 主结果/参数量/消融、VII 计算局限；核对 submission history 与作者代码链接"
+    }
+  },
+  {
+    "id": "arxiv-2607.24688",
+    "title": "Beyond Scale and Generation: Understanding Language Model-based Entity Matching",
+    "url": "https://arxiv.org/abs/2607.24688",
+    "sourceUpdated": "2026-07-27",
+    "decision": "included",
+    "reviewedAt": "2026-10-28",
+    "reason": "补审近半年已有队列。系统性对照、拆分诊断、跨数据集测试和可核验代码有独立研究价值，限定于所测模型与配对匹配任务。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-10-28",
+      "claim": "在本文受控 Qwen3 实验中，生成式和更大模型不是实体匹配的无条件更优选择；记录交互、分布变化、初始化和表征复用共同决定性能与成本。",
+      "contribution": "同一家族下组合三种架构（bi-encoder、cross-encoder、generative）、三种 checkpoint 类型与 0.6B/4B/8B 规模，避免把大小或 backbone 差异归因于生成方式；增加跨数据集迁移、两类分布变化重划分与成本分析。研究任务是候选记录对的匹配，不覆盖整个候选生成系统。",
+      "evidence": "正文 §§2–7 报告九个来自 Magellan/MaChAmp/WDC 的数据集，三架构×三 checkpoint×三规模×九数据集×五种子=1,215 次微调。统一 LoRA rank 8、最多 400 steps、batch 64，按各配置仅从原训练集合抽样调学习率，原验证/测试不参与该次调参；各数据集训练/验证上限 8,000/2,000 对。在七个非主要漂移任务上，8B 联合分类与生成式宏 F1 分别为 86.7/86.9，差距很小；Semi-Heter 未见字段组合占比从 82% 重平衡到 17% 后，联合分类 F1 升至约 96–97，接近生成式。Semi-Rel 同标题负例的划分比例调整后，规模扩大时退化消失，支持其数据组成诊断。在 8B 跨数据集测试中，生成式平均 F1 73.8，联合分类 64.9、双编码器 30.3。成本由训练日志及同硬件推理测量给出；缓存收益另为估算。均为作者报告，本次未重跑。",
+      "limitations": "主实验限单一 Qwen3 家族与固定提示/序列化/yes-no 标签；不同 checkpoint 不是只改变训练目标的同数据消融，因此关于预训练目标的机制归因应视为解释。后续分析按测试汇总选择各架构较好 variant，不能当作独立模型选择验证。WDC 使用实体不重叠拆分，不据此宣称所有其他数据也实体不重叠；公开数据的预训练污染未排除，共用家族只减少而非消除混杂。重划分是机制诊断，未证明真实新域稳定性。双编码器每记录 512 tokens、联合模型每记录最多 256，输入预算并不完全等价。没有单独隔离生成头与新分类头初始化；吞吐使用启发式 batch、非最优服务栈；缓存百万对耗时为假设复用下估算。",
+      "value": "可指导跨表实体对齐选型：先检查部署是否有未见字段组合、误导性匹配线索和候选复用，再比较微调结构；其拆分诊断及受控基线可迁移到其他结构化任务评测，不能直接推广成所有生成模型的优劣结论。",
+      "reproducibility": "作者 GitHub 仓库可公开访问，含数据准备/重划分、训练、跨数据集与吞吐脚本及逐次结果目录；README 列出数据、日志和可视化。只核对仓库结构与说明，未逐条审计所有运行日志、下载权重或重现论文结果。原文 HTML 404 后已改读官方 PDF，缺 HTML 不构成全文缺失。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/pdf/2607.24688",
+        "https://arxiv.org/abs/2607.24688",
+        "https://github.com/Jantory/llm-trained-matcher",
+        "https://www.deem.berlin/publication/"
+      ],
+      "readScope": "v1 主文 §§1–8 的动机、架构、数据/训练协议、表 1–7、分布变化诊断、跨数据集与成本；§9 相关工作与 §10/Limitations。作者发布页与公开仓库 README/目录"
+    }
+  },
+  {
+    "id": "arxiv-2609.17488",
+    "title": "LimiX-2: A Contextual Mechanism Network Towards General Structured-Data Intelligence",
+    "url": "https://arxiv.org/abs/2609.17488",
+    "sourceUpdated": "2026-10-27",
+    "decision": "existing",
+    "reviewedAt": "2026-10-28",
+    "reason": "10 月 27 日 TabArena 新增公开权重泄漏警示。核对原文、维护者脚本/博客和当前固定版本适配器后，补上两表范围与独立报告归属；保留机制研究价值，不改首发及收录日期。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "LimiX-2 已发布权重在 TabArena 的领先成绩可以不加条件地视为未见数据的泛化证据。",
+      "contribution": "原报告的增量是 400M 单元格级双轴骨干、独立特征/目标路径、动态特征编码，以及用上下文条件掩码统一不同目标列和任务。本次更正补充基准维护者对已发布权重的污染警示，不将警示扩展为架构或全部任务无效。",
+      "evidence": "原文 §2–4 说明方法，§5.1 列出 TabArena 51 表官方划分、TALENT/BCCO 的 15 种子协议。维护者 issue #648 提供复查脚本：保留 32 个分类集成成员中保持列序的 2 个（21、29），关闭多项式特征、数值变换及 SVD，沿用两表各 30 个官方划分；脚本报告 diabetes 的测试 1-AUC 从原列序 0.0066 升到倒序 0.1536，blood-transfusion 从 0.1774 升到 0.2596。10 月 27 日维护者博客扩展到 51 表、3 种随机列序及 KumoTabular/TabPFN3.5 对照，其报告仅上述两表出现特别大的误差下降。榜单同日版本记录增加泄漏警示。这是独立维护者报告及其可读脚本，本轮未本地运行。",
+      "limitations": "不能据列序敏感性判断训练者意图、识别全部训练集或宣称其余数据干净/失效，原始训练语料未独立审计。当前 TabArena 适配器固定 HF 权重 revision 20c07a07801973a0aec57c31062bdb2ea1cda2b2、推理代码 commit 774aa3e1a994cbe38f33758e3d663e9951855554；这是本轮读取的当前适配器标识，issue 本身未给出完整历史运行锁定清单。剥离增强后的配置不同于发布默认配置，不能将其分数当作默认模型分数；维护者同时列出的默认两表 1-AUC 为 0.1249/0.2333。原文其他基准的训练预算和调参未完全对齐，注意力骨架不证明有向因果或干预能力。已读全部 3 条公开评论，本轮未见作者在该线程回应，不把沉默视作认可。",
+      "value": "保留统一单元格任务接口与结构建模的研究价值；模型效果比较应单独审视受警示数据、权重与推理配置，并用新的未见任务验证。记录区分模型机制、作者自报实验和维护者独立复查。",
+      "reproducibility": "官方代码和公开权重存在，TabArena 适配器及 issue 复查脚本可读，两表和 30 个划分有明确 OpenML 任务号。本轮未下载运行权重，不宣称本地复现。论文首发/修订仍为 2026-09-15，站内收录仍为 2026-10-12，10 月 27 日是外部警示日期。",
+      "conclusion": "现有证据不支持",
+      "sources": [
+        "https://arxiv.org/abs/2609.17488",
+        "https://arxiv.org/html/2609.17488v1",
+        "https://github.com/limix-ldm-ai/LimiX",
+        "https://github.com/autogluon/tabarena/issues/648",
+        "https://andrejtschalzev.substack.com/p/who-is-cheating-on-tabarena",
+        "https://huggingface.co/spaces/TabArena/leaderboard/blob/main/website_texts.py",
+        "https://raw.githubusercontent.com/autogluon/tabarena/main/packages/tabarena/src/tabarena/models/limix_2/model.py",
+        "https://raw.githubusercontent.com/autogluon/tabarena/main/packages/tabarena/src/tabarena/models/limix_2/info.py"
+      ],
+      "readScope": "原文 v1 §2–4 方法与训练数据说明、§5.1 评测协议、§5.5 因果骨架实验、§7 结论；issue #648 全文及复查脚本、GitHub API 返回的全部 3 条评论；10 月 27 日维护者博客全文；榜单同日版本记录；当前 LimiX-2 适配器 model.py 及 info.py。其他结果表未逐项独立验证。"
+    }
+  },
+  {
+    "id": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/718dd6fa696c6303ca13ad81836014ee-Abstract-Conference.html",
+    "title": "Prior-free Tabular Test-time Adaptation",
+    "url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/718dd6fa696c6303ca13ad81836014ee-Abstract-Conference.html",
+    "sourceUpdated": "2026",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-28",
+    "reason": "官方ICLR2026主会页面已核实，摘要说明无源数据和先验时的类别比例估计、特征对齐与子空间适配；本轮尚未阅读方法实验全文和核对最早公开时间，保留队列补审，不以主会标签代替质量依据。"
+  },
+  {
+    "id": "arxiv-2610.33311",
+    "title": "When Does Pre-Trained Capacity Help Causal Learning? From Scalar Prediction to Counterfactual Post-Training",
+    "url": "https://arxiv.org/abs/2610.33311",
+    "sourceUpdated": "2026-10-23",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-28",
+    "reason": "已读全篇方法、实验及附录 A/B，与结构化 IHDP/Twins 及因果适配相关。但附录明确缺拆分/种子、模型选择及叙事模板，生成指标函数与 CodeGen 成对目标的泄漏控制不详；Jobs 本来没有双潜在结果，其配对叙事来源未说明。需补足关键数据/评测协议后再判断后训练与规模收益，暂缓公开，不因 Workshop、未开源或效应小自动排除。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "claim": "更大语言模型的容量可通过反事实后训练转化为更强因果能力。",
+      "contribution": "对比同一 Qwen2.5 家族的标量双头潜在结果预测与软前缀生成设计，并描述事实 SFT、成对反事实 SFT、DPO 偏好对齐流程。",
+      "evidence": "全文报告 IHDP/Twins 上三次重复；叙事输入相对数值输入的 IHDP PEHE 均值改善 3.4%，ATE 误差却差于所列基线。0.5B 到 1.5B 的标量指标混合变化，生成最终系统改善，但缺分阶段结果，数据/头/输出/监督同时改变。本轮未复现实验。",
+      "limitations": "附录 A 明确缺关键实验记录：拆分、种子、checkpoint 选择、MMD 启用、准确叙事模板、生成指标实现及成对目标来源；Jobs 叙事不可当真实个体反事实标签。不能将生成相似度或两尺寸趋势归因为后训练带来的因果能力。",
+      "value": "输入格式、潜在结果读出与生成监督的对照方向相关，待核心评测材料补齐后可复审；当前设计假设可以记录，但不足以向公开目录呈现为已验证的后训练收益。",
+      "reproducibility": "取得 arXiv v1 完整正文；未找到补齐这些关键材料的官方代码/附录。arXiv 作者称获 NeurIPS 2026 Transitioning from Pre-Training to Post-Training Workshop 录用，本轮未独立核验该录用目录。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/abs/2610.33311",
+        "https://arxiv.org/html/2610.33311v1"
+      ],
+      "readScope": [
+        "全文 §1–6：相关工作、两种架构、训练与全部结果、作者局限",
+        "附录 A.1–A.4：配置/指标及明确缺失项",
+        "附录 B：尚未执行的受控研究设计"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2610.32423",
+    "title": "Cycle-of-Thought: Self-Evaluative Iterative Reasoning for Table Visual Question Answering in Document Images",
+    "url": "https://arxiv.org/abs/2610.32423",
+    "sourceUpdated": "2026-10-23",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-28",
+    "reason": "已读方法与实验，暂缓原因不是原文不可用。主表与消融表若干同名 zero-shot 基线不一致，未说明是否更换样本/随机种子；§3.2.2 的置信度停止条件不见于算法和 critic 提示，主文“持续胜过 self-consistency”也有表内反例。需作者统一评测划分、逐次结果、停止逻辑与等预算对照，再准确界定收益后收录。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "reviewedAt": "2026-10-28",
+      "claim": "同一视觉语言模型按生成—批评—修正循环可以提升表格图像问答，且收益来自结构化检查而非单纯增加调用。",
+      "contribution": "不微调模型，以 Generator、检查行列和交点的 Critic、Refiner 迭代修改答案，最多三轮；利用同一模型自反馈检查表格空间错位。",
+      "evidence": "已读 v1 §§1–8、Algorithm 1、主结果表 2、消融表 4、成本表与实际提示模板。作者在 WTQ 图像、DocVQA 表格、TableVQABench 与 IndotabVQA 上报告多主干结果。但 Qwen2.5-7B 的 zero-shot 基线 WTQ 在主表 63.09、消融 63.48，DocVQA 分别 91.76/89.48，未说明比较条件差异。主表 DocVQA 上 Qwen2-7B 的 self-consistency 为 96.25，高于本文 94.46；不支持无条件胜过该基线。",
+      "limitations": "正文要求 critic 无修改且 confidence≥4/5 才停止，Algorithm 1 只检查无修改，critic 提示未要求置信度；需代码确认。self-consistency 为三样本，而本文最多七次调用，预算未匹配。WTQ 2,062 个 QA 等子集/渲染选择缺少可核验清单。Algorithm 输入列出 ground truth 但步骤未用，不能据此断言答案泄漏。主张注意力纠错等机制没有直接测量；缺少置信区间。",
+      "value": "自检行列定位的方式与表格推理相关，暂保留方法线索；核心比较口径冲突未解决前不发布效果概览。",
+      "reproducibility": "官方 HTML/PDF 可访问，本次阅读 HTML；未核实到实现和逐次结果，未进行本地复现。补查实际停止逻辑、各表基线对应样本和预算。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/abs/2610.32423",
+        "https://arxiv.org/html/2610.32423v1"
+      ],
+      "readScope": "v1 主文 §§1–8 方法/实验/成本/局限，Algorithm 1，表 1–5 与 Generator/Critic/Refiner 提示"
+    }
+  },
+  {
+    "id": "arxiv-2608.28408",
+    "title": "SymboLLM-FE: LLM-Accelerated Symbolic Regression for Automated Feature Engineering on Tabular Data",
+    "url": "https://arxiv.org/abs/2608.28408",
+    "sourceUpdated": "2026-08-28",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-28",
+    "reason": "正文提出相关特征工程流程，但核心证据和实现口径仍需补核：附录把类别编码差解释为实际距离，不能支持可靠语义；表 1 平均分范围与主表分类结果不一致且未交代样本，三随机种子与附录 Wilcoxon 检验的有效样本单位未说明；Tesla 时间划分与目标时间对齐不明确。先核对代码、正式会议版本和逐折结果，不把录用当作质量保证，也不复述“架构消除幻觉/泄漏”。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "reviewedAt": "2026-10-28",
+      "claim": "符号回归先发现与目标相关公式、LLM 再按语义和验证反馈生成特征，能够兼顾效果、调用效率与可解释性并消除幻觉/泄漏风险。",
+      "contribution": "按 Spearman 排序的连续扩大窗口抽取 O(n²) 特征子集，各自拟合符号回归，随后将公式、数据集语义及分数交给 LLM 生成 pandas 特征并利用验证反馈迭代；是统计搜索加语义修改的组合。",
+      "evidence": "主文表 2 与附录给出六个数据集、TabPFN/CatBoost/XGBoost/MLP 及多种 AutoFE 对照；TabPFN 在 Credit-g 为 77.00，低于 CAAFE 78.00，其余若干数据有较小均值收益。正文声明 fold-wise 训练/验证/测试隔离和三随机种子，SR 只在训练折拟合；具体折数、拆分比例和时序测试口径不完整。附录 A 给出 gplearn/种群/代数，C 给出模型网格与设备，F/I 给显著性数字，G–L 给实现和语义解释。没有运行验证，不能将作者隔离声明当作独立审计。",
+      "limitations": "表 1 score=80.02 的任务范围不清，与表 2 四分类任务的均值不同；三种子声明不足以解释附录极小 Wilcoxon p 值，需明确折/种子/样本单位。Tesla 未说明按时间切分与预测目标是否利用同期/未来信息。G 的代码筛选保留以 df 开头但不以 df.drop 开头的行，与明确删特征/去冗余描述需对照代码。K.3 把 HomePlanet/Destination 类别编码差当作距离/方向，K.4 把 x(1-x) 抛物线称 S 曲线，说明语言解释并非已验证语义。H/L 声称消除泄漏与偏差，但公式由标签拟合且以验证反馈选择，架构本身不构成保证。",
+      "value": "作为 TabPFN 输入特征优化方向具有方法线索；当前尚无法无歧义界定效果和语义可靠性，需补代码及统计协议后再判断是否按缩小主张收录。",
+      "reproducibility": "作者项目页可访问并标注 EMNLP 2026，提供 GitHub 链接；官方 PDF 获取后本地文本编码报错，已用 arXiv v1 HTML 补读相关正文，未逐段核对正式版差异或运行代码。后续首先对照正式版本与实现而非反复只读摘要。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2608.28408v1",
+        "https://arxiv.org/abs/2608.28408",
+        "https://aclanthology.org/2026.emnlp-main.1476/",
+        "https://lamda-nesy.github.io/SymboLLM-FE/index.html"
+      ],
+      "readScope": "arXiv v1 主文 §§1–6/Limitations、附录 A–D、表 10–14 和 E–I、K.1–K.7/L；J 基因编程比较仅定位，未核验图中数值。官方元数据搜索及作者项目页"
+    }
+  },
+  {
+    "id": "arxiv-2610.35368",
+    "title": "Shared-Factor-Conditioned Diffusion for Low-Rank Tensor Recovery",
+    "url": "https://arxiv.org/abs/2610.35368",
+    "sourceUpdated": "2026-10-26",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-28",
+    "reason": "已读共享因子条件扩散方法及四个结构化张量补全实验，但当前公开实现与论文评测的对应关系未清。Alog 入口传入 testset，Trainer 定期在该集合计算指标、更新 best_metric，入口最终汇总该最佳值；ACC 正文称五折，当前 loader 只返回一个固定训练集及 50 个测试子集，而入口遍历 5 个索引。不能断言论文表格必然来自这份代码或必然使用测试集选择。待补充表 I/II 对应固定提交、原始划分、验证/测试隔离与 checkpoint 选择说明后重审。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "claim": "共享因子条件扩散可提高多维结构化数据缺失补全精度。",
+      "contribution": "以各模态坐标的共享低维因子为紧凑 score 网络条件，在每个张量的观测条目上联合拟合，支持标量及管状输出；不是直接迁移的预训练基础模型。",
+      "evidence": "表 I/II 报告 Alog、ACC、Air、Click 各 4 种因子宽度，与 ScoreTR、EnergyTD 等张量方法比较；已读对应方法、实验、超参及公开代码。",
+      "limitations": "当前公开代码和正文的评测对应不清，所需预处理划分未随仓库提供；不能直接认可泛化优势。任务是已知实体张量恢复，未证明新实体或时间外推。影像去噪部分还明确使用参考 PSNR 挑 checkpoint，不能据此声称无干净参考的部署效果。",
+      "value": "共享因子约束扩散有多维业务记录补全的研究相关性，待核心协议能对应后再判收录；暂缓不代表全面否定方法。",
+      "reproducibility": "公开代码可读，数据与 checkpoint 需另行获取；本轮无本地训练或复现。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/abs/2610.35368",
+        "https://arxiv.org/html/2610.35368v1",
+        "https://github.com/CZY-Code/DiffTR",
+        "https://raw.githubusercontent.com/CZY-Code/DiffTR/master/Diff/Diff4Alog.py",
+        "https://raw.githubusercontent.com/CZY-Code/DiffTR/master/Diff/Diff4Acc.py",
+        "https://raw.githubusercontent.com/CZY-Code/DiffTR/master/utils/ob_dataV2.py",
+        "https://raw.githubusercontent.com/CZY-Code/DiffTR/master/exp_diff_alog.py",
+        "https://raw.githubusercontent.com/CZY-Code/DiffTR/master/exp_diff_acc.py",
+        "https://raw.githubusercontent.com/CZY-Code/DiffTR/master/data/readme.md"
+      ],
+      "readScope": "正文 §III-A/B 与 Algorithm1、§IV-A 及表 I/II、§IV-B/C 与 §V 部分协议/结果叙述、附录 A 超参及 B.4/C 选择协议；官方 README、数据 README、4 个表格入口、Diff4Alog/Acc 训练及 test 函数、ob_dataV2 中 4 个数据加载函数。未完成各视觉任务全部结果及所有对照实现审核。"
+    }
+  },
+  {
+    "id": "openreview-vH1EUKvrHt",
+    "title": "TabK: Amortized Bayesian Estimation of the Number of Clusters in Tabular Data",
+    "url": "https://openreview.net/forum?id=vH1EUKvrHt",
+    "sourceUpdated": null,
+    "decision": "deferred",
+    "reviewedAt": "2026-10-28",
+    "reason": "官方 NeurIPS 2026 poster 148754 及采集元数据确认录用；作者仓库、HF 模型卡和共同作者主页可核验零样本聚类数估计路线。会议页只有 OpenReview 正文入口，本轮该入口显示浏览器验证、API403，仓库未附正文。需补方法/实验正文、50 表划分、标签类数与簇数定义、预算和消融后审核，不用仓库数字代替正文，也不误记为尚未录用。",
+    "qualityReview": {
+      "reviewStatus": "pending-fulltext",
+      "sources": [
+        "https://openreview.net/forum?id=vH1EUKvrHt",
+        "https://neurips.cc/virtual/2026/poster/148754",
+        "https://github.com/mrbakhtyari/TabK",
+        "https://huggingface.co/mrbakhtyari/TabK",
+        "https://www.rcdeamorim.com/"
+      ],
+      "readScope": "官方会议页面和已采集会议元数据、官方仓库 README、HF 模型卡、共同作者发表列表；OpenReview 正文不可读。"
+    }
+  },
+  {
+    "id": "doi-10.5281-zenodo.22949759",
+    "title": "FinTFM: a tabular foundation model for corporate credit risk, pretrained only on synthetic data",
+    "url": "https://doi.org/10.5281/zenodo.22949759",
+    "sourceUpdated": "2026-10-26",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-28",
+    "reason": "与已有 Zenodo 概念 DOI 候选合并。官方 CITATION.cff 确认 0.8.0 发布于 10 月 26 日且类型为 software，README 明确没有论文、以编号测量日志和 claims ledger 为证据；近期仓库更新不是新论文首发。其路线与 TabArena 负面结果有潜在独立价值，但本轮尚需固定版本并核对方法、核心日志、公司/时间划分、微调与树基线预算；不因排名低暂缓。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "sources": [
+        "https://doi.org/10.5281/zenodo.22949759",
+        "https://github.com/kabartay/fintfm",
+        "https://raw.githubusercontent.com/kabartay/fintfm/main/README.md",
+        "https://raw.githubusercontent.com/kabartay/fintfm/main/CITATION.cff",
+        "https://pypi.org/project/fintfm/0.8.0/"
+      ],
+      "readScope": "README 全文、CITATION.cff、PyPI 0.8.0 说明；未完成 claims ledger 与原始测量日志审核。"
+    }
+  },
+  {
+    "id": "sap-rpt-iss-edge-20261027",
+    "title": "From Orbit to Enterprise: The Next Tabular AI Frontier for SAP and HPE",
+    "url": "https://news.sap.com/2026/10/sap-hpe-orbit-to-enterprise-next-tabular-ai-frontier/",
+    "sourceUpdated": "2026-10-27",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-28",
+    "reason": "SAP 官方 10 月 27 日消息描述计划于 2027 年初将 SAP-RPT 部署至 HPE Spaceborne Computer-2。只保留发布线索：计划不是已运行案例，能源效率宣传缺少可核验负载/硬件/测量协议；待公开部署结果或技术报告再审。网页工具失败、普通 HTTP403，搜索索引明确 planned/by early 2027，不能以此完成技术审核。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "sources": [
+        "https://news.sap.com/2026/10/sap-hpe-orbit-to-enterprise-next-tabular-ai-frontier/"
+      ],
+      "readScope": "官方稿的搜索索引文本；原网页两种普通读取均未成功，无技术报告或实验正文。"
+    }
   }
 ]
