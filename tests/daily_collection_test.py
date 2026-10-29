@@ -17,6 +17,21 @@ def groups(plan):
 
 
 class DailyWindowTests(unittest.TestCase):
+    def test_automatic_sources_import_queue_once(self):
+        calls = []
+        def fake_run(command, **kwargs):
+            calls.append(command)
+            if command[1].endswith("collect.py"):
+                Path(command[-1]).write_text(json.dumps({"runs": [], "candidates": []}))
+            return SimpleNamespace(returncode=0)
+        plan = {"until": "2026-10-29", "groups": [{"since": "2026-10-22", "channels": ["arxiv", "fulltext"]}]}
+        with tempfile.TemporaryDirectory() as folder, patch.object(daily.subprocess, "run", side_effect=fake_run):
+            self.assertEqual(daily.run_automatic(plan, Path(folder)), 0)
+        imports = [c for c in calls if c[1].endswith("review_queue.py")]
+        self.assertEqual(len(imports), 1)
+        self.assertTrue(imports[0][-2].endswith("candidates-arxiv.json"))
+        self.assertTrue(imports[0][-1].endswith("candidates-fulltext.json"))
+
     def test_first_run_backfills_six_months_and_clamps_month_end(self):
         plan = daily.plan_window(date(2026, 8, 31), {})
         self.assertEqual(set(groups(plan).values()), {"2026-02-28"})
@@ -27,8 +42,8 @@ class DailyWindowTests(unittest.TestCase):
                               "citations": "2026-10-10", "references": "2026-10-10", "consensus": "2026-10-10",
                               "families": "2026-10-10"}}
         plan = daily.plan_window(date(2026, 10, 13), state)
-        self.assertEqual(groups(plan), {"arxiv": "2026-10-06", "fulltext": "2026-04-13", "references": "2026-10-06", "web": "2026-04-13"})
-        self.assertEqual({s["channel"] for s in plan["skipped"]}, {"formal", "semantic", "citations", "consensus", "families"})
+        self.assertEqual(groups(plan), {"arxiv": "2026-10-06", "fulltext": "2026-04-13", "web": "2026-04-13"})
+        self.assertEqual({s["channel"] for s in plan["skipped"]}, {"formal", "semantic", "citations", "consensus", "families", "references"})
         self.assertEqual([x["channel"] for x in plan["manual"]], ["web"])
 
     def test_manual_weekly_channels_are_listed_when_due(self):
@@ -59,7 +74,7 @@ class DailyWindowTests(unittest.TestCase):
     def test_daily_alternatives_and_weekly_backfill_are_independent(self):
         state = {"channels": {n: "2026-10-20" for n in daily.CHANNELS}, "backfills": {"fulltext": "2026-10-15"}}
         first = daily.plan_window(date(2026, 10, 21), state)
-        self.assertEqual(set(groups(first)), {"arxiv", "fulltext", "references", "web"})
+        self.assertEqual(set(groups(first)), {"arxiv", "fulltext"})
         self.assertEqual(groups(first)["fulltext"], "2026-10-14")
         state["channels"]["fulltext"] = "2026-10-21"
         second = daily.plan_window(date(2026, 10, 22), state)
@@ -93,7 +108,7 @@ class DailyWindowTests(unittest.TestCase):
                     raise OSError("provider unavailable")
                 Path(command[-1]).write_text(json.dumps({"runs": [], "candidates": []}))
                 return SimpleNamespace(returncode=0)
-            return SimpleNamespace(returncode=1 if command[-1].endswith("fulltext.json") else 0)
+            return SimpleNamespace(returncode=1 if any(str(c).endswith("fulltext.json") for c in command) else 0)
         with tempfile.TemporaryDirectory() as folder, patch.object(daily.subprocess, "run", side_effect=fake_run):
             result = daily.run_automatic(plan, Path(folder))
             self.assertNotEqual(result, 0)

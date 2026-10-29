@@ -25,8 +25,8 @@ CHANNELS = {
     "semantic": (7, "six-months"),
     "citations": (7, "six-months"),
     "formal": (7, "six-months"),
-    "references": (1, "incremental"),
-    "web": (1, "incremental"),
+    "references": (7, "incremental"),
+    "web": (7, "incremental"),
     # Run by the reviewer, not collect.py: ranked connector results and official family pages change slowly.
     "consensus": (7, "six-months"),
     "families": (7, "six-months"),
@@ -128,6 +128,7 @@ def web_report_errors(report):
 def run_automatic(plan, run_dir):
     """Isolate process crashes and queue failures as well as HTTP failures."""
     status = 0
+    outputs = []
     for group in plan["groups"]:
         for name in group["channels"]:
             if name in MANUAL:
@@ -139,14 +140,24 @@ def run_automatic(plan, run_dir):
                 status = status or result.returncode
                 if not output.exists():
                     raise RuntimeError(f"Collector exited {result.returncode} without a report")
-                queued = subprocess.run([sys.executable, str(ROOT / "scripts/review_queue.py"), "add", str(output)], cwd=ROOT)
-                if queued.returncode:
-                    raise RuntimeError(f"Queue import exited {queued.returncode}; candidates retained")
+                outputs.append((name, output))
             except (OSError, RuntimeError) as error:
                 status = status or 2
                 (run_dir / f"candidates-{name}-error.json").write_text(json.dumps({"runs": [
                     {"channel": name, "source": "runner", "status": "failed", "error": str(error)}], "candidates": []}, indent=2))
                 print(f"{name} 未完成：{error}；继续其他渠道。", file=sys.stderr)
+    if outputs:
+        try:
+            queued = subprocess.run([sys.executable, str(ROOT / "scripts/review_queue.py"), "add",
+                                     *[str(p) for _, p in outputs]], cwd=ROOT)
+            if queued.returncode:
+                raise RuntimeError(f"Queue import exited {queued.returncode}; candidates retained")
+        except (OSError, RuntimeError) as error:
+            status = status or 2
+            for name, _ in outputs:
+                (run_dir / f"candidates-{name}-error.json").write_text(json.dumps({"runs": [
+                    {"channel": name, "source": "queue", "status": "failed", "error": str(error)}], "candidates": []}))
+            print(f"队列批量导入失败：{error}", file=sys.stderr)
     return status
 
 

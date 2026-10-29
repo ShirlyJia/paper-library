@@ -1,5 +1,5 @@
 {
-  "coverage": "每日执行的有限补查清单，不代表穷尽全网；既查最近七天，也查未补齐的时间缺口。搜索片段只作候选，正文和发表状态回到一手来源核验。",
+  "coverage": "每七天到期执行的有限完整补查清单，其他工作日按新候选定向补查，不代表穷尽全网；既查最近七天，也查未补齐的时间缺口。搜索片段只作候选，正文和发表状态回到一手来源核验。",
   "lanes": [
     {"id": "web-industry", "query": "tabular relational foundation model new release TabPFN TabICL LimiX TAFFY", "sources": ["https://priorlabs.ai/research", "https://github.com/soda-inria/tabicl", "https://github.com/limix-ldm-ai/LimiX"]},
     {"id": "web-prediction", "query": "tabular foundation model calibration missing data robustness distribution shift"},

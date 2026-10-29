@@ -27,6 +27,35 @@ PAPER = {"id": "arxiv-2610.00001", "title": "New", "date": "2026-10-10", "update
 
 
 class QueueTests(unittest.TestCase):
+    def test_invalid_batch_does_not_partially_save_screening(self):
+        import tempfile
+        import json
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            q, notes, batch = root / "queue.json", root / "notes.json", root / "batch.json"
+            q.write_text(json.dumps({"items": [{"id": "known", "title": "Known"}]}))
+            batch.write_text(json.dumps([
+                {"id": "known", "verdict": "needs-fulltext", "reason": "read abstract"},
+                {"id": "unknown", "verdict": "not-relevant", "reason": "invalid"}]))
+            before = q.read_bytes()
+            with patch.object(queue, "QUEUE", q), patch.object(queue, "SCREENING", notes):
+                with self.assertRaises(ValueError):
+                    queue.screen_batch(batch)
+            self.assertFalse(notes.exists())
+            self.assertEqual(q.read_bytes(), before)
+
+    def test_packet_bounds_context_but_keeps_old_low_score_leads(self):
+        items = [{"id": str(i), "open": True, "abstract": "x" * 2000,
+                  "firstSeen": f"2026-10-{30-i:02d}", "previousDecision": {"large": "private notes"}}
+                 for i in range(10)]
+        packet = queue.review_packet(items, limit=2, backlog=2)
+        self.assertEqual([i["id"] for i in packet["items"]], ["0", "1", "9", "8"])
+        self.assertEqual(packet["openTotal"], 10)
+        self.assertEqual(len(items), 10)
+        self.assertTrue(all(len(i["abstract"]) == 1600 and i["abstractTruncated"] for i in packet["items"]))
+        self.assertTrue(all("previousDecision" not in i for i in packet["items"]))
+
     def test_independent_channels_and_title_hits_rank_first(self):
         pattern = queue.re.compile("tabular", queue.re.I)
         strong = {"title": "Tabular X", "abstract": "a", "discoveredVia": ["models", "openalex:semantic:a", "https://iclr.cc"]}

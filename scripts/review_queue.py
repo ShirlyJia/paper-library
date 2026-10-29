@@ -111,6 +111,19 @@ def top(limit):
     print(f"共 {len(items)} 条待处理。")
 
 
+def review_packet(items, limit=20, backlog=5):
+    """Bound model input, not recall. Reserve slots for old, possibly low-score leads."""
+    opened = [i for i in items if i.get("open")]
+    head = opened[:limit]
+    older = sorted(opened[limit:], key=lambda i: (i.get("firstSeen", ""), i.get("id", "")))[:backlog]
+    fields = ("id", "title", "url", "date", "updated", "firstSeen", "score", "discoveredVia", "reviewState")
+    return {"openTotal": len(opened), "selected": len(head + older), "items": [
+        {**{k: item[k] for k in fields if k in item}, "abstract": (item.get("abstract") or "")[:1600],
+         "abstractTruncated": len(item.get("abstract") or "") > 1600,
+         "selection": "backlog" if index >= len(head) else "ranked"}
+        for index, item in enumerate(head + older)]}
+
+
 def screen(identifier, verdict, reason):
     queue = read(QUEUE, {"items": []})
     item = next((i for i in queue["items"] if identifier in (i.get("id"), i.get("url"))), None)
@@ -126,11 +139,34 @@ def screen(identifier, verdict, reason):
     print(f"已记录初筛：{identifier} → {verdict}")
 
 
+def screen_batch(path):
+    queue = read(QUEUE, {"items": []})
+    by_id = {value: i for i in queue["items"] for value in (i.get("id"), i.get("url")) if value}
+    notes = read(SCREENING, [])
+    for row in json.loads(path.read_text()):
+        item = by_id.get(row.get("id"))
+        if not item or row.get("verdict") not in VERDICTS or not row.get("reason", "").strip():
+            raise ValueError("批量初筛包含未知 ID、无效结论或空理由；未写入")
+        notes = [n for n in notes if not keys(n) & keys(item)]
+        notes.append({**{k: item.get(k) for k in ("id", "url", "title", "doi")},
+                      "verdict": row["verdict"], "reason": row["reason"], "screenedAt": today(),
+                      "sourceUpdated": item.get("updated") or item.get("date") or ""})
+    refreshed = refresh(queue["items"], notes)
+    write(SCREENING, notes)
+    write(QUEUE, {**queue, "items": refreshed})
+    print("批量初筛已记录；未公开收录任何论文。")
+
+
 def main():
     cli = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = cli.add_subparsers(dest="command", required=True)
     sub.add_parser("add").add_argument("reports", nargs="+")
+    sub.add_parser("screen-batch").add_argument("input", type=Path)
     sub.add_parser("top").add_argument("-n", type=int, default=40)
+    p = sub.add_parser("packet", help="Write a bounded abstract triage packet; never removes candidates")
+    p.add_argument("--limit", type=int, default=20)
+    p.add_argument("--backlog", type=int, default=5)
+    p.add_argument("--output", type=Path, required=True)
     s = sub.add_parser("screen")
     s.add_argument("identifier")
     s.add_argument("--verdict", required=True, choices=sorted(VERDICTS))
@@ -138,8 +174,16 @@ def main():
     args = cli.parse_args()
     if args.command == "add":
         add(args.reports)
+    elif args.command == "screen-batch":
+        screen_batch(args.input)
     elif args.command == "top":
         top(args.n)
+    elif args.command == "packet":
+        if args.limit < 0 or args.backlog < 0 or args.limit + args.backlog < 1:
+            cli.error("packet sizes must be nonnegative with a positive total")
+        packet = review_packet(read(QUEUE, {"items": []})["items"], args.limit, args.backlog)
+        write(args.output, packet)
+        print(f"初筛包 {packet['selected']} / 待审 {packet['openTotal']} 条：{args.output}")
     else:
         screen(args.identifier, args.verdict, args.reason)
 
