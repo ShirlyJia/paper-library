@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-28",
+  "updatedAt": "2026-10-29",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -7372,6 +7372,150 @@
         "https://www.deem.berlin/publication/"
       ],
       "addedAt": "2026-10-28"
+    },
+    {
+      "id": "arxiv-2610.36585",
+      "title": "Recall or Relearn? A Mixture of In-Context Experts for Recurring Concept Drift",
+      "date": "2026-10-27",
+      "updated": "2026-10-27",
+      "category": 5,
+      "section": "context-selection",
+      "topicId": "stream-context",
+      "topic": "流式更新与记忆管理",
+      "related": [
+        2
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "在旧数据规律再次出现时，MICE 为冻结的 TabPFN 保存并合并历史上下文，再按近期标签反馈混合预测。作者在 29 条真实流上报告相对千行滑窗平均提高约 0.58 个百分点，但三千行滑窗在其中 21 条上更准且约便宜 2.5 倍；适合研究反复漂移下的记忆收益，不能视为普遍提速方案。",
+      "url": "https://arxiv.org/abs/2610.36585",
+      "pdf": "https://arxiv.org/pdf/2610.36585",
+      "code": null,
+      "aliases": [
+        "MICE",
+        "Mixture of In-Context Experts"
+      ],
+      "keywords": [
+        "概念漂移",
+        "循环漂移",
+        "TabPFN",
+        "上下文记忆",
+        "在线集成",
+        "延迟标签"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.36585",
+        "https://arxiv.org/html/2610.36585v1"
+      ],
+      "addedAt": "2026-10-29"
+    },
+    {
+      "id": "arxiv-2610.34626",
+      "title": "Entity Matching using Decision Models",
+      "date": "2026-10-25",
+      "updated": "2026-10-25",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "entity-matching",
+      "topic": "实体匹配与记录对齐",
+      "related": [
+        1,
+        2
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把两条记录交给 Jev 等决策模型，直接返回是否同一实体的概率，并研究不确定样本转交大模型的方式。作者在八个匹配基准比较六种决策模型，固定默认提示下四种模型接近生成式对照；代码和结果已公开。但后续提示按测试集挑选，级联与最佳成绩存在选择偏差，不能当作无偏泛化结论。",
+      "url": "https://arxiv.org/abs/2610.34626",
+      "pdf": "https://arxiv.org/pdf/2610.34626",
+      "code": "https://github.com/wbsg-uni-mannheim/decision-models-4-entity-matching",
+      "aliases": [
+        "Decision Models for Entity Matching",
+        "Jev Entity Matching"
+      ],
+      "keywords": [
+        "实体匹配",
+        "决策模型",
+        "Jev",
+        "概率校准",
+        "模型级联",
+        "测试集选择偏差"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.34626",
+        "https://arxiv.org/html/2610.34626v1",
+        "https://github.com/wbsg-uni-mannheim/decision-models-4-entity-matching"
+      ],
+      "addedAt": "2026-10-29"
+    },
+    {
+      "id": "arxiv-2610.33719",
+      "title": "ZipFusion: Fusing Lossless KV Decompression with Attention for Efficient LLM Decoding",
+      "date": "2026-10-24",
+      "updated": "2026-10-24",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把 BF16 KV 缓存的无损解压融入注意力核，在寄存器内还原数值，避免先在显存恢复完整缓存。作者在单张 H100、两个 8B LLM 的预压缩 8K 上下文上报告，相同批大小下解码吞吐提高约 15%；计时不含首次编码与压缩，不能据此声称解决首次 OOM。可借鉴缓存布局与算子协同，表格任务效果待验证。",
+      "url": "https://arxiv.org/abs/2610.33719",
+      "pdf": "https://arxiv.org/pdf/2610.33719",
+      "code": null,
+      "aliases": [
+        "ZipFusion"
+      ],
+      "keywords": [
+        "LLM迁移",
+        "无损压缩",
+        "KV缓存",
+        "融合注意力",
+        "解码吞吐",
+        "显存",
+        "SGLang",
+        "FlashInfer"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.33719",
+        "https://arxiv.org/html/2610.33719v1"
+      ],
+      "addedAt": "2026-10-29"
+    },
+    {
+      "id": "arxiv-2610.33501",
+      "title": "DualPace: Decoupled Scheduling and Cooperative GPU–CPU Decoding for LLM Serving",
+      "date": "2026-10-24",
+      "updated": "2026-10-24",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "将 CPU 变成独立调度的解码引擎，在主存保留 KV，必要时让 GPU 协助稠密计算，减少卸载请求等待。作者在三组 LLM/服务器配置的对话负载上提高固定延迟目标下的承载请求率；但长输入、短输出负载常由纯 GPU 更快，且依赖 AMX。可借鉴缓存准入与异构调度，表格任务效果待验证。",
+      "url": "https://arxiv.org/abs/2610.33501",
+      "pdf": "https://arxiv.org/pdf/2610.33501",
+      "code": null,
+      "aliases": [
+        "DualPace"
+      ],
+      "keywords": [
+        "LLM迁移",
+        "CPU卸载",
+        "异构推理",
+        "独立调度",
+        "批处理",
+        "KV准入",
+        "尾延迟",
+        "AMX"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.33501",
+        "https://arxiv.org/html/2610.33501v1"
+      ],
+      "addedAt": "2026-10-29"
     }
   ],
   "collectionUpdates": [
@@ -7847,6 +7991,16 @@
         "arxiv-2609.17488",
         "arxiv-2610.11784"
       ]
+    },
+    {
+      "date": "2026-10-29",
+      "added": [
+        "arxiv-2610.33501",
+        "arxiv-2610.33719",
+        "arxiv-2610.34626",
+        "arxiv-2610.36585"
+      ],
+      "updated": []
     }
   ]
 }

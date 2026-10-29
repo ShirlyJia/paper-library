@@ -8000,5 +8000,120 @@
       ],
       "readScope": "官方稿的搜索索引文本；原网页两种普通读取均未成功，无技术报告或实验正文。"
     }
+  },
+  {
+    "id": "arxiv-2610.36585",
+    "title": "Recall or Relearn? A Mixture of In-Context Experts for Recurring Concept Drift",
+    "url": "https://arxiv.org/abs/2610.36585",
+    "sourceUpdated": "2026-10-27",
+    "decision": "included",
+    "reviewedAt": "2026-10-29",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在冻结 TFM、每批100行且标签延迟一批的分类流中，历史上下文可改善反复出现且重学较慢的概念；慢层控制相对同预算FIFO的折扣半Brier损失。",
+      "contribution": "将漂移检测分段、两折交叉估计的上下文合并、最近一批损失加权与慢层混合结合；用学习曲线面积刻画何时记忆比重新积累样本更有价值。",
+      "evidence": "作者报告：TabPFN v2、4成员、每专家最多1000行、最多12个历史专家；24个受控流、30个生成流、29个真实流及9个独立确认片段。真实流上24/29优于FIFO、平均+0.58个百分点，最差-0.23；9个独立片段各上下文策略均值差小于0.4个百分点。逐批先预测再见标签，合并的自身误差使用两折交叉估计。",
+      "limitations": "附录C说明部分早期真实流后来成为开发数据，不能全部称独立测试；独立确认集未满足多数任务最优的预注册假设。理论精度增益依赖纯上下文和损失间隔，半Brier界不等于准确率保证。固定分段计时1.07秒/批，对千行FIFO为0.22秒；三千行FIFO在21/29真实流更准且约便宜2.5倍。最多29次TFM调用，非低成本通用替代。",
+      "value": "可用于检验重复业务状态或周期性漂移是否值得保存多组历史表格上下文，并以更大滑窗作为成本对照。",
+      "reproducibility": "正文给出批次、阈值、种子与开发/确认划分；本轮未发现并核验作者实现链接，未独立复现或本地运行实验。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.36585",
+        "https://arxiv.org/html/2610.36585v1"
+      ],
+      "readScope": "v1正文§3–5.5，尤其§4.2交叉估计、§4.5标签时序、表1、§5.4独立确认、§5.5成本；附录C开发/预注册说明。定理按作者陈述记录，未独立验证附录全部证明。"
+    }
+  },
+  {
+    "id": "arxiv-2610.34626",
+    "title": "Entity Matching using Decision Models",
+    "url": "https://arxiv.org/abs/2610.34626",
+    "sourceUpdated": "2026-10-25",
+    "decision": "included",
+    "reviewedAt": "2026-10-29",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "固定默认提示B0下，部分决策模型能在八个实体匹配基准接近生成式对照；后续按置信度级联的收益是带测试集提示选择的报告结果。",
+      "contribution": "系统比较直接输出固定选项概率的六种决策模型，联合考察匹配F1、记录写法、校准、阈值、级联及API吞吐，连接语义数据整合与结构化决策接口。",
+      "evidence": "§2–3固定B0、相同输入记录、默认阈值0.5，八个完整测试集共30225对，三次调用，四种决策模型平均F1距生成式GPT-6 Luna约1.2点以内；包含未见实体的WDC和billiger.de。§4明确按每模型/基准的测试集F1选F0。§6阈值和级联转交阈值在验证集选择，但沿用F0。官方仓库可访问，含代码、提示和结果。",
+      "limitations": "F0使用测试标签选提示，污染后续鲁棒性、校准、级联及文献最佳成绩比较，不能将验证集选阈值等同整条流程无泄漏。老公开基准潜在预训练污染未排除；不同模型底座/训练未控制。API吞吐受服务端配置与并发影响，不能与本地A40上Ditto直接归因架构快慢；费用是作者实验时价格，不作为当前报价。",
+      "value": "为无任务标签时的记录匹配与低置信度复核提供可检查的研究入口；可复用固定提示B0基线，并在新的验证/测试划分重新选择提示和级联阈值。",
+      "reproducibility": "已核验作者仓库 decision-models-4-entity-matching，公开代码、提示、原始结果；依赖指定API快照，可变服务影响复跑，未独立或本地复现。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2610.34626v1",
+        "https://arxiv.org/abs/2610.34626",
+        "https://github.com/wbsg-uni-mannheim/decision-models-4-entity-matching"
+      ],
+      "readScope": "v1§2任务、数据和设置，§3默认提示实验，§4提示选择，§5输入变化，§6.1–6.4校准/阈值/级联及§7吞吐的相关正文；官方仓库README。未独立重跑数据或核验供应商底层模型实现。"
+    }
+  },
+  {
+    "id": "arxiv-2610.33719",
+    "title": "ZipFusion: Fusing Lossless KV Decompression with Attention for Efficient LLM Decoding",
+    "url": "https://arxiv.org/abs/2610.33719",
+    "sourceUpdated": "2026-10-24",
+    "decision": "included",
+    "reviewedAt": "2026-10-29",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在已预压缩前缀的LLM decode场景，融合无损KV重建与注意力可降低缓存读取和解压中间缓冲，并提高相同显存预算下的解码吞吐。",
+      "contribution": "对BF16块的指数偏移进行12位无损编码，保留不满足条件的原块；按Tensor Core操作布局在寄存器重建。跨层重分配释放的页空间，接入请求准入并为未压缩新页预留容量。",
+      "evidence": "§IV：Llama3.1-8B-Instruct及Qwen3-8B、H100 80GB、BF16、16-token页、SGLang/FlashInfer、启用CUDA Graphs。固定8K输入、256输出，计255个decode步；比较同路径SGLang及IBP/SplitZip/LZ4。B=32吞吐分别+15.3%/+15.2%；各自最大可支持批次且显存比例同为0.8时+26.3%/+25.8%，计元数据及临时缓冲。算子中位层测试400次，框架6次范围，作者检查KV逐位复原。",
+      "limitations": "前缀在计时前压缩，prefill与首次压缩不计，新增生成KV保持未压缩；不能据此声称端到端提速或首次上下文OOM已解决。只测两个8B模型、单一H100与固定essay提示；最大批比较含批大小变化。未给表格任务精度或掩码/布局适配实验；精确复原KV不等于独立验证所有输出完全相同。",
+      "value": "可研究表格重复查询场景的压缩缓存与注意力核融合，避免只缩小文件却在计算前完整展开；迁移需对齐表格注意力掩码、KV形状和硬件布局，再计入首次建缓存成本。",
+      "reproducibility": "原文给出CUDA/PyTorch/FlashInfer版本、硬件及测量边界；本轮未核验到作者代码仓库，未独立或本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.33719",
+        "https://arxiv.org/html/2610.33719v1"
+      ],
+      "readScope": "v1§II–IV完整方法和实验正文、图1/4/5说明、§V相关工作；核查III-B位表示、III-D临时页分配及IV-A计时排除项。原始图像未作数值重建，以正文明确报告为限。"
+    }
+  },
+  {
+    "id": "arxiv-2610.33501",
+    "title": "DualPace: Decoupled Scheduling and Cooperative GPU–CPU Decoding for LLM Serving",
+    "url": "https://arxiv.org/abs/2610.33501",
+    "sourceUpdated": "2026-10-24",
+    "decision": "included",
+    "reviewedAt": "2026-10-29",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "当GPU KV容量紧张且有持续解码工作时，独立CPU调度比GPU控制的CPU卸载更能持续服务请求；不是所有负载均快于纯GPU。",
+      "contribution": "GPU与CPU分别拥有队列/调度时钟，联合预留主存已用、计划、增长和迁移KV；CPU在阶段边界请求GPU Dense Assist，离线剖析决定路由和批大小，避免CPU推进受GPU调度机会限制。",
+      "evidence": "§6：Llama3.1-8B/RTX4090/12核Xeon，Qwen3-14B/2H20/24核，Qwen3-32B/4H20/48核。Azure Conversation/Code各前2000条长度轨迹，固定种子指数到达，合成token输入关闭前缀缓存。对照vLLM0.22.1及NEO（Qwen兼容补丁保留其策略）。Conversation在1秒/token平均归一化延迟目标、相邻实测点插值下，相对NEO承载请求率+6.9–43.2%；报告P99 TTFT/ITL、主存容量和CPU并行度敏感性。",
+      "limitations": "Azure-Code平均输出22token，长prefill占主导时Qwen配置GPU-only较优，CPU不是普遍加速器；主存增大也非单调改善ITL，vLLM GPU-resident的P99 ITL本身更低。依赖Intel AMX/BF16、NUMA与离线剖析，合成内容只保留长度，未评任务质量；无表格工作负载验证。NEO移植补丁和未披露完整重复试验不确定性限制独立复查。",
+      "value": "提供多请求显存压力下的KV准入、缓存驻留和CPU独立调度参考；表格系统应先确认有可复用状态与足够重复前向计算，不能直接把LLM长decode收益套到一次性预测。",
+      "reproducibility": "已读运行时结构、kernel类型及硬件/负载协议；本轮未发现可核验的作者代码仓库，未独立复现或本地实测。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.33501",
+        "https://arxiv.org/html/2610.33501v1"
+      ],
+      "readScope": "v1正文§3动机、§4.1–4.3调度/协作/剖析、§5实现、§6.1–6.4实验和边界。未逐项验证附录调度伪代码和全部图像曲线，数值采用正文明确条件。"
+    }
+  },
+  {
+    "id": "arxiv-2610.36355",
+    "title": "WAKMan: Workload Aware KVCache Manager",
+    "url": "https://arxiv.org/abs/2610.36355",
+    "sourceUpdated": "2026-10-26",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-29",
+    "reason": "已读§2–3和附录A/F：证据主要为20组合成流的缓存命中率，端到端延迟/吞吐与策略回放开销未量化。保留候选，补查实现及包含切换成本的实测；不把命中率提升当系统提速。"
+  },
+  {
+    "id": "arxiv-2610.31869",
+    "title": "Forecasting Associations, Not Interventions: A Preregistered Causal Audit of Covariate-Aware Time Series Foundation Models",
+    "url": "https://arxiv.org/abs/2610.31869",
+    "sourceUpdated": "2026-10-22",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-29",
+    "reason": "已获取全文并确认涉及TabPFN-TS及协变量干预，尚未完成各审计臂、预注册与结果表的逐项核对，保留待审，不形成质量结论。"
   }
 ]
