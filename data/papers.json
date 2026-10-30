@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-29",
+  "updatedAt": "2026-10-30",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -7516,6 +7516,190 @@
         "https://arxiv.org/html/2610.33501v1"
       ],
       "addedAt": "2026-10-29"
+    },
+    {
+      "id": "arxiv-2610.37001",
+      "title": "Meta Models: Models that Model Learning",
+      "date": "2026-10-27",
+      "updated": "2026-10-27",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "topic": "工业与工程预测",
+      "related": [
+        5,
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把历史训练的配置、进度和损失整理成表格，用冻结的 TabPFNv3 预测新实验的最终损失、学习曲线及下游分数；也可加入早期观测或学习输入坐标。作者在六组训练记录上验证了多个任务，但外推到更大模型时并非始终优于专用方法。可借鉴实验规划与结果预测，预测误差降低尚不能等同于已节省训练算力。",
+      "url": "https://arxiv.org/abs/2610.37001",
+      "pdf": "https://arxiv.org/pdf/2610.37001",
+      "code": null,
+      "aliases": [
+        "Meta Models",
+        "Models that Model Learning"
+      ],
+      "keywords": [
+        "TabPFNv3",
+        "训练结果预测",
+        "学习曲线",
+        "实验规划",
+        "缩放规律",
+        "KAN",
+        "冻结模型适配"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.37001",
+        "https://arxiv.org/html/2610.37001v1"
+      ],
+      "addedAt": "2026-10-30"
+    },
+    {
+      "id": "arxiv-2610.37737",
+      "title": "Anisotropic Trust Region Warping for Prior-Data Fitted Networks in Bayesian Optimisation",
+      "date": "2026-10-01",
+      "updated": "2026-10-27",
+      "dateNote": "OpenReview 的 pdate/odate 为 2026-10-01（UTC），公开页面记 OPT 2026 Poster；arXiv v1 于 2026-10-27 上传。提交创建时间不当作公开时间。",
+      "category": 6,
+      "section": "adaptation-target",
+      "topicId": "input-adapters",
+      "topic": "输入空间与冻结模型适配",
+      "related": [
+        2,
+        5
+      ],
+      "status": "workshop",
+      "venue": "NeurIPS 2026 OPT Workshop · Poster",
+      "summary": "冻结 PFN 贝叶斯优化代理，先估计每个输入维度的变化尺度，再缩放输入并保留信赖域内的上下文，使目标更接近模型学过的先验。作者在不同平滑程度的合成函数上改善优化结果；尚无真实超参数优化验证，也未证明端到端加速。可借鉴输入适配，需计入尺度估计与局部搜索的成本。",
+      "url": "https://arxiv.org/abs/2610.37737",
+      "pdf": "https://arxiv.org/pdf/2610.37737",
+      "code": null,
+      "aliases": [
+        "ATR warping",
+        "Anisotropic Trust Region Warping",
+        "Trust Region Warping for PFNs"
+      ],
+      "keywords": [
+        "PFNs4BO",
+        "输入空间适配",
+        "冻结模型",
+        "贝叶斯优化",
+        "信赖域",
+        "长度尺度",
+        "先验错配"
+      ],
+      "sources": [
+        "https://arxiv.org/html/2610.37737v1",
+        "https://arxiv.org/abs/2610.37737",
+        "https://openreview.net/forum?id=qsATqa4lHz",
+        "https://github.com/youngers2006/Trust-Region-Warping-For-PFNs"
+      ],
+      "addedAt": "2026-10-30"
+    },
+    {
+      "id": "arxiv-2610.38210",
+      "title": "GAAC: Lossless KV Compression for Bandwidth-Efficient LLM Inference on Personal Devices",
+      "date": "2026-10-28",
+      "updated": "2026-10-28",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "无损压缩 BF16 KV 的指数位，并在注意力读取时分块还原，减少解码阶段的缓存占用和带宽。作者在 DGX Spark 上报告约 26% 常驻 KV 节省，配合 W4A16 权重时解码步骤加速 1.04–1.15 倍；这不是整个请求的加速。可借鉴低带宽场景，但首次上下文构建 OOM 和表格推理收益仍待验证。",
+      "url": "https://arxiv.org/abs/2610.38210",
+      "pdf": "https://arxiv.org/pdf/2610.38210",
+      "code": null,
+      "aliases": [
+        "GAAC"
+      ],
+      "keywords": [
+        "LLM迁移",
+        "无损压缩",
+        "KV缓存",
+        "BF16",
+        "融合注意力",
+        "带宽",
+        "解码速度"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.38210",
+        "https://arxiv.org/html/2610.38210v1"
+      ],
+      "addedAt": "2026-10-30"
+    },
+    {
+      "id": "arxiv-2610.36950",
+      "title": "DCKV: Learned Transform Coding of the Prompt KV Cache in Hybrid Language Models",
+      "date": "2026-10-27",
+      "updated": "2026-10-27",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "为 Qwen3.5-2B 的提示词 KV 训练变换与熵编码器，减小缓存保存、传输的体积，再于生成前还原完整 BF16 KV。作者在多组长上下文任务中得到较大的存储压缩与有限平均质量下降，但部分检索任务退化明显，运行峰值显存还增加约 182 MiB。适合研究离线缓存，不是直接解决 GPU OOM 或加速解码的方法。",
+      "url": "https://arxiv.org/abs/2610.36950",
+      "pdf": "https://arxiv.org/pdf/2610.36950",
+      "code": null,
+      "aliases": [
+        "DCKV"
+      ],
+      "keywords": [
+        "LLM迁移",
+        "KV缓存存储",
+        "学习压缩",
+        "熵编码",
+        "混合架构",
+        "缓存恢复",
+        "离线缓存"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.36950",
+        "https://arxiv.org/html/2610.36950v1"
+      ],
+      "addedAt": "2026-10-30"
+    },
+    {
+      "id": "arxiv-2610.35023",
+      "title": "BellowsKV: One Latent for Many Layers, Expanded on Demand",
+      "date": "2026-10-26",
+      "updated": "2026-10-26",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "利用相邻层隐藏状态的相关性，为提示词缓存保存共享潜在表示，结合量化，在注意力读取时重建所需 KV。作者在三个 7B/8B 模型的指定 LongBench 协议下，以约 13–14 倍缓存压缩保留约 97–98% 平均得分，但实测单序列解码速度接近原模型。首次 prefill 仍建立完整 KV，且新增生成 token 不压缩；表格迁移与首次 OOM 改善尚未验证。",
+      "url": "https://arxiv.org/abs/2610.35023",
+      "pdf": "https://arxiv.org/pdf/2610.35023",
+      "code": null,
+      "aliases": [
+        "BellowsKV"
+      ],
+      "keywords": [
+        "LLM迁移",
+        "跨层缓存共享",
+        "KV量化",
+        "潜在表示",
+        "按需重建",
+        "提示词缓存"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.35023",
+        "https://arxiv.org/html/2610.35023v1",
+        "https://github.com/MorrisZJ/BellowsKV"
+      ],
+      "addedAt": "2026-10-30"
     }
   ],
   "collectionUpdates": [
@@ -7999,6 +8183,17 @@
         "arxiv-2610.33719",
         "arxiv-2610.34626",
         "arxiv-2610.36585"
+      ],
+      "updated": []
+    },
+    {
+      "date": "2026-10-30",
+      "added": [
+        "arxiv-2610.35023",
+        "arxiv-2610.36950",
+        "arxiv-2610.37001",
+        "arxiv-2610.37737",
+        "arxiv-2610.38210"
       ],
       "updated": []
     }

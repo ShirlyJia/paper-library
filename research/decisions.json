@@ -8115,5 +8115,152 @@
     "decision": "deferred",
     "reviewedAt": "2026-10-29",
     "reason": "已获取全文并确认涉及TabPFN-TS及协变量干预，尚未完成各审计臂、预注册与结果表的逐项核对，保留待审，不形成质量结论。"
+  },
+  {
+    "id": "arxiv-2610.37001",
+    "title": "Meta Models: Models that Model Learning",
+    "url": "https://arxiv.org/abs/2610.37001",
+    "sourceUpdated": "2026-10-27",
+    "decision": "included",
+    "reviewedAt": "2026-10-30",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "历史训练记录可作为冻结 TabPFNv3 的上下文，在特定配置排序、损失曲线及下游分数预测任务中形成有效的元模型；不主张无需相关记录或普遍可靠外推。",
+      "contribution": "将训练规划问题统一成数值表格预测，复用冻结骨干；可用新训练的前缀观测更新上下文，另以 KAN 学习参考学习率和批大小坐标，输入适配无需更新 TabPFN 骨干。",
+      "evidence": "阅读六组来源合计 11,091 条训练记录的实验。采用 run-level 划分，ID 验证用于配置选择，较大模型作为 OOD；损失目标加回按语料拟合的缩放规律偏置。作者报告 DelphiHP 24 个留出分组平均 Spearman 为 0.967，XGBoost 为 0.875；DataDecide 的 750M–1B 留出规模上，10 项下游任务平均绝对误差为 1.62 个百分点，XGBoost 为 3.40。7 条 Delphi 留出轨迹加入前 20% 观测后，未来曲线 MAE 平均下降 56%。StepLaw 的 KAN 输入坐标适配降低最终损失与曲线预测误差，附录包含同上下文对照。",
+      "limitations": "较大规模外推并非全面优于 NCPL：论文原报告的 NCPL 在 Marin 和 StepLaw OOD 均有较低误差，复现 NCPL 在 StepLaw 也占优。MoE 对照接口缺少专家字段，不能当作骨干能力的公平隔离。前瞻 Marin 案例预测冻结后跟踪 14 个检查点、仅到训练进度 14.61%；评测协议在最初两个后续观测后固定，其他缩放律未获得相同前缀信息，不能称全程预注册的等信息量比较。单次 H200 查询耗时不包括全部特征、选择与适配流程；没有证明真实训练总成本下降。",
+      "value": "直接展示表格基础模型对机器学习实验记录的应用，适合研究训练结果预测、预算分配和冻结模型输入适配；将数值预测误差与实际决策收益分开评估。",
+      "reproducibility": "当前核验来源为作者正文及附录，数据源与划分有描述；未找到该工作的完整官方实现发布。未进行本地训练或独立复现，所有性能数字均为作者报告。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2610.37001v1",
+        "https://arxiv.org/abs/2610.37001"
+      ],
+      "readScope": "正文第 1–5 节的方法、回顾与前瞻实验及局限；附录 A.1/A.2 的数据与划分、C.2/D.1 的相关配置和适配对照。首发按 arXiv v1 公开时间记录，正文内部日期不作为已公开证据。"
+    }
+  },
+  {
+    "id": "arxiv-2610.37737",
+    "title": "Anisotropic Trust Region Warping for Prior-Data Fitted Networks in Bayesian Optimisation",
+    "url": "https://arxiv.org/abs/2610.37737",
+    "sourceUpdated": "2026-10-27",
+    "decision": "included",
+    "reviewedAt": "2026-10-30",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "输入尺度变换与信赖域选择可改善固定先验 PFN 在特定长度尺度错配下的贝叶斯优化表现；不主张通用真实任务优势或已证明端到端加速。",
+      "contribution": "沿用冻结 PFNs4BO 的 HEBO+ 检查点，通过核目标对齐估计逐维长度尺度，再仿射变换输入，使目标尺度接近预训练先验；用信赖域限制上下文和查询范围，加入重启。",
+      "evidence": "在 Matérn-3/2 合成函数上扫描 15 个长度尺度 [0.021,1.5]，维度 2/5/10，50 次 BO 迭代，每组 21 次重复；初始 5d 个观测，采集函数共享 100,000 个 Sobol 候选。回归诊断另覆盖 1–10 维、17 种尺度。作者报告先验尺度两端的优化改善，较高维收益减弱。第 3 节和算法附录明确尺度估计采用 100 步梯度优化，局部数据最少保留 4 点。",
+      "limitations": "无噪声、同 Matérn 核族主要隔离长度尺度这一个错配因素，未覆盖真实超参数优化。短尺度条件下不能完全分离输入变换、局部化与重启各自的作用；稀疏观测下尺度估计存在误差。PFN 的 O(dN²) 渐近复杂度不变不等于估计、选择和推理合计耗时不增加。",
+      "value": "提供不更新基础模型参数的输入适配路线，有助于研究目标表格分布与固定合成先验的错配；直接迁移到普通表格分类回归仍需实测。",
+      "reproducibility": "已核对官方 OpenReview 记录为 OPT 2026 Poster，并采用 pdate/odate 确认公开日期。作者 GitHub 仓库目前只有 README 与许可证，README 说明正在迁入实验代码，因此不标记已有实现。只完成材料审核，未独立或本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2610.37737v1",
+        "https://openreview.net/forum?id=qsATqa4lHz",
+        "https://api2.openreview.net/notes/search?term=Anisotropic+Trust+Region+Warping&limit=10",
+        "https://github.com/youngers2006/Trust-Region-Warping-For-PFNs/blob/main/README.md"
+      ],
+      "readScope": "正文第 2–5 节与附录 C–F 的尺度估计、BO 实验配置和算法；官方 OpenReview 同名记录 id=qsATqa4lHz 的 venue/pdate/odate；作者仓库文件列表与 README。"
+    }
+  },
+  {
+    "id": "arxiv-2610.38210",
+    "title": "GAAC: Lossless KV Compression for Bandwidth-Efficient LLM Inference on Personal Devices",
+    "url": "https://arxiv.org/abs/2610.38210",
+    "sourceUpdated": "2026-10-28",
+    "decision": "included",
+    "reviewedAt": "2026-10-30",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "利用 BF16 指数冗余并融合解压与注意力读取，可在所测内存带宽受限 LLM 解码中减少 KV 占用并带来小幅步骤加速。",
+      "contribution": "符号和尾数保持原样，对每通道校准的指数范围采用 base+offset 编码；8 个值一组、2 位标签选择 3 位/4 位或原始指数。超范围回退保留逐位 KV，解压与注意力块读取融合，块完成后才压缩并保留原始尾块。",
+      "evidence": "正文表 1–5 报告五个模型 KV 编码压缩比 1.405–1.407 倍，包含存储槽位开销后约节省 26% 常驻 KV。DGX Spark GB10 128GB 在 batch=1、64K 上下文的注意力核加速 1.19–1.27 倍；配合 W4A16 权重、固定模型/批量/上下文，解码步骤加速 1.04–1.15 倍。Apple M4 10 核 16GB 的注意力核为 1.02–1.25 倍。跨 WikiText 校准与 HumanEval/GSM8K/MMLU/PTB 分布测试显示编码比小幅变化，原始回退保持 KV 精确性。",
+      "limitations": "同内存预算下多容纳一个序列的吞吐收益与固定批量的算子收益不同。短上下文、少全注意力层或 FP8 KV 的压缩/加速空间有限。标准 prefill 路径可能临时展开缓存，没有首次构建峰值显存或整请求耗时改善证据；KV 逐位无损也不意味着不同算子实现产生完全逐位相同的最终输出。",
+      "value": "对应推理前向和常驻缓存阶段，展示精确压缩与融合读取如何共同影响带宽。迁移表格模型需适配 KV 布局、注意力掩码与查询方式，并重测数据分布、首次构建峰值、预测质量和端到端延迟。",
+      "reproducibility": "已读作者协议、硬件与校准配置，尚未确认该工作的官方实现发布。未运行代码，无独立复现证据；所列性能来自作者报告。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2610.38210v1",
+        "https://arxiv.org/abs/2610.38210"
+      ],
+      "readScope": "第 2–4.7 节的编码机制、融合算子、运行协议、表 1–5、跨分布校准及局限；不将引用的第三方库视为作者代码。"
+    }
+  },
+  {
+    "id": "arxiv-2610.36950",
+    "title": "DCKV: Learned Transform Coding of the Prompt KV Cache in Hybrid Language Models",
+    "url": "https://arxiv.org/abs/2610.36950",
+    "sourceUpdated": "2026-10-27",
+    "decision": "included",
+    "reviewedAt": "2026-10-30",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "模型专用的学习式变换与熵编码可显著缩小所测提示词 KV 的持久化体积，同时保留多数任务平均质量；不支持以压缩比宣称整请求或运行显存同比下降。",
+      "contribution": "将 Qwen3.5-2B 六个全注意力层的 KV 联合变换，以 PCA 初始化线性变换和非线性修正，再量化、使用 token 条件与 checkerboard 熵模型/rANS；prefill 后编码一次，解码生成前还原完整 BF16 KV，循环状态保持原样。",
+      "evidence": "用 1B FineWeb-Edu token 在两张 A100 训练 codec；保持前 4 和末 128 个位置 BF16。压缩部分每 token 约 205–221 字节，对比原始 12,288 字节为约 56–60 倍。RULER 4K 的 13 项任务/1,287 样本、LongBench 18 项任务和 RULER 32K 的 13 项任务/1,297 样本，作者报告主配置平均下降约 0.56/1.75/0.45 分。附录 F 的 A100 单次计时显示恢复已有缓存比重跑 prefill 快，而每输出 token 时间约 45/42ms，与原模型相近。",
+      "limitations": "部分 passage retrieval 约下降 10 分、variable tracking 约下降 4.2 分，均值掩盖尾部退化。混合架构循环状态在 4K–11K 提示下约占完整存储请求的 73–81%，不能把压缩部分的比率当全部请求压缩比。codec 约 176 MiB，峰值 GPU 内存增加约 182 MiB；首次全量构建与完整恢复仍要求 KV 能装入显存。KVTC 对照为适配的非官方 PoC，缺少完整官方变体；部分评测 harness 和任务选择存在作者已说明的差异，计时为共享节点单次结果，不能推导稳定生产收益。",
+      "value": "对应缓存持久化、传输或卸载后的恢复阶段，提醒区分存储字节、恢复时间与运行显存。迁移表格模型需要重新设计 token 条件、训练专用 codec 并检查不同查询和数据集上的质量，不能作为现成的 OOM 解法。",
+      "reproducibility": "作者给出训练与码流设计和详细消融，但未确认该工作完整官方代码。多 codec 训练成本为数十 GPU 小时量级，且只测单一混合骨干；未本地运行，证据为作者实验，不是独立复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2610.36950v1",
+        "https://arxiv.org/abs/2610.36950"
+      ],
+      "readScope": "正文第 2–5 节、Limitations，以及附录 F 表 10–12 的存储、显存和计时口径；核对保留的原始 token 与循环状态、基线实现和评测差异。"
+    }
+  },
+  {
+    "id": "arxiv-2610.35023",
+    "title": "BellowsKV: One Latent for Many Layers, Expanded on Demand",
+    "url": "https://arxiv.org/abs/2610.35023",
+    "sourceUpdated": "2026-10-26",
+    "decision": "included",
+    "reviewedAt": "2026-10-30",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "跨层潜在表示、量化与按需重建可在所测 LLM 提示词缓存中实现较高压缩和有限平均质量损失；不主张首次 prefill 低峰值、长生成恒定缓存或单序列解码加速。",
+      "contribution": "校准相邻层隐藏状态的跨层协方差，以 SVD 得到共享潜在空间，K/V 分开保留潜变量；采用 INT8 两层共享或 INT4 四层共享，可叠加按块 token 驱逐。精确 prefill 后构造每序列低秩 key 残差，读取时重建并应用 RoPE，value 潜变量可与输出投影融合。",
+      "evidence": "每模型用 32×2,048 token、WikiText 与代码各半校准，报告约 20 分钟 GPU 校准且不更新骨干梯度。正文区分官方 LongBench 8 任务协议 A、xKV harness 的 11 任务/4–32K 协议 B，以及带 oracle 32K 检索上下文的 BrowseComp Plus 协议 C。三个 7B/8B 模型在协议 B 约 13–14 倍缓存压缩下，保留约 97–98% 逐任务相对 dense 的平均得分。H100/Hugging Face 32K 下单序列解码速率为 dense 的约 0.995 倍。",
+      "limitations": "压缩率包含元数据但比较处于较宽存储区间，不是逐字节匹配。前 4、最近 64 个位置以及所有新生成 token 保留精确逐层缓存；首次 prefill 也先构建完整 KV，因此未解决首次构建 OOM、也不保证长生成时同等比例。Protocol C 使用 oracle 检索上下文，不能推广到完整 Agent 检索流程。vLLM KV 池承载增益和字节压缩比口径不完全相同，未用其宣称端到端吞吐优势。",
+      "value": "对应已有上下文的常驻缓存与跨查询复用，提供层间冗余压缩思路。迁移到表格任务需验证层间相关性、非自回归注意力和行级查询布局，记录首次与缓存后峰值及端到端响应；缓存更小不代表读取重建后更快。",
+      "reproducibility": "官方仓库目前仅含 README，虽称 Official Implementation，但未发现可执行实现、配置和权重，故不标记代码已公开。正文和附录给出主要协议；没有本地或独立复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2610.35023v1",
+        "https://arxiv.org/abs/2610.35023",
+        "https://github.com/MorrisZJ/BellowsKV/blob/main/README.md"
+      ],
+      "readScope": "第 3 节、4 节各评测协议和表 1–5、第 4.4 节系统结果，以及附录 B.8/B.9、C.1 的校准与缓存口径；核对官方仓库文件列表及 README。"
+    }
+  },
+  {
+    "id": "arxiv-2610.37913",
+    "title": "Grounding Long Financial Text with Semantically-Enriched Tables via Multimodal Learning",
+    "url": "https://arxiv.org/abs/2610.37913",
+    "sourceUpdated": "2026-10-27",
+    "decision": "deferred",
+    "reviewedAt": "2026-10-30",
+    "reason": "已读方法和核心实验，字段语义查询长文本的融合方式有相关性；但正文与消融表的数字、标准差与置信区间定义不一致，且未找到完整实现和逐次结果以核清。暂缓公开收录；出现修订、原始结果或作者澄清时补查，另核对其自述 NeurIPS 长上下文 Workshop 录用和更早公开日期。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "claim": "带字段语义的冻结表格分支作为查询，与长财报分块表示做交叉注意力可改善下一年利润变化预测。",
+      "contribution": "字段值 MLP 与 MiniLM 字段定义嵌入融合，ModernBERT 对 MD&A 按不重叠的最多 2,048 token 分块；先训练并冻结表格分支，再以每个字段为 query 读取所有文本块。",
+      "evidence": "阅读第 3–5 节、表 1/2 和附录 A/B。50,849 个公司年度样本，2000–2017 训练、2018–2019 验证、2020–2024 测试；2025 数值仅构造 2024 标签。表 1 作者报告 AUC 0.7304，对比 XGBoost 0.6958；表 2 表格单独输入为 0.6984。作者声称 5 seeds 各 10 runs，但正文将误差描述为样本标准差、表注又写 95% 正态置信区间，尚不能确认统计口径。",
+      "limitations": "表格单独输入的准确率/AUC 在正文与表 2 也有差异。基线拿到池化文本而非相同逐字段语义和分阶段训练流程，缺少匹配总计算预算，不能隔离每个组件或证明效率。公司可跨时间划分，结论不等于新公司泛化；只测一个金融任务，Compustat 可获得性限制独立复现。",
+      "value": "对语义字段与长文本融合有方法参考价值，但定量结果需澄清后再公开概览。",
+      "reproducibility": "未找到可核对逐次结果的官方实现；不宣称复现。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2610.37913v1",
+        "https://arxiv.org/abs/2610.37913"
+      ],
+      "readScope": "第 3–5 节、表 1/2、附录 A 的标签与样本数、附录 B 的超参数范围。尚未解决正文/表格与误差定义冲突，未完成正式录用页核验。"
+    }
   }
 ]
