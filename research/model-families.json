@@ -9,7 +9,8 @@
         "paper-612809da03",
         "arxiv-2511.08667",
         "arxiv-2605.13986",
-        "arxiv-2609.17895"
+        "arxiv-2609.17895",
+        "arxiv-2509.00326"
       ],
       "sources": [
         "https://arxiv.org/abs/2207.01848",
@@ -17,7 +18,8 @@
         "https://arxiv.org/abs/2511.08667",
         "https://arxiv.org/abs/2605.13986",
         "https://arxiv.org/abs/2609.17895",
-        "https://github.com/PriorLabs/TabPFN"
+        "https://github.com/PriorLabs/TabPFN",
+        "https://arxiv.org/abs/2509.00326"
       ]
     },
     {
@@ -627,6 +629,33 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.32863"
+      ]
+    },
+    {
+      "name": "tabctx",
+      "paperIds": [
+        "report-vector-tabctx"
+      ],
+      "sources": [
+        "https://github.com/VectorInstitute/tabctx"
+      ]
+    },
+    {
+      "name": "lazy-tfm",
+      "paperIds": [
+        "report-lazy-tfm"
+      ],
+      "sources": [
+        "https://github.com/biprateep/lazy-tfm"
+      ]
+    },
+    {
+      "name": "NVIDIA Structured Data Models",
+      "paperIds": [
+        "report-nvidia-structured-data-models"
+      ],
+      "sources": [
+        "https://github.com/NVIDIA/structured-data-models"
       ]
     }
   ]

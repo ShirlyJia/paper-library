@@ -8262,5 +8262,115 @@
       ],
       "readScope": "第 3–5 节、表 1/2、附录 A 的标签与样本数、附录 B 的超参数范围。尚未解决正文/表格与误差定义冲突，未完成正式录用页核验。"
     }
+  },
+  {
+    "id": "report-vector-tabctx",
+    "title": "tabctx: Multi-tenant Context Caching and Serving for Tabular Foundation Models",
+    "url": "https://github.com/VectorInstitute/tabctx",
+    "sourceUpdated": "2026-10-28",
+    "decision": "included",
+    "reviewedAt": "2026-10-30",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "该项目实现表格 ICL 上下文的服务级管理与多 GPU 放置；证据支持功能与技术位置，不证明通用速度优势或任何输入均不会 OOM。",
+      "contribution": "在底层模型的拟合/缓存预测之外，按数据集 ID 和租户管理缓存，增加准入、字节预算、淘汰与 spill、同上下文请求合并、分块查询及每设备放置。缓存的 K/V 仍由模型后端生成，切换后端必须重新编码。",
+      "evidence": "当前 README 的 Architecture、Scaling out 和 Several GPUs in one replica 明确每设备一个引擎、按上下文归属路由，且一个上下文不能跨 GPU。cache/manager.py 的 evict_one、make_room、put 实现淘汰、spill 与容量计量；超容量单条目会抛错，但被 pin 的条目可能使缓存暂时超预算，故不把预算机制解释为绝对 OOM 保证。官方 benchmark 文档区分 cold fit、warm predict 延迟与吞吐，并提供真实表格评测入口。",
+      "limitations": "单张训练表仍受单卡显存和首次编码成本约束；更多 GPU 增加的是可驻留上下文与并发容量。旧 benchmark 文档的粗锁描述与当前多设备/小预测重叠实现不同，旧版本关闭 KV 的结果也不可直接比较；本次不采用跨版本加速比。项目标为 experimental v0.x。",
+      "value": "可作为表格模型通用推理服务层的直接工程参考，尤其对应重复查询、租户隔离、缓存淘汰与多卡放置；单上下文扩容需要另找分块或模型并行方案。",
+      "reproducibility": "公开实现、测试与基准脚本可访问；本次阅读官方文档和缓存核心代码，未部署服务或运行 GPU 压测，不宣称本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://github.com/VectorInstitute/tabctx/blob/main/README.md",
+        "https://github.com/VectorInstitute/tabctx/blob/main/src/tabctx/cache/manager.py",
+        "https://github.com/VectorInstitute/tabctx/blob/main/benchmarks/README.md",
+        "https://github.com/VectorInstitute/tabctx/blob/main/CHANGELOG.md",
+        "https://pypi.org/pypi/tabctx/json"
+      ],
+      "readScope": "README 的架构、多副本、多 GPU、缓存与已知限制；cache/manager.py 的类说明及淘汰、腾挪、放入逻辑；benchmark README 的测量口径与版本警告；CHANGELOG 初始及当前发布记录。"
+    }
+  },
+  {
+    "id": "report-lazy-tfm",
+    "title": "LAZY (lazy-tfm): Lazy but Accurate Z* for Yinz",
+    "url": "https://github.com/biprateep/lazy-tfm",
+    "sourceUpdated": "2026-10-29",
+    "decision": "included",
+    "reviewedAt": "2026-10-30",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "统一包装器可暴露多个预训练表格模型的条件分布，并复用上下文、控制查询批量；这不等于完整服务引擎或各模型在同预算下普遍更快。",
+      "contribution": "提供 sklearn 风格接口和分布对象，统一 ensemble、bagging、chunk_size 与缓存模式；针对 LimiX-2 保留目标桶概率并实现项目侧的上下文缓存、仅在上下文拟合的特征预处理与独立位置嵌入随机源。",
+      "evidence": "README 和 scaling/limits 文档描述 TabPFN、TabICL、TabFM、LimiX-2、Kumo Tabular 的接入及不同缓存模式。scaling 的作者测量使用单台 GB10、DC1 光度数据 12 特征，GPU 为 10k 上下文+10k 查询，CPU 为 1k+1k；文档主动注明 TabFM 集成数和后续精度配置变化，不把该表作为公平模型排名。LimiX 实现 _prefill/_cache_member 按可用设备内存给成员建缓存，不支持的布局或超预算成员回退未缓存路径。",
+      "limitations": "条件密度网格可能截断概率尾部，类别输入需预先数值化；查询分块不消除上下文或多个集成成员的缓存占用。LimiX 路径包含额外预处理与缓存改造，不能把包装器行为当作所有上游版本的原生行为。模型权重的进程内共享不代表多租户缓存池，官方不保证同网络多线程并发预测安全。单数据域的测量不能外推所有任务或硬件。",
+      "value": "适合比较多模型概率预测接口、查询分块和上下文缓存后端；可参考 LimiX 的缓存适配与退化路径，但应以相同预处理、集成数、精度和模型版本重新对齐结果。",
+      "reproducibility": "官方源码、文档、CHANGELOG 与 PyPI 包可访问；本次核对接口、LimiX 缓存代码与作者测量协议，未安装模型、下载权重或本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://github.com/biprateep/lazy-tfm/blob/main/README.md",
+        "https://github.com/biprateep/lazy-tfm/blob/main/docs/guide/scaling.md",
+        "https://github.com/biprateep/lazy-tfm/blob/main/docs/guide/limits.md",
+        "https://github.com/biprateep/lazy-tfm/blob/main/src/lazy/models/limix.py",
+        "https://github.com/biprateep/lazy-tfm/blob/main/CHANGELOG.md",
+        "https://pypi.org/pypi/lazy-tfm/json"
+      ],
+      "readScope": "README；scaling 的测量条件、chunking、KV、bagging 和权重复用；limits 的外推、网格与类别特征限制；limix.py 的模块说明及 _prefill/_cache_member；CHANGELOG 的初始和最新版本日期。"
+    }
+  },
+  {
+    "id": "report-nvidia-structured-data-models",
+    "title": "NVIDIA Structured Data Models",
+    "url": "https://github.com/NVIDIA/structured-data-models",
+    "sourceUpdated": "2026-10-30",
+    "decision": "included",
+    "reviewedAt": "2026-10-30",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "该库提供 GPU 原生的结构化数据表示、处理流程和统一模型调用/缓存接口；材料支持工程功能，不代表所有模型具有相同能力、加速或多卡服务特性。",
+      "contribution": "把 TableTensor 的数值/类别/时间/文本等语义、Recipe 的前后处理与 ICLModel 的上下文/查询接口组合起来；不同模型可共享数据边界、集成视图和缓存预测流程。独立于已收录 Kumo Tabular 模型报告，这里收录基础库本身。",
+      "evidence": "README 列出 TabICLv2、TabFM、KumoTabular 及关系/时间序列模型。ICL 文档区分一次 forward 与先 fit 后多次 predict；源码 ICLModel.fit 保存冻结 cache，predict 检查已有缓存并拒绝训练模式。processing 文档说明共享预处理只执行一次、成员特有变换才分叉，Recipe 决定输出映射。benchmark/tabular/README 给出 TabArena/BeyondArena 的模型运行与评估入口，并区分全参数微调配置。",
+      "limitations": "支持的特征、目标类型和关系输入由各模型声明，不能凭接口统一假定所有模型原生接受全部类型。缓存 predict 不支持梯度微调，需使用 forward 训练路径。官方基准脚本的存在不等于已独立验证库级整体提速；也没有据此宣称单上下文跨 GPU 拆分或多租户服务调度。模型资产与库源码的许可不同。",
+      "value": "可作为表格推理的数据处理、统一模型封装和缓存接口基础设施参考，也方便复用 TabArena 实验入口；服务层资源调度仍应单独设计或对接。",
+      "reproducibility": "公开代码、安装说明、模型接口与基准脚本已核对；未运行 GPU 推理或复现榜单。代码 Apache 2.0 不自动覆盖外部模型权重。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://github.com/NVIDIA/structured-data-models/blob/main/README.md",
+        "https://github.com/NVIDIA/structured-data-models/blob/main/docs/source/icl.md",
+        "https://github.com/NVIDIA/structured-data-models/blob/main/docs/source/processing.md",
+        "https://github.com/NVIDIA/structured-data-models/blob/main/sdm/models/base/icl.py",
+        "https://github.com/NVIDIA/structured-data-models/blob/main/benchmark/tabular/README.md",
+        "https://github.com/NVIDIA/structured-data-models/releases/tag/v0.1.0"
+      ],
+      "readScope": "README；ICL 接口和关系数据说明；数据处理文档的 Recipe/Processor 与共享集成变换；ICLModel.fit/predict 的接口和缓存检查；TabArena/BeyondArena 基准说明；GitHub 发行记录。"
+    }
+  },
+  {
+    "id": "arxiv-2509.00326",
+    "title": "Chunked TabPFN: Exact Training-Free In-Context Learning for Long-Context Tabular Data",
+    "url": "https://arxiv.org/abs/2509.00326",
+    "sourceUpdated": "2026-04-27",
+    "decision": "included",
+    "reviewedAt": "2026-10-30",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在冻结 TabPFN v2 下，计算顺序的精确分块可避开部分 CUDA 核启动限制并降低注意力中间内存，扩大可运行上下文；不主张降低注意力总 FLOPs 或保证所有硬件提速。",
+      "contribution": "分别处理两类瓶颈：高有效 batch/head 下按 batch 分块调用高效注意力；没有合适融合后端时，对 Q 和 K/V 双层切块，以逐行 running max、softmax 分母和加权和合并。保持全部 keys，不是采样或有损上下文压缩。",
+      "evidence": "阅读 arXiv 方法、实验及附录 A 的 log-sum-exp 递推/复杂度，数学上等价于完整 softmax（浮点次序除外）。2026 Blogposts 补充 TabPFN 的特征分组、样本/特征两种注意力和有效 batch 形状，说明分块在注意力内执行。作者采用 TabArena 51 个任务及其中 15 个长上下文任务，固定测试集、随机子采样训练上下文到 3k/5k/10k/20k/50k/100k，报告短上下文与原实现一致、长上下文可运行，增量数据收益因任务而异。官方仓库有扩展代码、TabArena 运行脚本及 parity notebook。",
+      "limitations": "等价性实测仅覆盖原方法仍能运行的规模，更长上下文依赖递推论证；不是本地复现。表格/曲线采用历史基线，部分旧 TabPFN 失败由 RandomForest 填补，不能把差异全部归因于算子或当作同硬件预算比较。arXiv 的长表数量引言为 17、实验为 15，硬件文字也有 24GB/32GB 差异；概览采用后续 Blogposts 明确的 15 个任务和 24–32GB 范围，不引用精确容量保证或旧速度倍数。分块仍需完整 Q/K/V 和二次计算，小矩阵/循环可能增加延迟；多 GPU 是讨论方向，未展示通用上下文切分服务。",
+      "value": "直接对应表格长上下文的注意力前向峰值与核兼容性瓶颈，补充服务缓存管理无法解决的首次运行问题；与 TabArena 关联明确，可作为单卡分块方案的前作。",
+      "reproducibility": "作者代码仓库默认分支为 master，README 提供 uv 环境、扩展模块、TabArena 评测脚本和等价性分析 notebook；已确认公开可访问，未执行模型或基准。状态核对为 ICLR 2026 Blogposts，并非 ICLR 主会或 Workshop 录用。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2509.00326",
+        "https://arxiv.org/html/2509.00326v2",
+        "https://iclr-blogposts.github.io/2026/blog/index.html",
+        "https://iclr-blogposts.github.io/2026/blog/2026/chunked-tabpfn/",
+        "https://github.com/mrsergazinov/chunk_tabpfn/blob/master/README.md"
+      ],
+      "readScope": "arXiv 第 2–4 节、表 1/2 及附录 A 和 B/C 的相关结果与协议；ICLR Blogposts 全文的机制、形状、等价性边界与实验说明；官方目录的日期和身份；仓库 README 与文件入口。未从未读图像推断具体内存/延迟数字。"
+    }
   }
 ]

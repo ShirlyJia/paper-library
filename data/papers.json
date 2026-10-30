@@ -7700,6 +7700,188 @@
         "https://github.com/MorrisZJ/BellowsKV"
       ],
       "addedAt": "2026-10-30"
+    },
+    {
+      "id": "report-vector-tabctx",
+      "title": "tabctx: Multi-tenant Context Caching and Serving for Tabular Foundation Models",
+      "date": "2026-08-28",
+      "updated": "2026-10-28",
+      "dateNote": "首发采用官方 CHANGELOG 的 0.1.0 Initial release 日期；PyPI 最早可见上传为 2026-08-29 的 0.9.0。能力按核验时 main 分支文档与源码记录。",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "serving-scheduling",
+      "topic": "批处理与并行调度",
+      "related": [
+        1
+      ],
+      "status": "report",
+      "venue": "Vector Institute · 官方项目文档",
+      "summary": "为 TabICL、TabPFN 提供统一服务入口，将训练表的上下文缓存按数据集与租户管理，支持显存预算、淘汰、落盘恢复和多 GPU 放置。官方文档与源码展示了服务机制；多卡分配的是不同上下文，一个上下文仍不能跨卡拆分，单张表受单卡容量限制。可参考推理服务工程，不能据此承诺彻底避免 OOM 或固定加速倍数。",
+      "url": "https://github.com/VectorInstitute/tabctx",
+      "pdf": null,
+      "code": "https://github.com/VectorInstitute/tabctx",
+      "aliases": [
+        "tabctx",
+        "Vector Institute tabctx",
+        "VectorInstitute/tabctx"
+      ],
+      "keywords": [
+        "表格推理服务",
+        "TabICL",
+        "TabPFN",
+        "多租户",
+        "上下文缓存",
+        "显存预算",
+        "LRU",
+        "缓存淘汰",
+        "多GPU调度",
+        "OOM"
+      ],
+      "sources": [
+        "https://github.com/VectorInstitute/tabctx",
+        "https://github.com/VectorInstitute/tabctx/blob/main/README.md",
+        "https://github.com/VectorInstitute/tabctx/blob/main/src/tabctx/cache/manager.py",
+        "https://github.com/VectorInstitute/tabctx/blob/main/benchmarks/README.md",
+        "https://github.com/VectorInstitute/tabctx/blob/main/CHANGELOG.md"
+      ],
+      "addedAt": "2026-10-30"
+    },
+    {
+      "id": "report-lazy-tfm",
+      "title": "LAZY (lazy-tfm): Lazy but Accurate Z* for Yinz",
+      "date": "2026-09-29",
+      "updated": "2026-10-29",
+      "dateNote": "首发采用官方 CHANGELOG 的 0.1.0 日期，并与 PyPI 首次上传交叉核对；当前 PyPI 版本 0.5.1 于 2026-10-29 上传。项目文档和源码与论文版本分别记录。",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "context-cache",
+      "topic": "KV 压缩与缓存复用",
+      "related": [
+        1,
+        2
+      ],
+      "status": "report",
+      "venue": "开源项目 · 官方文档",
+      "summary": "为 LimiX-2、TabPFN、TabICL 等提供统一的条件概率分布接口，并管理集成、KV 缓存、权重复用和查询分块。官方文档给出单机光度数据的耗时与显存测量；它主要是预测库，不是多租户服务引擎。LimiX 缓存和预处理含项目自身适配，分块只减少部分运行开销，完整上下文及集成缓存仍需显存。",
+      "url": "https://github.com/biprateep/lazy-tfm",
+      "pdf": null,
+      "code": "https://github.com/biprateep/lazy-tfm",
+      "aliases": [
+        "lazy-tfm",
+        "LAZY",
+        "Lazy but Accurate Z for Yinz"
+      ],
+      "keywords": [
+        "统一模型接口",
+        "概率密度预测",
+        "条件分布",
+        "LimiX-2",
+        "TabPFN",
+        "TabICL",
+        "查询分块",
+        "KV缓存",
+        "集成",
+        "权重复用"
+      ],
+      "sources": [
+        "https://github.com/biprateep/lazy-tfm",
+        "https://github.com/biprateep/lazy-tfm/blob/main/docs/guide/scaling.md",
+        "https://github.com/biprateep/lazy-tfm/blob/main/docs/guide/limits.md",
+        "https://github.com/biprateep/lazy-tfm/blob/main/src/lazy/models/limix.py",
+        "https://github.com/biprateep/lazy-tfm/blob/main/CHANGELOG.md"
+      ],
+      "addedAt": "2026-10-30"
+    },
+    {
+      "id": "report-nvidia-structured-data-models",
+      "title": "NVIDIA Structured Data Models",
+      "date": "2026",
+      "updated": "2026-10-30",
+      "dateNote": "项目首发暂仅记已确认年份，不以仓库创建日代替公开日期。GitHub 最早发行版 v0.1.0 发布于 2026-10-14；已有 Kumo Tabular 模型技术说明作为独立条目保留。",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "topic": "通用表格模型",
+      "related": [
+        5,
+        6
+      ],
+      "status": "report",
+      "venue": "NVIDIA · 官方项目文档",
+      "summary": "GPU 原生的结构化模型基础库，用统一张量语义、可组合预处理和模型接口接入表格、关系及时间序列模型，支持固定上下文的 fit/predict 缓存复用，并提供 TabArena 等评测入口。它提供底层数据与模型组件；各模型的输入类型、缓存与训练能力仍有差异，不能据统一接口推断统一性能或服务级多卡调度能力。",
+      "url": "https://github.com/NVIDIA/structured-data-models",
+      "pdf": null,
+      "code": "https://github.com/NVIDIA/structured-data-models",
+      "aliases": [
+        "NVIDIA Structured Data Models",
+        "Structured Data Models",
+        "structured-data-models",
+        "NVIDIA SDM"
+      ],
+      "keywords": [
+        "GPU原生",
+        "结构化数据基础设施",
+        "统一模型接口",
+        "TableTensor",
+        "Recipe",
+        "预处理",
+        "KV缓存",
+        "TabArena",
+        "TabICLv2",
+        "Kumo Tabular"
+      ],
+      "sources": [
+        "https://github.com/NVIDIA/structured-data-models",
+        "https://github.com/NVIDIA/structured-data-models/blob/main/docs/source/icl.md",
+        "https://github.com/NVIDIA/structured-data-models/blob/main/docs/source/processing.md",
+        "https://github.com/NVIDIA/structured-data-models/blob/main/sdm/models/base/icl.py",
+        "https://github.com/NVIDIA/structured-data-models/blob/main/benchmark/tabular/README.md",
+        "https://github.com/NVIDIA/structured-data-models/releases/tag/v0.1.0"
+      ],
+      "addedAt": "2026-10-30"
+    },
+    {
+      "id": "arxiv-2509.00326",
+      "title": "Chunked TabPFN: Exact Training-Free In-Context Learning for Long-Context Tabular Data",
+      "date": "2025-08-30",
+      "updated": "2026-04-27",
+      "dateNote": "arXiv v1 首发 2025-08-30，v2 修订 2025-09-16；ICLR Blogposts 版本于 2026-04-27 发布。Blogposts 不标为 ICLR 主会论文。",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "memory-quantization",
+      "topic": "注意力与显存优化",
+      "related": [
+        1
+      ],
+      "status": "report",
+      "venue": "ICLR 2026 Blogposts",
+      "summary": "冻结 TabPFN v2，用批次分块绕开注意力核的启动限制，或以 Q/K/V 分块与增量 softmax 降低注意力中间张量峰值，保留完整上下文。作者在 TabArena 及 15 个长表任务上验证可运行性和预测表现，扩展到十万级上下文；代码公开。分块不减少完整注意力的计算量，可能增加延迟，也不是现成的单上下文多 GPU 切分方案。",
+      "url": "https://arxiv.org/abs/2509.00326",
+      "pdf": "https://arxiv.org/pdf/2509.00326",
+      "code": "https://github.com/mrsergazinov/chunk_tabpfn",
+      "aliases": [
+        "Chunked TabPFN",
+        "ChunkTabPFN",
+        "Chunk-TabPFN",
+        "ChunkTabPFN: Training-free Long Context"
+      ],
+      "keywords": [
+        "TabPFN v2",
+        "TabArena",
+        "注意力分块",
+        "长上下文",
+        "OOM",
+        "峰值显存",
+        "增量softmax",
+        "CUDA grid"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2509.00326",
+        "https://arxiv.org/html/2509.00326v2",
+        "https://iclr-blogposts.github.io/2026/blog/2026/chunked-tabpfn/",
+        "https://github.com/mrsergazinov/chunk_tabpfn"
+      ],
+      "addedAt": "2026-10-30"
     }
   ],
   "collectionUpdates": [
@@ -8189,11 +8371,15 @@
     {
       "date": "2026-10-30",
       "added": [
+        "arxiv-2509.00326",
         "arxiv-2610.35023",
         "arxiv-2610.36950",
         "arxiv-2610.37001",
         "arxiv-2610.37737",
-        "arxiv-2610.38210"
+        "arxiv-2610.38210",
+        "report-lazy-tfm",
+        "report-nvidia-structured-data-models",
+        "report-vector-tabctx"
       ],
       "updated": []
     }
