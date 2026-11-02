@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-10-30",
+  "updatedAt": "2026-11-02",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -7882,6 +7882,207 @@
         "https://github.com/mrsergazinov/chunk_tabpfn"
       ],
       "addedAt": "2026-10-30"
+    },
+    {
+      "id": "arxiv-2610.39558",
+      "title": "TabCUQ: Context-Uncertainty Quantification for Tabular Foundation Models",
+      "date": "2026-10-29",
+      "updated": "2026-10-29",
+      "category": 2,
+      "section": "prediction-distributions",
+      "topicId": "prediction-intervals",
+      "related": [
+        3,
+        5
+      ],
+      "status": "preprint",
+      "venue": "arXiv preprint",
+      "summary": "针对上下文样本有限时条件均值和处理效应区间过窄，TabCUQ 用折外残差扰动标签，再以预测波动和最大偏移量扩大区间。作者在模拟及 7 个真实任务上提高了覆盖率，可用于检查冻结表格模型的统计推断。真实任务覆盖的是拟合参考函数，区间明显变宽且部分查询仍欠覆盖；理论仅证明核回归情形，需额外多次推理。",
+      "url": "https://arxiv.org/abs/2610.39558",
+      "pdf": "https://arxiv.org/pdf/2610.39558",
+      "code": null,
+      "aliases": [
+        "TabCUQ"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.39558",
+        "https://arxiv.org/html/2610.39558"
+      ],
+      "addedAt": "2026-11-02"
+    },
+    {
+      "id": "arxiv-2610.39506",
+      "title": "Interpretable by Design Tabular Prediction via In-Context Local Linear Learning",
+      "date": "2026-10-29",
+      "updated": "2026-10-29",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "inference-mechanisms",
+      "related": [
+        2,
+        6
+      ],
+      "status": "preprint",
+      "venue": "arXiv preprint",
+      "summary": "TICL3 用 TabICLv2 的折外预测拟合全局线性模型，再根据查询的近邻拟合局部残差，输出可分解的线性分数。作者在 4 套基准上报告接近教师的分类准确率，可研究预测与特征解释的折中。解释仅对应变换后特征的线性分数，查询仍要调用教师；实测未快于单成员 TabICL，且部分预处理用到了测试类别词表。",
+      "url": "https://arxiv.org/abs/2610.39506",
+      "pdf": "https://arxiv.org/pdf/2610.39506",
+      "code": null,
+      "aliases": [
+        "TICL3",
+        "In-Context Local Linear Learning"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.39506",
+        "https://arxiv.org/html/2610.39506"
+      ],
+      "addedAt": "2026-11-02"
+    },
+    {
+      "id": "arxiv-2610.39332",
+      "title": "Tabular Foundation Models Dramatically Outperform Bespoke Photometric Redshift Estimators",
+      "date": "2026-10-29",
+      "updated": "2026-10-29",
+      "category": 2,
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions",
+      "related": [
+        1,
+        5
+      ],
+      "status": "preprint",
+      "venue": "arXiv preprint",
+      "summary": "比较冻结的 LimiX-2、TabPFN 3.5、Kumo Tabular 与 3 种专用星系红移估计器。作者在 LSST 模拟数据中统一分布输出与评测，观察到概率预测和少样本收益；有偏上下文下加入少量代表性样本也有帮助。代码接入 lazy-tfm，但结果限于模拟星系与所选基线，LimiX 大上下文采用每成员 1.5 万行抽样，不能据此推断全表容量或真实巡天优势。",
+      "url": "https://arxiv.org/abs/2610.39332",
+      "pdf": "https://arxiv.org/pdf/2610.39332",
+      "code": "https://github.com/biprateep/lazy-tfm",
+      "aliases": [
+        "TFM Photometric Redshifts",
+        "LimiX photo-z"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.39332",
+        "https://arxiv.org/html/2610.39332",
+        "https://github.com/biprateep/lazy-tfm"
+      ],
+      "addedAt": "2026-11-02"
+    },
+    {
+      "id": "arxiv-2610.39065",
+      "title": "Tabular foundation models are not a shortcut to calibrated clinical risk prediction: a pre-registered simulation against the true risk",
+      "date": "2026-10-28",
+      "updated": "2026-10-28",
+      "category": 2,
+      "section": "prediction-distributions",
+      "topicId": "probability-calibration",
+      "related": [
+        1,
+        6
+      ],
+      "status": "preprint",
+      "venue": "arXiv preprint",
+      "summary": "对比 TabPFN 3.5、TabICLv2、Mitra-v2 和传统方法的风险概率校准。作者以已知真实风险的模拟和 4 组临床数据检查样本量、默认温度与本地重校准：小样本有收益，换人群后仍需校验。协议和代码公开；随机设计未完全复现固定网格结论，真实数据分析有预注册偏离，不能据此断言传统模型普遍更好或固定 500 行总能校准。",
+      "url": "https://arxiv.org/abs/2610.39065",
+      "pdf": "https://arxiv.org/pdf/2610.39065",
+      "code": "https://github.com/ebrahimkhaled/tfm-calibration-reproducibility",
+      "aliases": [
+        "TFM Clinical Calibration"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.39065",
+        "https://arxiv.org/html/2610.39065",
+        "https://api.osf.io/v2/registrations/8hmtz/",
+        "https://github.com/ebrahimkhaled/tfm-calibration-reproducibility",
+        "https://github.com/ebrahimkhaled/tfm-calibration-reproducibility"
+      ],
+      "addedAt": "2026-11-02"
+    },
+    {
+      "id": "arxiv-2605.20234",
+      "title": "TabPFN-MT: A Natively Multitask In-Context Learner for Tabular Data",
+      "date": "2026-05-16",
+      "updated": "2026-05-16",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        2,
+        5
+      ],
+      "status": "preprint",
+      "venue": "arXiv preprint",
+      "summary": "把一行中的多个未知分类目标一起预测：TabPFN-MT 扩展标签编码器和共享输出头，在同一骨干前向中输出最多 5 个目标、每目标最多 10 类。作者在多来源任务集合中报告优于所测多任务基线，部分指标仍落后单任务模型。可用于研究多目标推理成本；输出最终按目标因子化，不等于建模完整联合分布，实验也不支持无限目标数或混合回归。",
+      "url": "https://arxiv.org/abs/2605.20234",
+      "pdf": "https://arxiv.org/pdf/2605.20234",
+      "code": null,
+      "aliases": [
+        "TabPFN-MT"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.20234",
+        "https://arxiv.org/html/2605.20234"
+      ],
+      "addedAt": "2026-11-02"
+    },
+    {
+      "id": "arxiv-2608.10280",
+      "title": "Tabular Foundation Models for the Estimation of Probabilistic Quasar Photometric Redshifts in S-PLUS",
+      "date": "2026-08-10",
+      "updated": "2026-09-24",
+      "dateNote": "arXiv v1 首发 2026-08-10；出版社向 Crossref 登记的期刊在线发表日期为 2026-09-24，印刷日期为 2026-10-01。",
+      "category": 2,
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions",
+      "related": [
+        1,
+        5
+      ],
+      "status": "published",
+      "venue": "The Astronomical Journal",
+      "summary": "在 S-PLUS 类星体数据上比较 3 种表格基础模型和 8 种基线，统一红移密度网格，并按光度目标人群重加权评测。作者报告 TabPFN 2.5 在少样本及多项分布指标上有优势，可参考其偏移评测协议。未加权密度损失并非全面领先；目标人群无真标签，重加权依赖不可直接验证的假设，原始数据尚未公开，完整上下文预测约需 76 分钟，尚非大规模低延迟方案。",
+      "url": "https://arxiv.org/abs/2608.10280",
+      "pdf": "https://arxiv.org/pdf/2608.10280",
+      "code": "https://github.com/rizbicki/qsoSplusShift",
+      "aliases": [
+        "S-PLUS Quasar Photo-z"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.10280",
+        "https://arxiv.org/html/2608.10280",
+        "https://api.crossref.org/works/10.3847/1538-3881/ae9eb6",
+        "https://github.com/rizbicki/qsoSplusShift",
+        "https://api.github.com/repos/rizbicki/qsoSplusShift/contents/README.md"
+      ],
+      "addedAt": "2026-11-02"
+    },
+    {
+      "id": "arxiv-2606.01427",
+      "title": "On the Uncertainty Quantification Ability of Tabular Foundation Models",
+      "date": "2026-05-31",
+      "updated": "2026-05-31",
+      "category": 2,
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions",
+      "related": [
+        1,
+        5
+      ],
+      "status": "preprint",
+      "venue": "arXiv preprint",
+      "summary": "在 6 个解析函数和 2 个真实回归数据集上比较 TabPFN 2.5 与高斯过程，同时检查点预测、区间质量和运行时间。作者发现默认高斯过程在部分低噪声任务占优，核函数不匹配时 TabPFN 可随上下文增多取得优势。可作为高精度预测与不确定性评测基线；算力设备不同，未比较可扩展高斯过程，也不能外推到新版本 TFM。",
+      "url": "https://arxiv.org/abs/2606.01427",
+      "pdf": "https://arxiv.org/pdf/2606.01427",
+      "code": "https://github.com/kianswarehouse/GPvsPFN",
+      "aliases": [
+        "GP vs TabPFN Uncertainty"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.01427",
+        "https://arxiv.org/html/2606.01427",
+        "https://github.com/kianswarehouse/GPvsPFN",
+        "https://api.github.com/repos/kianswarehouse/GPvsPFN/contents/README.md"
+      ],
+      "addedAt": "2026-11-02"
     }
   ],
   "collectionUpdates": [
@@ -8380,6 +8581,19 @@
         "report-lazy-tfm",
         "report-nvidia-structured-data-models",
         "report-vector-tabctx"
+      ],
+      "updated": []
+    },
+    {
+      "date": "2026-11-02",
+      "added": [
+        "arxiv-2605.20234",
+        "arxiv-2606.01427",
+        "arxiv-2608.10280",
+        "arxiv-2610.39065",
+        "arxiv-2610.39332",
+        "arxiv-2610.39506",
+        "arxiv-2610.39558"
       ],
       "updated": []
     }

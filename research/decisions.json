@@ -8372,5 +8372,199 @@
       ],
       "readScope": "arXiv 第 2–4 节、表 1/2 及附录 A 和 B/C 的相关结果与协议；ICLR Blogposts 全文的机制、形状、等价性边界与实验说明；官方目录的日期和身份；仓库 README 与文件入口。未从未读图像推断具体内存/延迟数字。"
     }
+  },
+  {
+    "id": "arxiv-2610.39558",
+    "title": "TabCUQ: Context-Uncertainty Quantification for Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2610.39558",
+    "sourceUpdated": "2026-10-29",
+    "decision": "included",
+    "reviewedAt": "2026-11-02",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "冻结表格模型下，用 wild bootstrap 的标准误加经验偏差垫可改善条件均值/CATE 的区间覆盖；不主张每个查询均达到名义覆盖或已证明一般 TFM 保证。",
+      "contribution": "五折交叉拟合先生成不含自身标签的预测与中心化残差，固定特征和行顺序，仅用 Rademacher 符号扰动标签；复用 B 次预测的标准差和相对原预测最大偏移，不改变点估计，扩展到处理/对照两组分别推理。",
+      "evidence": "阅读算法 1/2、理论定位、模拟与真实任务协议及结果。主实验 TabPFN 2.6 八成员，独立重采上下文，固定查询；同一点估计和扰动预算比较 wild bootstrap 与加垫版本。20 个多维尾部设置平均覆盖由 0.523–0.851 提高到 0.928–0.998；九种 CATE 边缘查询平均覆盖 0.968–1.000。另用 TabPFN 3、TabFM 匹配预算复查。7 个真实任务把留出查询与参考模型训练池分开，参考模型经池内五折选择；n=1000 时参考覆盖 0.966–1.000，区间是 oracle 偏差基准的 1.62–2.27 倍。均为作者实验。",
+      "limitations": "条件均值置信区间不同于单个结果预测区间。核回归证明不是预训练 TFM 定理；CATE 依赖一致性、无混杂和重叠假设。真实数据的真均值/效应未知，用大样本拟合函数替代且上下文从其训练池抽样，不能证明总体真值覆盖。弱重叠单查询覆盖仍可仅 0.890；平均改善掩盖个体不足。B 越大最大偏移可能增大，宽度与推理成本随预算变化；真实 CITE-seq 维度文字有 2000/1000 差异，不采精确维数结论。",
+      "value": "为冻结 TFM 的条件均值与处理效应提供可检查的区间构造，揭示只估计波动而忽略有限上下文偏差的问题，同时保留宽度/覆盖与额外推理的代价。",
+      "reproducibility": "正文给出算法、数据生成过程、重复次数与参考模型选择；本轮未确认独立实现仓库，未执行模型或统计复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.39558",
+        "https://arxiv.org/html/2610.39558"
+      ],
+      "readScope": "HTML v1 第 3.1–3.3 节及算法 1/2；第 4 节理论适用范围与核回归设置；第 5.1 节实验设置、5.2–5.3 节和表 2；第 6.1–6.2 节与表 3；未声称逐行检查全部证明附录。"
+    }
+  },
+  {
+    "id": "arxiv-2610.39506",
+    "title": "Interpretable by Design Tabular Prediction via In-Context Local Linear Learning",
+    "url": "https://arxiv.org/abs/2610.39506",
+    "sourceUpdated": "2026-10-29",
+    "decision": "included",
+    "reviewedAt": "2026-11-02",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "全局加查询局部的 ElasticNet 可在所测小数据分类任务上接近 TabICLv2 准确率，并精确分解自身线性类别分数；不是整条检索管线或概率的因果解释，也非已验证的教师推理加速。",
+      "contribution": "用五折 TabICLv2 预测与表征构建无自身标签的参考库，全局 ElasticNet 拟合教师输出；每个查询在表征空间检索近邻，局部线性模型拟合全局残差，合并系数生成当前分数与特征分解。Fast 减少近邻/迭代，Regional 预拟合锚点模型。",
+      "evidence": "主分类汇总涉及 CC18 69、TabArena-Lite 38、TALENT 181、BeyondArena 98 个基准条目，训练最多 1600、测试最多 400；TICL3 一成员，教师 4/8 成员，分类准确率差约 0.3–1.6 个百分点。所有方案为固定配置，非等预算 HPO。L4 上 matched 单成员 TabICL 预测 0.745 秒，TICL3 Full/Fast/Regional 为 6.849/1.495/0.850 秒；不能从八成员 5.462 秒对比推出同配置提速。解释测试在 10 个 CC18 数据集、500 查询上，对自身线性分数有代数一致性；回归 119 个任务 nRMSE 0.515，教师 0.482。均为作者报告。",
+      "limitations": "386 是基准条目数，不是跨套去重数据集数。CC18/TabArena-Lite 的类别编码在切分前建立词表，含未标注测试特征信息；其余变换在训练集拟合，折外方案只消除自身标签路径。线性解释不包含检索路由和概率归一化的整体影响；梯度解释基于另训 MLP 且未量化拟合保真。Regional 在真实/合成解释测试有 43.8%/73.3% 零解释，不能作为同质解释器。新查询仍须 TabICL 表征和局部计算，拟合开销也高；未证明端到端低于同配置教师。",
+      "value": "把冻结教师输出转成带局部系数的预测器，可用于比较精度、特征分解和推理预算；补充 TabArena-Lite 的可解释性证据，而不是直接替代缓存/显存优化。",
+      "reproducibility": "正文给出交叉拟合、近邻数、正则、预处理和硬件设置；本轮未确认作者公开的 TICL3 代码仓库，未本地运行模型。TabICLv2 开源不等同该方法实现已开源。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.39506",
+        "https://arxiv.org/html/2610.39506"
+      ],
+      "readScope": "HTML v1 第 3 节；第 4.1–4.2 节表 2/3、第 4.4–4.6 节；附录 E.1/E.2 预处理与 E.3–E.7 硬件/运行时间/敏感性。"
+    }
+  },
+  {
+    "id": "arxiv-2610.39332",
+    "title": "Tabular Foundation Models Dramatically Outperform Bespoke Photometric Redshift Estimators",
+    "url": "https://arxiv.org/abs/2610.39332",
+    "sourceUpdated": "2026-10-29",
+    "decision": "included",
+    "reviewedAt": "2026-11-02",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "所测冻结 TFM 在 LSST DESC DC1 模拟星系的条件红移密度任务上较三种专用基线有优势，并对上下文代表性敏感；不推广为所有红移方法或真实巡天的全面领先。",
+      "contribution": "把 LimiX-2、TabPFN 3.5、Kumo Tabular 的原生分桶/分位数输出转换为共同的 4000-bin 红移网格，以固定预处理和任务评测对比专用密度估计器；研究上下文数量和选择偏差，以及增补代表性校准样本。",
+      "evidence": "代表性训练 43486/测试 390990；有偏训练 35011，另有代表性测试 19383 和校准池 10000。FlexZBoost、CMNN、GPz 在训练内五折 Optuna 调参，测试不参与；TFM 八成员，五种种子。表 1 代表性 CDE loss 为 TabPFN -15.30、LimiX -15.15、Kumo -14.95，对比最佳 CMNN -11.23；有偏场景 LimiX -15.26 vs CMNN -12.07。代表性约 1000 上下文可接近大量专用训练，有偏 1000 则仍落后 full-context CMNN，需要代表性补样或更大上下文。",
+      "limitations": "DC1 是 catalog-level 模拟，没有真实图像混叠等系统误差；只比较三个专用方法，不能覆盖后续神经估计器。并非所有离群指标领先。LimiX 大训练集对每成员 bagging 15000 行，不是整体上下文全入；不提供单上下文多卡或吞吐结论。少样本优势取决于代表性，不能引用无条件千行替代全量。均为作者实验，没有独立复现。",
+      "value": "与 LimiX 概率密度输出及上下文选择直接相关；提供如何统一比较密度质量、选择偏差和代表性补样的应用协议，和 lazy-tfm 工具关联而保留独立论文贡献。",
+      "reproducibility": "作者使用公开 lazy-tfm 接入模型并提供实验配置；本轮核对正文和官方仓库入口，未运行各权重/数据或重算指标。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.39332",
+        "https://arxiv.org/html/2610.39332",
+        "https://github.com/biprateep/lazy-tfm"
+      ],
+      "readScope": "HTML v1 第 2 节数据与推理协议、第 3 节结果及表 1，附录 A.1–A.3 基线调参、分布转换、上下文/校准采样。"
+    }
+  },
+  {
+    "id": "arxiv-2610.39065",
+    "title": "Tabular foundation models are not a shortcut to calibrated clinical risk prediction: a pre-registered simulation against the true risk",
+    "url": "https://arxiv.org/abs/2610.39065",
+    "sourceUpdated": "2026-10-28",
+    "decision": "included",
+    "reviewedAt": "2026-11-02",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "所测默认配置 TFM 不能保证低样本临床风险已校准，数据条件、温度和本地重校准会改变结果；不主张传统模型在所有随机设计中胜出或给出通用临床样本量。",
+      "contribution": "把预测概率直接与模拟真风险比较，分开估计误差、校准斜率/截距、校准检验与重校准；提供固定网格外随机设计的迁移检查及四组真实数据探索。OSF 公共注册时间核对为 2026-10-08，未撤回，早于报告运行。",
+      "evidence": "58 场景中核心 48 格比较 8 个协变量、n=200/500/1000/3000、三种事件率和四种关系；独立开发、评估与 500 行校准集，另有 1000 随机设计。TFM 默认，传统方法各自训练内调参；各对比用共有成功重复，主 TFM 150–200 次、传统 500 次，记录 MCSE。TabPFN/Mitra 的 true ICI 多数固定格与 FLIC 在预设容差内；随机设计中 TFM 在 24.8%–38.0% 区域优于 FLIC 超过 0.01，固定网格迁移检查失败。四组真实数据按国家/医院/时间或既定外部集合切分，校准集与评估分开；500 行本地重校准可降低所测人群偏移误差。",
+      "limitations": "只比较具名版本与默认温度，TabICL n=200 低于文中说明的最低行数。6GB 显存使 Mitra 部分场景缺席，设备时间不是公平算力比；分类编码也不同。固定与随机设计结论不完全一致；等价容差较宽，不能泛称同等性能。真实数据有五项重大协议偏离，标为探索性；某些敏感性分析在看结果后未运行。100 行校准常更差，大同分布开发集上再用 500 行校准也可变差，不能把500作为通用部署处方。",
+      "value": "为 TFM 概率输出和后处理提供可复核的诊断协议，说明模型版本/温度、训练数据和目标人群都需随结果记录；不以标题的否定语气替代分情景结论。",
+      "reproducibility": "已核对公开 OSF 注册元数据及 GitHub 代码树/README；有代码、环境锁定与作者报告的预测归档。部分临床数据需申请，权重受原许可，未运行实验或独立核实全部原始预测。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.39065",
+        "https://arxiv.org/html/2610.39065",
+        "https://api.osf.io/v2/registrations/8hmtz/",
+        "https://github.com/ebrahimkhaled/tfm-calibration-reproducibility",
+        "https://github.com/ebrahimkhaled/tfm-calibration-reproducibility"
+      ],
+      "readScope": "HTML v1 第 2.1–2.8 节结果、3 讨论；4.1–4.4 设计/模型/划分、4.7–4.13 校准/分析/真实数据/成本/偏离；Data/Code availability；OSF 注册元数据和作者仓库入口。"
+    }
+  },
+  {
+    "id": "arxiv-2605.20234",
+    "title": "TabPFN-MT: A Natively Multitask In-Context Learner for Tabular Data",
+    "url": "https://arxiv.org/abs/2605.20234",
+    "sourceUpdated": "2026-05-16",
+    "decision": "included",
+    "reviewedAt": "2026-11-02",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在固定最多五目标的架构下共享一次骨干推理，可以同时预测多个分类标签并降低逐目标独立模型的重复计算；不宣称无限目标常数成本、完整联合分布或所有指标追平最佳单任务方法。",
+      "contribution": "以联合目标向量替代标量标签编码，按目标数缩放并填充；共享 MLP 输出固定 5×10 logits 后切片。隐藏层共享上下文信息，末端每目标 softmax 因子化。用同一 SCM 抽取多目标产生先验，8.1M 模型支持不同目标数量。",
+      "evidence": "正文声明 344 个评测数据集/派生任务，含 OpenML 原生多目标、单目标、从特征派生目标及 AliExpress/ACS 500–5000 行多次抽样；目标列从 X 删除。表 1 多目标平均准确率 0.578，高于所测 MTL 基线，AUC 0.727 低于单目标 TabPFN2.6 的 0.734；单目标表现仍明显低于 TabPFN2.6。效率实验固定 1000 行、50 列、1–5 目标，统计下游训练+推理 FLOPs，预训练与 HPO 不计。训练模型公开描述为 8 张 RTX5000 约4小时。",
+      "limitations": "多个抽样/派生任务不等于344独立来源；部分比较模型原为大样本设计。主文344与HPO附录150数据集表述、3/5种子口径有不一致，故不采用无条件统计等价/SOTA结论。数字目标分位数离散化是否只在训练折拟合未明确，不能断言完全无泄漏。共享表示下输出条件独立，不提供完整多目标联合分布；最多5目标/10类、仅分类。O(1)指固定输出宽度下1–5目标的骨干复用，不是无限目标扩容；可能出现负迁移与少数类性能下降。",
+      "value": "直接关联已知 X 对多个未知 Y 的表格预测及避免逐目标重复编码，提供小规模原生多目标 TFM 结构；适合继续对比自己的多目标标签结构和端到端推理成本。",
+      "reproducibility": "正文给出架构、先验、任务构造、HPO空间及CV描述；本轮未确认作者代码/权重入口，未复现实验；HPO数量和种子口径仍需作者补充。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2605.20234",
+        "https://arxiv.org/html/2605.20234"
+      ],
+      "readScope": "HTML v1 第3.1–3.4节方法、第4.1–4.3节和表1、第5节限制；附录F数据构造、G.2 HPO设置/搜索范围、H.1–H.3 CV和统计。"
+    }
+  },
+  {
+    "id": "arxiv-2608.10280",
+    "title": "Tabular Foundation Models for the Estimation of Probabilistic Quasar Photometric Redshifts in S-PLUS",
+    "url": "https://arxiv.org/abs/2608.10280",
+    "sourceUpdated": "2026-09-24",
+    "decision": "included",
+    "reviewedAt": "2026-11-02",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在 S-PLUS DR6 任务中冻结 TFM 能给出有竞争力的红移条件密度，选择偏差修正会改变评测；不把假设下加权指标等同真实未标注人群已验证的表现。",
+      "contribution": "固定 39 特征、同一训练/测试划分和 200 点密度网格，对 TabPFN2.5、RealTabPFN2.5、TabICL 与八种专用/传统基线比较；增加标签来源分类器估计密度比、温和加权及小样本曲线。",
+      "evidence": "训练 121626/测试 13538，训练内 CV 调参，500/1000/5000/50000/全量各五种种子。TabPFN 八成员；网格由训练红移范围定义、缩放用训练统计量。表2未加权 TabPFN CDE -2.558±.032，Flow-Spline -2.593±.034，不能称前者所有指标胜出；TabPFN CRPS .188、90%覆盖.901。TabICL 密度比分类器用光谱训练数据与去重后的无标签光度数据，未用测试红移。完整权重 ESS 约1.6%，温和指数.36对应30%；固定测试和权重重复。作者记录全上下文+13538查询约76分钟，50000上下文约14分钟，Strix Halo同设备。",
+      "limitations": "目标人群没有光谱真值，条件分布不变/支持重叠及候选纯度假设不可用现有数据直接验证；密度比不确定性和 ESS 降低影响误差。温和权重是中间目标分布，不是完全目标校正。缺失哨兵对树与非树处理不同；RF未调参，其他模型搜索预算有差异。仅单巡天类星体任务、已标注来源的固定测试集，不能推广到所有星系或百万对象服务。SHAP是模型关联非物理因果。所有结果作者报告，未独立复现。",
+      "value": "提供实际天文表格的密度评分、偏移、训练规模及推理成本联合评测；与新模拟星系研究构成不同数据域的互补证据，支持进一步研究上下文压缩或蒸馏。",
+      "reproducibility": "已读取作者仓库 README：代码、种子、环境与合成 smoke test 已公开，但 S-PLUS DR6 原始数据及固定划分所需 ids_unique.csv 尚未公开，当前不能复原论文数值。已核对出版社 Crossref 期刊记录。未运行代码/原始数据。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2608.10280",
+        "https://arxiv.org/html/2608.10280",
+        "https://api.crossref.org/works/10.3847/1538-3881/ae9eb6",
+        "https://github.com/rizbicki/qsoSplusShift",
+        "https://api.github.com/repos/rizbicki/qsoSplusShift/contents/README.md"
+      ],
+      "readScope": "HTML 第II.5–II.6划分/目标池、第III.1–III.3方法/权重、第IV.1表2未加权部分、IV.3–IV.4及V限制/成本；附录E调参和预处理。Crossref出版社登记的日期、刊名和类型。 作者仓库 README 的数据可用性、固定划分、评测与运行说明。"
+    }
+  },
+  {
+    "id": "arxiv-2606.01427",
+    "title": "On the Uncertainty Quantification Ability of Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2606.01427",
+    "sourceUpdated": "2026-05-31",
+    "decision": "included",
+    "reviewedAt": "2026-11-02",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "TabPFN2.5 与默认 GP+ 的点预测和区间质量优势取决于函数结构、噪声和上下文；调整核/均值可改变排名，不支持任一方法普遍占优。",
+      "contribution": "在同一函数/噪声/训练规模上，把点误差、包含宽度与漏覆盖惩罚的区间评分和端到端耗时一起比较，并用核/均值敏感性解释GP默认失配。",
+      "evidence": "六解析函数维数4–40，训练10d/40d、两噪声量级；Sobol固定5000测试点，20个独立训练抽样。两真实任务留3000测试行，部分训练子集重叠。TabPFN用2.5%/97.5%分位数，GP高斯区间；以训练统计量标准化GP。WingWeight/Griewank默认GP有优势，DixonPrice/Rosenbrock部分配置TabPFN随上下文增多胜出，换power-exponential核或零均值可改善GP。Elevators与Pumadyn分别偏向不同模型；额外t噪声实验。CPU GP训练+预测对GPU TabPFN上下文+预测，并另列CPU TabPFN参考。",
+      "limitations": "六函数和两真实集，未评估近期TFM或可扩展GP；高维训练仍最多1600，不是大数据部署。噪声尺度按固定测试目标标准差定义，属共同实验设计，不可当部署可用统计量。小样本训练集有重叠，复次不是独立任务。GP核调整是额外人工探索，预算不对等；CPU/GPU异构计时不能证明同硬件加速比。只有单输出回归，没有多任务或贝叶斯优化闭环验证。",
+      "value": "为概率预测/科学仿真引入强可解释的经典基线和有条件反例，避免只依据点精度或默认GP失配判断TFM区间优势，并提示按查询频率核算上下文成本。",
+      "reproducibility": "已读取 GPvsPFN 官方 README，提供 GP+ 2026-05-17 快照、requirements、实验脚本、defaults 与结果目录；TabPFN 权重需按原许可鉴权。未运行实验或重算原表。README称相关期刊专题，本轮未见出版社录用/出版记录，仍按已核实的 arXiv 预印本标注。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2606.01427",
+        "https://arxiv.org/html/2606.01427",
+        "https://github.com/kianswarehouse/GPvsPFN",
+        "https://api.github.com/repos/kianswarehouse/GPvsPFN/contents/README.md"
+      ],
+      "readScope": "HTML 第3节比较方法/划分/评分/设备，第4.1–4.4节结果/核敏感性/时间及第5节局限；未逐格重算全表或读取未获取的图像。 作者 GPvsPFN README 的环境、实验入口及权重要求。"
+    }
+  },
+  {
+    "id": "doi-10.1145-3770855.3818030",
+    "title": "StablePFN: Stable Prediction with Causal-Aware Tabular Foundation Model",
+    "url": "https://doi.org/10.1145/3770855.3818030",
+    "sourceUpdated": "2026-08-08",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-02",
+    "reason": "已核对作者官方仓库README和出版社Crossref记录（KDD 2026，在线8月8日；索引创建8月7日不是首发日）。ACM正文访问失败，官方仓库PDF首次读取和一次重试分别超时/SSL握手超时，缺方法与实验正文。保留待核验；取得论文后核对Markov blanket选择的先验假设、跨环境划分、伪相关注入、基线预算和误差条，再决定收录。",
+    "qualityReview": {
+      "reviewStatus": "pending-fulltext",
+      "sources": [
+        "https://github.com/GuanZhengkang/StablePFN",
+        "https://api.crossref.org/works/10.1145/3770855.3818030"
+      ],
+      "readScope": "官方README及文件目录；Crossref出版商元数据。未读到方法实验正文，不作质量判断。"
+    }
   }
 ]

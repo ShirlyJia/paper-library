@@ -657,6 +657,33 @@
       "sources": [
         "https://github.com/NVIDIA/structured-data-models"
       ]
+    },
+    {
+      "name": "TabCUQ",
+      "paperIds": [
+        "arxiv-2610.39558"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.39558"
+      ]
+    },
+    {
+      "name": "TICL3",
+      "paperIds": [
+        "arxiv-2610.39506"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.39506"
+      ]
+    },
+    {
+      "name": "TabPFN-MT",
+      "paperIds": [
+        "arxiv-2605.20234"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.20234"
+      ]
     }
   ]
 }
