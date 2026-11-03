@@ -684,6 +684,69 @@
       "sources": [
         "https://arxiv.org/abs/2605.20234"
       ]
+    },
+    {
+      "name": "ElTab",
+      "paperIds": [
+        "arxiv-2610.41819"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.41819"
+      ]
+    },
+    {
+      "name": "StablePFN",
+      "paperIds": [
+        "doi-10.1145-3770855.3818030"
+      ],
+      "sources": [
+        "https://doi.org/10.1145/3770855.3818030"
+      ]
+    },
+    {
+      "name": "Continuous-time Causal PFN",
+      "paperIds": [
+        "arxiv-2605.28880"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.28880"
+      ]
+    },
+    {
+      "name": "MaskTab",
+      "paperIds": [
+        "arxiv-2605.11408"
+      ],
+      "sources": [
+        "https://aclanthology.org/2026.findings-acl.2053/"
+      ]
+    },
+    {
+      "name": "GSCM-PFN",
+      "paperIds": [
+        "arxiv-2610.38335"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.38335"
+      ]
+    },
+    {
+      "name": "DES-JEPA",
+      "paperIds": [
+        "arxiv-2610.38445"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.38445"
+      ]
+    },
+    {
+      "name": "GAS-PFN",
+      "paperIds": [
+        "arxiv-2610.37598"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.37598"
+      ]
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-02",
+  "updatedAt": "2026-11-03",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -1451,7 +1451,7 @@
       "id": "arxiv-2606.30410",
       "title": "Beyond IID: How General Are Tabular Foundation Models, Really?",
       "date": "2026-06-29",
-      "updated": "2026-06-29",
+      "updated": "2026-10-30",
       "category": 1,
       "related": [
         2,
@@ -1462,19 +1462,28 @@
       "topic": "技术路线与生态",
       "status": "published",
       "venue": "NeurIPS 2026 · Evaluations and Datasets Track",
-      "summary": "BeyondArena 与 DataFoundry 扩展到时间／分组切分、大表、宽表和文本等数据条件。142 个数据集、11 类模型，分数据条件报告结果，使用重复实验、调参与评测消融。结论对应当时模型版本和计算预算；部分 TFM 仅评估到十万行，不能把未覆盖区域直接判成模型失败。",
+      "summary": "BeyondArena 扩展 TabArena，评测 142 张表上的随机、分组和时间切分。定稿同时考虑表的大小等八项属性后，按组留出时，每张表上表现最好的基础模型平均仍落后约 6 个名次。单看时间切分时的差距经调整后不再显著。多种模型未在超过十万行时完整运行，大表排名受评测边界影响。",
       "url": "https://arxiv.org/abs/2606.30410",
       "pdf": "https://arxiv.org/pdf/2606.30410",
       "code": null,
-      "keywords": [],
+      "keywords": [
+        "TabArena",
+        "分组留出",
+        "时间切分"
+      ],
       "section": "industry-benchmarks",
       "topicId": "general-benchmarks",
       "sources": [
         "https://arxiv.org/abs/2606.30410",
         "https://neurips.cc/virtual/2026/poster/139490",
-        "https://openreview.net/forum?id=Mk0ohjszwO"
+        "https://openreview.net/forum?id=Mk0ohjszwO",
+        "https://arxiv.org/html/2606.30410v2"
       ],
-      "addedAt": "2026-10-12"
+      "addedAt": "2026-10-12",
+      "aliases": [
+        "BeyondArena",
+        "DataFoundry"
+      ]
     },
     {
       "id": "arxiv-2606.15314",
@@ -1595,7 +1604,7 @@
       "id": "arxiv-2605.18147",
       "title": "Foundation Models for Credit Risk Prediction: A Game Changer?",
       "date": "2026-05-18",
-      "updated": "2026-05-18",
+      "updated": "2026-10-23",
       "category": 1,
       "related": [
         2
@@ -1603,14 +1612,27 @@
       "topic": "结构化数据应用",
       "status": "preprint",
       "venue": "预印本",
-      "summary": "比较表格基础模型与传统方法在违约概率和违约损失率预测中的适用性。覆盖 14 个 PD、7 个 LGD 数据集，分别比较 29 与 22 种方法，并分析数据量与排名差异。LGD 中仅 TabPFNv2 作为基础模型，部分数据私有；组内结果不能外推为所有 TFM 或真实放贷效果。",
+      "summary": "第三版在 14 个违约概率数据集上比较 33 种分类方法，在 7 个违约损失率数据集上比较 27 种回归方法。损失率实验已包括 TabPFN-3、TabPFN-2.5、TabICLv2 等模型，最优方法随误差指标而变。部分数据私有，三张分类表与部分模型的公开预训练语料重叠。",
       "url": "https://arxiv.org/abs/2605.18147",
       "pdf": "https://arxiv.org/pdf/2605.18147",
-      "code": null,
-      "keywords": [],
+      "code": "https://github.com/andreasgoethals/TabPFNCredit",
+      "keywords": [
+        "违约概率",
+        "违约损失率",
+        "TabPFN-3",
+        "TabICLv2"
+      ],
       "section": "industry-applications",
       "topicId": "credit-risk",
-      "addedAt": "2026-10-12"
+      "addedAt": "2026-10-12",
+      "aliases": [
+        "TabPFNCredit"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.18147",
+        "https://arxiv.org/html/2605.18147v3",
+        "https://github.com/andreasgoethals/TabPFNCredit"
+      ]
     },
     {
       "id": "arxiv-2605.18383",
@@ -8083,6 +8105,531 @@
         "https://api.github.com/repos/kianswarehouse/GPvsPFN/contents/README.md"
       ],
       "addedAt": "2026-11-02"
+    },
+    {
+      "id": "arxiv-2610.41819",
+      "title": "ElTab: Elastically Looped Tabular Transformers",
+      "date": "2026-10-30",
+      "updated": "2026-10-30",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "model-compression",
+      "topic": "模型量化与轻量化",
+      "related": [
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "ElTab 让同一组三层 Transformer 按计算预算重复 1–6 次。作者在 30 个小型 OpenML 分类数据集上报告，运行三次比实验中的十二层 TabPFN 少约 25% 前向计算，平均 AUC 相差 0.27 个百分点。结果可用于选择推理深度，大表的峰值显存和实际响应时间仍缺实测。",
+      "url": "https://arxiv.org/abs/2610.41819",
+      "pdf": "https://arxiv.org/pdf/2610.41819",
+      "code": null,
+      "aliases": [
+        "ElTab",
+        "Elastically Looped Tabular Transformer"
+      ],
+      "keywords": [
+        "弹性深度",
+        "提前退出",
+        "前向计算",
+        "自蒸馏",
+        "推理效率"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.41819",
+        "https://arxiv.org/pdf/2610.41819"
+      ],
+      "addedAt": "2026-11-03"
+    },
+    {
+      "id": "doi-10.1145-3770855.3818030",
+      "title": "StablePFN: Stable Prediction with Causal-Aware Tabular Foundation Model",
+      "date": "2026-08-08",
+      "updated": "2026-08-08",
+      "category": 3,
+      "section": "causal-models",
+      "topicId": "causal-knowledge",
+      "topic": "因果知识与生成约束",
+      "related": [
+        2
+      ],
+      "status": "published",
+      "venue": "KDD 2026",
+      "summary": "训练时有用的字段，换个环境可能会指向相反的结果。StablePFN 先给字段打分，再限制预测层可关注的列。作者在 21 张真实回归表中人为反转部分字段与标签的相关性，带筛选的模型比去掉筛选的版本更稳。实验假定底层机制不变，未验证自然发生的环境变化。",
+      "url": "https://doi.org/10.1145/3770855.3818030",
+      "pdf": "https://github.com/GuanZhengkang/StablePFN/blob/main/StablePFN.pdf",
+      "code": "https://github.com/GuanZhengkang/StablePFN",
+      "aliases": [
+        "StablePFN"
+      ],
+      "keywords": [
+        "马尔可夫边界",
+        "伪相关",
+        "分布偏移",
+        "LimiX"
+      ],
+      "sources": [
+        "https://doi.org/10.1145/3770855.3818030",
+        "https://github.com/GuanZhengkang/StablePFN/blob/71621a1fff9540089b8ac2d69579d659260a72ad/StablePFN.pdf",
+        "https://github.com/GuanZhengkang/StablePFN",
+        "https://api.crossref.org/works/10.1145/3770855.3818030"
+      ],
+      "addedAt": "2026-11-03"
+    },
+    {
+      "id": "arxiv-2605.26559",
+      "title": "Auditing and Fixing Economic Validity in Tabular Foundation Models for Discrete Choice",
+      "date": "2026-05-26",
+      "updated": "2026-05-26",
+      "category": 2,
+      "section": "prediction-decisions",
+      "topicId": "scores-routing",
+      "topic": "评分、固定选项与路由",
+      "related": [
+        6
+      ],
+      "status": "workshop",
+      "venue": "ICML 2026 FMSD Workshop",
+      "summary": "给出行方式提价时，预测的选择概率应随之下降。作者先拟合带价格约束的选择模型，再用冻结的 Mitra 或 TabPFN 概率校正个体预测。瑞士数据上准确率从 63.7% 升至 76.6%。单调性成立的条件是改价时保持基础模型的概率固定，不能据此估计真实调价的因果效应。",
+      "url": "https://arxiv.org/abs/2605.26559",
+      "pdf": "https://arxiv.org/pdf/2605.26559",
+      "code": null,
+      "aliases": [
+        "Two-Stage Behavioral Adapter",
+        "离散选择行为适配器"
+      ],
+      "keywords": [
+        "离散选择",
+        "经济单调性",
+        "Mitra",
+        "TabPFN",
+        "多项 Logit"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.26559",
+        "https://arxiv.org/html/2605.26559",
+        "https://icml-structured-fm-workshop.github.io/accepted-papers/"
+      ],
+      "addedAt": "2026-11-03"
+    },
+    {
+      "id": "arxiv-2605.28880",
+      "title": "Towards Continuous-time Causal Foundation Models",
+      "date": "2026-05-26",
+      "updated": "2026-05-26",
+      "category": 3,
+      "section": "causal-models",
+      "topicId": "causal-unified",
+      "topic": "统一因果模型与路线",
+      "related": [],
+      "status": "workshop",
+      "venue": "ICML 2026 FMSD Workshop",
+      "summary": "同一过程被测量几次，不应改变过程本身。作者先在细时间网格上模拟干预轨迹，再按不同时间取样训练 PFN。在两类合成动力学上，细网格训练的留出损失更低。真实药物浓度、药效和风洞响应上的表现不一致，实验只用了一个训练种子。",
+      "url": "https://arxiv.org/abs/2605.28880",
+      "pdf": "https://arxiv.org/pdf/2605.28880",
+      "code": "https://github.com/thummd/continuous-time-causal-pfn",
+      "aliases": [
+        "Continuous-time Causal PFN",
+        "连续时间因果 PFN"
+      ],
+      "keywords": [
+        "不规则采样",
+        "干预轨迹",
+        "连续时间",
+        "PFN"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.28880",
+        "https://arxiv.org/html/2605.28880",
+        "https://icml-structured-fm-workshop.github.io/accepted-papers/",
+        "https://github.com/thummd/continuous-time-causal-pfn"
+      ],
+      "addedAt": "2026-11-03"
+    },
+    {
+      "id": "arxiv-2605.11408",
+      "title": "MaskTab: Scalable Masked Tabular Pretraining with Scaling Laws and Distillation for Industrial Classification",
+      "date": "2026-05-12",
+      "updated": "2026-07",
+      "category": 6,
+      "section": "adaptation-distillation",
+      "topicId": "distillation-recipes",
+      "topic": "教师信号与学生比较",
+      "related": [
+        1
+      ],
+      "status": "published",
+      "venue": "Findings of ACL 2026",
+      "summary": "上线时只能使用少量合规字段，MaskTab 让 500 个字段的学生模型学习 2,000 个字段的教师表征。在私有信用风险数据的时间外测试中，学生 AUC 从同规模未蒸馏模型的 0.715 提至 0.734，仍低于教师的 0.758。论文报告了模型大小与精度，线上响应时间还需实测。",
+      "url": "https://aclanthology.org/2026.findings-acl.2053/",
+      "pdf": "https://aclanthology.org/2026.findings-acl.2053.pdf",
+      "code": null,
+      "aliases": [
+        "MaskTab",
+        "MaskTab-Distill"
+      ],
+      "keywords": [
+        "表征蒸馏",
+        "特征裁剪",
+        "信贷风控",
+        "时间外测试"
+      ],
+      "sources": [
+        "https://aclanthology.org/2026.findings-acl.2053/",
+        "https://arxiv.org/abs/2605.11408",
+        "https://aclanthology.org/2026.findings-acl.2053.pdf"
+      ],
+      "addedAt": "2026-11-03"
+    },
+    {
+      "id": "arxiv-2604.20261",
+      "title": "Memory-Augmented LLM-based Multi-Agent System for Automated Feature Generation on Tabular Data",
+      "date": "2026-04-22",
+      "updated": "2026-07",
+      "category": 4,
+      "section": "semantic-features",
+      "topicId": "feature-search",
+      "topic": "任务反馈与特征搜索",
+      "related": [],
+      "status": "published",
+      "venue": "ACL 2026 · Long Papers",
+      "summary": "MALMAS 让多个语言模型代理提出新的表格特征，用下游模型的验证得分决定保留哪些，同时记录已尝试的变换和有效规则。作者在 16 个分类、7 个回归数据集上比较了自动特征工程方法。每轮筛选都要训练和验证预测器，收益取决于标签与评估预算。",
+      "url": "https://aclanthology.org/2026.acl-long.503/",
+      "pdf": "https://aclanthology.org/2026.acl-long.503.pdf",
+      "code": "https://github.com/MINE-USTC/MALMAS",
+      "aliases": [
+        "MALMAS"
+      ],
+      "keywords": [
+        "表格特征工程",
+        "验证反馈",
+        "特征搜索",
+        "记忆"
+      ],
+      "sources": [
+        "https://aclanthology.org/2026.acl-long.503/",
+        "https://arxiv.org/abs/2604.20261",
+        "https://aclanthology.org/2026.acl-long.503.pdf",
+        "https://github.com/MINE-USTC/MALMAS"
+      ],
+      "addedAt": "2026-11-03"
+    },
+    {
+      "id": "arxiv-2611.00015",
+      "title": "Output-Aware Block Influence: Jacobian-Lens Weighting for Depth Pruning",
+      "date": "2026-10-08",
+      "updated": "2026-10-08",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "workshop",
+      "venue": "NeurIPS 2026 AXIOM Workshop · Poster",
+      "summary": "删哪一层，既看它怎样改变当前表示，也看这种改变会不会传到最后一层。作者在三种稠密语言模型删去同样 8 层时，用 J-BI 比只看相邻层相似度保留了更多任务准确率。迁移到表格模型要重新估计各层对预测头的影响；表格精度、显存与端到端时延均待测。",
+      "url": "https://arxiv.org/abs/2611.00015",
+      "pdf": "https://arxiv.org/pdf/2611.00015",
+      "code": null,
+      "aliases": [
+        "J-BI",
+        "Jacobian-Lens Block Influence"
+      ],
+      "keywords": [
+        "LLM 迁移",
+        "逐层剪枝",
+        "模型压缩",
+        "雅可比透镜"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.00015",
+        "https://arxiv.org/html/2611.00015",
+        "https://axiom-neurips2026.github.io/",
+        "https://github.com/axiom-neurips2026/axiom-neurips2026.github.io/blob/becac6539300422bde1e1d7ae2d4211fd7158754/index.html",
+        "https://openreview.net/forum?id=4ShlV3KN5b"
+      ],
+      "dateNote": "arXiv 记载 9 月 30 日提交。最早核实的公开论文入口见 10 月 8 日工作坊海报清单，11 月进入 arXiv 编号目录；未将提交时间当作公开时间。",
+      "addedAt": "2026-11-03"
+    },
+    {
+      "id": "doi-10.3389-fonc.2026.1814215",
+      "title": "Information rather than architecture: cross-learner attribution and clinician–model complementarity in CIN2+ risk prediction for women referred for colposcopy",
+      "date": "2026-10-30",
+      "updated": "2026-10-30",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "biomedical-applications",
+      "topic": "生命科学与医疗预测",
+      "related": [
+        2
+      ],
+      "status": "published",
+      "venue": "Frontiers in Oncology",
+      "summary": "作者让十类模型用同一组就诊字段预测宫颈病变。在 879 名受检者上，TabPFN 和逻辑回归的 AUROC 分别为 0.761 与 0.757，差异未达到统计显著。删掉病理检查前的医生判断，各模型都比更换架构损失更多。这个比较来自回顾性队列，TabPFN 没有在外部队列中复测。",
+      "url": "https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2026.1814215/full",
+      "pdf": "https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2026.1814215/pdf",
+      "code": "https://github.com/SIMON48623/cin2-information-vs-architecture",
+      "aliases": [
+        "CIN2+ 字段消融",
+        "CIN2+ information versus architecture"
+      ],
+      "keywords": [
+        "TabPFN",
+        "逻辑回归",
+        "字段消融",
+        "临床预测"
+      ],
+      "sources": [
+        "https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2026.1814215/full",
+        "https://doi.org/10.3389/fonc.2026.1814215",
+        "https://github.com/SIMON48623/cin2-information-vs-architecture"
+      ],
+      "addedAt": "2026-11-03"
+    },
+    {
+      "id": "doi-10.36922-aih026320111",
+      "title": "The calibration and energy cost of tabular foundation models in clinical prediction",
+      "date": "2026-08-06",
+      "updated": "2026-10-30",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "context-cache",
+      "topic": "KV 压缩与缓存复用",
+      "related": [
+        1,
+        2
+      ],
+      "status": "published",
+      "venue": "Artificial Intelligence in Health",
+      "summary": "同一张表反复预测时，TabPFN 可以在首次拟合阶段缓存上下文。作者在 6,000 行上下文的指定配置下，单条后续查询从 194.2 秒降到 1.6 秒，代价是额外缓存。另在五张临床表上观察到小幅校准优势。CPU 能耗用计数器实测，GPU 部分只测时间。",
+      "url": "https://accscience.com/journal/AIH/articles/online_first/9505",
+      "pdf": "https://article.accscience.com/journal/AIH/online_first/aih026320111/article_aih0263201111_23e70c.pdf",
+      "code": "https://github.com/MuhammadAhmadZia/tabpfn_clinical_reproducible",
+      "aliases": [
+        "TabPFN 临床校准与能耗",
+        "TabPFN calibration and energy cost"
+      ],
+      "keywords": [
+        "fit_with_cache",
+        "缓存",
+        "单条查询",
+        "概率校准",
+        "CPU 能耗"
+      ],
+      "sources": [
+        "https://accscience.com/journal/AIH/articles/online_first/9505",
+        "https://doi.org/10.36922/AIH026320111",
+        "https://doi.org/10.5281/zenodo.21819033",
+        "https://github.com/MuhammadAhmadZia/tabpfn_clinical_reproducible/tree/6d8538abb8e14f1e9bad513f12287ea5445b0e83/manuscript",
+        "https://article.accscience.com/journal/AIH/online_first/aih026320111/article_aih0263201111_23e70c.pdf"
+      ],
+      "dateNote": "8 月 6 日的公开软件归档包含该研究的方法、结果及讨论稿；期刊于 10 月 30 日在线发表。",
+      "addedAt": "2026-11-03"
+    },
+    {
+      "id": "doi-10.5281-zenodo.23841456",
+      "title": "Duplicates, Hospital Shift and Missingness Shortcuts: A Leakage Audit and Leave-One-Hospital-Out Re-evaluation of Machine Learning on the UCI Heart Disease Data",
+      "date": "2026-10-31",
+      "updated": "2026-10-31",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "topic": "通用评测与分布泛化",
+      "related": [
+        2
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "同一份心脏病数据，随机拆分和留出整家医院给出了不同答案。作者在去重后的四院 918 名患者上比较六种模型，TabPFN 混合各院交叉验证的 AUROC 为 0.907，留出 VA Long Beach 医院时降到 0.728。各院人群和缺失模式不同，不能用这项回顾性评测给模型做通用排名。",
+      "url": "https://zenodo.org/records/23841456",
+      "pdf": "https://zenodo.org/records/23841456/files/Hussain_2026_heart_disease_leakage_hospital_shift.pdf?download=1",
+      "code": "https://doi.org/10.5281/zenodo.23833910",
+      "aliases": [
+        "UCI Heart Disease LOHO",
+        "心脏病留一医院验证"
+      ],
+      "keywords": [
+        "跨医院泛化",
+        "去重",
+        "缺失模式",
+        "TabPFN",
+        "分组验证"
+      ],
+      "sources": [
+        "https://zenodo.org/records/23841456",
+        "https://doi.org/10.5281/zenodo.23841456",
+        "https://doi.org/10.5281/zenodo.23841455",
+        "https://doi.org/10.5281/zenodo.23833910"
+      ],
+      "addedAt": "2026-11-03"
+    },
+    {
+      "id": "arxiv-2610.38335",
+      "title": "Learning a Prior-Data Fitted Network for Graph Foundation Models via Structural Causal Model Priors",
+      "date": "2026-10-28",
+      "updated": "2026-10-28",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "relational-releases",
+      "topic": "关系数据模型",
+      "related": [
+        3,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "GSCM-PFN 联合生成节点属性、标签和边，再用借鉴 LimiX 的字段与样本注意力，加上邻居路径，预测图中未标注节点。作者在 23 个图数据集上报告平均准确率比 GraphPFN 高 2.64%（相对值）。实验可使用待分类节点的图结构与无标签特征，尚不能据此判断对全新节点的效果。",
+      "url": "https://arxiv.org/abs/2610.38335",
+      "pdf": "https://arxiv.org/pdf/2610.38335",
+      "code": null,
+      "aliases": [
+        "GSCM-PFN"
+      ],
+      "keywords": [
+        "图上节点分类",
+        "LimiX",
+        "结构因果先验",
+        "双路径注意力"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.38335",
+        "https://arxiv.org/html/2610.38335v1"
+      ],
+      "addedAt": "2026-11-03"
+    },
+    {
+      "id": "arxiv-2610.38445",
+      "title": "DES-JEPA: Learning a Shared Vocabulary for High-Dimensional Discrete Event Sequences",
+      "date": "2026-10-05",
+      "updated": "2026-10-28",
+      "category": 4,
+      "section": "semantic-fusion",
+      "topicId": "multimodal-schema",
+      "topic": "跨字段体系与多模态融合",
+      "related": [
+        1,
+        5
+      ],
+      "status": "workshop",
+      "venue": "NeurIPS 2026 Workshop on Foundation Models for Temporal Systems",
+      "summary": "将日志或诊疗记录中的本地事件编码映射到共享词表，冻结模型后，用同一来源的历史片段预测下一事件。作者在八个真实数据集上测试，覆盖 3–700 种事件。小词表上专用模型常更准，700 类车辆日志中多种对照训练超时，目前只验证单步预测。",
+      "url": "https://arxiv.org/abs/2610.38445",
+      "pdf": "https://arxiv.org/pdf/2610.38445",
+      "code": null,
+      "aliases": [
+        "DES-JEPA",
+        "DES-PFN"
+      ],
+      "keywords": [
+        "离散事件",
+        "跨字段取值体系",
+        "上下文学习",
+        "下一事件预测",
+        "共享编码"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.38445",
+        "https://arxiv.org/html/2610.38445v1",
+        "https://eprints.gla.ac.uk/396386/"
+      ],
+      "dateNote": "格拉斯哥大学在 10 月 5 日公开论文条目，注明 9 月 29 日已获 Workshop 录用；可读 arXiv 全文于 10 月 28 日提交。",
+      "addedAt": "2026-11-03"
+    },
+    {
+      "id": "arxiv-2610.37598",
+      "title": "GAS-PFN: Graph-Aware Spatiotemporal Prior-Data Fitted Networks for Zero-Shot Traffic Forecasting",
+      "date": "2026-10-27",
+      "updated": "2026-10-27",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "topic": "工业与工程预测",
+      "related": [
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "GAS-PFN 将道路连接关系与各传感器近期、历史观测结合，无需针对目标路网更新参数。六个交通数据集、三个预测时长、两种误差指标构成的 36 项比较中，作者报告 27 项最优。测试都在加州路网，面向新地区仍需验证，部分路段的预测也依赖历史输入。",
+      "url": "https://arxiv.org/abs/2610.37598",
+      "pdf": "https://arxiv.org/pdf/2610.37598",
+      "code": null,
+      "aliases": [
+        "GAS-PFN"
+      ],
+      "keywords": [
+        "路网",
+        "交通流量",
+        "传感器表",
+        "时空上下文"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.37598",
+        "https://arxiv.org/html/2610.37598v1"
+      ],
+      "addedAt": "2026-11-03"
+    },
+    {
+      "id": "arxiv-2610.41508",
+      "title": "HiState: Hierarchical Prefix Cache Management for Hybrid LLM Serving in Agentic Workloads",
+      "date": "2026-10-30",
+      "updated": "2026-10-30",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "HiState 将经常整段读取的注意力键值优先放在快内存，将每次只需恢复一个的循环状态检查点存到 SSD。作者在单卡 H100、两组编程助手请求中测得首个词的尾部等待时间缩短。可供混合架构表格服务参考，条件是请求确实复用同一段输入，且模型同时需要这两类状态。",
+      "url": "https://arxiv.org/abs/2610.41508",
+      "pdf": "https://arxiv.org/pdf/2610.41508",
+      "code": null,
+      "aliases": [
+        "HiState"
+      ],
+      "keywords": [
+        "前缀缓存",
+        "递归状态",
+        "SSD 卸载",
+        "尾延迟",
+        "待表格验证"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.41508",
+        "https://arxiv.org/html/2610.41508v1"
+      ],
+      "addedAt": "2026-11-03"
+    },
+    {
+      "id": "arxiv-2610.38355",
+      "title": "FlatCake: A Flat KVCache Storage Architecture for LLM Serving",
+      "date": "2026-10-28",
+      "updated": "2026-10-28",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "FlatCake 将不再改写的上下文缓存直接放到内存或 SSD，把同一会话的数据按层连续写入，再分开调度快、慢请求。在 8 张 B200 的语言模型服务实验中，每秒 1 个请求时，平均首词等待由 Mooncake 的 12.24 秒降到 7.57 秒。表格服务需先具备跨请求复用、可序列化的上下文缓存。",
+      "url": "https://arxiv.org/abs/2610.38355",
+      "pdf": "https://arxiv.org/pdf/2610.38355",
+      "code": null,
+      "aliases": [
+        "FlatCake"
+      ],
+      "keywords": [
+        "上下文缓存",
+        "显存卸载",
+        "SSD 直读",
+        "首词延迟",
+        "待表格验证"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.38355",
+        "https://arxiv.org/html/2610.38355v1"
+      ],
+      "addedAt": "2026-11-03"
     }
   ],
   "collectionUpdates": [
@@ -8596,6 +9143,30 @@
         "arxiv-2610.39558"
       ],
       "updated": []
+    },
+    {
+      "date": "2026-11-03",
+      "added": [
+        "arxiv-2604.20261",
+        "arxiv-2605.11408",
+        "arxiv-2605.26559",
+        "arxiv-2605.28880",
+        "arxiv-2610.37598",
+        "arxiv-2610.38335",
+        "arxiv-2610.38355",
+        "arxiv-2610.38445",
+        "arxiv-2610.41508",
+        "arxiv-2610.41819",
+        "arxiv-2611.00015",
+        "doi-10.1145-3770855.3818030",
+        "doi-10.3389-fonc.2026.1814215",
+        "doi-10.36922-aih026320111",
+        "doi-10.5281-zenodo.23841456"
+      ],
+      "updated": [
+        "arxiv-2605.18147",
+        "arxiv-2606.30410"
+      ]
     }
   ]
 }

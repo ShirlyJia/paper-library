@@ -8566,5 +8566,452 @@
       ],
       "readScope": "官方README及文件目录；Crossref出版商元数据。未读到方法实验正文，不作质量判断。"
     }
+  },
+  {
+    "id": "arxiv-2610.41819",
+    "title": "ElTab: Elastically Looped Tabular Transformers",
+    "url": "https://arxiv.org/abs/2610.41819",
+    "sourceUpdated": "2026-10-30",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "共享权重并训练多个出口，可以让一个检查点在几档计算预算下接近专门为各档训练的模型。",
+      "contribution": "每步同时训练完整循环和一条随机短路径，以标签和完整路径的软输出监督短路径。推理时按给定预算停，不需要为每档另训一个模型。",
+      "evidence": "§4 与附录 B 在最多 2,000 行、100 列、10 类的 30 张 OpenML-CC18 分类表上做五次分层 50/50 切分。相对同实验十二层基线，三轮九层计算少约四分之一，AUC 相差 0.27 个百分点。作者另比较六个分别训练的定深模型，训练合计节省的 FLOPs 不属于单次预测。",
+      "limitations": "同一 A100 80 GB、相同先验但独立采样预训练表。推理 FLOPs 与权重文件大小不能换算实际延迟或峰值显存，未验证大表、回归、在线并发。",
+      "value": "为按请求预算调节前向深度提供表格直接证据，明确了需另外测时延和显存的部署条件。",
+      "reproducibility": "论文附录给出结构、训练与切分设置及匿名代码入口；本轮未核实匿名仓库可访问。结果为作者实验，未本地复现。",
+      "readScope": "PDF §3、算法 1–2、§4.1–4.3、图 3–4、表 1、附录 A、B 的硬件与模型和运行设置。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.41819",
+        "https://arxiv.org/pdf/2610.41819"
+      ]
+    }
+  },
+  {
+    "id": "doi-10.1145-3770855.3818030",
+    "title": "StablePFN: Stable Prediction with Causal-Aware Tabular Foundation Model",
+    "url": "https://doi.org/10.1145/3770855.3818030",
+    "sourceUpdated": "2026-08-08",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在相关性被人为反转、生成机制不变的回归测试中，筛掉模型判断为目标马尔可夫边界以外的输入可缓解预测退化。",
+      "contribution": "样本加权压低局部特征相关性，结构分支在已知合成图上学习目标的马尔可夫边界，将阈值化掩码作用于预测分支各层的特征注意力。",
+      "evidence": "§5 在 10/20 节点合成数据与 21 张 OpenML 低维回归表测试。用标签与潜变量控制偏置抽样，改变训练和测试的相关方向；PFN 均关集成，比较 TabPFN v2.5、LimiX 16M、去掩码版本和树模型等。附表 4 在替换 50% 特征时，完整模型与去解耦版平均 R² 为 0.142 与 −0.024。",
+      "limitations": "真实表上的移位由标签参与构造，不等于跨机构自然迁移。边界误判会向预测传播，所设机制不变；RTX 4090 对比中多分支实现比所测两种 PFN 用更多显存和时间。",
+      "value": "可用来测试表格预测是否依赖换环境就失效的列，也给出稳定性收益与计算开销的对照。",
+      "reproducibility": "作者仓库有完整论文、训练与实验入口；出版记录和仓库 PDF 的 8 月 8 日版本已核对。结果属作者报告，未独立复现。",
+      "readScope": "作者 PDF §3.2、§4、§5.1–5.3、§6、附录 B 表 3–5 与 C 分数据集结果；核对出版社登记与作者仓库提交。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://doi.org/10.1145/3770855.3818030",
+        "https://github.com/GuanZhengkang/StablePFN/blob/71621a1fff9540089b8ac2d69579d659260a72ad/StablePFN.pdf",
+        "https://github.com/GuanZhengkang/StablePFN",
+        "https://api.crossref.org/works/10.1145/3770855.3818030"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2605.26559",
+    "title": "Auditing and Fixing Economic Validity in Tabular Foundation Models for Discrete Choice",
+    "url": "https://arxiv.org/abs/2605.26559",
+    "sourceUpdated": "2026-05-26",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在基模预测冻结的反事实输入约定下，两阶段适配能保留价格单调性并改善相对独立多项 Logit 的分类准确率。",
+      "contribution": "先拟合带负成本和时间系数的结构效用，冻结系数后再拟合基模概率的残差项；不可用选项的概率由掩码设为零。",
+      "evidence": "Swissmetro 及伦敦 LPMC（随机抽 1 万条）均按 70/15/15 划分。表 1 的测试准确率，Swissmetro 为 63.7% → 76.6%，原始 TabPFN 为 78.0%；LPMC 为 69.8% → 72.1%（TabPFN 适配）。",
+      "limitations": "检验调价时残差输入保持固定，保证来自效用公式。只有两组出行数据、每个基模一次训练，未报告按旅客分组的隔离。原始 TabPFN 未跑完整扰动审计。",
+      "value": "展示如何为冻结表格模型的结构化决策输出加上业务可检验的方向约束。",
+      "reproducibility": "正文有两阶段目标、数据和基线；本轮未核实配套代码，未本地复现。",
+      "readScope": "§2.1–2.2 的扰动定义与参数冻结，§3.1–3.3、表 1 与脚注、§4 局限及 Workshop 官方录用目录。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2605.26559",
+        "https://arxiv.org/html/2605.26559",
+        "https://icml-structured-fm-workshop.github.io/accepted-papers/"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2605.28880",
+    "title": "Towards Continuous-time Causal Foundation Models",
+    "url": "https://arxiv.org/abs/2605.28880",
+    "sourceUpdated": "2026-05-26",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "将积分网格与观察时点分开，在所测线性和非线性合成过程中可降低同先验留出损失。",
+      "contribution": "把规则或不规则观测从连续时间图上的随机动力过程采样；对照仅更换时间编码与改变积分步数，分离两者作用。",
+      "evidence": "第 4 节两种动力学各做编码方式×积分网格消融，每个配置同等训练步数、单种子。表 1、2 共八种相关对照中细网格训练留出损失都较低；细网格下规则测试的两种编码差距很小。",
+      "limitations": "留出样本来自训练同族先验，八个对照不独立，细网格数据生成成本未等量。附表 4 药代/药效与 200 个风洞干预片段是预测检验；单种子与真实反事实不可观察限制外推。",
+      "value": "适合评估带不规则时间戳的结构化干预数据，区分观测频率变化、先验数值误差与真实动态变化。",
+      "reproducibility": "作者提供代码；本轮核对正式 Workshop 名单、正文及代码仓库身份，未本地复现。",
+      "readScope": "§3.1–3.4、§4 表 1–2、§5 局限、药代和风洞的附录实验及表 4。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2605.28880",
+        "https://arxiv.org/html/2605.28880",
+        "https://icml-structured-fm-workshop.github.io/accepted-papers/",
+        "https://github.com/thummd/continuous-time-causal-pfn"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2605.11408",
+    "title": "MaskTab: Scalable Masked Tabular Pretraining with Scaling Laws and Distillation for Industrial Classification",
+    "url": "https://aclanthology.org/2026.findings-acl.2053/",
+    "sourceUpdated": "2026-07",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在作者的私有信用数据与时间外拆分中，固定学生容量和可用字段，加入教师表征对齐改善预测。",
+      "contribution": "训练时区分真实缺失和人为掩码，联合重建与预测；蒸馏用线性投影对齐学生与教师的样本表征，并保留分类和重建损失。",
+      "evidence": "主文 §3.6、§4.1–4.8 与表 2：134.22M/2,000 字段教师 AUC 0.7584、25.16M/500 字段基础学生 0.7149、蒸馏学生 0.7335。另以 8 个公开 TabReD 数据集做总体对比。未标注数据选自训练时间窗。",
+      "limitations": "私有数据上的字段选择及主要蒸馏实验难以独立重建；教师和学生同时更改容量和字段数，不能拆出各自作用。未由计时数据核实线上延迟。",
+      "value": "为每次请求只能取得有限字段的风控系统提供可试验的教师—学生设计与同配置对照。",
+      "reproducibility": "正式论文及附录有训练设置、特征数、时间拆分与树模型调参空间，未核实私有风控数据可公开重跑；作者结果，未本地复现。",
+      "readScope": "ACL Findings 定稿 §3.3–3.6、§4.1–4.8、表 1–3、附录训练设置，交叉核对 arXiv 记录。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://aclanthology.org/2026.findings-acl.2053/",
+        "https://arxiv.org/abs/2605.11408",
+        "https://aclanthology.org/2026.findings-acl.2053.pdf"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2604.20261",
+    "title": "Memory-Augmented LLM-based Multi-Agent System for Automated Feature Generation on Tabular Data",
+    "url": "https://aclanthology.org/2026.acl-long.503/",
+    "sourceUpdated": "2026-07",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "把变换类型、验证反馈和跨轮记忆合在一起，在论文的分类/回归基准上能产生比无特征扩展更有效的输入。",
+      "contribution": "任务路由器选用不同特征构造策略，保存变换过程、每个特征的验证收益和汇总规则，作为下一轮搜索提示。",
+      "evidence": "正文 §4–5、表 1–2 以 XGBoost 为下游，16 类别任务、7 回归任务用三次 60/40 随机切分，比较 OpenFE、传统和 LLM 方法；多种分类器与记忆消融见附录。",
+      "limitations": "验证反馈被多轮使用，筛选应限于训练集内部；随机拆分不能代表外部或时间迁移。多轮 LLM 调用与下游重训消耗不可忽略，基线支持的任务及预算不同。",
+      "value": "符合从字段语义与任务反馈自动生成表格特征的方向，可检验记忆带来的额外收益。",
+      "reproducibility": "会议 PDF 与作者代码公开，最终得分依赖调用模型、筛选和预测预算；未本地复现。",
+      "readScope": "ACL 主会定稿 §4.1–4.3、§5.1–5.3、表 1–3、§7 限制与附录的预算和消融设置，核对代码仓库。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://aclanthology.org/2026.acl-long.503/",
+        "https://arxiv.org/abs/2604.20261",
+        "https://aclanthology.org/2026.acl-long.503.pdf",
+        "https://github.com/MINE-USTC/MALMAS"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2611.00015",
+    "title": "Output-Aware Block Influence: Jacobian-Lens Weighting for Depth Pruning",
+    "url": "https://arxiv.org/abs/2611.00015",
+    "sourceUpdated": "2026-10-08",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在相同删层数下，用最终残差空间的影响加权，可以减少所测稠密语言模型的质量损失。",
+      "contribution": "利用预拟合的雅可比透镜把块输入与输出投到末端表示空间，在此计算相似度并排序，之后静态移除所选层。",
+      "evidence": "Qwen3-8B、Llama-3.1-8B-IT、Gemma-3-12B-IT 共用校准文本；比较移除相同数量块后的零样本任务筛选宏平均与 C4 困惑度。表 1 删 8 块时三个模型的 J-BI 幅值版优于 BI，未剪枝基线通常仍更高。",
+      "limitations": "只在有现成透镜的三种稠密 LLM 上做实验。任务平均排除原模型已处于地板的任务；无表格试验或端到端延迟测量。用于双轴表格注意力必须按自身预测头拟合映射，另测质量和资源。",
+      "value": "给前向阶段静态减层提供可对比的排序法，可与表格原生的弹性深度研究对照。",
+      "reproducibility": "正文、官方 Workshop 海报名单与透镜来源已核对，未把通用透镜仓库当作本研究实现，未本地验证或迁移。",
+      "readScope": "§2 评分、§3 对比、表 1–2 与附录 B、D/E；官方海报名单和含论文入口的 10 月 8 日版本。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.00015",
+        "https://arxiv.org/html/2611.00015",
+        "https://axiom-neurips2026.github.io/",
+        "https://github.com/axiom-neurips2026/axiom-neurips2026.github.io/blob/becac6539300422bde1e1d7ae2d4211fd7158754/index.html",
+        "https://openreview.net/forum?id=4ShlV3KN5b"
+      ]
+    }
+  },
+  {
+    "id": "doi-10.3389-fonc.2026.1814215",
+    "title": "Information rather than architecture: cross-learner attribution and clinician–model complementarity in CIN2+ risk prediction for women referred for colposcopy",
+    "url": "https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2026.1814215/full",
+    "sourceUpdated": "2026-10-30",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在这组任务、预先固定的超参数与字段下，换模型带来的区分度差异小于移除医生评估的影响。",
+      "contribution": "按五组信息源做跨模型的组合消融与分组 Shapley 归因，同时比较候选模型与逻辑回归的配对折外预测。",
+      "evidence": "第 2–3 节及表 2：879 人/242 例阳性，15 个预测变量；共享分层五折，预处理、早停及校准限训练折。TabPFN−逻辑回归 AUC 差 0.004（95% 区间 −0.008 至 0.016）；删掉医生判断的损失范围 0.041–0.072。",
+      "limitations": "固定而非逐模型调参，不能推出模型等效。医生判断是接近决策的字段，病理申请单可见临床初诊意见。另 103 人只做冻结逻辑回归和 Tab-MFM 的描述性验证。",
+      "value": "可用于设计业务字段的先验分组、同预算的模型对比与人工判断增益分析。",
+      "reproducibility": "作者提供分析代码和合成演示数据；原始临床数据的复现受限，未本地复现。",
+      "readScope": "期刊正文 §2.1–2.9、§3.2–3.9、表 2–3、局限、数据与代码声明，核对仓库。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2026.1814215/full",
+        "https://doi.org/10.3389/fonc.2026.1814215",
+        "https://github.com/SIMON48623/cin2-information-vs-architecture"
+      ]
+    }
+  },
+  {
+    "id": "doi-10.36922-aih026320111",
+    "title": "The calibration and energy cost of tabular foundation models in clinical prediction",
+    "url": "https://accscience.com/journal/AIH/articles/online_first/9505",
+    "sourceUpdated": "2026-10-30",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "相同上下文重复查询时，先构建缓存可显著降低论文所测配置的单次后续等待时间；校准收益与资源成本须按数据和设备分开解释。",
+      "contribution": "对三种梯度提升树及多种事后校准方法比较概率误差，同时把上下文行数、查询批量、缓存模式、硬件的开销拆开。",
+      "evidence": "§3–4、表 4–6：各折单独拟合模型与校准器；五个通过门槛的数据集上差距较小，一张表接近饱和。6,000 行单条查询对比 fit_preprocessors 194.20 秒、fit_with_cache 1.60 秒；2,000 行为 45.60 和 0.75 秒。CPU 用去闲置基线的 RAPL 计数器。",
+      "limitations": "缓存时间不含首次构建，依赖硬件、特征宽度和配置，作者还报告每训练行约 49 kB 的缓存开销。GPU 侧只测运行时间。四个有效临床对照规模不大；部分 UCI 数据与既往评测可能重叠。",
+      "value": "为复用同一张表的交互式查询提供可单独度量的延迟、缓存和校准指标。",
+      "reproducibility": "归档有方法、结果稿、分析代码及实验记录；期刊在线日期与早期归档分开核对。作者实测，未本地重跑。",
+      "readScope": "期刊正式 PDF §3.2–3.6、§4.1、§4.3、表 6、§5.3，及作者 8 月 6 日归档的方法和结果稿。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://accscience.com/journal/AIH/articles/online_first/9505",
+        "https://doi.org/10.36922/AIH026320111",
+        "https://doi.org/10.5281/zenodo.21819033",
+        "https://github.com/MuhammadAhmadZia/tabpfn_clinical_reproducible/tree/6d8538abb8e14f1e9bad513f12287ea5445b0e83/manuscript",
+        "https://article.accscience.com/journal/AIH/online_first/aih026320111/article_aih0263201111_23e70c.pdf"
+      ]
+    }
+  },
+  {
+    "id": "doi-10.5281-zenodo.23841456",
+    "title": "Duplicates, Hospital Shift and Missingness Shortcuts: A Leakage Audit and Leave-One-Hospital-Out Re-evaluation of Machine Learning on the UCI Heart Disease Data",
+    "url": "https://zenodo.org/records/23841456",
+    "sourceUpdated": "2026-10-31",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在这组历史数据上，同表随机切分可能掩盖重复记录和医院差异；拆分协议对观察到的模型表现影响很大。",
+      "contribution": "区分常用的 1,025 行衍生文件与四家医院的原始处理表，分别做跨折重复检查、重复分层五折及留一医院验证。",
+      "evidence": "表 2 的随机森林实验仅属衍生文件，20 次随机拆分中平均 97.1% 测试行在训练中重复。表 3–4 的六模型使用独立口径的去重四院 918 人，预处理在训练内拟合。TabPFN 内部 AUROC 0.907、留出 VA 0.728。",
+      "limitations": "四院来自上世纪 80 年代，征象与现代临床终点不同，瑞士站非病例仅 8 人。默认超参、区间重叠；缺失指示和医院相关，不能据此做因果归因。",
+      "value": "为团队提供可复用的三种拆分审计，避免把重复行识别能力误认为跨机构预测能力。",
+      "reproducibility": "Zenodo 稿件、版本 DOI、独立的软件归档与 UCI 数据入口可查；PDF 按仓库公布的 MD5 校验后阅读，未本地复跑实验。",
+      "readScope": "公开预印本 §2–5、表 2–6 与局限。概念 DOI、v1 DOI 及代码 DOI 合并，代码不另计一篇。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://zenodo.org/records/23841456",
+        "https://doi.org/10.5281/zenodo.23841456",
+        "https://doi.org/10.5281/zenodo.23841455",
+        "https://doi.org/10.5281/zenodo.23833910"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2610.38335",
+    "title": "Learning a Prior-Data Fitted Network for Graph Foundation Models via Structural Causal Model Priors",
+    "url": "https://arxiv.org/abs/2610.38335",
+    "sourceUpdated": "2026-10-28",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "联合生成边、节点特征和标签，再结合局部与全局路径，可提高所测图中节点分类的平均准确率。",
+      "contribution": "较 NodePFN、GraphPFN 分步生成属性与边，使用联合 SCM，结合字段置换不变的两条注意力路径。模型对已标注节点取上下文、遮住查询标签。",
+      "evidence": "§4.1–4.3 在 23 个固定划分图上重复五次，与 GCN/GAT、常规 GFM、GraphPFN 和 NodePFN 比较。作者报告相对 GraphPFN 平均准确率高 2.64%，并验证标签比例与噪声变化。",
+      "limitations": "仅节点分类。会看到待测节点拓扑；附录描述全节点属性标准化和 SVD。涉及目标图结构的传导结果不代表归纳部署或真实关系数据上的因果发现。合成预训练使用 128 GPU。",
+      "value": "提供直接借鉴 LimiX 表格特征交互并接入关系结构的实例，可检验同一表征在含边任务上的收益。",
+      "reproducibility": "作者给出匿名仓库入口，本次请求返回 HTTP 401。读取公开模型和训练配置，未本地复现。",
+      "readScope": "arXiv v1 §3.1–3.3、§4.1–4.3、表 1、附录 C.2 特征处理、上下文与查询划分。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.38335",
+        "https://arxiv.org/html/2610.38335v1"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2610.38445",
+    "title": "DES-JEPA: Learning a Shared Vocabulary for High-Dimensional Discrete Event Sequences",
+    "url": "https://arxiv.org/abs/2610.38445",
+    "sourceUpdated": "2026-10-28",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "同一冻结模型可在事件名称不对齐的多个领域预测下一事件，包括事件类型达数百种的日志。",
+      "contribution": "DES-JEPA 以未来事件窗口产生训练目标，DES-PFN 用冻结的共享编码做上下文预测，再按本地上下文映射回事件。推理时无未来窗口，数据来自相同过程的其他上下文序列。",
+      "evidence": "§3 表 1 比较八个数据集、五次运行，少样本方法共享 128 段上下文。700 类车辆日志 Top-1 为 0.094；三种梯度对照超出 600 秒，FIM-PP 结构上最多支持 22 类。在四个低基数数据集上充分训练的专用基线表现更好。",
+      "limitations": "部分日志没有既定训练测试划分，改用较早片段；部分对照未运行或超时。编码容量固定，单步结果不能直接用于多步滚动预测。",
+      "value": "给异构结构化日志提供类别编码对齐方法，可澄清跨业务共享表示应用所需的本地历史。",
+      "reproducibility": "核对大学归档的录用记录以及 arXiv 全文的六组合成先验和基线设置；未核实公开实现，未本地复现。",
+      "readScope": "§2.1–2.2 的编码、上下文预测与回译，§3 表 1 的预算及划分，§4、附录 B–D 的容量与单步限制。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.38445",
+        "https://arxiv.org/html/2610.38445v1",
+        "https://eprints.gla.ac.uk/396386/"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2610.37598",
+    "title": "GAS-PFN: Graph-Aware Spatiotemporal Prior-Data Fitted Networks for Zero-Shot Traffic Forecasting",
+    "url": "https://arxiv.org/abs/2610.37598",
+    "sourceUpdated": "2026-10-27",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在已知路网和有限近期观测的条件下，无需在目标集更新参数也能预测未来车流或车速。",
+      "contribution": "用路网扩散生成合成任务，同一 Transformer 分别看单传感器与邻居，最后融合两路预测；上下文同时取最近观测及训练期历史片段。",
+      "evidence": "表 1 在六个加州传感器数据集做时间顺序切分，30、60、90 分钟及 MAE/MSE 共 36 组。每种比较模型分别报告近期上下文或叠加历史的更优设置，作者方法在 27 组中最好。图 4、5 比较历史预算与保留道路。",
+      "limitations": "时空先验、上下文和两条推理路径同时改变，难把差异全归因给道路扩散。六个数据集来自同一地区，新路网场景也有可用路网结构与近期输入。不同预测器支持的历史长度与算力不完全一致。",
+      "value": "支持对结构化传感器数据上的 PFN 设计按时间与邻域取上下文的对照试验。",
+      "reproducibility": "正文给出时间划分、掩码、历史抽取和预算。原文作者实验，未核实可运行代码，未本地复现。",
+      "readScope": "方法与双路预测公式，Results 表 1、图 4–5，附录 C 的数据和切分，附录 D 的基线输入预算。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.37598",
+        "https://arxiv.org/html/2610.37598v1"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2610.41508",
+    "title": "HiState: Hierarchical Prefix Cache Management for Hybrid LLM Serving in Agentic Workloads",
+    "url": "https://arxiv.org/abs/2610.41508",
+    "sourceUpdated": "2026-10-30",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "注意力缓存和循环状态检查点的读取量不同，分开管理可减少混合 LLM 在历史上下文上重复计算。",
+      "contribution": "KV 优先用主存，历史检查点下沉 SSD；根据上下文和容量调节检查点间隔，结合重算开销和活跃度淘汰状态。",
+      "evidence": "§4 在单张 H100 80 GB、Qwen3.5-9B 上回放 Weka 3,784 个请求及 TraceLab 4,791 个请求，最多 24 个活跃会话。P99 首词等待相对 vLLM-Marconi 最多缩短至约 1/5.73；与扩展的主存、磁盘 offload 及固定检查点策略比较。",
+      "limitations": "主结果为单模型、两组编程助手流量。Marconi 对照仅 GPU，资源并不相同，额外对照做了卸载与策略消融。中位等待提升有限，Weka 相对 vLLM-Disk* 略有退化。",
+      "value": "对应多请求的上下文恢复和服务调度；需要可复用前缀以及非可逆循环状态，普通纯注意力表格模型不能直接套用。这些速度未在表格上实测。",
+      "reproducibility": "论文列出引擎版本、服务器和公共回放轨迹；分层配置及结果为作者实测，未本地复现。",
+      "readScope": "§3.1–3.3 缓存放置、间隔与淘汰，§4.1–4.3 硬件、四个对照、图 8–10 与请求样本范围。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.41508",
+        "https://arxiv.org/html/2610.41508v1"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2610.38355",
+    "title": "FlatCake: A Flat KVCache Storage Architecture for LLM Serving",
+    "url": "https://arxiv.org/abs/2610.38355",
+    "sourceUpdated": "2026-10-28",
+    "decision": "included",
+    "reviewedAt": "2026-11-03",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在有大规模长会话前缀复用的 LLM 服务上，直接放置、分队列与按层顺序读可降低缓存恢复造成的等待。",
+      "contribution": "以块创建时点确定介质，将主存和 NVMe 视为独立存储，用 GPUDirect Storage 按层连续恢复，分离快请求和等待磁盘请求。",
+      "evidence": "§5 使用 8×B200，1 TiB 主存与 4 TiB SSD 缓存预算，回放 98,827 个编码助手请求。1 QPS 时对照 Mooncake 平均首词 12.24 秒，方法 7.57 秒。§5.3 比较单队列消融和磁盘读放大，§5.4 在 4×A100 上复查另一模型。",
+      "limitations": "主实验只有一类高复用编程流量。需要支持 GDS 的存储、不可变缓存块和重复的检索键，首次处理一张新表的成本及单卡最大表容量未验证。",
+      "value": "给多次使用同表上下文的推理服务提供内存与 SSD 存储布局和调度对照，表格数据上需另测命中率、恢复延迟与固定缓存预算。",
+      "reproducibility": "作者报告模型、引擎版本、轨迹、存储配置与消融；无本地复现，未核实作者实现发布。",
+      "readScope": "§3.1–3.4、§4 实现、§5.1–5.4 的图 6–10 和表 3，核对缓存预算、对照与工作负载。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.38355",
+        "https://arxiv.org/html/2610.38355v1"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2606.30410",
+    "title": "Beyond IID: How General Are Tabular Foundation Models, Really?",
+    "url": "https://arxiv.org/abs/2606.30410",
+    "sourceUpdated": "2026-10-30",
+    "decision": "existing",
+    "reviewedAt": "2026-11-03",
+    "reason": "按 10 月 30 日定稿补足按组与按时间切分的多变量结果，保留已有录用与入库记录。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "控制数据规模和共同出现的数据属性后，按组留出仍与每张表上最佳 TFM 的排名下降相关。",
+      "contribution": "将分组、时间、规模、字段类型等八个属性同时纳入排名回归，区分单项比较和调整后差异。表中还区分了 49 个 TabArena 数据集和 20 个符合相同筛选范围的新增数据集。",
+      "evidence": "附录 D.4 表 D.2 在 142 个数据集上，以各表最佳 TFM 在 28 个配置中的排名拟合 OLS，使用 HC3 区间。分组系数 5.94，95% 区间 3.22–8.66。时间切分系数 0.18，区间 −2.77–3.12。分组和训练集超过十万行在多重比较后仍显著。",
+      "limitations": "数据集属性并非随机分配，相关性不能解释成分组本身造成性能损失。仅 120 个数据集不超过十万行，余下 22 张表部分模型缺少直接实测，需留意论文的外推处理。",
+      "value": "为按机构、用户等分组留出验证的团队提供超出 IID 榜单的参照，并提醒拆开数据规模与切分方式。",
+      "reproducibility": "核对作者公开的定稿、附录和官方会议目录。未在本地重跑各数据集。",
+      "readScope": "arXiv v2 §4、图 6、附录 D.2–D.4、表 D.2 与附录 E 的统计检验。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2606.30410",
+        "https://neurips.cc/virtual/2026/poster/139490",
+        "https://openreview.net/forum?id=Mk0ohjszwO",
+        "https://arxiv.org/html/2606.30410v2"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2605.18147",
+    "title": "Foundation Models for Credit Risk Prediction: A Game Changer?",
+    "url": "https://arxiv.org/abs/2605.18147",
+    "sourceUpdated": "2026-10-23",
+    "decision": "existing",
+    "reviewedAt": "2026-11-03",
+    "reason": "用 10 月 23 日 v3 正文更正方法数量和 LGD 参评模型，补入经核实的作者代码。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "新版在 PD、LGD 两类任务中比较冻结基础模型与经典和深度方法，不同损失指标的最佳模型有别。",
+      "contribution": "较站内旧版 29/22 个方法、LGD 仅一款基础模型，第三版扩大比较范围，并另行分析少样本、非均衡和公开语料重叠。",
+      "evidence": "14 张违约概率表、7 张违约损失率表，使用共同的五折划分与折内预处理，需调参者在训练折上做 20 次 Optuna 搜索。LGD 的 35 个测试折中 TabPFN-3 有 12 折取得最高 R²。附录 B.2 中 MAE、MedAE 和最大误差的胜者各异。",
+      "limitations": "部分 LGD 数据私有。附录 F.3 检查可获得的 Real-TabPFN、TabDPT 语料，有三张 PD 表重叠。交叉验证未直接验证跨时间、跨借款机构的上线表现。",
+      "value": "可按具体信贷任务和损失指标选对照模型，纠正旧版对回归比较覆盖面的低估。",
+      "reproducibility": "作者公开 TabPFNCredit 实验代码。私有数据限制完整复现，本轮未在本地重训。",
+      "readScope": "arXiv v3 §4 的任务、折内预处理与预算，§5.1、图 2–3、附录 B 表 B.2、F.3 语料审计及数据与代码声明。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2605.18147",
+        "https://arxiv.org/html/2605.18147v3",
+        "https://github.com/andreasgoethals/TabPFNCredit"
+      ]
+    }
+  },
+  {
+    "id": "doi-10.1016-j.cmpb.2026.109693",
+    "title": "TabSurv: Tabular foundation model for breast cancer prognosis using gene expression data",
+    "url": "https://doi.org/10.1016/j.cmpb.2026.109693",
+    "sourceUpdated": "2026-10-28",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-03",
+    "reason": "原始 medRxiv 稿仅在未删失样本上拟合；期刊版摘要已改为两阶段删失插补。已核对旧版算法 1、§3.2–3.3 与 PubMed 期刊记录，待可读的新版算法、划分及实验证据。注意与同名的另一份 TabSurv 工作区分。"
+  },
+  {
+    "id": "doi-10.5281-zenodo.23809165",
+    "title": "When Do Tabular Foundation Models Pay Off for Cardinality Estimation?",
+    "url": "https://zenodo.org/records/23809166",
+    "sourceUpdated": "2026-10-31",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-03",
+    "reason": "已核对作者发布的评测工件目录、版本、归档大小和用途；正文在约 1.7 GB 的打包文件中，尚无可单独核对的稿件及成本对照。取得独立正文或可定位的手稿后复审。ICDE 2027 投稿不作为录用。"
   }
 ]
