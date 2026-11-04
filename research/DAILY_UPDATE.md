@@ -88,6 +88,7 @@ npm run collect:finish -- 本次目录 --review-input 本次目录/review-input.
 - 会议完整目录、OpenAlex 半年回查、Consensus 与全量家族核对按每 7 天计算到期，在到期后的首个工作日执行；工作日增量和按需网页补查独立执行。
 - 明确配额重置时使用 `npm run collect:daily -- --defer-channel consensus --retry-after YYYY-MM-DD --reason 供应商提示`；只记录冷却，不推进检索检查点，到期后的首个工作日补查。普通 429 不自动视为月度额度耗尽，不伪造恢复日期。
 - `daily-state.json` 的 `backfills.fulltext` 独立记录半年回查日期，避免每日成功把周回查无限推迟；`cooldowns` 保留暂不可用来源及恢复日期。
+- 半年回查分页未完时，下个工作日自动续接最近的 `candidates-fulltext.json`，保留原日期窗口与游标。当天增量另存为 `candidates-fulltext-incremental.json`，完成后统一并入队列；两部分均完整完成才推进全文渠道和半年回查检查点。
 - 正文抓取只保存文本和 SHA-256，需要原件时加 `--keep-raw`。
 
 ## 日期与发布边界

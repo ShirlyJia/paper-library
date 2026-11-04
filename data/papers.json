@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-03",
+  "updatedAt": "2026-11-04",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -8630,6 +8630,335 @@
         "https://arxiv.org/html/2610.38355v1"
       ],
       "addedAt": "2026-11-03"
+    },
+    {
+      "id": "arxiv-2611.02936",
+      "title": "Why Tabular Foundation Models Excel on Relational Data They Have Never Seen",
+      "date": "2026-11-02",
+      "updated": "2026-11-02",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "semantic-relational-benchmarks",
+      "topic": "语义与关系数据评测",
+      "related": [
+        4,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把关联记录按字段聚合成单表，再用冻结的表格基础模型预测。作者在 RelBench、DBInfer 和 SALT 等设置中报告有竞争力的结果，并分析字段角色与交互信息为何仍能保留；部分基线沿用已发表结果，调参预算并未完全对齐，模型也有显存或类别数限制，不能据此认定单表路线普遍优于关系模型。",
+      "url": "https://arxiv.org/abs/2611.02936",
+      "pdf": "https://arxiv.org/pdf/2611.02936",
+      "code": null,
+      "aliases": [
+        "单表模型的多表泛化分析"
+      ],
+      "keywords": [
+        "关系数据库",
+        "RDBLearn",
+        "TabPFN-Rel",
+        "特征聚合",
+        "上下文缓存"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.02936",
+        "https://arxiv.org/html/2611.02936",
+        "https://nebula.wsimg.com/197f2484adf6d01d4f59b0c5b4d4919f?AccessKeyId=146529ABA7789B138972&alloworigin=1&disposition=0"
+      ],
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "arxiv-2611.02061",
+      "title": "Looking Forward to Constructing Better Causal Comparisons",
+      "date": "2026-11-01",
+      "updated": "2026-11-01",
+      "category": 3,
+      "section": "causal-estimation",
+      "topicId": "treatment-effects",
+      "topic": "处理效应与干预分布",
+      "related": [
+        2,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "先预测未接受干预时的结果，再按预测分数匹配或加权对照样本，最后用真实结果估计干预效果。作者在 NSW/CPS 就业数据上发现部分 TabPFN 配置更接近随机试验参照；收益依赖预测目标和匹配方式，预测准确或分数平衡本身不能排除隐藏混杂。",
+      "url": "https://arxiv.org/abs/2611.02061",
+      "pdf": "https://arxiv.org/pdf/2611.02061",
+      "code": null,
+      "aliases": [
+        "预测辅助因果对照"
+      ],
+      "keywords": [
+        "TabPFN 3.5",
+        "prognostic score",
+        "对照组",
+        "处理效应",
+        "交叉拟合"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.02061",
+        "https://arxiv.org/html/2611.02061"
+      ],
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "arxiv-2611.02373",
+      "title": "Mixed-Type Relational Database Synthesis with Graph-Prompted Language Model",
+      "date": "2026-11-02",
+      "updated": "2026-11-02",
+      "category": 4,
+      "section": "semantic-fusion",
+      "topicId": "text-tabular-models",
+      "topic": "文本与表格联合建模",
+      "related": [
+        1,
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "REMIX 用关系图编码邻近记录，作为软提示引导小语言模型生成数值、类别与文本字段，再用经过验证的规则修复冲突。作者在 7 组数据设置中报告生成质量和约束满足率改善；原有主外键与行数保持不变，部分指标未领先，不能把字段合成视为完整数据库结构生成或隐私保证。",
+      "url": "https://arxiv.org/abs/2611.02373",
+      "pdf": "https://arxiv.org/pdf/2611.02373",
+      "code": "https://github.com/scsystem1/REMIX",
+      "aliases": [
+        "REMIX"
+      ],
+      "keywords": [
+        "关系数据合成",
+        "图软提示",
+        "混合类型",
+        "LoRA",
+        "规则修复"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.02373",
+        "https://arxiv.org/html/2611.02373",
+        "https://github.com/scsystem1/REMIX"
+      ],
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "arxiv-2605.28554",
+      "title": "High Performance, Low Reliability: Uncertainty Benchmarking for Tabular Foundation Models",
+      "date": "2026-04-22",
+      "updated": "2026-05-27",
+      "category": 2,
+      "section": "prediction-distributions",
+      "topicId": "prediction-intervals",
+      "topic": "预测区间与覆盖率",
+      "related": [
+        1
+      ],
+      "status": "published",
+      "venue": "ESANN 2026",
+      "summary": "在 112 个 TALENT 分类数据集上，把预测区分能力与共形预测集的分组覆盖率一起评估。作者发现所测表格基础模型虽有较高 AUC，按预测集大小分组后的最低覆盖率仍可能较低；该指标不等于所有子群的可靠性，结果也不能推广到所有版本。论文使用 TALENT，TabArena 仅作为相关评测背景。",
+      "url": "https://arxiv.org/abs/2605.28554",
+      "pdf": "https://arxiv.org/pdf/2605.28554",
+      "code": "https://github.com/jose-melo/high-performance-low-reliability",
+      "aliases": [
+        "TFM 不确定性评测"
+      ],
+      "keywords": [
+        "共形预测",
+        "TALENT",
+        "条件覆盖",
+        "TabArena 相关工作"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.28554",
+        "https://arxiv.org/html/2605.28554",
+        "https://www.esann.org/sites/default/files/proceedings/2026/ES2026-261.pdf",
+        "https://doi.org/10.14428/esann/2026.ES2026-261",
+        "https://github.com/jose-melo/high-performance-low-reliability"
+      ],
+      "dateNote": "官方会议论文集注明 ESANN 2026 于 4 月 22–24 日举行；以首日作已核实公开时间的记录粒度。arXiv 首次提交为 5 月 27 日，不能用索引中配套数据集的日期替代。",
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "arxiv-2606.05481",
+      "title": "Towards Unified and Data-Efficient Prognostics and Health Management with Tabular Foundation Models",
+      "date": "2026-06-03",
+      "updated": "2026-06-03",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "topic": "工业与工程预测",
+      "related": [
+        4,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "将设备传感器历史窗口转成单表，比较 TabPFN、TabDPT 与序列网络、树模型在诊断和寿命预测中的表现。作者在 12 项任务上报告较好的平均排名，部分随机少标签设置仍具竞争力；连续时段缺标签时收益会下降，不能把随机抽样结果推广为任意工况只需少量标签。",
+      "url": "https://arxiv.org/abs/2606.05481",
+      "pdf": "https://arxiv.org/pdf/2606.05481",
+      "code": "https://github.com/EPFL-IMOS/picid",
+      "aliases": [
+        "表格模型用于设备健康预测"
+      ],
+      "keywords": [
+        "PHM",
+        "TabPFN",
+        "TabDPT",
+        "工业时序",
+        "上下文选择"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.05481",
+        "https://arxiv.org/html/2606.05481",
+        "https://github.com/EPFL-IMOS/picid"
+      ],
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "arxiv-2609.36881",
+      "title": "What You Observe Determines How You Identify Causal Effects: Evaluating Causal Models across Observational Views",
+      "date": "2026-09-29",
+      "updated": "2026-09-29",
+      "category": 3,
+      "section": "causal-models",
+      "topicId": "causal-reliability",
+      "topic": "效应去偏与可靠性",
+      "related": [
+        1,
+        2
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "CausalIDView 固定因果生成过程和目标效应，只改变模型能看到的变量，对比后门、前门、工具变量等识别条件。作者发现模型排名会随可观测信息改变，明确识别公式配合 TabPFN 也可取得竞争结果；基准刻意限制生成机制以保持目标一致，部分模型并不原生支持所有条件。",
+      "url": "https://arxiv.org/abs/2609.36881",
+      "pdf": "https://arxiv.org/pdf/2609.36881",
+      "code": "https://github.com/MLAI-Yonsei/CausalIDView",
+      "aliases": [
+        "CausalIDView"
+      ],
+      "keywords": [
+        "因果基础模型",
+        "TabPFN",
+        "识别条件",
+        "前门",
+        "工具变量"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.36881",
+        "https://arxiv.org/html/2609.36881",
+        "https://github.com/MLAI-Yonsei/CausalIDView"
+      ],
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "arxiv-2605.29411",
+      "title": "The Good, the Bad, and the Ugly of Markov Boundary for Tabular Prediction",
+      "date": "2026-05-28",
+      "updated": "2026-08-19",
+      "category": 3,
+      "section": "causal-discovery",
+      "topicId": "causal-graphs",
+      "topic": "因果图结构恢复",
+      "related": [
+        2,
+        5
+      ],
+      "status": "published",
+      "venue": "CIKM 2026",
+      "summary": "研究先找出与目标直接相关的最小特征集，是否能改善表格预测。作者在 3,450 个合成任务中发现，使用真实边界常能降低误差，但用因果发现算法估计边界后，漏掉关键特征和搜索成本会抵消收益。可用于判断因果特征筛选的风险，尚无真实业务或端到端加速验证。",
+      "url": "https://arxiv.org/abs/2605.29411",
+      "pdf": "https://arxiv.org/pdf/2605.29411",
+      "code": null,
+      "aliases": [
+        "Markov 边界与表格预测"
+      ],
+      "keywords": [
+        "因果特征选择",
+        "SCM3K",
+        "TabPFN",
+        "TabICL",
+        "输入压缩"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.29411",
+        "https://arxiv.org/html/2605.29411",
+        "https://doi.org/10.1145/3799682.3841161"
+      ],
+      "dateNote": "2026-05-28 arXiv 首发、8 月 19 日修订；已确认 CIKM 2026 录用。出版社登记的会议出版日期为 11 月 6 日，不作为首发或本站收录日期。",
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "arxiv-2607.15606",
+      "title": "Seq2Synth: Benchmarking Temporal Fidelity in Synthetic Sequential Tabular Data",
+      "date": "2026-07-17",
+      "updated": "2026-08-31",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "semantic-relational-benchmarks",
+      "topic": "语义与关系数据评测",
+      "related": [
+        2,
+        4
+      ],
+      "status": "published",
+      "venue": "CIKM 2026",
+      "summary": "Seq2Synth 检查合成表格中的时间顺序、重复时间戳、轨迹变化和跨表关系。作者比较 13 个数据集、8 类生成器，发现整体字段分布相近时仍可能破坏时间结构；时间戳直接查原始输出，部分其他指标依赖修复和插值，不能把全部分数视为原始生成质量。",
+      "url": "https://arxiv.org/abs/2607.15606",
+      "pdf": "https://arxiv.org/pdf/2607.15606",
+      "code": "https://github.com/KiwanKwon/Seq2Synth",
+      "aliases": [
+        "Seq2Synth",
+        "Do Generative Models Keep Time? A Time-Aware Evaluation of Synthetic Sequential Tabular Data"
+      ],
+      "keywords": [
+        "合成关系数据",
+        "时序保真",
+        "评测协议",
+        "时间戳"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2607.15606",
+        "https://arxiv.org/html/2607.15606",
+        "https://seq2synth.github.io/",
+        "https://github.com/KiwanKwon/Seq2Synth",
+        "https://doi.org/10.1145/3799682.3841108"
+      ],
+      "dateNote": "7 月 17 日 arXiv 首发；本次读取 8 月 31 日扩展版 v3。已确认 CIKM 2026 录用，会议版仅保留附录 A，其余附录属于扩展版。",
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "arxiv-2608.23468",
+      "title": "RAD: Rule-Augmented Relational Anomaly Detection",
+      "date": "2026-08-24",
+      "updated": "2026-08-24",
+      "category": 2,
+      "section": "prediction-quality",
+      "topicId": "anomaly-detection",
+      "topic": "表格异常检测",
+      "related": [
+        1,
+        4
+      ],
+      "status": "published",
+      "venue": "CIKM 2026",
+      "summary": "RAD 把多表记录建成图，将由带标签数据提取的规则作为特征，与图表示共同学习异常排序。作者在安全日志及两项经过改造的用户流失任务上报告较好平均排名；它需要异常标签，任务与调参预算有限，不能当作无监督异常检测或任意关系数据库上的性能保证。",
+      "url": "https://arxiv.org/abs/2608.23468",
+      "pdf": "https://arxiv.org/pdf/2608.23468",
+      "code": "https://github.com/noahd15/RAD_RelationalAnomalyDetection",
+      "aliases": [
+        "RAD"
+      ],
+      "keywords": [
+        "关系异常检测",
+        "规则增强",
+        "异构图",
+        "排序监督"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.23468",
+        "https://arxiv.org/html/2608.23468",
+        "https://github.com/noahd15/RAD_RelationalAnomalyDetection",
+        "https://doi.org/10.1145/3799682.3841086"
+      ],
+      "dateNote": "8 月 24 日 arXiv 首发；官方作者仓库及出版社 DOI 元数据确认 CIKM 2026 录用。会议出版日期不替代首发。",
+      "addedAt": "2026-11-04"
     }
   ],
   "collectionUpdates": [
@@ -9167,6 +9496,21 @@
         "arxiv-2605.18147",
         "arxiv-2606.30410"
       ]
+    },
+    {
+      "date": "2026-11-04",
+      "added": [
+        "arxiv-2605.28554",
+        "arxiv-2605.29411",
+        "arxiv-2606.05481",
+        "arxiv-2607.15606",
+        "arxiv-2608.23468",
+        "arxiv-2609.36881",
+        "arxiv-2611.02061",
+        "arxiv-2611.02373",
+        "arxiv-2611.02936"
+      ],
+      "updated": []
     }
   ]
 }

@@ -747,6 +747,24 @@
       "sources": [
         "https://arxiv.org/abs/2610.37598"
       ]
+    },
+    {
+      "name": "REMIX",
+      "paperIds": [
+        "arxiv-2611.02373"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.02373"
+      ]
+    },
+    {
+      "name": "RAD",
+      "paperIds": [
+        "arxiv-2608.23468"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.23468"
+      ]
     }
   ]
 }

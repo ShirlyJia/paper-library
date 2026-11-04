@@ -129,6 +129,43 @@ class DailyWindowTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             daily.validate_review({**review, "qualityReviewedIds": ["arxiv-1"]})
 
+    def test_weekly_resume_preserves_window_and_fetches_new_arrivals(self):
+        state = {"channels": {"arxiv": "2026-11-03", "fulltext": "2026-11-02"},
+                 "backfills": {"fulltext": "2026-10-27"}}
+        plan = daily.plan_window(date(2026, 11, 4), state, {"arxiv", "fulltext"})
+        calls = []
+        def fake_run(command, **kwargs):
+            calls.append(command)
+            if command[1].endswith("collect.py"):
+                Path(command[-1]).write_text(json.dumps({"runs": [], "candidates": []}))
+            return SimpleNamespace(returncode=0)
+        with tempfile.TemporaryDirectory() as folder, patch.object(daily, "ROOT", Path(folder)), \
+                patch.object(daily.subprocess, "run", side_effect=fake_run):
+            previous = Path(folder) / "work/collection/daily/2026-11-03/090000/candidates-fulltext.json"
+            previous.parent.mkdir(parents=True)
+            previous.write_text(json.dumps({"since": "2026-05-03", "until": "2026-11-03", "channels": ["fulltext"],
+                                           "runs": [{"nextCursor": "page-21", "status": "truncated"}]}))
+            run_dir = Path(folder) / "work/collection/daily/2026-11-04/090000"
+            run_dir.mkdir(parents=True)
+            self.assertEqual(daily.run_automatic(plan, run_dir), 0)
+            collectors = [c for c in calls if c[1].endswith("collect.py")]
+            self.assertEqual(len(collectors), 3)
+            resumed = next(c for c in collectors if "--resume" in c)
+            self.assertEqual(resumed[resumed.index("--resume") + 1], str(previous))
+            self.assertNotIn("--until", resumed)
+            increment = next(c for c in collectors if c[-1].endswith("-incremental.json"))
+            self.assertEqual(increment[increment.index("--since") + 1], "2026-10-28")
+            self.assertEqual(increment[increment.index("--until") + 1], "2026-11-04")
+            self.assertEqual(sum(c[1].endswith("review_queue.py") for c in calls), 1)
+            plan["previousCheckpoint"]["backfills"]["fulltext"] = "2026-11-03"
+            self.assertIsNone(daily.pending_fulltext(plan, run_dir))
+
+    def test_daily_success_cannot_hide_unfinished_weekly_cursor(self):
+        plan = {"groups": [{"since": "2026-05-04", "channels": ["fulltext"]}]}
+        reports = [{"runs": [{"channel": "fulltext", "source": "models", "status": "complete"}]},
+                   {"runs": [{"channel": "fulltext", "source": "models", "status": "truncated", "nextCursor": "page-21"}]}]
+        self.assertEqual(daily.channel_status(plan, reports)["fulltext"]["status"], "incomplete")
+
 
 if __name__ == "__main__":
     unittest.main()

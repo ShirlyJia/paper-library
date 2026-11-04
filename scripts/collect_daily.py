@@ -125,27 +125,62 @@ def web_report_errors(report):
     return errors
 
 
+def pending_fulltext(plan, run_dir):
+    """Keep the original query window when continuing an unfinished weekly sweep."""
+    if "fulltext" not in plan.get("backfillChannels", []):
+        return None
+    previous = plan.get("previousCheckpoint", {})
+    completed = previous.get("backfills", {}).get("fulltext", "")
+    since = next(g["since"] for g in plan["groups"] if "fulltext" in g["channels"])
+    for path in sorted((ROOT / "work/collection/daily").glob("*/*/candidates-fulltext.json"), reverse=True):
+        if path.parent == run_dir:
+            continue
+        try:
+            report = json.loads(path.read_text())
+            if not (report["since"] <= since and completed < report["until"] <= plan["until"]):
+                continue
+            if report.get("channels") == ["fulltext"] and any(r.get("nextCursor") for r in report.get("runs", [])):
+                return path, report["until"]
+        except (OSError, ValueError, KeyError, TypeError):
+            continue
+    return None
+
+
 def run_automatic(plan, run_dir):
     """Isolate process crashes and queue failures as well as HTTP failures."""
     status = 0
     outputs = []
+    resumed = pending_fulltext(plan, run_dir)
+    jobs = []
     for group in plan["groups"]:
         for name in group["channels"]:
             if name in MANUAL:
                 continue
             output = run_dir / f"candidates-{name}.json"
-            try:
-                result = subprocess.run([sys.executable, str(ROOT / "scripts/collect.py"), "--since", group["since"],
-                                         "--until", plan["until"], "--channels", name, "--output", str(output)], cwd=ROOT)
-                status = status or result.returncode
-                if not output.exists():
-                    raise RuntimeError(f"Collector exited {result.returncode} without a report")
-                outputs.append((name, output))
-            except (OSError, RuntimeError) as error:
-                status = status or 2
-                (run_dir / f"candidates-{name}-error.json").write_text(json.dumps({"runs": [
-                    {"channel": name, "source": "runner", "status": "failed", "error": str(error)}], "candidates": []}, indent=2))
-                print(f"{name} 未完成：{error}；继续其他渠道。", file=sys.stderr)
+            since = group["since"]
+            if name == "fulltext" and resumed:
+                # New arrivals must still be fetched while the old cursors retain their date filter.
+                last = plan["previousCheckpoint"].get("channels", {}).get(name, resumed[1])
+                since = min(date.fromisoformat(plan["until"]) - timedelta(days=7),
+                            date.fromisoformat(min(last, resumed[1])) - timedelta(days=3)).isoformat()
+                output = run_dir / "candidates-fulltext-incremental.json"
+            jobs.append((name, output, ["--since", since, "--until", plan["until"]]))
+    if resumed:
+        print(f"OpenAlex 半年回查续接 {resumed[0].relative_to(ROOT)}；当天增量独立执行。", flush=True)
+        jobs.append(("fulltext", run_dir / "candidates-fulltext.json", ["--resume", str(resumed[0])]))
+    for name, output, window in jobs:
+        try:
+            result = subprocess.run([sys.executable, str(ROOT / "scripts/collect.py"), *window,
+                                     "--channels", name, "--output", str(output)], cwd=ROOT)
+            status = status or result.returncode
+            if not output.exists():
+                raise RuntimeError(f"Collector exited {result.returncode} without a report")
+            outputs.append((name, output))
+        except (OSError, RuntimeError) as error:
+            status = status or 2
+            output.with_name(output.stem + "-error.json").write_text(json.dumps({"runs": [
+                {"channel": name, "source": "runner", "status": "failed", "error": str(error)}], "candidates": []}, indent=2))
+            print(f"{name} 未完成：{error}；继续其他渠道。", file=sys.stderr)
     if outputs:
         try:
             queued = subprocess.run([sys.executable, str(ROOT / "scripts/review_queue.py"), "add",
