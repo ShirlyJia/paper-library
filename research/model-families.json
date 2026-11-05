@@ -765,6 +765,78 @@
       "sources": [
         "https://arxiv.org/abs/2608.23468"
       ]
+    },
+    {
+      "name": "TabAbax",
+      "paperIds": [
+        "arxiv-2611.00562"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.00562",
+        "https://github.com/tababax-research/TabAbax",
+        "https://huggingface.co/tababax-ai/TabAbax"
+      ]
+    },
+    {
+      "name": "SNAPPerf",
+      "paperIds": [
+        "arxiv-2611.00944"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.00944"
+      ]
+    },
+    {
+      "name": "Molecular Prior Networks",
+      "searchNames": [
+        "Molecular Prior Networks",
+        "Molecular Prior Network"
+      ],
+      "paperIds": [
+        "arxiv-2611.05103"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.05103",
+        "https://github.com/daltontx/molpriornet"
+      ]
+    },
+    {
+      "name": "MambaPFN",
+      "paperIds": [
+        "arxiv-2611.04848"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.04848"
+      ]
+    },
+    {
+      "name": "Arrow",
+      "needsContext": true,
+      "paperIds": [
+        "arxiv-2605.07204"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.07204"
+      ]
+    },
+    {
+      "name": "Seldon",
+      "needsContext": true,
+      "paperIds": [
+        "neuralk-seldon-technical-report"
+      ],
+      "sources": [
+        "https://www.neuralk.ai/white-paper/seldon-foundation-made-tabular"
+      ]
+    },
+    {
+      "name": "SkillTFM",
+      "paperIds": [
+        "arxiv-2608.06137"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.06137"
+      ]
     }
   ]
 }

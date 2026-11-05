@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-04",
+  "updatedAt": "2026-11-05",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -8635,7 +8635,8 @@
       "id": "arxiv-2611.02936",
       "title": "Why Tabular Foundation Models Excel on Relational Data They Have Never Seen",
       "date": "2026-11-02",
-      "updated": "2026-11-02",
+      "updated": "2026-11-03",
+      "dateNote": "11 月 2 日首发。11 月 3 日的 arXiv v2 将原先单独提供的实验附录并入论文。",
       "category": 1,
       "section": "industry-benchmarks",
       "topicId": "semantic-relational-benchmarks",
@@ -8663,6 +8664,7 @@
       "sources": [
         "https://arxiv.org/abs/2611.02936",
         "https://arxiv.org/html/2611.02936",
+        "https://arxiv.org/html/2611.02936v2",
         "https://nebula.wsimg.com/197f2484adf6d01d4f59b0c5b4d4919f?AccessKeyId=146529ABA7789B138972&alloworigin=1&disposition=0"
       ],
       "addedAt": "2026-11-04"
@@ -8959,6 +8961,571 @@
       ],
       "dateNote": "8 月 24 日 arXiv 首发；官方作者仓库及出版社 DOI 元数据确认 CIKM 2026 录用。会议出版日期不替代首发。",
       "addedAt": "2026-11-04"
+    },
+    {
+      "id": "arxiv-2611.00562",
+      "title": "TabAbax: A Tabular Foundation Model Technical Report",
+      "date": "2026-10-31",
+      "updated": "2026-10-31",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "topic": "通用表格模型",
+      "related": [
+        2,
+        5
+      ],
+      "status": "preprint",
+      "venue": "arXiv 技术报告",
+      "summary": "TabAbax 在 TabICLv2 的行压缩之前增加第二轮列、行交互，并调整生成合成训练表的方法。作者在 TabArena 的 13 个回归数据集上报告，原模型、只更换训练数据、再加入编码改动的 Elo 分别为 1688、1916、2024。分类的增益构成不同。已开放预测代码及分类、回归权重，单项编码改动的贡献仍需拆分。",
+      "url": "https://arxiv.org/abs/2611.00562",
+      "pdf": "https://arxiv.org/pdf/2611.00562",
+      "code": "https://github.com/tababax-research/TabAbax",
+      "keywords": [
+        "TabICLv2",
+        "TabArena",
+        "BeyondArena",
+        "回归",
+        "列行编码"
+      ],
+      "aliases": [
+        "TabAbax",
+        "TabAbax-classification",
+        "TabAbax-regression"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.00562",
+        "https://arxiv.org/html/2611.00562",
+        "https://github.com/tababax-research/TabAbax",
+        "https://huggingface.co/tababax-ai/TabAbax"
+      ],
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "arxiv-2611.05141",
+      "title": "Beyond Foundation Models: PFN Priors Improve Tabular Hyperparameter Optimization",
+      "date": "2026-11-03",
+      "updated": "2026-11-03",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "pipeline-search",
+      "topic": "自动管线与策略搜索",
+      "related": [
+        1,
+        2
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "PriorTune 用 TabICLv2 生成的合成表离线比较超参数，再把筛出的配置交给真实数据上的树模型或 MLP。作者在 BeyondArena 的 142 个数据集上发现，同样可试 25 组配置时，LightGBM-TabPrep 在各分组均优于随机搜索。离线网格本身开销大，新数据仍须训练和验证候选配置。",
+      "url": "https://arxiv.org/abs/2611.05141",
+      "pdf": "https://arxiv.org/pdf/2611.05141",
+      "code": "https://github.com/yandex-research/PriorTune",
+      "keywords": [
+        "PriorTune",
+        "TabArena",
+        "BeyondArena",
+        "TabICLv2",
+        "超参数搜索",
+        "LightGBM"
+      ],
+      "aliases": [
+        "PriorTune"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.05141",
+        "https://arxiv.org/html/2611.05141",
+        "https://github.com/yandex-research/PriorTune",
+        "https://huggingface.co/datasets/mrsergazinov/PriorTune"
+      ],
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "arxiv-2611.00944",
+      "title": "SNAPPerf: Software-Aware Tabular Foundation Model for Retraining-Free Performance Prediction of Configurable Systems",
+      "date": "2026-10-31",
+      "updated": "2026-10-31",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "topic": "工业与工程预测",
+      "related": [
+        2,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "SNAPPerf 把每套软件配置当作一行，用少量已测配置和耗时、能耗等指标预测剩余配置。作者在 12 个系统、5 档测量预算上报告，与 DaL 相比，达到同等误差所需的测量数平均少 54%。这是在既有测量集上回算的结果，跨软件版本的上线节省还需单独验证。",
+      "url": "https://arxiv.org/abs/2611.00944",
+      "pdf": "https://arxiv.org/pdf/2611.00944",
+      "code": null,
+      "keywords": [
+        "软件配置",
+        "少样本回归",
+        "测量预算",
+        "ICL"
+      ],
+      "aliases": [
+        "SNAPPerf"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.00944",
+        "https://arxiv.org/html/2611.00944"
+      ],
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "arxiv-2611.05103",
+      "title": "Molecular Prior Networks",
+      "date": "2026-11-03",
+      "updated": "2026-11-03",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "biomedical-applications",
+      "topic": "生命科学与医疗预测",
+      "related": [
+        4,
+        5
+      ],
+      "status": "workshop",
+      "venue": "NeurIPS 2026 Workshop on AI for Drug Discovery",
+      "summary": "把分子指纹作为表格特征，以同一靶点上已测分子的活性为上下文，为其他分子排序。FS-Mol 测试中，作者报告给定 16 个样本时与 ADKF-IFT 的排名相关性接近，样本增多后 ADKF-IFT 更好。结果限于固定指纹和该活性预测基准。",
+      "url": "https://arxiv.org/abs/2611.05103",
+      "pdf": "https://arxiv.org/pdf/2611.05103",
+      "code": "https://github.com/daltontx/molpriornet",
+      "keywords": [
+        "分子指纹",
+        "条件回归",
+        "FS-Mol",
+        "上下文学习"
+      ],
+      "aliases": [
+        "Molecular Prior Networks",
+        "Molecular Prior Network",
+        "kernel MPN"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.05103",
+        "https://arxiv.org/html/2611.05103",
+        "https://github.com/daltontx/molpriornet"
+      ],
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "arxiv-2611.04848",
+      "title": "Amortized Nonlinear Variable Selection with Prior-Data Fitted Networks",
+      "date": "2026-11-03",
+      "updated": "2026-11-03",
+      "category": 4,
+      "section": "semantic-features",
+      "topicId": "feature-search",
+      "topic": "任务反馈与特征搜索",
+      "related": [
+        2,
+        3
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "MambaPFN 输入带目标列的数据表，为每一列估计保留概率。作者在有真值的模拟问题及一个 53 特征的评论量预测任务中检验选列效果。真实任务将选列、训练预测器和测试分开，所选字段有较高预测价值，但真实因果关系仍未知。",
+      "url": "https://arxiv.org/abs/2611.04848",
+      "pdf": "https://arxiv.org/pdf/2611.04848",
+      "code": null,
+      "keywords": [
+        "变量筛选",
+        "Markov blanket",
+        "PFN",
+        "非线性特征选择"
+      ],
+      "aliases": [
+        "MambaPFN"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.04848",
+        "https://arxiv.org/html/2611.04848"
+      ],
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "arxiv-2605.07204",
+      "title": "Arrow: A Foundation Model for Causal Discovery",
+      "date": "2026-05-08",
+      "updated": "2026-05-08",
+      "category": 3,
+      "section": "causal-discovery",
+      "topicId": "causal-graphs",
+      "topic": "因果图结构恢复",
+      "related": [
+        1,
+        4
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "Arrow 分别估计哪些变量相连、节点按什么顺序排列，再按这个顺序给边定向，输出无环图。作者在合成数据、四个半合成网络及 Sachs 生物数据上评估图恢复。生成的图在结构上无环，因果方向的可信度仍依赖观测数据的假设和训练先验。",
+      "url": "https://arxiv.org/abs/2605.07204",
+      "pdf": "https://arxiv.org/pdf/2605.07204",
+      "code": null,
+      "keywords": [
+        "Arrow",
+        "因果发现",
+        "拓扑排序",
+        "观测数据",
+        "图骨架"
+      ],
+      "aliases": [
+        "Arrow"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.07204",
+        "https://arxiv.org/html/2605.07204"
+      ],
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "arxiv-2611.02637",
+      "title": "Variable names provide priors: semantic grounding enables data-efficient numerical prediction by large language models",
+      "date": "2026-11-02",
+      "updated": "2026-11-02",
+      "category": 4,
+      "section": "semantic-fusion",
+      "topicId": "text-tabular-models",
+      "topic": "文本与表格联合建模",
+      "related": [
+        2,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "在数值和示例固定时，作者对比真实、匿名和打乱的字段名，观察语言模型预测数值的变化。在 20 张科学数据表中，变量名带来的帮助以样本少时最明显，示例增多后与监督模型的差距缩小。数据最多 30 个特征，仅 6 张表可用发布时间较好地控制模型预训练污染。",
+      "url": "https://arxiv.org/abs/2611.02637",
+      "pdf": "https://arxiv.org/pdf/2611.02637",
+      "code": null,
+      "keywords": [
+        "字段名称",
+        "语义信息",
+        "上下文学习",
+        "科学数据",
+        "少样本回归"
+      ],
+      "aliases": [
+        "变量名与数值预测"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.02637",
+        "https://arxiv.org/html/2611.02637"
+      ],
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "neuralk-seldon-technical-report",
+      "title": "Seldon: Foundation, Made Tabular.",
+      "date": "2026-08-25",
+      "updated": "2026-08-25",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "topic": "通用表格模型",
+      "related": [
+        2
+      ],
+      "status": "report",
+      "venue": "Neuralk 技术报告",
+      "summary": "Neuralk 在 189 个公开分类数据集和 22 个工业问题上评测 Seldon。作者报告公开套件里 Seldon、TabPFN v3 与 TabICL v2 的排名差异未达显著，工业组中 Seldon 与调优 XGBoost 的平均排名接近。部分参评模型失败时以 XGBoost 成绩填补，私有任务数据也限制了独立核验。",
+      "url": "https://www.neuralk.ai/white-paper/seldon-foundation-made-tabular",
+      "pdf": "https://cdn.prod.website-files.com/69c3c53e8ad1832a8457398a/6a8d7df04d5fb289dec72f9a_Neuralk_tabular_Foundation_Model_Seldon-technical-report.pdf",
+      "code": null,
+      "keywords": [
+        "Seldon",
+        "Neuralk",
+        "TabBench",
+        "业界模型",
+        "分类评测"
+      ],
+      "aliases": [
+        "Seldon"
+      ],
+      "sources": [
+        "https://www.neuralk.ai/white-paper/seldon-foundation-made-tabular",
+        "https://github.com/Neuralk-AI/TabBench",
+        "https://huggingface.co/spaces/Neuralk-AI/tabbench"
+      ],
+      "dateNote": "采用 Neuralk 官方技术报告署明的公开日期。TabBench 与报告的工业任务分别统计。",
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "acl-2026-emnlp-main-661",
+      "title": "All Relations at Once: Efficient Open-World Tabular Relation Discovery with Hierarchy-Aware Reward Shaping",
+      "date": "2026-10-24",
+      "updated": "2026-10-24",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "schema-matching",
+      "topic": "字段匹配与模式整合",
+      "related": [
+        5,
+        6
+      ],
+      "status": "published",
+      "venue": "EMNLP 2026",
+      "summary": "一次读入整张表，让语言模型一起输出多组列之间的关系，再按每个关系词与标注的语义接近程度单独给训练反馈。在两项英文表格基准上，作者报告同一骨干的 F1 提高。SemTab-R4 的平均模型调用由 4 次减到 1 次，目前计时只覆盖所测表格宽度。",
+      "url": "https://aclanthology.org/2026.emnlp-main.661/",
+      "pdf": "https://aclanthology.org/2026.emnlp-main.661.pdf",
+      "code": null,
+      "keywords": [
+        "列关系提取",
+        "SemTab",
+        "SOTAB",
+        "GRPO",
+        "结构化生成"
+      ],
+      "aliases": [
+        "All Relations at Once",
+        "开放列关系提取"
+      ],
+      "sources": [
+        "https://aclanthology.org/2026.emnlp-main.661/",
+        "https://aclanthology.org/2026.emnlp-main.661.pdf"
+      ],
+      "dateNote": "按 ACL 正式会议论文集注明的会议首日记录，作者公开记录以 ACL Anthology 为准。",
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "arxiv-2509.04632",
+      "title": "Conceptual Schema Inference for Tabular Datasets using Large Language Models",
+      "date": "2025-09-04",
+      "updated": "2026-05-25",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "schema-matching",
+      "topic": "字段匹配与模式整合",
+      "related": [
+        5
+      ],
+      "status": "published",
+      "venue": "The VLDB Journal",
+      "summary": "从多张异构表恢复类型层级、属性与关系。GeSI 先让语言模型描述各表，再合并为全局结构。EmSI 用表和列嵌入聚类。作者在四个带标注的集合上发现，生成路线覆盖较多类型，嵌入路线的层级一致性较高。样本里只看到一个关联对象，仍可能把多对多误判成一对多。",
+      "url": "https://link.springer.com/article/10.1007/s00778-026-01000-7",
+      "pdf": "https://arxiv.org/pdf/2509.04632",
+      "code": "https://github.com/PierreWoL/SILM/",
+      "keywords": [
+        "概念模式推断",
+        "语义层级",
+        "属性",
+        "关系基数",
+        "异构数据整合"
+      ],
+      "aliases": [
+        "GeSI",
+        "EmSI",
+        "SILM"
+      ],
+      "sources": [
+        "https://link.springer.com/article/10.1007/s00778-026-01000-7",
+        "https://arxiv.org/abs/2509.04632",
+        "https://doi.org/10.1007/s00778-026-01000-7",
+        "https://github.com/PierreWoL/SILM/"
+      ],
+      "dateNote": "作者维护的 arXiv:2509.04632 首发于 2025-09-04、修订于 2026-05-25。期刊版于 2026-08-09 公开。另建的 2605.23105 已由作者按重复登记撤回。",
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "acl-2026-emnlp-main-1947",
+      "title": "SIP: Aligning LLM-based TableQA with Table Semantics via SQL Logic",
+      "date": "2026-10-24",
+      "updated": "2026-10-24",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "test-time-compute",
+      "topic": "推理时计算与组合策略",
+      "related": [
+        4
+      ],
+      "status": "published",
+      "venue": "EMNLP 2026",
+      "summary": "SIP 将生成 SQL 中的筛选、排序、聚合等操作转成自然语言步骤，用来指导单表问答。模型直接作答和运行 Python 的两条路径分别检查中间结果，最后投票。作者在 WikiTableQuestions 报告 75.35% 准确率，但采用多次采样，外部基线预算不同，起始 SQL 的错误也会传给后续步骤。",
+      "url": "https://aclanthology.org/2026.emnlp-main.1947/",
+      "pdf": "https://aclanthology.org/2026.emnlp-main.1947.pdf",
+      "code": null,
+      "keywords": [
+        "单表问答",
+        "SQL Logic",
+        "程序执行",
+        "推理校验",
+        "语义分解"
+      ],
+      "aliases": [
+        "SIP"
+      ],
+      "sources": [
+        "https://aclanthology.org/2026.emnlp-main.1947/",
+        "https://aclanthology.org/2026.emnlp-main.1947.pdf"
+      ],
+      "dateNote": "按 ACL 正式会议论文集注明的会议首日记录。",
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "arxiv-2611.02583",
+      "title": "BasisKV: Value Latents for Communication and Key Routing",
+      "date": "2026-11-02",
+      "updated": "2026-11-02",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "BasisKV 用低维 Value 表示压缩跨卡通信，并据此挑出值得精确读取的 Key 缓存页。作者在单张 L40S、128K 长文本条件下测得整模型稳态解码约快 1.25 倍。计时排除了首次编码，精确缓存仍在显卡上。表格重复查询能否受益，取决于缓存可复用性和重新校准后的检索质量。",
+      "url": "https://arxiv.org/abs/2611.02583",
+      "pdf": "https://arxiv.org/pdf/2611.02583",
+      "code": "https://github.com/alexz949/BasisKV",
+      "keywords": [
+        "多卡通信",
+        "缓存路由",
+        "低秩投影",
+        "稀疏解码"
+      ],
+      "aliases": [
+        "BasisKV"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.02583",
+        "https://arxiv.org/html/2611.02583",
+        "https://github.com/alexz949/BasisKV"
+      ],
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "arxiv-2611.04401",
+      "title": "LiquidCP: Decoupling Attention Tasks from Communication and Kernel Boundaries in Context Parallelism",
+      "date": "2026-11-03",
+      "updated": "2026-11-03",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "LiquidCP 将同一长上下文的注意力切成小块，把传输、计算和结果合并分配到不同 GPU。作者在 8 张 H100 上测得预填充核心注意力前向平均提速 1.23 倍。端到端服务另用已预载的历史缓存。迁移到单张大表时，需要重新实现行列注意力的掩码和分片，并实测每张卡的显存上限。",
+      "url": "https://arxiv.org/abs/2611.04401",
+      "pdf": "https://arxiv.org/pdf/2611.04401",
+      "code": null,
+      "keywords": [
+        "上下文并行",
+        "单个上下文跨卡",
+        "注意力归约",
+        "KV 分片",
+        "多卡显存"
+      ],
+      "aliases": [
+        "LiquidCP"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.04401",
+        "https://arxiv.org/html/2611.04401"
+      ],
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "arxiv-2611.04382",
+      "title": "Beyond Compression Ratio: High-Throughput KV Compression for Disaggregated LLM Serving",
+      "date": "2026-11-03",
+      "updated": "2026-11-03",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "published",
+      "venue": "NPC 2026",
+      "summary": "FastKVComp 将 KV 缓存的变换和量化合为一次 GPU 操作，再用预分配缓冲区传输。作者在两节点 200 Gb/s 网络上比原始未压缩传输提高 44.2%–62.6% 输出吞吐。局部消融显示主要收益来自算子融合。适合对照表格缓存跨设备搬运的成本，论文尚无表格任务数据。",
+      "url": "https://arxiv.org/abs/2611.04382",
+      "pdf": "https://arxiv.org/pdf/2611.04382",
+      "code": null,
+      "keywords": [
+        "KV 缓存传输",
+        "算子融合",
+        "分离式推理",
+        "GPU 工作区",
+        "FastKVComp"
+      ],
+      "aliases": [
+        "FastKVComp"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.04382",
+        "https://arxiv.org/html/2611.04382"
+      ],
+      "dateNote": "11 月 3 日 arXiv 首发，作者在元数据中注明 NPC 2026 录用。",
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "arxiv-2610.39853",
+      "title": "KV Cache Quantization for Diffusion Language Models",
+      "date": "2026-10-29",
+      "updated": "2026-10-29",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "在扩散语言模型逐轮填词时，即使数值精度不变，早先缓存的 Key 和 Value 也可能过时。dLLM-KVQ 用校准轨迹挑选要保留高精度的 Key。作者在两种模型、四项任务上报告平均质量改善。论文报告有效位宽，实际峰值显存与端到端提速仍待测，可借鉴到会反复更新字段的表格推理。",
+      "url": "https://arxiv.org/abs/2610.39853",
+      "pdf": "https://arxiv.org/pdf/2610.39853",
+      "code": null,
+      "keywords": [
+        "双向注意力",
+        "缓存复用误差",
+        "量化校准",
+        "迭代填补",
+        "TRACE"
+      ],
+      "aliases": [
+        "dLLM-KVQ"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.39853",
+        "https://arxiv.org/html/2610.39853"
+      ],
+      "addedAt": "2026-11-05"
+    },
+    {
+      "id": "arxiv-2608.06137",
+      "title": "SkillTFM: Gated Skill Evolution for Training-Free Adaptation of Tabular Foundation Models",
+      "date": "2026-08-06",
+      "updated": "2026-08-06",
+      "category": 6,
+      "section": "adaptation-distribution",
+      "topicId": "subpopulation-shift",
+      "topic": "子群变化与分布鲁棒性",
+      "related": [
+        2,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "SkillTFM 保持基础模型权重固定，在历史任务上验证一组修正规则，运行时用当前可见数据决定是否调整预测。作者用三城同一天共 288 个电价预测点测试，LimiX 的平均绝对误差由 53.02 降至 25.16。原始市场记录未公开，跨日期和未知分布下的效果还需验证。",
+      "url": "https://arxiv.org/abs/2608.06137",
+      "pdf": "https://arxiv.org/pdf/2608.06137",
+      "code": null,
+      "keywords": [
+        "LimiX",
+        "TabPFN",
+        "TabICL",
+        "TabDPT",
+        "预测修正",
+        "分布变化",
+        "冻结权重"
+      ],
+      "aliases": [
+        "SkillTFM"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.06137",
+        "https://arxiv.org/html/2608.06137"
+      ],
+      "addedAt": "2026-11-05"
     }
   ],
   "collectionUpdates": [
@@ -9511,6 +10078,30 @@
         "arxiv-2611.02936"
       ],
       "updated": []
+    },
+    {
+      "date": "2026-11-05",
+      "added": [
+        "acl-2026-emnlp-main-1947",
+        "acl-2026-emnlp-main-661",
+        "arxiv-2509.04632",
+        "arxiv-2605.07204",
+        "arxiv-2608.06137",
+        "arxiv-2610.39853",
+        "arxiv-2611.00562",
+        "arxiv-2611.00944",
+        "arxiv-2611.02583",
+        "arxiv-2611.02637",
+        "arxiv-2611.04382",
+        "arxiv-2611.04401",
+        "arxiv-2611.04848",
+        "arxiv-2611.05103",
+        "arxiv-2611.05141",
+        "neuralk-seldon-technical-report"
+      ],
+      "updated": [
+        "arxiv-2611.02936"
+      ]
     }
   ]
 }
