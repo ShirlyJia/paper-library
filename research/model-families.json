@@ -837,6 +837,64 @@
       "sources": [
         "https://arxiv.org/abs/2608.06137"
       ]
+    },
+    {
+      "name": "CCD",
+      "needsContext": true,
+      "aliases": ["NEO-Tab", "Context-Calibrated Open-Entity"],
+      "paperIds": [
+        "arxiv-2611.01489"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.01489"
+      ]
+    },
+    {
+      "name": "CISA",
+      "needsContext": true,
+      "aliases": ["Chunk-Indexed Sparse Attention"],
+      "paperIds": [
+        "arxiv-2611.03200"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.03200"
+      ]
+    },
+    {
+      "name": "Jet-QSparse",
+      "paperIds": [
+        "arxiv-2611.01022"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.01022"
+      ]
+    },
+    {
+      "name": "LoopKV",
+      "paperIds": [
+        "arxiv-2611.04137"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.04137"
+      ]
+    },
+    {
+      "name": "CoGA2M",
+      "paperIds": [
+        "arxiv-2611.05012"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.05012"
+      ]
+    },
+    {
+      "name": "CoRTeC",
+      "paperIds": [
+        "arxiv-2611.06342"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.06342"
+      ]
     }
   ]
 }

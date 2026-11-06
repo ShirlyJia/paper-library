@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-05",
+  "updatedAt": "2026-11-06",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -9526,6 +9526,264 @@
         "https://arxiv.org/html/2608.06137"
       ],
       "addedAt": "2026-11-05"
+    },
+    {
+      "id": "arxiv-2611.01489",
+      "title": "CCD: Context-Calibrated Open-Entity Out-of-Distribution Detection in In-Context Tabular Foundation Models",
+      "date": "2026-11-01",
+      "updated": "2026-11-01",
+      "category": 2,
+      "section": "prediction-quality",
+      "topicId": "anomaly-detection",
+      "topic": "异常检测与开放集识别",
+      "related": [
+        1,
+        5,
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "CCD 区分两种情况：新客户仍属于已知类别，或记录来自模型没见过的类别。它从上下文中轮流留出实体组，校准置信度与特征距离，减少把新实体误当异常。作者在 14 张表上报告平均异常排序 AUROC 为 81.8%，调优 kNN 为 74.4%；但高召回时误报仍高，文中理论命题省略了证明。适合研究表格模型的拒答和异常分流。",
+      "url": "https://arxiv.org/abs/2611.01489",
+      "pdf": "https://arxiv.org/pdf/2611.01489",
+      "code": null,
+      "aliases": [
+        "CCD",
+        "NEO-Tab"
+      ],
+      "keywords": [
+        "TabPFN",
+        "TabICL",
+        "TabDPT",
+        "开放实体",
+        "OOD",
+        "异常检测",
+        "上下文校准"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.01489",
+        "https://arxiv.org/html/2611.01489v1"
+      ],
+      "addedAt": "2026-11-06"
+    },
+    {
+      "id": "arxiv-2611.03200",
+      "title": "CISA: Retrofitting Dense Attention Models with Chunk-Indexed Sparse Attention",
+      "date": "2026-11-02",
+      "updated": "2026-11-02",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化迁移",
+      "related": [
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "CISA 为每页缓存计算一个代表向量，先挑选相关页面，再在选中页面内执行注意力。作者在 4 张 B300、约百万 token 输入和固定输出长度下，报告基础配置总 token 吞吐为稠密基线的 2.29 倍。完整 KV 缓存仍驻留显存，因此它主要减少读取和计算，不能单独解决缓存装不下的问题；表格注意力的掩码和行列结构还需适配验证。",
+      "url": "https://arxiv.org/abs/2611.03200",
+      "pdf": "https://arxiv.org/pdf/2611.03200",
+      "code": null,
+      "aliases": [
+        "CISA",
+        "Chunk-Indexed Sparse Attention"
+      ],
+      "keywords": [
+        "稀疏注意力",
+        "分页缓存",
+        "KV cache",
+        "吞吐",
+        "上下文编码",
+        "LLM迁移"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.03200",
+        "https://arxiv.org/html/2611.03200v1"
+      ],
+      "addedAt": "2026-11-06"
+    },
+    {
+      "id": "arxiv-2611.01022",
+      "title": "Jet-QSparse: Accelerating Agentic LLM Inference with 4-Bit Sparse Attention",
+      "date": "2026-10-31",
+      "updated": "2026-10-31",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化迁移",
+      "related": [
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "Jet-QSparse 在 Blackwell GPU 上将 KV 缓存存为四位格式，并只聚合选中的注意力块。作者在 GB300、128K 输入、批量16的 Qwen3.8-27B 实验中报告解码加速1.94倍，两个配置的实际 KV 池容量增至2.58倍和2.76倍。短输入可能不加速，预填充还有临时显存，部分精度设置会损失任务表现；表格任务效果待验证。",
+      "url": "https://arxiv.org/abs/2611.01022",
+      "pdf": "https://arxiv.org/pdf/2611.01022",
+      "code": null,
+      "aliases": [
+        "Jet-QSparse"
+      ],
+      "keywords": [
+        "NVFP4",
+        "Blackwell",
+        "KV量化",
+        "稀疏注意力",
+        "显存容量",
+        "LLM迁移"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.01022",
+        "https://arxiv.org/pdf/2611.01022"
+      ],
+      "addedAt": "2026-11-06"
+    },
+    {
+      "id": "arxiv-2611.04137",
+      "title": "LoopKV: Loop-Aware KV Cache Compression for Serving Looped Transformers",
+      "date": "2026-11-03",
+      "updated": "2026-11-03",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化迁移",
+      "related": [
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "LoopKV 针对重复执行多轮的 Transformer，测量各层各轮对缓存误差的敏感度，再分配二位、四位或跨轮复用策略。作者报告相对四位 KIVI 缓存少35%，在 RTX PRO 6000 的指定时延约束下有效吞吐提高1.7–2.2倍。跨轮复用依赖循环架构，部分任务未通过预设精度非劣界限；普通表格模型可借鉴分层预算，但收益需另测。",
+      "url": "https://arxiv.org/abs/2611.04137",
+      "pdf": "https://arxiv.org/pdf/2611.04137",
+      "code": null,
+      "aliases": [
+        "LoopKV"
+      ],
+      "keywords": [
+        "循环Transformer",
+        "混合精度",
+        "KV缓存",
+        "SLO",
+        "预算分配",
+        "LLM迁移"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.04137",
+        "https://arxiv.org/html/2611.04137"
+      ],
+      "addedAt": "2026-11-06"
+    },
+    {
+      "id": "arxiv-2611.02230",
+      "title": "Who Should Score the Cache? Mid-Depth Layers Are the Best Judges of KV-Cache Eviction",
+      "date": "2026-11-01",
+      "updated": "2026-11-01",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化迁移",
+      "related": [],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "这项研究把决定哪些 KV 缓存应保留的评分层，与实际使用缓存的层分开。作者在21个语言模型上发现，中间层常能选出更有用的内容；一项 Llama3.1-8B、32K 输入实验将保留缓存从3.96GB压到45MB，解码由81增至113 token/s。不过压缩发生在完整预填充之后，峰值显存不降；评分还依赖当前问题，表格共享上下文效果待验证。",
+      "url": "https://arxiv.org/abs/2611.02230",
+      "pdf": "https://arxiv.org/pdf/2611.02230",
+      "code": null,
+      "aliases": [
+        "Mid-Depth KV Scoring"
+      ],
+      "keywords": [
+        "KV缓存淘汰",
+        "评分层",
+        "缓存压缩",
+        "SnapKV",
+        "预填充峰值",
+        "LLM迁移"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.02230",
+        "https://arxiv.org/html/2611.02230"
+      ],
+      "addedAt": "2026-11-06"
+    },
+    {
+      "id": "arxiv-2611.05012",
+      "title": "Rethinking GA2Ms: performance and out-of-distribution generalisation",
+      "date": "2026-11-03",
+      "updated": "2026-11-03",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "topic": "通用表格基准与评测",
+      "related": [
+        2,
+        4,
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "CoGA2M 把单个特征和成对特征关系写成多种分辨率的平滑曲线，在保持可视化的同时提升表达能力。作者在 TALENT 300 个表格任务上比较常规预测，并构造数值回归分布变化测试。部分测试比 LightGBM 退化更小，但分布外结论来自按两模型结果筛选后的22个数据集，尚不足以证明普遍鲁棒。代码已公开，可作为可解释表格模型的对照。",
+      "url": "https://arxiv.org/abs/2611.05012",
+      "pdf": "https://arxiv.org/pdf/2611.05012",
+      "code": "https://github.com/georgedimitriadis/rethinking_GA2Ms",
+      "aliases": [
+        "CoGA2M",
+        "CoGA²M"
+      ],
+      "keywords": [
+        "GA2M",
+        "样条",
+        "可解释模型",
+        "TALENT",
+        "LightGBM",
+        "OOD"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.05012",
+        "https://arxiv.org/html/2611.05012",
+        "https://github.com/georgedimitriadis/rethinking_GA2Ms"
+      ],
+      "addedAt": "2026-11-06"
+    },
+    {
+      "id": "arxiv-2611.06342",
+      "title": "CoRTeC: A Differentially Private Release for Synthetic Tabular Data, Decodable by Any Generator",
+      "date": "2026-09-24",
+      "updated": "2026-11-04",
+      "category": 4,
+      "section": "semantic-fusion",
+      "topicId": "text-tabular-models",
+      "topic": "文本与表格联合建模",
+      "related": [
+        1,
+        2
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "CoRTeC 先发布加噪的分组计数，再由最大熵方法或语言模型生成表格，并按统计量筛选样本。作者在 Adult 三次划分上报告：不使用语言模型，分类排序指标与同规模真实样本差距也在0.02内；主要收益来自统计量和筛选，LLM并非必需。实验仅覆盖三个公共数据集、每次最多1000行；理论按行保护，浮点噪声实现仍有漏洞。代码已公开。",
+      "url": "https://arxiv.org/abs/2611.06342",
+      "pdf": "https://arxiv.org/pdf/2611.06342",
+      "code": "https://github.com/Calyie/cortec",
+      "aliases": [
+        "CoRTeC",
+        "Cohort-Conditioned Differentially Private Synthetic Tabular Data from a Frozen Language Model"
+      ],
+      "keywords": [
+        "合成表格",
+        "差分隐私",
+        "统计量发布",
+        "最大熵",
+        "语言模型",
+        "样本筛选"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.06342",
+        "https://arxiv.org/pdf/2611.06342",
+        "https://zenodo.org/records/22945316",
+        "https://zenodo.org/records/23812612",
+        "https://github.com/Calyie/cortec"
+      ],
+      "dateNote": "同一 CoRTeC 版本链的 Zenodo v1.0.0 首发为2026-09-24；本条方法与实验依据2026-11-04 arXiv v1，未拆成重复论文。",
+      "addedAt": "2026-11-06"
     }
   ],
   "collectionUpdates": [
@@ -10102,6 +10360,19 @@
       "updated": [
         "arxiv-2611.02936"
       ]
+    },
+    {
+      "date": "2026-11-06",
+      "added": [
+        "arxiv-2611.01022",
+        "arxiv-2611.01489",
+        "arxiv-2611.02230",
+        "arxiv-2611.03200",
+        "arxiv-2611.04137",
+        "arxiv-2611.05012",
+        "arxiv-2611.06342"
+      ],
+      "updated": []
     }
   ]
 }

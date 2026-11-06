@@ -9743,5 +9743,218 @@
     "decision": "excluded",
     "reviewedAt": "2026-11-05",
     "reason": "作者明确说明误建了重复 arXiv 记录，指向持续维护的 2509.04632。期刊全文和方法已用维护版 ID 收录，关闭重复记录；未来另有独立贡献时再审。"
+  },
+  {
+    "id": "arxiv-2611.01489",
+    "title": "CCD: Context-Calibrated Open-Entity Out-of-Distribution Detection in In-Context Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2611.01489",
+    "sourceUpdated": "2026-11-01",
+    "decision": "included",
+    "reviewedAt": "2026-11-06",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在新实体同时包含已知类别与未知类别时，CCD 比仅用模型置信度或距离的方法更能区分未知类别。结论限于 NEO-Tab 实验。",
+      "contribution": "冻结 TFM，组别留出与随机留出比较上下文敏感性；结合原始特征、标签子空间、嵌入距离与预测置信度，不使用 OOD 标签校准。",
+      "evidence": "已读 §3–5、算法1及表1–3。14 张表来自 16 张候选，含满足约束的 6 张 BeyondArena 表；每表最多 500 特征、10 已知类，未知类至少30行。开发 trials0–4 与测试35–39实体组分离；40–44重新抽取保留组。主表 TabPFN v2 的 CCD 平均 AUROC81.8、调优 kNN74.4，12/14胜，Holm校正p=.012；FPR95仍为50.3。另有TabICLv2、TabDPT骨干与分支消融。均为作者报告。",
+      "limitations": "非所有配对均显著；高召回误报仍高。最多5组留出与5随机留出带来额外推理成本。交换组假设不等于时间漂移；校准时更短上下文与最终全上下文的偏移未充分论证。§4.2 明示省略证明，不能将实验改善等同有限样本理论保证。",
+      "value": "直接补充结构化预测在新客户、新设备等未知实体上的异常检测协议；可比较拒答策略和组别划分，不能用随机行拆分结果替代实体外推证据。",
+      "reproducibility": "作者称发布协议与脚本，但此次未定位到可核实的官方代码链接；不标记已开源。未做独立或本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2611.01489v1",
+        "https://arxiv.org/abs/2611.01489"
+      ],
+      "readScope": "arXiv v1：§3–4问题、协议与方法，§4.2理论假设及省略证明说明，§5.1–5.5全部实验、表1–3、消融、结论与相关工作；核心实证主张完成审核，理论保证证据不足。"
+    }
+  },
+  {
+    "id": "arxiv-2611.03200",
+    "title": "CISA: Retrofitting Dense Attention Models with Chunk-Indexed Sparse Attention",
+    "url": "https://arxiv.org/abs/2611.03200",
+    "sourceUpdated": "2026-11-02",
+    "decision": "included",
+    "reviewedAt": "2026-11-06",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "经无梯度校准后，按块索引稀疏注意力能降低长上下文模型的读取与计算开销，在所测配置中改善端到端吞吐。",
+      "contribution": "16-token 页平均key代表向量；从原有查询头或其均值中按KL选择索引器；同KV组共享所选页，邻近prefill查询可共享选择，选中页内沿用原QKV精确计算。近期128页与尾页保留。",
+      "evidence": "读§2–4、§6及附录A.4、B.1、D。Nemotron3 Nano30B、Ultra550B、InklingSmall等质量实验；vLLM在4张B300、TP2/DP2、32并发、MRCR200约1M输入、固定4096输出、3次分配运行。基础4096页/QShareG4配置吞吐2.29倍，缩至2048页为2.61倍但GraphWalks下降更大（3.59而非1.49分）。内核decode13倍不等于端到端13倍。",
+      "limitations": "保留完整KV并增加代表向量状态，非缓存容量压缩。需要校准数据而非数据无关；G8使用较新软件版本，Inkling单次结果且部分输出更长，质量和吞吐不能跨设置拼接。未在表格任务实测。",
+      "value": "可借鉴前向阶段的页级读取筛选与查询块共享；表格模型需要验证双向/行列注意力掩码、置换性质、页组织和上下文共享，不能照搬自回归最近窗口。",
+      "reproducibility": "正文给出硬件、选择预算、基线和vLLM集成描述；未核实独立代码仓库，不标记已开源。无本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2611.03200v1"
+      ],
+      "readScope": "arXiv v1 §2机制、§3实现、§4实验、§6限制、附录A.4/B.1计时与D补充；支持所测LLM吞吐改进，表格迁移未验证。"
+    }
+  },
+  {
+    "id": "arxiv-2611.01022",
+    "title": "Jet-QSparse: Accelerating Agentic LLM Inference with 4-Bit Sparse Attention",
+    "url": "https://arxiv.org/abs/2611.01022",
+    "sourceUpdated": "2026-10-31",
+    "decision": "included",
+    "reviewedAt": "2026-11-06",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在Blackwell与所测混合架构LLM的长上下文解码中，NVFP4持久缓存和稀疏PV结合可增加KV容量并提高解码吞吐。",
+      "contribution": "对完整key进行NVFP4 QK扫描，再按KV头选择128-token块，所选value以高精度聚合。持久缓存四位，保留首/当前BF16页及临时FP8 prefill arena；不是跳过全部key读取。",
+      "evidence": "PDF§3.1–3.5、§4.1–4.4。4个模型Qwen3.8-27B/Qwen3.6-35B/Nemotron3Nano/Nemotron3.5Lightning，GB300、TensorRT-LLM固定版本。128K输入、batch16、N64、1024输出时Qwen3.8解码1.94倍BF16；实测KV池容量2.58/2.76倍，不能用理想打包3.4倍当峰值显存收益。N128在5类应用任务未检出损失；N64与FP8 prefill在部分任务有下降。",
+      "limitations": "新CuTe内核与部分Triton基线优化程度不同，固定运行点非各方法最优。质量实验上下文与128K计时不完全相同；短输入加速.97–1.08倍。每层仍扫描全部key。临时arena与循环状态限制真实容量。附录校准分析显示Nano部分区间偏窄，未检出差异不等于等效。",
+      "value": "对应缓存存储精度和前向聚合两阶段；TFM需验证硬件、量化校准、双向/轴向注意力、多查询块布局及总峰值显存，不能将自回归decode结果当表格收益。",
+      "reproducibility": "有精度、运行点及统计协议，无已核实的该方法独立代码链接。未进行独立或本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/pdf/2611.01022",
+        "https://arxiv.org/abs/2611.01022"
+      ],
+      "readScope": "v1 PDF §3.1–3.5、§4.1–4.4、结论；附录校准与共享参考不确定性、统计多重比较部分。限定支持长输入条件下的容量和解码收益。"
+    }
+  },
+  {
+    "id": "arxiv-2611.04137",
+    "title": "LoopKV: Loop-Aware KV Cache Compression for Serving Looped Transformers",
+    "url": "https://arxiv.org/abs/2611.04137",
+    "sourceUpdated": "2026-11-03",
+    "decision": "included",
+    "reviewedAt": "2026-11-06",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "对循环Transformer，联合优化KV存储和读取预算能在所测服务负载上比统一四位量化取得更好的资源与时延折中。",
+      "contribution": "离线逐(loop,layer)测KL敏感度，以多选背包分配INT4/INT2/复用最终轮缓存。INT4 value拆2+2位平面，低注意力位置少读低位；保留sink和近期高精度窗口，vLLM融合内核与CUDA graph。",
+      "evidence": "§2–5.7含方法、质量、消融、吞吐与硬件比较。Ouro1.4/2.6、Dory4B，Huginn仅规划。16条长生成作剖析；约3GPU小时。相同融合内核和graph下与KIVI4比较，存储计划少35%KV；RTX PRO6000、最大16K、60个AIME到达请求、TTFT10秒及模型相关TPOT约束、95%达标时goodput1.7–2.2倍，3轮运行。8K decode另为1.20倍，不能合并成同一指标。",
+      "limitations": "部分任务不通过3百分点非劣界限，包括Ouro2.6存储方案MATH；H100少读value位未带来额外速度。跨轮共享要求循环状态可复用，Dory本身针对共享训练。保留BF16窗口、页布局及离线剖析均有成本，不能套用于无循环结构的TFM。",
+      "value": "可借鉴分层敏感度、存储与带宽双目标规划及SLO负载评测；跨轮复用只适用于结构兼容模型，表格任务效果待验证。",
+      "reproducibility": "正文给出vLLM0.26插件设计、任务和到达负载配置；未核实方法代码仓库；作者实测，未独立或本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2611.04137",
+        "https://arxiv.org/abs/2611.04137"
+      ],
+      "readScope": "v1 §2–5.7方法、实验配置、六套质量任务、消融、服务负载与跨硬件结果，§6相关工作；元数据页核对首发。"
+    }
+  },
+  {
+    "id": "arxiv-2611.02230",
+    "title": "Who Should Score the Cache? Mid-Depth Layers Are the Best Judges of KV-Cache Eviction",
+    "url": "https://arxiv.org/abs/2611.02230",
+    "sourceUpdated": "2026-11-01",
+    "decision": "included",
+    "reviewedAt": "2026-11-06",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "KV淘汰中，评分层选择是重要变量，在所测检索任务中共享中间层评分经常优于每层自行打分。",
+      "contribution": "独立选择评分层与缓存所在层；用含答案跨度的独立校准集选择层深，再将同一保留token集合应用于多层多头。",
+      "evidence": "§3–7与附录B。21个LLM（18个逐层、3个Gemma共享），RULER8任务各25共200提示；校准集同任务但数据行不重叠。相同保留预算、4sink与32recent，比kvpress0.5.4 SnapKV。多数以mask模拟，200提示物理删除获得相同准确率。H200、Llama3.1-8B、32K、1%缓存，3.96GB→45MB、81→113token/s；5提示含1预热，其余取中位。",
+      "limitations": "完整prefill峰值未下降。层选择依赖任务和问题已知，不能直接服务问题无关共享上下文。多数任务为合成检索；预算按默认基线退化选取，未做所有模型/层比较的多重校正。大型新模型收益较小；少量计时提示非服务SLO测试。",
+      "value": "为表格缓存压缩提供评分器与缓存层解耦的消融设计；需替换依赖答案跨度的校准信号，并验证双向注意力、批量查询、保留行列一致性。未在TFM实测。",
+      "reproducibility": "有任务、层搜索、窗口及kvpress基线版本；仅核实基线仓库，未将其冒充作者方法代码。无独立/本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2611.02230",
+        "https://arxiv.org/abs/2611.02230"
+      ],
+      "readScope": "v1 §3–7方法、划分、21模型实验、局限；附录B实际缓存压缩与计时。支持条件限定的评分层作用，不支持降低prefill峰值的推断。"
+    }
+  },
+  {
+    "id": "arxiv-2611.05012",
+    "title": "Rethinking GA2Ms: performance and out-of-distribution generalisation",
+    "url": "https://arxiv.org/abs/2611.05012",
+    "sourceUpdated": "2026-11-03",
+    "decision": "included",
+    "reviewedAt": "2026-11-06",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "平滑多分辨率GA2M兼顾可解释性、标准表格预测能力及分布外泛化；其中普遍分布外优势尚证据不足。",
+      "contribution": "线性与三次Hermite样条，多组4/16/64结点，单变量及成对乘积、L1平滑约束，回归配RidgeCV读出；不同于直接依赖大型基础模型的路线。",
+      "evidence": "§III–VI及表I/补充表。TALENT300任务（100回归/120二分类/80多分类），固定超参不做自家HPO；回归平均排名11/29、分类7/32。48纯数值回归尝试构造CMA-ES搜索的困难区域，40可生成，再按两模型表现筛出22个数据集比较；与LightGBM的ID到OOD退化差值均值.247，作者bootstrap95%CI[.0481,.4877]。",
+      "limitations": "OOD集合按被比较模型的结果继续筛选，会影响总体优势解释；仅与LightGBM作该OOD比较，未验证时间/群组或相关性漂移。正文报告15次重复，Future work又称single repetition；仓库说明ID默认15、OOD配置1，未本地运行核对，不能把全部实验当统一15次。正文对p=.0232与.05大小的文字矛盾，不沿用该解释。多分辨率增量消融作者列为后续工作。",
+      "value": "作为可解释传统表格模型与基础模型的对照，提供可检验的多分辨率构造和困难划分方法；可收录方法与审查基准筛选的价值，不背书普遍OOD优越性。",
+      "reproducibility": "已核实官方README、TALENT数据和ID/OOD脚本入口；不同后端TensorFlow/PyTorch/JAX依赖。仅代码可用性核验，未复现结果。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2611.05012",
+        "https://github.com/georgedimitriadis/rethinking_GA2Ms",
+        "https://arxiv.org/abs/2611.05012"
+      ],
+      "readScope": "v1 §III模型构造、§IV标准及OOD实验、表I与补充表S1、§V统计解释与假设、§VI限制；官方README核对重复次数与复现入口。"
+    }
+  },
+  {
+    "id": "arxiv-2611.06342",
+    "title": "CoRTeC: A Differentially Private Release for Synthetic Tabular Data, Decodable by Any Generator",
+    "url": "https://arxiv.org/abs/2611.06342",
+    "sourceUpdated": "2026-11-04",
+    "decision": "included",
+    "reviewedAt": "2026-11-06",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "一次差分隐私统计发布可由不同生成器重复解码；所测分类效用主要来自统计量与筛选，而非必须依赖LLM。数学机制与浮点实现的隐私保证须区分。",
+      "contribution": "Stage A公开域/分箱/群组上释放加噪计数、类条件直方图与条件目标率；自动选择消耗单列预算。Stage B最大熵或冻结LLM只读统计发布，再过采样、IPF配额/筛选/细化，无新增私有行读取。Stage C可选认证是额外机制。",
+      "evidence": "PDF§3–7、附录A证明、B评测、C数据。Adult32561、NHANES3749、bank45211各80/20划分；ε2，300/1000合成行，3生成抽样，Adult/NHANES3种拆分种子、bank单拆分。作者报告Adult最大熵+筛选三种分类器跨3拆分与n匹配真实样本AUC差≤.02；NHANES/bank部分平均差≤.05，不是每个种子都满足。匿名列名、无统计发布、无筛选及更换LLM控制表明LLM增益有限，部分关系被错误添加。AIM在成对相关性上更好。",
+      "limitations": "按增删一行的纯εDP论证依赖公共域及正确预算组合，不等于每人DP。Stage C真实holdout无噪声的最终verdict不在保证内。浮点Laplace采样攻击为作者承认的实现缺口；未进行独立安全审计。AIM/MST的δ及分箱预算不同；部分公开基线协议未完全匹配。最多1000行、若干控制只有单种子，不能推断任意生成器或任何数据都有效。",
+      "value": "为语义辅助表格合成分清统计约束、筛选和语言知识各自增量，提供无LLM强对照及隐私边界；收录不等同可直接部署的隐私合规证明。",
+      "reproducibility": "核实官方仓库与Zenodo版本链；可见研究流程、生成样本与打分材料入口。理论证明已读，未运行生成/攻击或复现。最早Zenodo版本2026-09-24、当前arXiv2026-11-04，合并身份。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/pdf/2611.06342",
+        "https://github.com/Calyie/cortec",
+        "https://zenodo.org/api/records/23812612/versions",
+        "https://arxiv.org/abs/2611.06342"
+      ],
+      "readScope": "arXiv v1 PDF §3隐私、§4机制与定理、§5.1–5.5实验与控制、§6限制、§7结论、附录A完整组合证明及浮点攻击说明、附录B指标与C数据；GitHub README与Zenodo全版本元数据。"
+    }
+  },
+  {
+    "id": "mfmb2026-1215",
+    "title": "When Do In-Context Tabular Foundation Models Help in Banking?",
+    "url": "https://thebal.ai/mfmb2026/papers/mfmb2026-1215.pdf",
+    "sourceUpdated": "2026-11-06",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-06",
+    "reason": "已读完整5页方法、划分、结果和成本；官方确认MFMB @ ICAIF 2026 Workshop Talk，非主会。未查到最早公开日期，不能把11月15日会议日期或搜索抓取日当首发。保存审阅结果，待可核实作者预印本/版本日期后收录。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "claim": "TFM在一个消费信贷组合的低样本违约预测能否替代XGBoost与线上模型。",
+      "contribution": "Nori、TabICLv2、TabPFN3.5在业务时间留出、自然类比例/平衡采样、不同上下文规模及fit/predict计时下比较。",
+      "evidence": "5万时间留出样本，1230违约；200万训练池与4亿历史样本生产模型。N10000平衡采样提升各方法，N100000自然比例TabPFN.7868对XGB.7764；最大平衡样本下排序不显著，所有实验模型未超过生产.8027。5种子、美元加权AUC。",
+      "limitations": "单组合私有数据。TFM用top100/226特征，XGB用226；XGB20%验证早停、TFM全部上下文。生产模型数据量差异最高4000倍。TFM在A10040G、XGB在CPU，计时不能作硬件公平速度排名。Nori大样本触发内部抽样8849。",
+      "value": "提供业务协议与采样策略证据，不把合成先验当收益原因的已证明解释。",
+      "reproducibility": "私有数据和生产配置不可独立复现；未本地复现。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://thebal.ai/mfmb2026/papers/mfmb2026-1215.pdf",
+        "https://thebal.ai/mfmb2026/accepted-papers.html",
+        "https://icaif2026.org/workshop-papers/"
+      ],
+      "readScope": "官方PDF全部5页，含方法、训练/时间测试划分、表1–3、计算配置与结论；录用目录和日程。方法审阅已完成，首发日期仍待核。"
+    }
+  },
+  {
+    "id": "tabpfn-thinking-20261028",
+    "title": "TabPFN-3.5 Thinking upgrade",
+    "url": "https://priorlabs.ai/blog-posts/tabpfn-3-5-thinking-upgrade",
+    "sourceUpdated": "2026-10-28",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-06",
+    "reason": "已核对官方博客与changelog；是已收录TabPFN3.5的产品升级（百万行及吞吐信息），不是独立新论文。现有博客不足以完成新增方法和匹配预算实验审核；保留版本线索，等技术报告或可复核配置，不重复收录。"
+  },
+  {
+    "id": "doi-10.3390-make8070179",
+    "title": "Calibration, Architecture, and Distribution Shift in Predictive Uncertainty Estimation",
+    "url": "https://doi.org/10.3390/make8070179",
+    "sourceUpdated": "2026-06-28",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-06",
+    "reason": "本次从积压初筛补查；摘要涉及36个OpenML-CC18表格分类、校准器、扰动和TabPFNv2比较，有明确关联。出版社全文直接抓取403，网页工具再次打开429，未取得方法/实验正文。保留待审，待出版社或作者公开全文可读后核验划分、预算及校准结论，不将摘要优势写入公开目录。"
   }
 ]
