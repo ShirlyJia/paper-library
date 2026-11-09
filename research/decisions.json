@@ -9956,5 +9956,260 @@
     "decision": "deferred",
     "reviewedAt": "2026-11-06",
     "reason": "本次从积压初筛补查；摘要涉及36个OpenML-CC18表格分类、校准器、扰动和TabPFNv2比较，有明确关联。出版社全文直接抓取403，网页工具再次打开429，未取得方法/实验正文。保留待审，待出版社或作者公开全文可读后核验划分、预算及校准结论，不将摘要优势写入公开目录。"
+  },
+  {
+    "id": "arxiv-2611.07886",
+    "title": "When, Where, How: Active In-Context Learning for Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2611.07886",
+    "sourceUpdated": "2026-11-05",
+    "decision": "included",
+    "reviewedAt": "2026-11-09",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-09",
+      "reviewStatus": "completed",
+      "claim": "在预先可见目标特征的分类设置中，目标感知选样可改善冻结 TFM 的样本效率；尚不能证明 EPIC 普遍优于简单近邻规则。",
+      "contribution": "相对 Tab-AICL 的不确定性/覆盖规则，TANN 选不确定目标的近邻；EPIC 以假设候选标签追加上下文后的预测互信息评分，模型权重冻结。",
+      "evidence": "阅读 v1 §3.1–3.4、§4.1–4.5、表1–3及图4说明。20个OpenML分类任务；按种子重新分层70/30划分，训练池最多7000行；初始每类1行，批次10，预算100或小池一半，10种子。TabICLv2/TabPFNv3均8成员；A40 48GB。EPIC相对随机最终κ增.042，16/20胜；相对Hybrid增.030，未校正p=.011，多重校正后不稳健。TANN/EPIC最终差.008、p=.133；大池每run耗时18s与145s（作者报告）。",
+      "limitations": "目标特征属于传导式可用信息，未使用目标标签，但相对非目标感知基线的信息条件不同；目标随机/覆盖控制部分隔离该收益。κ和κ保持比例不是准确率。候选最多64、目标抽样256，贪心批次可重复信息。起始每类标签已知；没有自动从多样性切到信息增益的规则实测；仅分类。树基线默认参数且无验证HPO，不等价于充分调参树模型。",
+      "value": "为低标注成本的上下文构造提供直接依据，也提示先比较低成本目标近邻，再承担信息增益的额外前向开销。",
+      "reproducibility": "作者实验，未独立或本地复现。正文明确代码待录用后发布；当前未核实公开实现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.07886",
+        "https://arxiv.org/html/2611.07886v1"
+      ],
+      "readScope": "v1：§3.1–3.4 的任务、TANN、EPIC与计算预算；§4.1–4.5 的划分、基线、结果、统计检验、成本与局限，表1–3/图4。未逐条复核全部附录。"
+    }
+  },
+  {
+    "id": "arxiv-2607.17715",
+    "title": "C2KV: Compressed and Composable KV Cache Reuse for Efficient LLM Inference",
+    "url": "https://arxiv.org/abs/2607.17715",
+    "sourceUpdated": "2026-07-20",
+    "decision": "included",
+    "reviewedAt": "2026-11-09",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-09",
+      "reviewStatus": "completed",
+      "claim": "学习型压缩与拼接联合训练能在作者所测文档复用任务中降低在线缓存准备成本，不能宣称任意上下文无损重用。",
+      "contribution": "冻结主模型，仅训练约10%附加参数的每层QKV投影及压缩token；文档独立编码、存储RoPE前Key，复用时重设位置。结构掩码保留原token因果路径，压缩token读取局部块及此前压缩表示。",
+      "evidence": "v1 §3完整机制，§4.1–4.4、4.8、表1/4及附录B/C/E。120k训练样本来自HotpotQA、2WikiMQA、LongMagpie训练集，一轮SFT；LongBench7任务、3种基础模型，比较全重算、直接复用、CacheBlend、EPIC及Block-Attention。Llama3.1-8B表1：4×时MultiNews .2532低于全量.2685；16×时MuSiQue .2746低于.3198。表4支持训练及位置重对齐的贡献。Crossref确认ACM KDD 2026论文集DOI；首发仍取7月20日。",
+      "limitations": "TTFT定义只是文档KV就绪，排除离线提取、系统和查询预填充；不能把最高17×外推为端到端请求加速。QA训练/评测任务家族重叠，虽声明训练split，未独立审计样本去重。正文硬件计时条件不足；官方当前示例2epochs与论文1epoch不同，复现需固定论文配置。结构掩码不证明任意重排与全量重算严格等价；部分摘要任务确有损失。",
+      "value": "对应上下文离线压缩、缓存传输与非前缀复用；表格模型需重做行列表示、掩码与目标标签依赖校验。",
+      "reproducibility": "已核实官方公开代码、训练与评测脚本目录；未运行。实验为作者报告；ACM网页403，发表状态由出版社登记的Crossref论文集元数据与论文DOI交叉核对。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2607.17715",
+        "https://arxiv.org/html/2607.17715",
+        "https://github.com/s7a9/C2KV",
+        "https://doi.org/10.1145/3770855.3817715",
+        "https://api.crossref.org/works/10.1145/3770855.3817715"
+      ],
+      "readScope": "v1 §3.1–3.4，§4.1–4.4、4.8，表1和4，附录B/C/E；官方README实现组织与训练配置；Crossref出版元数据。未复验所有长上下文图表。"
+    }
+  },
+  {
+    "id": "arxiv-2606.02964",
+    "title": "Multi-Segment Attention: Enabling Efficient KV-Cache Management for Faster Large Language Model Serving",
+    "url": "https://arxiv.org/abs/2606.02964",
+    "sourceUpdated": "2026-06-01",
+    "decision": "included",
+    "reviewedAt": "2026-11-09",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-09",
+      "reviewStatus": "completed",
+      "claim": "在受测长对话/工具调用负载下，按期望重算延迟淘汰缓存可比只按最近访问淘汰降低延迟。",
+      "contribution": "相对LRU及后缀缓存规则，结合访问频率与位置相关重算成本；融合多段attention核、对数时间淘汰及自适应prefill分块，缓存缺失时重新计算而非永久丢弃。",
+      "evidence": "v1 §4.1–4.3、§5和§6。Llama3.1-8B单H20、70B四H20 96GB；LongBench/LooGLE各300请求，Gamma到达/轮次间隔，两种离散程度，共用POD-Attention后端。表2低离散8B：TTFT 5.458s对LRU 6.582s；高离散7.068s对8.695s。组件消融区分淘汰算法与分块。BFCLv4工具轨迹中结合Continuum的作者报告增益4.4%–18.1%。",
+      "limitations": "请求/输出长度预先固定回放，未由该实验独立证明生成质量或真实用户分布收益。Pensieve未开源、基线是作者重实现且加MSA，不能视作原系统直接对比。主要GPU缓存，无完整多层存储验证；并发/硬件、会话间隔会改变收益。不是降低单个不可切分上下文本体容量的通用解法。",
+      "value": "对应跨查询缓存淘汰、重建与调度；为表格多租户服务提供成本感知管理思路，需重标定非自回归/行列注意力的缓存依赖与重建开销。",
+      "reproducibility": "正文给出算法、核函数组织、硬件及消融；未核实作者完整代码仓库，检索到的第三方模拟器不冒充原实现。未独立/本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2606.02964",
+        "https://arxiv.org/html/2606.02964"
+      ],
+      "readScope": "v1 §4.1–4.3、§5.1–5.3、§6.1–6.5、表1–2及§7存储层限制；arXiv首发与状态。"
+    }
+  },
+  {
+    "id": "arxiv-2605.24022",
+    "title": "Adaptive KV Cache Reuse for Fast Long-Context LLM Serving",
+    "url": "https://arxiv.org/abs/2605.24022",
+    "sourceUpdated": "2026-10-04",
+    "decision": "included",
+    "reviewedAt": "2026-11-09",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-09",
+      "reviewStatus": "completed",
+      "claim": "离线频率选点与稀疏搬运、重算重叠可改善受测非前缀文档复用的质量/延迟权衡，而非保持精确全量输出。",
+      "contribution": "相对在线选关键token的CacheBlend/ProphetKV，离线FFT低频重建后给原token位置评分；跨层共享15%重算位置，仅传剩余KV，按校准的计算/传输代价搜索比例并延后RoPE恢复。",
+      "evidence": "阅读v2 §3–5及附录D/F。Mistral7B、Llama3-8B、Qwen2.5-32B；5项QA/摘要任务；2×A100-40GB与2×4090-24GB、PCIe Gen3×16。作者报告任务分数平均保留94.99%，TTFT相对全重算3.72–4.86×。对同为15%重算的CacheBlend/ProphetKV比较；存储实验按相同介质，慢盘校准到36.4%/30.9%。",
+      "limitations": "主比较部分基线缓存驻GPU、CacheTune驻CPU，不是同存储预算；作者另有同介质实验，应分开读。频率截止50%不是重算比例15%；频域索引还原成token位置后评分。质量下界15%是经验选择，不是任务无损保证。首10个SAMSum请求用于延迟校准，不使用参考答案，但未明确与性能统计完全隔离；低带宽或不足重叠仍I/O受限。",
+      "value": "对应KV复用时依赖修复、缓存卸载和搬运重叠；迁移TFM必须核实行列双向注意力及选中位置的跨层更新是否合法。",
+      "reproducibility": "未核实完整官方代码，当前保留code=null；正文给出算法和环境，作者实验未独立/本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2605.24022",
+        "https://arxiv.org/html/2605.24022"
+      ],
+      "readScope": "v2 §3机制观察，§4.1–4.3，§5.1–5.3，附录D数据/基线/校准与F局限；abs版本史。"
+    }
+  },
+  {
+    "id": "arxiv-2606.06302",
+    "title": "Tangram: Unlocking Non-Uniform KV Cache Compression for Efficient Multi-turn LLM Serving",
+    "url": "https://arxiv.org/abs/2606.06302",
+    "sourceUpdated": "2026-06-15",
+    "decision": "included",
+    "reviewedAt": "2026-11-09",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-09",
+      "reviewStatus": "completed",
+      "claim": "细粒度分页、预算预留和预先负载分配能把非均匀KV压缩的逻辑节省转成受测系统的物理容量与吞吐收益。",
+      "contribution": "按50个校准样本确定各头预算与安全余量，把相近预算的头组成独立页表，避免一个长头阻止整页释放；分块prefill中压缩、提前预留页，离线规划GPU工作分配。沿用原压缩打分方法，不是新压缩算法。",
+      "evidence": "v2 §3.2–5.3。5模型覆盖Qwen3-4B、Llama3.1-8B、Gemma3-12B、GPT-OSS-20B、Qwen3-30B-A3B；SCBench短/中/长上下文，4×A10080GB。图9同压缩算法对比显示Tangram基本保留压缩后的质量；图10累加消融分离预算、分页与调度。作者报告保留25%缓存时最高2.6×吞吐，相对全量vLLM。",
+      "limitations": "2.6×混合了压缩带来的容量与系统实现改进，不能全部归因于分页。图9精度预算70/50/30%，吞吐峰值25%，不能将两者拼成同预算无损加速结论。预算是硬上限，超出会加强压缩；校准样本与分布变化影响质量，不保证任意表或长上下文无损。",
+      "value": "对应物理缓存布局、首次构建峰值与持续吞吐；为表格多头/多层缓存提供工程借鉴，但需重测非自回归attention、KV布局和可分组性。",
+      "reproducibility": "官方GitHub仓库与README已核实，基于vLLM，Ragged Paging需要Ampere或更新GPU的FlashAttention路径；现有代码含后续更新，复现论文需固定实现版本。未独立/本地实测。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2606.06302",
+        "https://arxiv.org/html/2606.06302",
+        "https://github.com/aiha-lab/tangram"
+      ],
+      "readScope": "v2 §3.2、§4.1–4.3与§5.1–5.3，图5–14说明；官方README安装、配置与支持压缩器。未逐图读取所有数值。"
+    }
+  },
+  {
+    "id": "arxiv-2611.07542",
+    "title": "FlashOffloading: Low-Latency KV Cache Offloading for Long-Context LLM Serving",
+    "url": "https://arxiv.org/abs/2611.07542",
+    "sourceUpdated": "2026-11-05",
+    "decision": "included",
+    "reviewedAt": "2026-11-09",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-09",
+      "reviewStatus": "completed",
+      "claim": "在文中Ascend/GLM-5.2配置下，主机内存承载完整KV可以扩展可服务上下文并提高总吞吐，但不保证降低单个请求的逐token延迟。",
+      "contribution": "prefill四个全层缓冲（首层常驻、其余三个轮转）与异步H2D/计算/D2H；decode热KV缓存、token到槽位反向索引、索引管理和拷贝attention融合。保留模型原生稀疏top-k选点，只精确搬运遗漏项。",
+      "evidence": "v1 §3–6、表1解释与§6.4.3。GLM-5.2-w4a8c16、统一MTP3，修改vLLM/vLLM-Ascend0.30；32卡64die的预填充/解码分离系统。64k/128k/256k输入、8192输出，增加decode卸载后作者报告输出吞吐+67.8%/+91.5%/+40.5%，TPOT同时恶化78.7%/56.6%/42.2%。64k同batch=4控制组ITL+23.7%，说明吞吐收益不是单步变快。预填充总HBM60.0→50.5GB，KV预分配36.75→9.04GB，激活反而增大。",
+      "limitations": "主实验固定90%前缀命中和突发到达，硬件规模/通信路径很特定；不能外推低命中小卡部署。prefill较通用但decode依赖原生稀疏索引；热cache与索引/元数据仍占显存。微基准和20条Open-SWE索引轨迹不等同大规模线上实测。正文未给独立任务精度回归测试；最高吞吐与每请求延迟需同时比较。",
+      "value": "直接对应首次上下文构建OOM、跨层卸载、搬运重叠与在线吞吐；表格模型可先评估prefill分层生命周期，不能把LLM稀疏decode核直接迁移。",
+      "reproducibility": "作者实验，未独立或本地复现。已打开论文给出的官方 GitCode/AtomGit 项目介绍，含部署镜像和启动配置；文件页未返回可核验的源码清单，故暂不标记代码已核实。介绍页示例使用vLLM0.23且1M低前缀命中测试，与论文0.30主实验不同，不混用性能与精度数字。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.07542",
+        "https://arxiv.org/html/2611.07542",
+        "https://ai.gitcode.com/Ascend-SACT/GLM5.2-KV_Offloading-1M"
+      ],
+      "readScope": "v1 §3统一结构、§4.1–4.3预填充分层卸载、§5.1–5.4解码索引与融合、§6.1/6.3/6.4设置和消融、表1结果文字解释及§7讨论；未逐项重算所有表格。 另读官方项目介绍的部署依赖与性能条件，文件列表未成功展开。"
+    }
+  },
+  {
+    "id": "arxiv-2608.06004",
+    "title": "Do Tabular Foundation Models Agree with Themselves?",
+    "url": "https://arxiv.org/abs/2608.06004",
+    "sourceUpdated": "2026-11-04",
+    "decision": "existing",
+    "reviewedAt": "2026-11-09",
+    "reason": "v2于11月4日修改一致性条件解释并增加真分布误差下界；保留既有反例的适用边界。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-09",
+      "reviewStatus": "completed",
+      "claim": "跨训练上下文构造出的两个概率分布存在差异时，它们不可能都等于同一真分布；这一差异不自动反驳固定证据下的贝叶斯一致性。",
+      "contribution": "v2将C1/C2明确写为适应TFM接口的跨上下文条件，用TV三角不等式、边缘化收缩和Pinsker不等式给出预测分布KL误差之和的下界；不是对条件本身的无条件贝叶斯刻画。",
+      "evidence": "本轮读v2 §3–4.1、表1相关段、§4.4–6、附录A.4/B.2。17表、5折；6分类模型4回归模型，部分表来自TabArena。核对B.2：TV差≤两个到真分布的TV之和，平方加Pinsker得到KL和界，固定真分布下成立。复用10月27日对v1及Fixed-Evidence Coherence v3的审核与精确Bayes反例；本轮不冒充重跑该反例。",
+      "limitations": "C1/C2删目标列改变训练证据，故一致性差距不等同于固定证据下不满足全概率公式。KL下界是两个预测相对假定共同真分布的联合约束，不直接给出具体模型单独错误率或因果决策可靠性。回归密度经分箱近似；TabDPT训练语料可能含部分OpenML表，TabArena重上传子集另标记。",
+      "value": "修正卡片对争议结论的表述，保留有用的跨列生成顺序和缺失处理诊断，避免读者把它误解为TFM不可能作贝叶斯推断。",
+      "reproducibility": "作者实验与本轮证明阅读；未独立/本地运行。既有Zenodo证据链接保留，来源版本分开。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2608.06004",
+        "https://arxiv.org/html/2608.06004v1",
+        "https://zenodo.org/records/23393077",
+        "https://arxiv.org/html/2608.06004v2"
+      ],
+      "readScope": "v2 §3 C1/C2与命题1/3、§4.1实验设置及表1部分、§4.4–6、附录A.4/B.2完整误差界；复用2026-10-27既有v1/反例审核。未复验全部实验。"
+    }
+  },
+  {
+    "id": "arxiv-2610.17065",
+    "title": "TILE: Bridging LLMs and Table Foundation Models for Tabular Learning with Strings",
+    "url": "https://arxiv.org/abs/2610.17065",
+    "sourceUpdated": "2026-10-30",
+    "decision": "existing",
+    "reviewedAt": "2026-11-09",
+    "reason": "核验10月30日修订版，加入官方代码、目标编码防泄漏实现、显存证据及评测交叠限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-09",
+      "reviewStatus": "completed",
+      "claim": "在含预测信号的字符串表上，行级语义表示与保留原始数值的旁路能改善表格预测；减少嵌入批量可降低作者示例的峰值显存。",
+      "contribution": "逐行序列化、LLM中间层按列池化、训练集PCA、数值/类别旁路，以及五折目标编码；读到中间层即可截断后续权重。相对逐单元格LLM编码，用同一基础模型隔离接口收益。",
+      "evidence": "本轮v2 §3–5，表1/2说明，附录D/F.4/G。100表65回归35分类、5种子，1000量级至50k训练量；比较30基线，7个LLM与10个学习器。PCA/标准化仅训练行；训练行目标编码来自另4折。STRABLE108表中15表与主基准同源，预处理不同。图G.2在chocolate_bar_ratings、1024训练行测峰值：默认批次17.7GB，16行批次约8.7GB。",
+      "limitations": "提取层、容量窗等在主基准/27张探针表上选，STRABLE不是完全无重叠；按列池化Ridge探针维数更高，不能全归因于语义。CASE-like用了替代未发布的表专用骨干；不同硬件跑大模型，时延非完全等预算。单表显存样例不是所有表保证，减批量会牺牲速度；解码器列顺序敏感，纯数值表不适用。",
+      "value": "对语义转结构化特征及嵌入阶段OOM有直接参考价值，尤其保留数字精度、目标编码防泄漏及批量/显存交换。",
+      "reproducibility": "核实官方GitHub公开仓库，论文给出HF数据入口。作者实验；未独立/本地复现。补读范围明确，复用旧版相同机制。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.17065",
+        "https://arxiv.org/html/2610.17065",
+        "https://arxiv.org/html/2610.17065v2",
+        "https://github.com/soda-inria/tile",
+        "https://huggingface.co/datasets/inria-soda/TILE-benchmark"
+      ],
+      "readScope": "v2 §3.1–3.2、§4.1–4.3、§5.1–5.4、§6局限，附录D目标编码、F.4池化混杂、G.1–G.3计算和显存；官方仓库存在性。"
+    }
+  },
+  {
+    "id": "zenodo-23967812",
+    "title": "An Exact-Bayes Account of the Few-Label Protocol Gap in Tabular Foundation Models",
+    "url": "https://zenodo.org/records/23967812",
+    "sourceUpdated": "2026-11-05",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-09",
+    "reason": "摘要提示其将每类定额标注的评测差异分解为学习与先验效应，直接关联少标签协议；本轮Zenodo API连接拒绝、网页工具也无法打开，未取得方法/证明与50表实验正文。保留候选，待全文可读后核对设计条件、类别均衡及解码规则。"
+  },
+  {
+    "id": "doi-10.3390-electronics15215156",
+    "title": "Tabular Foundation Models Versus Established Tabular Learners: A Regime-Stratified Critical Review",
+    "url": "https://doi.org/10.3390/electronics15215156",
+    "sourceUpdated": "2026-11-06",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-09",
+    "reason": "摘要涉及76篇研究的分场景证据评价，可能补充基准方法；出版社连接超时、备用网页打开失败，不能据摘要核验筛选协议与证据打分。待全文及纳排表可访问后补审；未据综述摘要给各模型定论。"
+  },
+  {
+    "id": "arxiv-2501.08686",
+    "title": "Knowledge Graph-based Retrieval-Augmented Generation for Schema Matching",
+    "url": "https://arxiv.org/abs/2501.08686",
+    "sourceUpdated": "2026-11-07",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-09",
+    "reason": "核实首发2025-01-15，2026-11-07为TKDD期刊发表。已读arXiv v1方法和实验，但摘要/文字总括与表V不完全一致；新期刊摘要数字又有变动，ACM正文403。暂不入公开目录；需取得期刊正文核对划分、基线、指标冲突与实际评测样本。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-09",
+      "reviewStatus": "completed",
+      "claim": "外部知识图谱可辅助字段匹配；v1尚不足以证明稳定优于所列基线或降低端到端推理成本。",
+      "contribution": "把字段名称/描述的问题向量与Wikidata三元组或实体检索结合，可选三跳BFS与关系相关度重排，将top-1/2路径加入LLM提示，不重新训练LLM。",
+      "evidence": "实际阅读arXiv v1 §III-B1–B4/III-C、算法1，§IV-A/B/C1、表II–VIII和表IX设置。四组医疗schema映射MIMIC/Synthea/CMS/EMED到OMOP；GPT-4o-mini/Jellyfish8B，离线Wikidata5M嵌入。表V Jellyfish8B的CMS F1从32.72降为25.45，MIMIC上升12.76→16.66；GPT在EMED仅5.63→5.71。未看到支持所有场景均改善的结果。",
+      "limitations": "正文称F1总是更高，与表V CMS结果冲突；LLM方法不分训练/验证/测试，监督基线用70/15/15，few-shot示例与评测集合隔离未说清；表II全配对数量与表V指标反推样本分母无法直接对齐。高召回本身不能证明过拟合。与PLM的效率比较把在线单问成本和训练总时长放在一起；离线实体/三元组嵌入另需20/26小时。LLM纯生成略快但检索约2.55–2.89s后端到端不更快。journal摘要的增幅与v1不同，未将其当作已经核验的实验。",
+      "value": "主题与语义结构化直接相关，但需要更可靠的评测协议和新版正文解释，暂不公开推荐或下跨领域结论。",
+      "reproducibility": "作者代码入口在正文中可见；本轮未审实现，未独立或本地复现。Crossref和作者发表列表用于核对期刊状态，不替代方法验证。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2501.08686v1",
+        "https://arxiv.org/abs/2501.08686",
+        "https://doi.org/10.1145/3862591",
+        "https://www.mact.info/publication/"
+      ],
+      "readScope": "v1相关检索模块、实验设置与主结果/首项消融；未读全部后续消融和未取得期刊最终正文。正文快照kg/kg-rag4sm-arxiv.txt，期刊元数据kg-crossref.json。"
+    }
   }
 ]

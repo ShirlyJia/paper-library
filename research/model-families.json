@@ -393,7 +393,8 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.17065",
-        "https://arxiv.org/html/2610.17065"
+        "https://arxiv.org/html/2610.17065",
+        "https://github.com/soda-inria/tile"
       ],
       "needsContext": true
     },
@@ -841,7 +842,10 @@
     {
       "name": "CCD",
       "needsContext": true,
-      "aliases": ["NEO-Tab", "Context-Calibrated Open-Entity"],
+      "aliases": [
+        "NEO-Tab",
+        "Context-Calibrated Open-Entity"
+      ],
       "paperIds": [
         "arxiv-2611.01489"
       ],
@@ -852,7 +856,9 @@
     {
       "name": "CISA",
       "needsContext": true,
-      "aliases": ["Chunk-Indexed Sparse Attention"],
+      "aliases": [
+        "Chunk-Indexed Sparse Attention"
+      ],
       "paperIds": [
         "arxiv-2611.03200"
       ],
@@ -894,6 +900,63 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2611.06342"
+      ]
+    },
+    {
+      "name": "EPIC-TANN",
+      "paperIds": [
+        "arxiv-2611.07886"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.07886"
+      ]
+    },
+    {
+      "name": "C2KV",
+      "paperIds": [
+        "arxiv-2607.17715"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2607.17715",
+        "https://github.com/s7a9/C2KV"
+      ]
+    },
+    {
+      "name": "AsymCache",
+      "paperIds": [
+        "arxiv-2606.02964"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.02964"
+      ]
+    },
+    {
+      "name": "CacheTune",
+      "paperIds": [
+        "arxiv-2605.24022"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.24022"
+      ]
+    },
+    {
+      "name": "Tangram",
+      "paperIds": [
+        "arxiv-2606.06302"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.06302",
+        "https://github.com/aiha-lab/tangram"
+      ]
+    },
+    {
+      "name": "FlashOffloading",
+      "paperIds": [
+        "arxiv-2611.07542"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.07542",
+        "https://ai.gitcode.com/Ascend-SACT/GLM5.2-KV_Offloading-1M"
       ]
     }
   ]

@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-06",
+  "updatedAt": "2026-11-09",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -2373,7 +2373,7 @@
       "id": "arxiv-2608.06004",
       "title": "Do Tabular Foundation Models Agree with Themselves?",
       "date": "2026-08-06",
-      "updated": "2026-08-06",
+      "updated": "2026-11-04",
       "category": 2,
       "related": [
         5
@@ -2381,7 +2381,7 @@
       "topic": "预测概率与分布优化",
       "status": "preprint",
       "venue": "预印本",
-      "summary": "在 17 个 OpenML 表格（含 TabArena 整理的数据）上比较多种 TFM 的边缘化与分解顺序差异，显示按不同目标顺序构造的预测分布可能不同。检验中删列会改变训练上下文，因此这些差异不能单独证明模型不具备贝叶斯一致性；后续 Fixed-Evidence Coherence 给出了反例及固定证据对照。回归结果还依赖离散化，单目标准确性应另行评估。",
+      "summary": "在 17 个 OpenML 表格（含 TabArena 数据）上检查删列、边缘化和目标生成顺序是否改变 TFM 分布。11 月修订版明确检验会改变训练上下文，并给出差异对真分布误差的下界。可作跨列预测诊断，但仍不能据此否定固定训练证据下的贝叶斯一致性；回归结果依赖离散近似，部分模型可能见过评测表。",
       "url": "https://arxiv.org/abs/2608.06004",
       "pdf": "https://arxiv.org/pdf/2608.06004",
       "code": null,
@@ -2392,7 +2392,8 @@
       "sources": [
         "https://arxiv.org/abs/2608.06004",
         "https://arxiv.org/html/2608.06004v1",
-        "https://zenodo.org/records/23393077"
+        "https://zenodo.org/records/23393077",
+        "https://arxiv.org/html/2608.06004v2"
       ]
     },
     {
@@ -5664,7 +5665,7 @@
       "id": "arxiv-2610.17065",
       "title": "TILE: Bridging LLMs and Table Foundation Models for Tabular Learning with Strings",
       "date": "2026-10-12",
-      "updated": "2026-10-12",
+      "updated": "2026-10-30",
       "category": 4,
       "section": "semantic-fusion",
       "topicId": "text-tabular-models",
@@ -5675,10 +5676,10 @@
       "topic": "文本与表格联合建模",
       "status": "preprint",
       "venue": "预印本",
-      "summary": "TILE 将整行文本送入 LLM，从中间层按列提取表征并压缩，再与原始数值、类别特征一同输入表格学习器。主实验在 100 张含字符串的表上对比 30 个基线，并用另建的 STRABLE 数据验证；PCA 仅拟合训练集。收益依赖文本中的预测信息，需额外的嵌入计算，不能直接外推到纯数值表。",
+      "summary": "TILE 把整行送入 LLM，从中间层按列提取表示，并旁路保留数值、类别及折外目标编码，再交给表格模型。修订版在 100 张含字符串的表及 STRABLE 108 表上评测，代码和数据已公开。截断 LLM、减小嵌入批次可降低显存，但峰值示例只测一张表；部分设置在主基准上选择，STRABLE 也有 15 个同源表，不能外推纯数值任务。",
       "url": "https://arxiv.org/abs/2610.17065",
       "pdf": "https://arxiv.org/pdf/2610.17065",
-      "code": null,
+      "code": "https://github.com/soda-inria/tile",
       "keywords": [
         "LLM",
         "TFM",
@@ -5690,7 +5691,10 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.17065",
-        "https://arxiv.org/html/2610.17065"
+        "https://arxiv.org/html/2610.17065",
+        "https://arxiv.org/html/2610.17065v2",
+        "https://github.com/soda-inria/tile",
+        "https://huggingface.co/datasets/inria-soda/TILE-benchmark"
       ],
       "addedAt": "2026-10-15"
     },
@@ -9784,6 +9788,208 @@
       ],
       "dateNote": "同一 CoRTeC 版本链的 Zenodo v1.0.0 首发为2026-09-24；本条方法与实验依据2026-11-04 arXiv v1，未拆成重复论文。",
       "addedAt": "2026-11-06"
+    },
+    {
+      "id": "arxiv-2611.07886",
+      "title": "When, Where, How: Active In-Context Learning for Tabular Foundation Models",
+      "date": "2026-11-05",
+      "updated": "2026-11-05",
+      "category": 5,
+      "section": "context-selection",
+      "topicId": "representative-context",
+      "topic": "代表性选择与上下文优化",
+      "related": [
+        2
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "研究标注预算有限时先标哪些表格样本：TANN 为不确定的目标样本找邻居，EPIC 枚举候选标签估计预测信息增益。作者在 20 个分类任务、TabICLv2 和 TabPFNv3 上发现，早期多样性选择较强，后期目标感知选择更有效；简单 TANN 与 EPIC 结果接近、开销更低。须事先拿到目标特征，未验证自动切换策略或回归任务，代码承诺录用后发布。",
+      "url": "https://arxiv.org/abs/2611.07886",
+      "pdf": "https://arxiv.org/pdf/2611.07886",
+      "code": null,
+      "aliases": [
+        "EPIC / TANN",
+        "TANN",
+        "Active In-Context Learning"
+      ],
+      "keywords": [
+        "主动学习",
+        "标注预算",
+        "TabICLv2",
+        "TabPFNv3",
+        "目标感知样本选择"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.07886",
+        "https://arxiv.org/html/2611.07886v1"
+      ],
+      "addedAt": "2026-11-09"
+    },
+    {
+      "id": "arxiv-2607.17715",
+      "title": "C2KV: Compressed and Composable KV Cache Reuse for Efficient LLM Inference",
+      "date": "2026-07-20",
+      "updated": "2026-07-20",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [
+        6
+      ],
+      "status": "published",
+      "venue": "KDD 2026",
+      "summary": "冻结 LLM，训练额外 QKV 投影和压缩 token，把离线编码的文档压成可重新拼接的 KV。LongBench 与消融显示压缩、拼接训练和位置重对齐有作用，但部分任务精度下降。作者计时排除了离线提取以及系统/查询预填充，不能当作完整首答耗时。代码公开；借鉴表格跨查询缓存前，需适配注意力结构并计入额外训练。",
+      "url": "https://arxiv.org/abs/2607.17715",
+      "pdf": "https://arxiv.org/pdf/2607.17715",
+      "code": "https://github.com/s7a9/C2KV",
+      "aliases": [
+        "C2KV",
+        "C²KV"
+      ],
+      "keywords": [
+        "LLM 推理迁移",
+        "KV 缓存",
+        "显存",
+        "推理效率"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2607.17715",
+        "https://arxiv.org/html/2607.17715",
+        "https://github.com/s7a9/C2KV",
+        "https://doi.org/10.1145/3770855.3817715",
+        "https://api.crossref.org/works/10.1145/3770855.3817715"
+      ],
+      "addedAt": "2026-11-09"
+    },
+    {
+      "id": "arxiv-2606.02964",
+      "title": "Multi-Segment Attention: Enabling Efficient KV-Cache Management for Faster Large Language Model Serving",
+      "date": "2026-06-01",
+      "updated": "2026-06-01",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "AsymCache 按缓存的复用概率和重算成本决定淘汰顺序，并用多段注意力处理不连续缓存。作者在 Llama 8B/70B、H20 上回放长对话及工具任务，观察到较低延迟；实验固定生成长度，主要证明服务效率。它保留按需完整重算路径，不是有损删 token；迁移到表格服务需重新测量各上下文的重建成本。",
+      "url": "https://arxiv.org/abs/2606.02964",
+      "pdf": "https://arxiv.org/pdf/2606.02964",
+      "code": null,
+      "aliases": [
+        "AsymCache",
+        "Multi-Segment Attention"
+      ],
+      "keywords": [
+        "LLM 推理迁移",
+        "KV 缓存",
+        "显存",
+        "推理效率"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.02964",
+        "https://arxiv.org/html/2606.02964"
+      ],
+      "addedAt": "2026-11-09"
+    },
+    {
+      "id": "arxiv-2605.24022",
+      "title": "Adaptive KV Cache Reuse for Fast Long-Context LLM Serving",
+      "date": "2026-05-20",
+      "updated": "2026-10-04",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "CacheTune 离线分析 KV 的频率结构，在线只重算选中的位置，其余缓存从 CPU 或磁盘加载，并按硬件调整重算比例。作者在 3 个 LLM、5 个长文本任务上报告首答加速，平均任务得分保留约95%，并非无损。用于表格缓存修复需重新验证选点准则、掩码与搬运收益；低带宽下仍可能受 I/O 限制。",
+      "url": "https://arxiv.org/abs/2605.24022",
+      "pdf": "https://arxiv.org/pdf/2605.24022",
+      "code": null,
+      "aliases": [
+        "CacheTune"
+      ],
+      "keywords": [
+        "LLM 推理迁移",
+        "KV 缓存",
+        "显存",
+        "推理效率"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.24022",
+        "https://arxiv.org/html/2605.24022"
+      ],
+      "addedAt": "2026-11-09"
+    },
+    {
+      "id": "arxiv-2606.06302",
+      "title": "Tangram: Unlocking Non-Uniform KV Cache Compression for Efficient Multi-turn LLM Serving",
+      "date": "2026-06-04",
+      "updated": "2026-06-15",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "解决‘KV 逻辑上压缩了，显存页却未释放’的问题：按注意力头分组管理不同长度的缓存，离线预留预算并分配计算。作者在 5 个 LLM、SCBench 上分析精度与服务吞吐，并提供基于 vLLM 的代码。最高吞吐增益同时包含压缩本身的贡献；固定预算可能删掉重要信息，表格模型仍需验证表示和分页结构的适配。",
+      "url": "https://arxiv.org/abs/2606.06302",
+      "pdf": "https://arxiv.org/pdf/2606.06302",
+      "code": "https://github.com/aiha-lab/tangram",
+      "aliases": [
+        "Tangram"
+      ],
+      "keywords": [
+        "LLM 推理迁移",
+        "KV 缓存",
+        "显存",
+        "推理效率"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.06302",
+        "https://arxiv.org/html/2606.06302",
+        "https://github.com/aiha-lab/tangram"
+      ],
+      "addedAt": "2026-11-09"
+    },
+    {
+      "id": "arxiv-2611.07542",
+      "title": "FlashOffloading: Low-Latency KV Cache Offloading for Long-Context LLM Serving",
+      "date": "2026-11-05",
+      "updated": "2026-11-05",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "related": [],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "将完整 KV 放到主机内存：预填充滚动复用四层缓冲，解码只保留热缓存并精确取回模型选中的缺失项。作者在 32 张 Ascend910C、GLM-5.2 上扩展长上下文并提高吞吐，但单 token 延迟上升，主实验固定90%前缀命中。预填充方案可借鉴分层卸载；解码方案依赖模型原生稀疏索引，不能直接套到普通表格注意力。",
+      "url": "https://arxiv.org/abs/2611.07542",
+      "pdf": "https://arxiv.org/pdf/2611.07542",
+      "code": null,
+      "aliases": [
+        "FlashOffloading"
+      ],
+      "keywords": [
+        "LLM 推理迁移",
+        "KV 卸载",
+        "主机内存",
+        "预填充",
+        "热缓存",
+        "Ascend"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.07542",
+        "https://arxiv.org/html/2611.07542",
+        "https://ai.gitcode.com/Ascend-SACT/GLM5.2-KV_Offloading-1M"
+      ],
+      "addedAt": "2026-11-09"
     }
   ],
   "collectionUpdates": [
@@ -10373,6 +10579,21 @@
         "arxiv-2611.06342"
       ],
       "updated": []
+    },
+    {
+      "date": "2026-11-09",
+      "added": [
+        "arxiv-2605.24022",
+        "arxiv-2606.02964",
+        "arxiv-2606.06302",
+        "arxiv-2607.17715",
+        "arxiv-2611.07542",
+        "arxiv-2611.07886"
+      ],
+      "updated": [
+        "arxiv-2608.06004",
+        "arxiv-2610.17065"
+      ]
     }
   ]
 }
