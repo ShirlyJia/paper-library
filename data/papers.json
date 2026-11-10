@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-09",
+  "updatedAt": "2026-11-10",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -9990,6 +9990,330 @@
         "https://ai.gitcode.com/Ascend-SACT/GLM5.2-KV_Offloading-1M"
       ],
       "addedAt": "2026-11-09"
+    },
+    {
+      "pdf": "https://arxiv.org/pdf/2611.07217",
+      "code": "https://github.com/HanzhiZhang-Ulrica/TileQuant",
+      "aliases": [
+        "TileQuant"
+      ],
+      "keywords": [
+        "混合精度",
+        "权重量化",
+        "显存",
+        "Triton",
+        "LLM 推理迁移"
+      ],
+      "related": [],
+      "id": "arxiv-2611.07217",
+      "title": "TileQuant: Tile as the Precision-Allocation Unit for LLM Mixed-Precision Post-Training Quantization",
+      "date": "2026-11-04",
+      "updated": "2026-11-04",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.07217",
+      "summary": "按硬件对齐的二维权重块分配精度：离线校准后，少量敏感块保留16位，其余用8位，并以专用内核合并计算。作者在A100上的语言模型实验报告加载显存下降和推理加速；适合借鉴模型部署与线性层计算，但不压缩KV缓存，表格模型的校准数据、误差与速度收益仍需验证。",
+      "sources": [
+        "https://arxiv.org/abs/2611.07217",
+        "https://arxiv.org/html/2611.07217v1",
+        "https://github.com/HanzhiZhang-Ulrica/TileQuant"
+      ],
+      "addedAt": "2026-11-10"
+    },
+    {
+      "pdf": "https://media.sciltp.com/articles/2611005600/2611005600.pdf",
+      "code": null,
+      "aliases": [
+        "AD-Cut",
+        "AD-CUT"
+      ],
+      "keywords": [
+        "缓存复用",
+        "分块",
+        "预填充",
+        "上下文依赖",
+        "LLM 推理迁移"
+      ],
+      "related": [],
+      "id": "doi-10.53941-ijndi.2026.100023",
+      "title": "Attention-Derived Dependency Cut for Independent KV-Cache Reuse in Agent Memory",
+      "date": "2026-11-06",
+      "updated": "2026-11-06",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "status": "published",
+      "venue": "International Journal of Network Dynamics and Intelligence",
+      "url": "https://www.sciltp.com/journals/ijndi/articles/2611005600",
+      "summary": "先用完整上下文的注意力寻找句子间依赖较弱的边界，再分别构建和复用分块KV。作者在2000道问答中把在线首token等待时间从448.8降到27.8毫秒，但评判正确率也从0.744降到0.604，缓存大小不变。可用于研究上下文切分误差；离线构建成本未完整计入，尚不能视为无损加速或OOM解法。",
+      "sources": [
+        "https://www.sciltp.com/journals/ijndi/articles/2611005600",
+        "https://media.sciltp.com/articles/2611005600/2611005600.pdf",
+        "https://doi.org/10.53941/ijndi.2026.100023"
+      ],
+      "addedAt": "2026-11-10"
+    },
+    {
+      "pdf": "https://drive.google.com/file/d/1eKUWn6AwCYsbuJgX5o4kE6um_-6cXqsV/view",
+      "code": "https://github.com/meganelisabethfinch/metamatch",
+      "aliases": [
+        "MetaMatch"
+      ],
+      "keywords": [
+        "实体匹配",
+        "元数据",
+        "数据整合",
+        "LLM",
+        "音乐数据"
+      ],
+      "related": [
+        1
+      ],
+      "id": "ismir-2026-metamatch",
+      "title": "MetaMatch: Reconciling Metadata for Aggregating Music Difficulty Annotations",
+      "date": "2026-10-29",
+      "updated": "2026-11-10",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "entity-matching",
+      "topic": "实体匹配与记录对齐",
+      "status": "published",
+      "venue": "ISMIR 2026",
+      "url": "https://ismir2026program.ismir.net/poster_530.html",
+      "summary": "把考试曲目表里的名称、作者和难度标签，与不同曲库中的作品对齐：先匹配作者并缩小候选，再用LLM区分同一作品、包含和从属关系。作者给出2079组评测配对，并产出2389条预测匹配；代码和数据公开。可借鉴多来源实体整合，但候选筛选会漏配，自动链接尚非逐条核验的真值。",
+      "sources": [
+        "https://ismir2026program.ismir.net/poster_530.html",
+        "https://meganelisabethfinch.github.io/metamatch/",
+        "https://github.com/meganelisabethfinch/metamatch",
+        "https://durham-repository.worktribe.com/output/6099314/metamatch-reconciling-metadata-for-aggregating-music-difficulty-annotations"
+      ],
+      "addedAt": "2026-11-10"
+    },
+    {
+      "pdf": "https://arxiv.org/pdf/2603.27385",
+      "code": null,
+      "aliases": [
+        "Tab-AICL"
+      ],
+      "keywords": [
+        "主动学习",
+        "上下文选择",
+        "低标签预算",
+        "TabPFN",
+        "代理筛选"
+      ],
+      "related": [
+        2
+      ],
+      "id": "arxiv-2603.27385",
+      "title": "Active In-Context Learning for Tabular Foundation Models",
+      "date": "2026-03-28",
+      "updated": "2026-03-28",
+      "category": 5,
+      "section": "context-selection",
+      "topicId": "representative-context",
+      "topic": "代表性选择与上下文优化",
+      "status": "published",
+      "venue": "IJCNN 2026",
+      "url": "https://arxiv.org/abs/2603.27385",
+      "summary": "围绕冻结TabPFN选择下一批值得标注的样本，比较不确定性、覆盖性及组合策略；轻量代理先缩小候选，再调用TabPFN。作者在20个分类数据集、10个种子上观察到低标签预算收益，但并非每个数据集都优于随机选样。适合借鉴标注与上下文选择；减少候选评估次数尚不等于实测端到端加速。",
+      "sources": [
+        "https://arxiv.org/abs/2603.27385",
+        "https://arxiv.org/html/2603.27385v1",
+        "https://ieeexplore.ieee.org/abstract/document/11729309",
+        "https://doi.org/10.1109/IJCNN69854.2026.11729309"
+      ],
+      "addedAt": "2026-11-10"
+    },
+    {
+      "pdf": "https://arxiv.org/pdf/2608.28209",
+      "code": "https://github.com/mdsamad001/CATTLE---cross-domain-transfer-learning-for-Tabular-Data",
+      "aliases": [
+        "CATTLE"
+      ],
+      "keywords": [
+        "跨表迁移",
+        "特征不相交",
+        "交叉注意力",
+        "冻结投影",
+        "微调"
+      ],
+      "related": [
+        1,
+        4
+      ],
+      "id": "arxiv-2608.28209",
+      "title": "Generalized Context in Cross Attention for Transfer Learning of Disjoint Tabular Data",
+      "date": "2026-08-28",
+      "updated": "2026-08-28",
+      "category": 6,
+      "section": "adaptation-target",
+      "topicId": "parameter-finetuning",
+      "topic": "参数微调与训练策略",
+      "status": "published",
+      "venue": "Neural Networks",
+      "url": "https://arxiv.org/abs/2608.28209",
+      "summary": "面对源表与目标表没有共同特征的迁移，CATTLE把源模型的K/V投影权重移到目标模型并冻结，再训练目标侧其余部分。作者在10组源—目标配对中取得较好的平均排序，代码公开；目标侧仍需标签和训练，且未与当前主流表格基础模型直接比较。这里迁移的是参数，并非复用KV缓存。",
+      "sources": [
+        "https://arxiv.org/abs/2608.28209",
+        "https://arxiv.org/html/2608.28209v1",
+        "https://doi.org/10.1016/j.neunet.2026.109568",
+        "https://pubmed.ncbi.nlm.nih.gov/42705115/",
+        "https://github.com/mdsamad001/CATTLE---cross-domain-transfer-learning-for-Tabular-Data"
+      ],
+      "addedAt": "2026-11-10"
+    },
+    {
+      "pdf": "https://arxiv.org/pdf/2608.02157",
+      "code": null,
+      "aliases": [
+        "RamanPFN"
+      ],
+      "keywords": [
+        "光谱",
+        "TabPFN",
+        "输入适配",
+        "低秩分解",
+        "冻结模型"
+      ],
+      "related": [
+        1,
+        4,
+        5
+      ],
+      "id": "arxiv-2608.02157",
+      "title": "RamanPFN: learning from Raman spectral structure with a tabular foundation model",
+      "date": "2026-08-03",
+      "updated": "2026-09-30",
+      "category": 6,
+      "section": "adaptation-target",
+      "topicId": "input-adapters",
+      "topic": "输入空间与冻结模型适配",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2608.02157",
+      "summary": "冻结TabPFN，把长拉曼光谱转换为全局组分与局部低秩特征，再组合多个预测。作者在74个光谱数据集上评测；129个回归目标中109个优于直接TabPFN输入。适合借鉴有连续结构的高维特征适配，但特征搜索和集成增加了计算，尚未证明降低端到端延迟或显存。",
+      "sources": [
+        "https://arxiv.org/abs/2608.02157",
+        "https://arxiv.org/html/2608.02157v2"
+      ],
+      "addedAt": "2026-11-10"
+    },
+    {
+      "pdf": null,
+      "code": "https://github.com/KatherLab/tabpfnbenchmark",
+      "aliases": [
+        "TabPFN 临床对照评测"
+      ],
+      "keywords": [
+        "TabPFN 2.5",
+        "临床预测",
+        "基线公平性",
+        "评测",
+        "运行成本"
+      ],
+      "related": [
+        2,
+        5
+      ],
+      "id": "doi-10.1186-s12911-026-03654-3",
+      "title": "Established machine learning matches tabular foundation models in clinical predictions",
+      "date": "2026-02-04",
+      "updated": "2026-07-03",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "biomedical-applications",
+      "topic": "生命科学与医疗预测",
+      "status": "published",
+      "venue": "BMC Medical Informatics and Decision Making",
+      "url": "https://link.springer.com/article/10.1186/s12911-026-03654-3",
+      "summary": "在12项二分类临床任务中比较TabPFN v2.5与12种常规模型，作者发现TabPFN仅在2项上超过该任务最好的常规基线，代码公开。可用于检查实际任务是否需要基础模型；结论仅适用于该版本与协议，CPU/GPU不一致且计时包含拟合，不能将运行差异解释为纯推理速度。",
+      "sources": [
+        "https://link.springer.com/article/10.1186/s12911-026-03654-3",
+        "https://github.com/KatherLab/tabpfnbenchmark",
+        "https://doi.org/10.64898/2026.02.02.26345274",
+        "https://api.crossref.org/works/10.64898/2026.02.02.26345274"
+      ],
+      "addedAt": "2026-11-10"
+    },
+    {
+      "id": "arxiv-2609.30789",
+      "title": "Feature Selection for Tabular Foundation Models: Exploring Feature Utility in Low-Data Molecular Prediction",
+      "date": "2026-09-25",
+      "updated": "2026-10-19",
+      "category": 4,
+      "section": "semantic-features",
+      "topicId": "feature-search",
+      "topic": "任务反馈与特征搜索",
+      "related": [
+        1,
+        5,
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2609.30789",
+      "pdf": "https://arxiv.org/pdf/2609.30789",
+      "code": null,
+      "aliases": [
+        "分子特征效用与选择",
+        "ChemICL feature utility"
+      ],
+      "keywords": [
+        "特征选择",
+        "TabPFN",
+        "分子预测",
+        "SVD",
+        "预测集成",
+        "输入压缩"
+      ],
+      "summary": "固定TabPFN及样本划分，比较分子描述符、压缩特征和其他实验的预测输出。作者在157个留出分子任务上发现，16列SVD输入优于同宽的命名预测特征，527列输入更准但CPU推理更慢。为特征构造提供等宽、等预算和来源检查方法；速度不包含上游特征计算，收益不能直接外推其他表格任务。",
+      "sources": [
+        "https://arxiv.org/abs/2609.30789",
+        "https://arxiv.org/html/2609.30789v3"
+      ],
+      "addedAt": "2026-11-10"
+    },
+    {
+      "id": "arxiv-2609.06912",
+      "title": "From Synthetic Priors to Model Behavior: Structural Coverage in Tabular Foundation Models",
+      "date": "2026-09-07",
+      "updated": "2026-09-07",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "topic": "通用评测与分布泛化",
+      "related": [
+        2
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2609.06912",
+      "pdf": "https://arxiv.org/pdf/2609.06912",
+      "code": null,
+      "aliases": [
+        "Structural Coverage",
+        "合成先验结构覆盖"
+      ],
+      "keywords": [
+        "TabArena",
+        "TALENT",
+        "TabICL",
+        "MITRA",
+        "TabSwift",
+        "泛化诊断"
+      ],
+      "summary": "用21项表格结构统计比较4种模型的合成任务与TabArena、TALENT基准，观察任务覆盖与预测排名的联系。作者发现多数可比较任务上覆盖更强的模型排名更好，但部分生成器为论文重建近似，模型架构和预算也不同。可用作分布适配诊断，不能据相关性断言改变先验就能提升性能。",
+      "sources": [
+        "https://arxiv.org/abs/2609.06912",
+        "https://arxiv.org/html/2609.06912v1"
+      ],
+      "addedAt": "2026-11-10"
     }
   ],
   "collectionUpdates": [
@@ -10594,6 +10918,21 @@
         "arxiv-2608.06004",
         "arxiv-2610.17065"
       ]
+    },
+    {
+      "date": "2026-11-10",
+      "added": [
+        "arxiv-2603.27385",
+        "arxiv-2608.02157",
+        "arxiv-2608.28209",
+        "arxiv-2609.06912",
+        "arxiv-2609.30789",
+        "arxiv-2611.07217",
+        "doi-10.1186-s12911-026-03654-3",
+        "doi-10.53941-ijndi.2026.100023",
+        "ismir-2026-metamatch"
+      ],
+      "updated": []
     }
   ]
 }

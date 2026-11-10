@@ -958,6 +958,63 @@
         "https://arxiv.org/abs/2611.07542",
         "https://ai.gitcode.com/Ascend-SACT/GLM5.2-KV_Offloading-1M"
       ]
+    },
+    {
+      "name": "TileQuant",
+      "paperIds": [
+        "arxiv-2611.07217"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.07217",
+        "https://github.com/HanzhiZhang-Ulrica/TileQuant"
+      ]
+    },
+    {
+      "name": "AD-Cut",
+      "paperIds": [
+        "doi-10.53941-ijndi.2026.100023"
+      ],
+      "sources": [
+        "https://www.sciltp.com/journals/ijndi/articles/2611005600"
+      ]
+    },
+    {
+      "name": "MetaMatch",
+      "paperIds": [
+        "ismir-2026-metamatch"
+      ],
+      "sources": [
+        "https://ismir2026program.ismir.net/poster_530.html",
+        "https://github.com/meganelisabethfinch/metamatch"
+      ]
+    },
+    {
+      "name": "Tab-AICL",
+      "paperIds": [
+        "arxiv-2603.27385"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2603.27385"
+      ]
+    },
+    {
+      "name": "CATTLE",
+      "paperIds": [
+        "arxiv-2608.28209"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.28209",
+        "https://github.com/mdsamad001/CATTLE---cross-domain-transfer-learning-for-Tabular-Data"
+      ]
+    },
+    {
+      "name": "RamanPFN",
+      "paperIds": [
+        "arxiv-2608.02157"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.02157"
+      ]
     }
   ]
 }

@@ -10211,5 +10211,263 @@
       ],
       "readScope": "v1相关检索模块、实验设置与主结果/首项消融；未读全部后续消融和未取得期刊最终正文。正文快照kg/kg-rag4sm-arxiv.txt，期刊元数据kg-crossref.json。"
     }
+  },
+  {
+    "id": "arxiv-2611.07217",
+    "title": "TileQuant: Tile as the Precision-Allocation Unit for LLM Mixed-Precision Post-Training Quantization",
+    "url": "https://arxiv.org/abs/2611.07217",
+    "sourceUpdated": "2026-11-04",
+    "decision": "included",
+    "reviewedAt": "2026-11-10",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-10",
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "claim": "离线按二维权重块分配16/8位精度并配套执行内核，在所测LLM与A100配置中降低常驻权重显存、提高生成吞吐，同时在多项任务上接近原模型；不主张表格模型已有相同收益。",
+      "contribution": "区别于整列保留或仅模拟量化，64×64块以输入激活加权幅值或权重×损失梯度评分，形成固定精度图；加载时分装连续权重缓冲，运行时量化输入，原生INT8与16位乘法在FP32局部累加，预填充与解码共享表示。",
+      "evidence": "实际阅读v1 §3–5、附录B.1、F.1–F.3与表1、3–6。8192条Multi-News训练集记录校准，测试含WikiText-2、6项推理、LongEval/LV-Eval。A100 40GB、Llama-3.2-3B、64种请求形状，2次预热5次测量；GI1在批1/输入128/输出512条件下154.98 tokens/s，为BF16+SDPA的2.66倍。Llama加载显存5.99→3.51GB、32K预填充峰值12.64→10.64GB；另报Qwen2.5 7B/14B显存和质量。均为作者报告。",
+      "limitations": "端到端吞吐主要在3B和合成重复文本负载测量，未证明所有模型/真实服务同倍率；GPTQ采用torch后端，SmoothQuant质量比较用模拟量化。8192条离线校准及GI反向成本不计入在线吞吐。权重降精度不消除长上下文激活或KV增长；当前没有表格模型、LimiX或任务概率校准验证。",
+      "value": "覆盖部署时权重驻留、前向线性层带宽/计算瓶颈。可评估硬件友好的局部精度分配；迁移需用训练/验证表格统计重做校准，固定预测质量与硬件后对照原生低精度强基线。",
+      "reproducibility": "官方仓库可访问，目录含Decision、src、examples及build_decisions.py；只核验公开材料，未运行内核或独立复现实验。实际GPU峰值与速度在本地 needs supplement。",
+      "sources": [
+        "https://arxiv.org/html/2611.07217v1",
+        "https://github.com/HanzhiZhang-Ulrica/TileQuant"
+      ],
+      "readScope": "方法§3–4、实验§5、Limitations、附录B.1校准集、F.1计时协议、F.2与表3–6显存、F.3质量解释；本轮primary-recent/tilequant.txt；官方仓库目录。"
+    }
+  },
+  {
+    "id": "doi-10.53941-ijndi.2026.100023",
+    "title": "Attention-Derived Dependency Cut for Independent KV-Cache Reuse in Agent Memory",
+    "url": "https://www.sciltp.com/journals/ijndi/articles/2611005600",
+    "sourceUpdated": "2026-11-06",
+    "decision": "included",
+    "reviewedAt": "2026-11-10",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-10",
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "claim": "在作者固定的8B语言模型与上下文实验中，依赖感知切分比逐句缓存保留更多问答质量，并减少重复预填充的在线等待；不能宣称质量无损或缓存省显存。",
+      "contribution": "把分块边界本身作为优化对象。完整预填充提取句子级入向/出向注意力，按双阈值与结构守卫切分，块独立预填充后拼接；不删除token也不压缩KV，区别于事后修补或重计算已有块。",
+      "evidence": "读PDF pp2–13，§2全部方法，§3协议，§4表1–6、§5限制和附录A–D。Q1 100个LongMemEval上下文，相关系数0.615–0.868；Q2 1000开发/2000外部测试，阈值(0.5,0.4)。Q3 Tulu3-Block-FT在4套RAG问答各500题：TTFT448.8→27.8ms，Judge Correct0.7440→0.6035，逐句0.5690；缓存均1218.7MB。受控记忆1000变体来自433父题，按父题聚类分析。均为作者报告。",
+      "limitations": "开发/测试仍共享1553个原始记忆单元，不能称严格无泄漏独立拆分。16.17倍仅从已拼好缓存开始计时，排除了注意力提取、切分和构建；Offline856.1ms仍不含提取/切分。回答质量明显低于完整计算；Quality Retention是排除原方法0分样本后的逐题比值均值，不能当准确率。使用已做块注意力微调的模型，没覆盖普通表格双轴注意力。硬件/部署资源细节 needs supplement。",
+      "value": "用于诊断复用不同上下文块时的语义依赖损失，覆盖重复上下文编码/服务阶段。迁移到表格应先验证行块边界、标签依赖、位置与注意力结构；不能承诺解决首次编码OOM或减少KV占用。",
+      "reproducibility": "期刊完整PDF公开，数据声明为按合理请求提供；未找到论文中公开实现链接。仅正文核验，没有独立或本地复现。",
+      "sources": [
+        "https://media.sciltp.com/articles/2611005600/2611005600.pdf",
+        "https://www.sciltp.com/journals/ijndi/articles/2611005600"
+      ],
+      "readScope": "PDF第2–13页方法、评测构造、主要表1–6、质量保持定义、离线/在线计时、限制及附录A–D拆分审计；本轮primary-recent/ad-cut.txt。"
+    }
+  },
+  {
+    "id": "ismir-2026-metamatch",
+    "title": "MetaMatch: Reconciling Metadata for Aggregating Music Difficulty Annotations",
+    "url": "https://ismir2026program.ismir.net/poster_530.html",
+    "sourceUpdated": "2026-11-10",
+    "decision": "included",
+    "reviewedAt": "2026-11-10",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-10",
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "claim": "多元数据骨干、候选检索与关系分类可形成可复查的跨库曲目匹配数据，并在限定人工标注集合上达到有用的匹配检测表现；不主张完整自动链接都正确或端到端召回已验证。",
+      "contribution": "从二元同实体扩展到exact/part-of/contains/no-match。OpenRefine先把作曲家对齐Wikidata与MusicBrainz，MiniLM按标题等检索top30，少样本LLM识别作品关系，并用骨干已有链接做一致性检查。",
+      "evidence": "正文§2–4、表1–6：五个考试机构PDF抽取58104条、20余种乐器；钢琴7737条中5057条通过作者匹配，Qwen3.5-9B预测2389条IMSLP匹配，对应1210作品。450条困难样本人工标注及层级扩展形成MB1600/IMSLP479配对，比较5模型和2投票组。Qwen3.5-4B匹配检测F1为0.87/0.88，四类关系准确率0.55/0.79；检测与精确关系不可混同。均为作者报告。",
+      "limitations": "筛掉无法确定的人工样本，测试集偏向可标注困难例而非总体随机样本；检索模型与k用formative评测集选定，未报告独立端到端召回。骨干一致性只覆盖已有人工链接的较知名作品，非独立真值。作者过滤和top30会引入漏配，2389只是预测配对；乐谱改编/版本级一致性未验证，未证明难度预测性能提升。",
+      "value": "为结构化语义整合提供候选生成→关系分类→弱监督核验的具体流程，展示同名不同粒度实体与标签归属问题；跨行业迁移仍需领域关系与独立人工验证。",
+      "reproducibility": "ISMIR官方页面直接链接完整论文，作者公开代码/数据；核对项目页与仓库，未运行匹配或复核全部链接。Durham记录Publicly Available 2026-10-29、在线出版2026-11-10，因此首发保留10-29。",
+      "sources": [
+        "https://drive.google.com/file/d/1eKUWn6AwCYsbuJgX5o4kE6um_-6cXqsV/view",
+        "https://ismir2026program.ismir.net/poster_530.html",
+        "https://meganelisabethfinch.github.io/metamatch/",
+        "https://github.com/meganelisabethfinch/metamatch",
+        "https://durham-repository.worktribe.com/output/6099314/metamatch-reconciling-metadata-for-aggregating-music-difficulty-annotations"
+      ],
+      "readScope": "官方会议PDF第1–6页§2方法/构造、§3表1–6和限制、§4；官方项目页/仓库元信息；Durham日期字段经搜索索引读取（直接页面403）。文本primary-metamatch/metamatch.txt。"
+    }
+  },
+  {
+    "id": "arxiv-2603.27385",
+    "title": "Active In-Context Learning for Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2603.27385",
+    "sourceUpdated": "2026-03-28",
+    "decision": "included",
+    "reviewedAt": "2026-11-10",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-10",
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "claim": "固定TabPFN时，主动获取标签可在部分小样本分类任务提高标签效率；代理筛选减少昂贵候选评分次数，但未提供可推广的实测加速证据。",
+      "contribution": "统一冻结TFM的池式主动学习流程，比较Margin、增量距离coreset、熵+聚类Hybrid；Proxy-Hybrid用逻辑回归缩候选到5%且限制200–2000，再用TabPFN评分与多样性选择。",
+      "evidence": "v1 §III–VI表II–III：20个OpenML/UCI分类集、10种子、70/30分层留出，每类1个初始标签，总预算100或小池50%，批5/10/15/20；TabPFN包6.2.0/32集成。最佳TabPFN主动策略在15/20取得最佳AULC；与GBDT比较18/20混合了学习器差异。Hybrid对CatBoost经BH校正8/20显著、无显著反向；存在随机更好任务。预处理/获取不使用测试集。",
+      "limitations": "GBDT固定配置无系统HPO，标签预算相同不等于算力相同。20倍依据候选评估数而非硬件墙钟、峰值显存或端到端延迟；未验证大池、多任务、回归或其他TFM；高维欧氏距离和代理排序可能失效。",
+      "value": "补齐现有主动上下文与EPIC/TANN相关前作，可用于决定标哪一批样本及缩小昂贵评分范围；不能作为解决首次上下文编码OOM的证明。",
+      "reproducibility": "正文、IEEE会议录用与DOI可核查；IEEE直接抓取失败，但官方搜索记录列明IJCNN2026及IEEE入库10-19。未找到官方实现；未独立复现。首发按arXiv03-28，不用IEEE后续入库日。",
+      "sources": [
+        "https://arxiv.org/html/2603.27385v1",
+        "https://arxiv.org/abs/2603.27385",
+        "https://ieeexplore.ieee.org/abstract/document/11729309"
+      ],
+      "readScope": "v1 §III选择策略、§IV实验协议、§V表II–III/效率、§VI限制，primary-followup/tab-aicl.txt；arXiv历史及IEEE会议记录。"
+    }
+  },
+  {
+    "id": "arxiv-2608.28209",
+    "title": "Generalized Context in Cross Attention for Transfer Learning of Disjoint Tabular Data",
+    "url": "https://arxiv.org/abs/2608.28209",
+    "sourceUpdated": "2026-08-28",
+    "decision": "included",
+    "reviewedAt": "2026-11-10",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-10",
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "claim": "在限定的不共享特征源—目标分类配对中，冻结迁移K/V投影的CATTLE具有较好的平均排名；不足以证明通用数据无关表征或优于当前所有TFM。",
+      "contribution": "源域门控FTTransformer学习后，抽取顶层K/V投影权重插入目标模型底部两层并冻结，目标Q和其余网络用目标标签训练；不要求特征语义对齐，不传递源域KV激活。",
+      "evidence": "正文§2.3–2.4/算法1、§3–5表3/5/6/7：14个OpenML分类集组成9源5目标的10配对，目标540–1473样本，70/10/20，10种子；各目标模型100次Optuna/150epochs，RTX A4000 16GB。对9个机器学习/深度/迁移基线，自监督CATTLE平均AUC排名2.9；7/10配对优于直接微调，但并非全部。作者结果未独立复现。",
+      "limitations": "10配对复用了5目标，不是10个独立目标任务；源自监督1000epochs与监督150epochs预算不等。没有TabPFN/TabICL/LimiX当前版本对照；BERT编码、门控结构和预训练贡献不完全分离。只对部分源选择给出敏感性例子，不能据此推断普适源域无关。",
+      "value": "为不相交表格特征上的参数迁移提供可检验方案，适配过程仍需目标训练；与缓存优化严格区分。",
+      "reproducibility": "官方仓库README与Python管线可访问，未执行；公开arXiv全文。PubMed/Crossref确认Neural Networks在线2026-09-02、卷期2027-01；最早公开为arXiv08-28。",
+      "sources": [
+        "https://arxiv.org/html/2608.28209v1",
+        "https://github.com/mdsamad001/CATTLE---cross-domain-transfer-learning-for-Tabular-Data",
+        "https://pubmed.ncbi.nlm.nih.gov/42705115/",
+        "https://api.crossref.org/works/10.1016/j.neunet.2026.109568"
+      ],
+      "readScope": "primary/cattle.txt §2.3–2.4及算法1、§3–5与表3/5/6/7相关讨论；官方README/目录；期刊元数据。"
+    }
+  },
+  {
+    "id": "arxiv-2608.02157",
+    "title": "RamanPFN: learning from Raman spectral structure with a tabular foundation model",
+    "url": "https://arxiv.org/abs/2608.02157",
+    "sourceUpdated": "2026-09-30",
+    "decision": "included",
+    "reviewedAt": "2026-11-10",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-10",
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "claim": "保留全局与局部光谱结构的输入适配，在作者RamanBench协议下改善冻结TabPFN预测；不能推断为通用特征压缩、速度或物理分解正确性的证据。",
+      "contribution": "GCU通过训练集非负组分构建全局谱表征，LVSE对连续谱段作局部SVD；验证集选择表征，训练集重新拟合，再用带正负系数的三预测组合增强输出。无需微调基础模型参数。",
+      "evidence": "v2 §2–4方法/结果与表2–3：74数据集含53回归来源/129目标及21分类；3次80/20重复，能获得分组时采用组约束，预处理仅训练拟合。回归逐目标RMSE相对降低的均值19.6%，109/129目标及49/53来源改善；不是总体原始RMSE平均下降19.6%。GCU/LVSE/组合和残差式三元集成有消融；26回归/28分类基线。均作者报告。",
+      "limitations": "多候选交叉验证和8组三元预测增加计算，基线调参预算未完全匹配，无端到端时延/峰值显存。谱组分不等同经独立验证的化学成分；跨仪器、前瞻与真实分布迁移未证实。输入500列/32集成限制是本文评测配置，不能外推所有TabPFN版本。",
+      "value": "说明高维连续信号应先保留局部/全局结构再交给冻结表格模型，为输入适配与语义/物理特征设计提供实例；部署仍需测额外特征构造和集成成本。",
+      "reproducibility": "v2完整正文和实验协议公开；本轮未核实官方实现/配置仓库，code为空；没有本地或独立复现。",
+      "sources": [
+        "https://arxiv.org/html/2608.02157v2",
+        "https://arxiv.org/abs/2608.02157"
+      ],
+      "readScope": "primary/ramanpfn.txt §2.1–2.5回归结果/表2–3、§3讨论、§4.1–4.7数据划分/预处理/适配/评估，arXiv版本历史。"
+    }
+  },
+  {
+    "id": "doi-10.1186-s12911-026-03654-3",
+    "title": "Established machine learning matches tabular foundation models in clinical predictions",
+    "url": "https://link.springer.com/article/10.1186/s12911-026-03654-3",
+    "sourceUpdated": "2026-07-03",
+    "decision": "included",
+    "reviewedAt": "2026-11-10",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-10",
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "claim": "在作者的12项二分类临床任务与固定评估协议中，TabPFN v2.5未普遍优于最佳常规基线；不是所有TFM或临床应用的否定结论。",
+      "contribution": "对死亡风险、转移等任务做统一预测比较，并同时报告重复拟合/预测流程的耗时，提供反例与公开复核代码。",
+      "evidence": "期刊正文Results/Methods/Discussion：8个数据集12任务，约788–139528原始样本，超过100k下采样；12类基线与TabPFNv2.5，70/30分层留出及预设划分，训练集100次bootstrap固定测试；每模型50次搜索后固定参数。TabPFN在2/12超过最强常规基线，多数AUROC差值在0.02内。官方GPU脚本显式v2.5权重路径。均为作者结果。",
+      "limitations": "固定测试集bootstrap区间不覆盖新医院/新时间；最佳基线按所测结果选择有选择乐观性。经典算法CPU、TabPFN A10040GB，运行计时含bootstrap拟合/预测/指标，不能据5.5倍给出纯推理结论。公开脚本默认bootstrap5而文中100，依赖版本有差异；阈值由测试标签Youden选取会使阈值指标偏乐观，但不直接改变主AUROC。死亡标签为二分类，不是生存/删失评估。",
+      "value": "为TFM落地保留可检查的负面/对照证据：先用匹配预算、数据与版本验证收益，避免只看模型类别决定选型。",
+      "reproducibility": "官方README、GPU评估脚本和pyproject已核查，未运行；完整运行配置与版本差异 needs supplement。首发Crossref预印本2026-02-04，期刊2026-07-03，不用后者冒充首发。",
+      "sources": [
+        "https://link.springer.com/article/10.1186/s12911-026-03654-3",
+        "https://github.com/KatherLab/tabpfnbenchmark/blob/main/README.md",
+        "https://github.com/KatherLab/tabpfnbenchmark/blob/main/TabPFN_CommonScript-Bottom_GPU.py",
+        "https://github.com/KatherLab/tabpfnbenchmark/blob/main/pyproject.toml",
+        "https://api.crossref.org/works/10.64898/2026.02.02.26345274"
+      ],
+      "readScope": "primary/clinical-comparison.txt 期刊Results、Methods、Discussion与补充说明；官方README/TabPFN_CommonScript-Bottom_GPU.py/pyproject.toml；预印本Crossref日期。"
+    }
+  },
+  {
+    "id": "arxiv-2609.30789",
+    "title": "Feature Selection for Tabular Foundation Models: Exploring Feature Utility in Low-Data Molecular Prediction",
+    "url": "https://arxiv.org/abs/2609.30789",
+    "sourceUpdated": "2026-10-19",
+    "decision": "included",
+    "reviewedAt": "2026-11-10",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-10",
+      "reviewStatus": "completed",
+      "claim": "在匹配TabPFN与分子任务协议下，宽结构表征、等宽SVD和命名源预测特征存在可测的准确率/计算取舍；命名或语义接近本身不保证特征更有用。",
+      "contribution": "将列宽、来源含义和实际预测效用分离；对其他实验预测构成的特征做效用学习、删除与等宽替换，并在v3加入独立FS-Mol测试集及强指纹基线。",
+      "evidence": "阅读v2§2–5后发现v3新增验证，改以v3§2–6、表1–4/附录A–C为当前结论。TabPFN-2.6包8.0.8单估计器CPU，77开发任务/62论文；157留出任务/28论文，主评估32标签10次分层抽样。SVD投影排除全部27386测试分子。All-21相对11列锚点提升2.94个ΔAUPRC百分点；16列SVD-5提升1.41，胜同宽Named-5 1.38点。36个跨论文无分子重叠的敏感性子集保持方向。作者CPU推理约1.31秒(SVD)对41.19秒(527列)，不含上游。",
+      "limitations": "开发集58路集成不能与单次推理混为等预算算法收益；v3测试Named-5使用冻结元数据策略，不是完整复现开发集效用学生。121/157测试任务跨论文共享分子，聚类区间仍有限，另有36任务敏感性分析。旧ADME/Tox收益多涉及上游来源已有分子，不作未知分子迁移证据。CPU推理计时排除描述符/森林，不是GPU端到端或显存结果；部分源预测身份冲突保留。",
+      "value": "支持按等宽、匹配上下文与强基线检验特征意义；直接关联输入阶段降维和预测集成的质量/速度取舍，不能仅凭16列宣称整体流程便宜。",
+      "reproducibility": "arXiv v3公开；元数据提供ersilia-os/chemicl，但本轮GitHub连接器获取失败，未核实实现内容，code保持空。没有本地/独立复现；硬件详细型号及迁移结果 needs supplement。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2609.30789v3",
+        "https://arxiv.org/abs/2609.30789"
+      ],
+      "readScope": "primary-backlog/feature-utility.txt v2 §2–5作历史对照；当前feature-utility-v3.txt §2–6、主表1–2、附录A/B/C及表3–4、划分/投影泄漏筛查/计时；arXiv版本历史。"
+    }
+  },
+  {
+    "id": "arxiv-2609.06912",
+    "title": "From Synthetic Priors to Model Behavior: Structural Coverage in Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2609.06912",
+    "sourceUpdated": "2026-09-07",
+    "decision": "included",
+    "reviewedAt": "2026-11-10",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-10",
+      "reviewStatus": "completed",
+      "claim": "在作者选择的21维描述与4模型中，合成任务局部支持和下游相对性能存在描述性关联；不证明生成器设计的因果收益。",
+      "contribution": "不用单条训练样本归因，而以模式、边际分布、特征依赖、响应及特征—响应统计，描述整个任务分布；第五近邻球覆盖和密度区分广度与重复支持。",
+      "evidence": "正文§3–5表1–2、附录C/D表4–5：TabICLv1/v2用公开采样器，MITRA/TabSwift用论文代理；每个受支持任务类型1024个不同机制。TabArena38分类/13回归，训练上下文816；TALENT200分类/100回归，只用训练特征标签算描述。模型结果齐全的TabArena26分类/7回归、TALENT181分类/100回归参与排名，负Spearman比例71.8%–85.7%。10000次固定几何基准重采样只覆盖覆盖率/密度，非相关性的置信度。作者报告。",
+      "limitations": "两套基准有26个同名任务，非独立重复证据。MITRA/TabSwift是公开描述的代理，不等于历史训练流；覆盖统计忽略语义、时间和高阶关系，几何用基准自身拟合。每任务仅3/4模型关联，未控制架构、调参、集成或计算预算；TabArena混用榜单/处理产物/直接运行。不支持因果推断或通用选模规则。",
+      "value": "明确的TabArena关联：检验基准任务与合成任务结构匹配，可用于发现覆盖薄弱子集和设计分布稳健性诊断；涉及先验但作为下游评测分析收录。",
+      "reproducibility": "正文和机制/指标定义可读，附录提anonymous supplement但本轮未获得可验证的独立补充材料入口；代码为空。未独立重建采样器或重跑模型；完整运行配置/预算 needs supplement。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/html/2609.06912v1",
+        "https://arxiv.org/abs/2609.06912"
+      ],
+      "readScope": "primary-backlog/structural-coverage.txt §3.1–3.4方法、§4实验与表1–2、§5讨论限制、附录C排名纳入规则及D表5代理生成器与结果来源；元数据v1历史。"
+    }
+  },
+  {
+    "id": "arxiv-2609.22154",
+    "title": "A Comparative Framework for Evaluating Foundation Models on Tabular Data: A Case Study in Healthcare",
+    "url": "https://arxiv.org/abs/2609.22154",
+    "sourceUpdated": "2026-08-26",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-10",
+    "reason": "已读OpTFM正文，但临床排序由文档属性人工扣分与场景权重生成，无实际临床模型运行；作者审计仍有4项模型身份和隐私属性冲突。待完整身份/来源对应、评分校准与独立验证材料后再决定；不因综述或缺实证本身排除。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-10",
+      "reviewStatus": "completed",
+      "claim": "现有属性评分能支持临床场景中模型优劣排序。",
+      "contribution": "用六维25子指标整理45个候选模型，给不同医疗案例设置权重。",
+      "evidence": "正文§4.1、§5.1属性表、§5.4–5.4.1审计与§6：由10分逐属性扣分，两个案例调整权重；未执行模型临床评测，且作者明确若干模型身份未核实。",
+      "limitations": "P-Transformer、DTT、GPT4Table、SPROUT/UniTTab等身份/来源未完成核验；本地部署与隐私保证混同的属性不能支持定量排名，作者多次重排仍无校准真值。",
+      "value": "可作检查维度候选，但当前核心排序不宜进入公开选型索引。",
+      "reproducibility": "可读完整正文，未发现能解决身份冲突的证据；未复现实验或评分。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2609.22154v1"
+      ],
+      "readScope": "primary/optfm.txt §4.1、5.1、5.4/5.4.1与6；仅对排序主张判定，未声称穷尽全文。"
+    }
   }
 ]
