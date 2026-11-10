@@ -10314,6 +10314,139 @@
         "https://arxiv.org/html/2609.06912v1"
       ],
       "addedAt": "2026-11-10"
+    },
+    {
+      "id": "arxiv-2611.09052",
+      "title": "StreamTab: Training-Free Temporal Link Prediction with Tabular Foundation Models",
+      "date": "2026-11-06",
+      "updated": "2026-11-06",
+      "category": 5,
+      "section": "context-selection",
+      "topicId": "stream-context",
+      "topic": "流式更新与记忆管理",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.09052",
+      "pdf": "https://arxiv.org/pdf/2611.09052",
+      "code": "https://github.com/qslim/StreamTab",
+      "aliases": [
+        "StreamTab"
+      ],
+      "keywords": [
+        "StreamTab",
+        "时序图",
+        "TabPFN",
+        "上下文刷新",
+        "推理效率"
+      ],
+      "related": [],
+      "summary": "把图中的历史交互转为34列表格特征，用冻结TabPFN预测下一次连接；上下文中的负例按候选来源匹配，并定期刷新。作者在13个时序图上测试，另在MOOC与LastFM报告每4批刷新较每批刷新快2.8–3.1倍、AP最多下降0.33个百分点。图模型基线未匹配负采样；公开示例脚本也不直接复现论文基准，表格业务收益仍需实测。",
+      "sources": [
+        "https://arxiv.org/abs/2611.09052",
+        "https://arxiv.org/html/2611.09052v1",
+        "https://github.com/qslim/StreamTab"
+      ],
+      "addedAt": "2026-11-10"
+    },
+    {
+      "id": "arxiv-2611.09400",
+      "title": "Causal graph fusion across incomplete cohorts and causal steering of tabular foundation models",
+      "date": "2026-11-06",
+      "updated": "2026-11-06",
+      "category": 3,
+      "section": "causal-models",
+      "topicId": "causal-knowledge",
+      "topic": "因果知识与生成约束",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.09400",
+      "pdf": "https://arxiv.org/pdf/2611.09400",
+      "code": null,
+      "aliases": [
+        "因果图融合与注意力引导",
+        "causal attention steering",
+        "PAG-guided attention steering"
+      ],
+      "keywords": [
+        "因果图融合",
+        "TabPFN",
+        "注意力引导",
+        "缺失数据",
+        "分布偏移"
+      ],
+      "related": [],
+      "summary": "先融合部分字段重叠队列的因果图并迭代填补缺失值，再把图关系转换为冻结TabPFN的注意力偏置。作者在144个合成因果模型上报告，验证与测试漂移类型不一致时平均AUROC提升0.011；临床嵌套选择后收益未显著，同样注入在TabPFN v2.5上失效。可作为因果知识注入与模型版本敏感性的研究线索，不能据此承诺临床收益。",
+      "sources": [
+        "https://arxiv.org/abs/2611.09400",
+        "https://arxiv.org/html/2611.09400v1"
+      ],
+      "addedAt": "2026-11-10"
+    },
+    {
+      "id": "arxiv-2611.09598",
+      "title": "Transformer-FSQ: Discrete Latents for Extreme KV-Cache Compression",
+      "date": "2026-11-06",
+      "updated": "2026-11-06",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.09598",
+      "pdf": "https://arxiv.org/pdf/2611.09598",
+      "code": null,
+      "aliases": [
+        "Transformer-FSQ"
+      ],
+      "keywords": [
+        "Transformer-FSQ",
+        "KV压缩",
+        "离散潜变量",
+        "后训练",
+        "LLM推理迁移"
+      ],
+      "related": [],
+      "summary": "将每个token的隐藏状态压成共享整数码，解码时重建K、聚合后重建V，减少常驻KV缓存；需校准并训练新投影。作者在Qwen3 8B的32倍缓存压缩下测得完整解码步速度约等于SDPA，但RULER从0.922降至0.493。低缓存预算下优于所测对照不等于无损；未验证多样本表格ICL，所列代码仓库目前为空。",
+      "sources": [
+        "https://arxiv.org/abs/2611.09598",
+        "https://arxiv.org/html/2611.09598v1"
+      ],
+      "addedAt": "2026-11-10"
+    },
+    {
+      "id": "arxiv-2611.08902",
+      "title": "Inside the Trap: A Renewal Law for Prefix-Cache Collapse in LLM Agent Serving",
+      "date": "2026-11-04",
+      "updated": "2026-11-06",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.08902",
+      "pdf": "https://arxiv.org/pdf/2611.08902",
+      "code": "https://github.com/AkshatValse/surviving-llm-stampede",
+      "aliases": [
+        "Inside the Trap",
+        "Surviving an Agentic LLM Stampede"
+      ],
+      "keywords": [
+        "前缀缓存",
+        "缓存淘汰",
+        "并发控制",
+        "服务吞吐",
+        "LLM推理迁移"
+      ],
+      "related": [],
+      "summary": "研究多轮LLM服务在突发请求后缓存被反复淘汰、命中归零并持续排队的问题。作者在SGLang/vLLM的合成会话实验中，以客户端会话并发上限恢复9/9次已形成的拥塞；代价是暂停会话平均等待386–569秒。可借鉴多表上下文缓存的准入与淘汰测试，但不是KV压缩或单张表OOM解法，真实表格服务尚待验证。",
+      "sources": [
+        "https://arxiv.org/abs/2611.08902",
+        "https://arxiv.org/html/2611.08902v1",
+        "https://github.com/AkshatValse/surviving-llm-stampede"
+      ],
+      "addedAt": "2026-11-10"
     }
   ],
   "collectionUpdates": [
@@ -10928,6 +11061,10 @@
         "arxiv-2609.06912",
         "arxiv-2609.30789",
         "arxiv-2611.07217",
+        "arxiv-2611.08902",
+        "arxiv-2611.09052",
+        "arxiv-2611.09400",
+        "arxiv-2611.09598",
         "doi-10.1186-s12911-026-03654-3",
         "doi-10.53941-ijndi.2026.100023",
         "ismir-2026-metamatch"

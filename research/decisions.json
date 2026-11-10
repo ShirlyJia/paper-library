@@ -10469,5 +10469,103 @@
       ],
       "readScope": "primary/optfm.txt §4.1、5.1、5.4/5.4.1与6；仅对排序主张判定，未声称穷尽全文。"
     }
+  },
+  {
+    "id": "arxiv-2611.09052",
+    "title": "StreamTab: Training-Free Temporal Link Prediction with Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2611.09052",
+    "sourceUpdated": "2026-11-06",
+    "decision": "included",
+    "reviewedAt": "2026-11-10",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-10",
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "claim": "冻结TabPFN-v2利用历史交互特征和与查询候选机制匹配的上下文进行时序链接预测；在所测数据上，减少上下文刷新频率可降低评测耗时并控制精度损失。",
+      "contribution": "34项成对交互、端点活跃度与邻域特征；按random/historical/inductive机制构造上下文负例，滚动保留最近8192行，每4批刷新。查询特征仍在每批结束后更新，无参数训练；不是新KV压缩器。",
+      "evidence": "实际阅读v1 IV–VI、III协议及附录A、表S10。13数据集按时间70/15/15划分，每批200正例、1:1负例，3种子，TabPFN-v2软件2.0.9/4集成、Xeon6430/RTX4090。历史/归纳采样分别12/13、11/13第一；同特征同上下文TabPFN优于LightGBM35/39，历史场景中位增益仅0.13个百分点。MOOC/LastFM每4批刷新相对每批刷新2.8–3.1倍，AP最大下降0.33个百分点。均为作者报告。",
+      "limitations": "StreamTab知道评测负采样机制，21个图基线通常用随机负例训练，因此不能把全部领先归因于TFM。新节点评测会使用先前已观测的新节点事件，不是彻底零历史。负例切换、特征与上下文预算改变任务条件；仅6数据集比较耗时，未验证单次OOM或其他表格模型。官方README明确main.py用上下文采样器生成测试负例，与论文DyGLib基准不可直接比较。",
+      "value": "直接对应表格推理中的上下文重建成本：比较每次刷新与跨批复用，并保留随时间更新的查询特征。为动态图任务、缓存刷新策略提供可操作设计，但刷新周期须在目标漂移与服务时延下复测。",
+      "reproducibility": "官方仓库含context.py、stream.py、model.py和main.py；已读README和model.py，确认fit刷新上下文、predict_proba查询，未执行复现。要重现论文需接入DyGLib官方负采样器，不能直接引用示例输出。",
+      "sources": [
+        "https://arxiv.org/html/2611.09052v1",
+        "https://github.com/qslim/StreamTab"
+      ],
+      "readScope": "v1 III负采样协议、IV方法、V实验及表III–VI、VI局限、附录A与S10；primary-arxiv-followup/streamtab.txt；官方README/model.py。"
+    }
+  },
+  {
+    "id": "arxiv-2611.09400",
+    "title": "Causal graph fusion across incomplete cohorts and causal steering of tabular foundation models",
+    "url": "https://arxiv.org/abs/2611.09400",
+    "sourceUpdated": "2026-11-06",
+    "decision": "included",
+    "reviewedAt": "2026-11-10",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-10",
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "claim": "在所测合成机制与TabPFN v2中，图驱动的目标到特征注意力偏置配合不看测试标签的强度选择，可改善特定非因果特征漂移下的判别；不主张临床收益或跨版本通用。",
+      "contribution": "共享变量PAG为逐队列FCI施加边/方向与时间层级约束，用Markov blanket迭代填补。模型侧冻结参数，在Y到X注意力logits引入gamma，按机制漂移选祖先、协变量漂移选blanket；区别于学习新attention bias与单纯删列。",
+      "evidence": "读实际方法、预测协议和附录C表S2–S9。144个SCM中，独立于测试的内层漂移验证选择gamma：匹配漂移+0.029AUROC，解耦漂移+0.011、44%胜率并40%选择gamma=0。临床HAPI250例、PPIS266次手术/174患者；患者分组及嵌套gamma后PPIS住院时长R²差+0.009不显著。72SCM相同注入，v2 gamma2提升0.021，v2.5仅0.003。作者报告，未独立复现。",
+      "limitations": "主要临床图发现/最佳模型选择使用全队列，主表含信息泄漏及重复患者风险，完整fusion嵌套未完成；分组与局部嵌套检验后结果下降。部分Sachs/合成表用测试集oracle调gamma，只可作上界。因果图依赖发现假设和时间知识，无真实干预识别保证；v2.5无同等收益。所列代码仓库本次404，资料访问 needs supplement。",
+      "value": "把因果图注入冻结TFM的机制、与非因果随机偏置的对照，以及明确跨版本失败，均有助于设计LimiX知识注入实验。需先区分注意力路径、真实漂移和验证选择，不应把作者临床观察当干预决策证据。",
+      "reproducibility": "已读arXiv v1方法及实验证据，论文称SCAI-Lab/pi-fusion-steering公开，但GitHub内容接口本次404；code保留null。临床数据受控且存储库待定；未做本地或独立复现。",
+      "sources": [
+        "https://arxiv.org/html/2611.09400v1"
+      ],
+      "readScope": "v1图融合流程、From causal graph to attention mask、Synthetic and benchmark experiments、Downstream prediction setup、Statistics and reproducibility；附录C Sachs/oracle与嵌套选择、S7–S9跨版本失败；未宣称完整核证附录A全部证明。"
+    }
+  },
+  {
+    "id": "arxiv-2611.09598",
+    "title": "Transformer-FSQ: Discrete Latents for Extreme KV-Cache Compression",
+    "url": "https://arxiv.org/abs/2611.09598",
+    "sourceUpdated": "2026-11-06",
+    "decision": "included",
+    "reviewedAt": "2026-11-10",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-10",
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "claim": "在Qwen3与所测检索/文档任务上，学习式共享离散缓存能在极低字节预算下比所测对照保留更多质量，且部分硬件配置的解码吞吐不低于未压缩SDPA；不宣称压缩无损或表格任务可直接使用。",
+      "contribution": "在K/V展开前对归一化残差做FSQ，4位坐标共享给各KV头；PCA/岭回归校准初始化后冻结骨干只训练新增编码/解码投影。Triton片上重建K、先加权潜码再解码V，无逐token量化scale；RoPE迫使每步重建K带来计算成本。",
+      "evidence": "读§3–6、部分实现/复现说明和表2。Qwen3 0.6/1.7/8B，RULER13任务各50例8K上下文；LongBench3任务最多32K。与PyramidKV、KIVI、VecInfer、Palu、TransMLA按实际缓存字节比较；后两者同数据/优化器/训练token。新投影训练0.25 token/原参数，整套实验1867GH200 GPU小时。L40S测完整模型解码步，batch1/4/16/64和2K–150K：8B在32倍压缩中位1.01倍(95%区间0.98–1.05)，RULER0.493对未压缩0.922。32倍不是整机显存缩32倍，且非整请求端到端速度。",
+      "limitations": "压缩造成显著绝对质量下降，优势是同紧预算相对领先；中等压缩并非最佳。只测3个语言模型、检索和3项LongBench，无多样本ICL/表格预测。LongBench对照多用FP32、FSQ/BF16，8B一训练种子；百万token容量是从8K质量外推，不是同长度准确率实测。解码基准不含prefill，不能证明解决首次构建峰值OOM。",
+      "value": "对应常驻缓存容量与暖缓存查询带宽，提供后训练潜码压缩方案；与本期权重量化、刷新频率优化处于不同阶段。迁移到LimiX需重做训练/验证、检查掩码和K/V结构，并测首建峰值、命中查询、概率质量与吞吐。",
+      "reproducibility": "论文声明ASzecsenyi/transformer-fsq开源，但本轮GitHub返回repository is empty，故code=null并标注待补。已核验正文及校准/预算/吞吐协议，未执行任何GPU复现。",
+      "sources": [
+        "https://arxiv.org/html/2611.09598v1"
+      ],
+      "readScope": "v1 §3、§4.1–4.5、§5.1–5.3、表2、§6局限、§8复现说明；primary-arxiv-followup/transformer-fsq.txt；官方仓库状态核验。"
+    }
+  },
+  {
+    "id": "arxiv-2611.08902",
+    "title": "Inside the Trap: A Renewal Law for Prefix-Cache Collapse in LLM Agent Serving",
+    "url": "https://arxiv.org/abs/2611.08902",
+    "sourceUpdated": "2026-11-06",
+    "decision": "included",
+    "reviewedAt": "2026-11-10",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewedAt": "2026-11-10",
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "claim": "在作者合成多轮会话与单GPU服务条件下，突发负载可触发持续缓存未命中；限制同时活跃会话可恢复复用与吞吐。队列解析规律仅在明示FIFO全未命中理想模型中成立。",
+      "contribution": "将已拥塞全未命中状态建模为更新递推，区分观察到的完成吞吐与实际恢复负载阈值；实机配对突发/无突发/会话限流，对既成拥塞另做恢复实验，区别于仅按请求数或总缓存大小调参。",
+      "evidence": "读§2负载协议、§3模型定义、§5恢复、§7局限及官方README。SGLang0.5.22/vLLM0.32.0，Qwen2.5-7B/Llama3.1-8B，A10080GB/H200NVL；每个种子三个臂共享到达计划。30次BURST命中皆归零，但23次满足注册拥塞斜率判据，9/10测试速率整体通过。后续9/9拥塞被会话上限恢复，无丢弃，暂停会话平均386–569秒等待。57次模型对照主要为回顾性，不等同独立预注册验证。",
+      "limitations": "随机token、几何轮数、指数工具等待，无跨会话共享前缀，客户端不重试/放弃；未测多卡、卸载、解耦或真实表格请求。并发阈值与触发时刻固定，公平评价必须包含客户端等待。共享种子限制跨实验独立性；未证明实际引擎收敛到FIFO理想模型；不改变单个上下文容量。",
+      "value": "覆盖在线服务因缓存竞争导致重算和尾延迟的阶段。可据此测试LimiX多表/多租户上下文准入、活跃会话预算与缓存命中反馈，但推断的表格适用性未实测。",
+      "reproducibility": "官方仓库可读，含负载生成器、会话门控、配置、结果与注册溯源目录，已核对README和目录，未运行Slurm/GPU实验或全部理论证明。README证实早期草稿2026-11-04在GitHub公开，当前arXiv v1为11-06；合并为同一条并保留旧名别名。",
+      "sources": [
+        "https://arxiv.org/html/2611.08902v1",
+        "https://github.com/AkshatValse/surviving-llm-stampede"
+      ],
+      "readScope": "v1 §2负载与配对协议、§3模型定义、§5干预/恢复及限制、§7局限、代码/数据声明；官方README与目录；未声称审完66页或证明附录。"
+    }
   }
 ]

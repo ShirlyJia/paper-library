@@ -1015,6 +1015,25 @@
       "sources": [
         "https://arxiv.org/abs/2608.02157"
       ]
+    },
+    {
+      "name": "StreamTab",
+      "paperIds": [
+        "arxiv-2611.09052"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.09052",
+        "https://github.com/qslim/StreamTab"
+      ]
+    },
+    {
+      "name": "Transformer-FSQ",
+      "paperIds": [
+        "arxiv-2611.09598"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.09598"
+      ]
     }
   ]
 }
