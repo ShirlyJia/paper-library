@@ -10567,5 +10567,379 @@
       ],
       "readScope": "v1 §2负载与配对协议、§3模型定义、§5干预/恢复及限制、§7局限、代码/数据声明；官方README与目录；未声称审完66页或证明附录。"
     }
+  },
+  {
+    "id": "arxiv-2611.05966",
+    "title": "Prior-data fitted networks for variable selection",
+    "url": "https://arxiv.org/abs/2611.05966",
+    "sourceUpdated": "2026-11-04",
+    "decision": "included",
+    "reviewedAt": "2026-11-11",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-11",
+      "claim": "CD-PFN和PC-PFN可从上下文预测条件相关或父子变量的后验包含概率；限定在所测任务，变量筛选效果得到支持。",
+      "contribution": "复用行列注意力和不变池化输出逐变量PIP，将预测PFN扩展到条件依赖筛选与目标局部结构；讨论基于PIP的贝叶斯FDR选择，另用可精确求解的线性先验演示校准微调。",
+      "evidence": "实际阅读§2.2–2.6、4–6及表3–5，S3/S4与S6.3。30种半合成CD设定各100次重复，报告30/30种AUPRC最高、28种超过两倍标准误；PC含9种TCGA半合成与线性高斯对照，正确指定线性模型时BiDAG更好。32项生物标志物任务、NHANES和光隧道提供真实背景。光隧道子变量FDR=0.28、目标0.1，是控制未普遍成立的直接反例。",
+      "limitations": "观测父子概率依赖合成结构先验，不能由相关性确定方向；网络近似PIP不继承精确贝叶斯FDR的无条件保证。真实生物标志物没有完整真值；README警告超过1024行可能过度自信。基线并非统一充分调参或预算匹配。",
+      "value": "为表格输入变量筛选、因果候选集合与概率校准提供可复查路线；必须把局部结构假设与真实干预证据分开。",
+      "reproducibility": "作者提供MIT代码与复现实验入口；核验了varselpfn README及使用约束。本文数字均为作者报告，未进行独立或本地模型复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.05966",
+        "https://arxiv.org/html/2611.05966v1",
+        "https://github.com/omelikechi/varselpfn"
+      ],
+      "readScope": "work/collection/daily/2026-11-11/090006-048767/primary/variable-pfn.txt：§2.2–2.6、4–6、表3–5、S3/S4、S6.3；work/collection/daily/2026-11-11/090006-048767/primary/code-0.md：官方README。"
+    }
+  },
+  {
+    "id": "arxiv-2611.08638",
+    "title": "MORTIS: Compiler-Guided KV-Cache Management for LLM Agent Programs",
+    "url": "https://arxiv.org/abs/2611.08638",
+    "sourceUpdated": "2026-11-05",
+    "decision": "included",
+    "reviewedAt": "2026-11-11",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-11",
+      "claim": "在所测结构化智能体程序中，编译期前缀布局与运行时缓存策略的组合能降低重复预填充和任务时间。",
+      "contribution": "按CONST/COPY/RESP/EXTEND/VOLATILE及生命周期分析提示，运行时区分计划复用、未知、临时和退休缓存；预取仅占空闲容量。",
+      "evidence": "阅读§3.1、3.2相关布局、3.3、3.4、4.1–4.6和§5。在A40、Qwen3-32B-AWQ、15GB GPU/25GB主机缓存、SGLang0.5.10.post1下，对HoVer/HumanEval/BFCL/FinanceBench及混合负载，与同fork内重实现基线比较。平均JCT改善1.45倍、吞吐1.49倍；无重排调度1.03倍、仅重排1.30倍，预取增益最高2.6%。",
+      "limitations": "依赖类型化程序和可识别提示组件；重排不是严格语义等价，代码任务质量55.3降至54.8。只有所测负载，未给表格任务、单表峰值显存或泛化到任意程序的保证。",
+      "value": "用于服务阶段识别仍会复用的上下文、减少淘汰抖动；不能当作缓存压缩或首次上下文OOM解法。",
+      "reproducibility": "核验论文实验和消融；未找到并核实独立官方代码仓库，code留空。均为作者报告，无本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.08638",
+        "https://arxiv.org/html/2611.08638v1"
+      ],
+      "readScope": "work/collection/daily/2026-11-11/090006-048767/primary/mortis.txt：§3.1、3.2布局部分、3.3–3.4、4.1–4.6、表2–3、§5。"
+    }
+  },
+  {
+    "id": "arxiv-2611.06138",
+    "title": "KVGuard: A KV Cache Safety Checker for LLM Serving Systems",
+    "url": "https://arxiv.org/abs/2611.06138",
+    "sourceUpdated": "2026-11-04",
+    "decision": "included",
+    "reviewedAt": "2026-11-11",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-11",
+      "claim": "块级权限与初始化影子状态能发现所测KV缓存访问错误；并非所有模型上都只有轻微运行开销。",
+      "contribution": "把CPU生命周期、CPU/GPU页表一致性、运行时边界和初始化检查贯穿缓存操作，并处理异步搬运完成条件。",
+      "evidence": "阅读§4.1–4.4、5、6.1–6.4、7。H10080GB、vLLM0.32.0/FA3、SGLang0.5.22/FlashInfer，4个模型及ShareGPT/LongBench/MMLU负载。作者在错误与修复提交上验证29个历史缺陷并报告8个新缺陷；影子GPU状态9–23MiB。14B平均TPOT开销较低，但1B LongBench在16rps时最高7.55倍/10.84倍。",
+      "limitations": "不涵盖量化尺度错误、哈希冲突或全部分布式协调错误；需要分页缓存与内核钩子。历史bug和新PR未逐项独立复现，小模型开销大，不能直接宣称适合全量常驻生产。",
+      "value": "多表/多用户缓存实现、分块、共享和卸载改造后的回归验证；应与性能优化区分。",
+      "reproducibility": "读论文方法与错误/性能表，未核实同名官方代码项目，code留空。未进行本地故障注入或性能复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.06138",
+        "https://arxiv.org/html/2611.06138v1"
+      ],
+      "readScope": "work/collection/daily/2026-11-11/090006-048767/primary/kvguard.txt：§4.1–4.4、5、6.1–6.4、7及错误/内存/TPOT表。"
+    }
+  },
+  {
+    "id": "arxiv-2611.09109",
+    "title": "DARIC: A Position-Independent KV Cache Reuse System with Distribution-Aware Recomputation",
+    "url": "https://arxiv.org/abs/2611.09109",
+    "sourceUpdated": "2026-11-06",
+    "decision": "included",
+    "reviewedAt": "2026-11-11",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-11",
+      "claim": "在所测LLM暖缓存RAG与智能体负载中，按分布分配重算预算可改善首token延迟与质量折中。",
+      "contribution": "利用标准vLLM子请求执行位置调整和局部重算，避免深改模型执行器；Redis索引、固定主机缓存与分层异步加载配合。",
+      "evidence": "阅读§2–5.4，默认重算比例0.1、32token/块，函数调用8token。4张H20 96GB和256GB主机缓存；5个LongBench RAG任务、1000函数调用与SWE-bench前500题。SWE通过率68.6→68.4%，TTFT2923.03→1417.39ms；函数调用精确匹配86.9→86.4。官方SIGMOD2027录用目录匹配标题作者。",
+      "limitations": "已有离线缓存和主机预算是前提，部分Mistral任务默认预算仍降质；部分对照重新实现且重算预算定义不同。TTFT不等于完整任务时间；跨块近似不是任意注意力结构的无损复用。",
+      "value": "可参考上下文复用、局部依赖修复及搬运重叠。LimiX须先验证行列注意力依赖与数据/预处理/模型版本的缓存有效性。",
+      "reproducibility": "论文方法和实验、SIGMOD录用页、官方README已读；代码提供安装与运行入口，未执行GPU复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.09109",
+        "https://arxiv.org/html/2611.09109v1",
+        "https://2027.sigmodconf.hosting.acm.org/sigmod_papers.shtml",
+        "https://github.com/Lenovo-ICI/DARIC"
+      ],
+      "readScope": "work/collection/daily/2026-11-11/090006-048767/primary/daric.txt：§2、3.1–3.3、4、5.1–5.4；work/collection/daily/2026-11-11/090006-048767/supplementary/daric-venue.txt；work/collection/daily/2026-11-11/090006-048767/primary/code-1.md。"
+    }
+  },
+  {
+    "id": "arxiv-2611.09474",
+    "title": "Nebula: Distributed Position-Independent Caching for LLM Serving",
+    "url": "https://arxiv.org/abs/2611.09474",
+    "sourceUpdated": "2026-11-06",
+    "decision": "included",
+    "reviewedAt": "2026-11-11",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-11",
+      "claim": "分布式位置独立缓存的全局管理在所测集群与负载中降低首token延迟。",
+      "contribution": "按内容哈希追踪片段，先乐观登记在途计算再事件确认；缓存用ARC式反馈在前缀/片段间调容量，并结合负载与缓存局部性路由。",
+      "evidence": "阅读§4–10。两台服务器共8张H20-3e，每台1TiB主机内存、4×200Gbps RDMA，7预填充/1解码节点。四模型配四种PIC后端及四类RAG/智能体trace；相对LocalPIC+Dynamo平均TTFT下降61.4%，多数实验从冷集群开始。缓存管理消融另有800次暖启动。",
+      "limitations": "只生成1个输出token，未验证完整任务质量或总生成时间；继承所接PIC后端近似误差。收益依赖昂贵互联/内存条件，未证明单表容量提升或低带宽迁移效果。",
+      "value": "可参考多表服务中的缓存放置、在途去重和调度；表格适配须单独验证跨节点传输成本与上下文语义。",
+      "reproducibility": "核验方法、负载和消融；未核实官方开源实现，code留空。作者报告，无本地集群复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.09474",
+        "https://arxiv.org/html/2611.09474v1"
+      ],
+      "readScope": "work/collection/daily/2026-11-11/090006-048767/primary/nebula.txt：§4–7设计、§8实现、§9结果与消融、§10。"
+    }
+  },
+  {
+    "id": "arxiv-2611.09825",
+    "title": "BitDecoding-FP4: Native FP4 KV Cache Decoding via Algorithm-System Co-Design",
+    "url": "https://arxiv.org/abs/2611.09825",
+    "sourceUpdated": "2026-11-06",
+    "decision": "included",
+    "reviewedAt": "2026-11-11",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-11",
+      "claim": "在原生FP4 GPU上，算法和内核协同能减少所测LLM解码KV体积并加速，精度不是逐任务无损。",
+      "contribution": "QK/PV均采用FP4矩阵乘法，查询双残差表示、概率缩放、K异常值处理与融合归约；保留首16和近期不足128个token的BF16缓存。",
+      "evidence": "阅读§3.1–3.3、§4及4.3、§5.1–5.4表1–2。B300/RTX PRO5000及四类模型；GLM 200K KV71.88→20.27GiB，Hy4 1M90.46→34.41GiB。Qwen256K TPOT7.74→4.28和6.66→4.34ms；7任务均分下降约0.4点，个别MRCR38.82→36.68。核函数4.01倍与服务峰值2.4–3倍分别统计。",
+      "limitations": "缓存大小不是全部模型显存；论文着重解码，不能证明首次构建OOM已解。硬件需FP4能力，基线量化配置有变体，SAW跨引擎未作速度对比。表格行列注意力、布局与任务容差均未验证。",
+      "value": "适用于评估缓存常驻量与读带宽瓶颈的低比特路线，必须同时测整次推理、峰值内存和任务质量。",
+      "reproducibility": "官方MIT代码与README已核验；README要求B200/B300与CUDA13等环境，不能视为任意GPU可用。未做本地GPU复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.09825",
+        "https://arxiv.org/html/2611.09825v1",
+        "https://github.com/OpenBitSys/BitDecoding-FP4"
+      ],
+      "readScope": "work/collection/daily/2026-11-11/090006-048767/primary/bitdecoding.txt：§3.1–3.3、4、4.3、5.1–5.4、表1–2；work/collection/daily/2026-11-11/090006-048767/primary/code-2.md。"
+    }
+  },
+  {
+    "id": "arxiv-2608.20024",
+    "title": "Systematic Evaluation of TabPFN-TS and Chronos-2 for Zero-Shot Heat Load Forecasting in District Heating Networks",
+    "url": "https://arxiv.org/abs/2608.20024",
+    "sourceUpdated": "2026-10-06",
+    "decision": "included",
+    "reviewedAt": "2026-11-11",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-11",
+      "claim": "在所测网络中，滚动上下文预测有竞争力；分开慢变化与快速残差更新可改善指定指标及记录的预测成本。",
+      "contribution": "比较上下文、分辨率、协变量、预测周期和漂移适应；MRRC较少更新长上下文小时级基线，频繁做短上下文15分钟残差修正。",
+      "evidence": "两德国网络，2024年24h预测Chronos-2/TabPFN-TS的CVRMSE12.48%/13.07%；MRRC相对直接高频预测耗时低30%/18%，但比低频Base仍贵12/11倍。天气hindcast使CVRMSE相对上升7.4%/10.1%。Crossref与arXiv确认Energy and AI文章100942，Crossref列2026年12月卷期，首发仍为8月20日。",
+      "limitations": "使用实现后的未来气温；hindcast不是当时真实发出的预报。调参选定周也在2024全年评估内，不是完全独立测试。基线2023全年训练与PFN12周滚动输入不等预算。两网络均在德国，计时不含全部初始化。",
+      "value": "提供工业预测的上下文长度、更新频率与残差修正证据，不能概括为TFM普遍优于时序基线。",
+      "reproducibility": "Flensburg数据与代码公开，Munich专有未公开；已读官方README。publisher403，Crossref与arXiv期刊信息一致。作者报告，无本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2608.20024",
+        "https://arxiv.org/html/2608.20024v2",
+        "https://doi.org/10.1016/j.egyai.2026.100942",
+        "https://api.crossref.org/works/10.1016/j.egyai.2026.100942",
+        "https://github.com/benspoek/tsfm-heatload"
+      ],
+      "readScope": "work/collection/daily/2026-11-11/090006-048767/supplementary/heatload.txt：§3.1–3.5、4.1/4.2/4.4–4.6、5.1/5.3/5.8、6、表6/9；followup/heatload-meta.txt、heatload-crossref.json与官方README。"
+    }
+  },
+  {
+    "id": "arxiv-2607.07756",
+    "title": "The Importance of Encoder Choice: A Tabular-Image Study",
+    "url": "https://arxiv.org/abs/2607.07756",
+    "sourceUpdated": "2026-07-08",
+    "decision": "included",
+    "reviewedAt": "2026-11-11",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-11",
+      "claim": "表格编码器及ICL嵌入方式影响所测多模态比较，不能只把增益归于融合模块。",
+      "contribution": "统一ViT-B/16和双线性融合，比较TabPFNv2/TabDPT/TabICLv2/TabM/TARTE等，以LOFO与NP处理上下文行/查询行嵌入差异。",
+      "evidence": "7数据集，50次TPE、4内折/2外折嵌套CV。强编码器加简单融合可与TIP竞争，CCD/Petfinder等存在负融合。TabArena关联限2026年2月模型名单。",
+      "limitations": "单一冻结图像编码器、7任务；TIP另有预训练预算。NP让训练行同时作为含标签上下文和查询，并未去掉自己的上下文标签；外折测试不证明NP普遍无偏。阅读范围未见患者级分组保证，缺模态行被排除。",
+      "value": "多模态比较先固定表格编码器、上下文与预算，验证图像的额外价值。",
+      "reproducibility": "未核实独立官方代码入口，code留空；保留论文配置，无本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2607.07756",
+        "https://arxiv.org/html/2607.07756v1"
+      ],
+      "readScope": "work/collection/daily/2026-11-11/090006-048767/supplementary/encoder-choice.txt：§2.3、3、4、5、B.1；followup/encoder-choice-meta.txt。"
+    }
+  },
+  {
+    "id": "doi-10.5281-zenodo.24091866",
+    "title": "Stratified few-label protocols can overstate macro-averaged metrics for tabular foundation models",
+    "url": "https://zenodo.org/records/24111852",
+    "sourceUpdated": "2026-11-10",
+    "decision": "included",
+    "reviewedAt": "2026-11-11",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-11",
+      "claim": "类别均衡标注在部分标准表格上抬高宏平均指标，幅度取决于漏类代价；并非所有数据或指标都抬高。",
+      "contribution": "拆解覆盖/平衡效应，比较分层、随机、重抽与顺序补标；提供固定分析计划与逐次结果。",
+      "evidence": "四主模型TabPFNv2/3.5、TabICLv2、Kumo-Tabular；20探索、32复制、52PMLB/UCI、20近期、60覆盖、39发布后表。32复制表差0.030–0.075；20近期表预定检验未确认。类频模型高估39表幅度，依赖各表运行结果的机制模型拟合更好。LimiX-16M为后加入探索模型，不能套用四主模型统计。",
+      "limitations": "计划由作者自行冻结，未在公共平台事前注册；复制表来自探索池，多二分类。协议各自在剩余池评估，估计整套标注政策而非固定测试集因果效应。不平衡数据accuracy可下降，发布后表不等于独立污染审计。",
+      "value": "可直接复用抽样协议、缺失类别记录与标签预算核对，提升少样本评测对真实标注过程的代表性。",
+      "reproducibility": "v1为11月9日、v2为11月10日已核验；代码、计划和逐次结果可访问，未独立复算。论文与代码归档只计一篇。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://zenodo.org/records/24111852",
+        "https://zenodo.org/api/records/24091867",
+        "https://zenodo.org/api/records/24111852",
+        "https://zenodo.org/records/24082391",
+        "https://github.com/provezano/stratified-few-label-protocols"
+      ],
+      "readScope": "work/collection/daily/2026-11-11/090006-048767/pdfs/stratified.txt：§3、5、6.1–6.4、7–8、表2–5；stratified-v1.txt、stratified-code.txt及code-latest-2.md。已下载补充材料但未通读全部证明。"
+    }
+  },
+  {
+    "id": "arxiv-2601.08743",
+    "title": "TableCache: Primary Foreign Key Guided KV Cache Precomputation for Low Latency Text-to-SQL",
+    "url": "https://arxiv.org/abs/2601.08743",
+    "sourceUpdated": "2026-01-13",
+    "decision": "included",
+    "reviewedAt": "2026-11-11",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-11",
+      "claim": "表级KV复用降低所测Text-to-SQL预填充耗时；现有证据不支持无条件近乎无损的精度主张。",
+      "contribution": "主外键依赖KV与Table Trie，结合查询重排、淘汰及计算/加载流水，并以块注意力适配训练。",
+      "evidence": "A800单卡，两款7B、BIRDtrain3轮。表1 OmniSQL BIRD总TTFT296.42→90.39秒，准确率61.5→59.9%；表3免训练BIRD61.2→58.1，Qwen51.0→42.9。支持耗时下降；正文“lossless/1%以内”和部分表值冲突，主结果最高倍数与表1也不完全对应，不复述宣传倍数。",
+      "limitations": "总测试集TTFT不是单请求尾延迟，重排等待和离线成本另算。拓扑排序隐含无环前提；表1/3与正文精度表述冲突，未用代码复现核解。TFM行列注意力与LLM模式文本不同。",
+      "value": "可参考结构化模式共享和关系约束缓存，但须验证缓存有效性、跨块依赖与冷构建成本。",
+      "reproducibility": "ACL出版和arXiv首发核对；原仓库重定向RUCKBReasoning/TableCache，缓存生成与测试代码可访问；无本地复现。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/abs/2601.08743",
+        "https://aclanthology.org/2026.emnlp-main.459/",
+        "https://aclanthology.org/2026.emnlp-main.459.pdf",
+        "https://github.com/RUCKBReasoning/TableCache"
+      ],
+      "readScope": "work/collection/daily/2026-11-11/090006-048767/pdfs/tablecache.txt：§4–5、7、附录B/D、表1–6；followup/tablecache-meta.txt、last/tablecache-meta.txt与官方README。"
+    }
+  },
+  {
+    "id": "arxiv-2602.11700",
+    "title": "TabSieve: Explicit In-Table Evidence Selection for Tabular Prediction",
+    "url": "https://arxiv.org/abs/2602.11700",
+    "sourceUpdated": "2026-09-24",
+    "decision": "included",
+    "reviewedAt": "2026-11-11",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-11",
+      "claim": "证据轨迹与任务平衡RL改善所测文本表格预测，不等于已经证明资源效率提升。",
+      "contribution": "TabSieve-SFT-40K与独立格式/证据/正确性奖励，用EMA缩放回归优势，平衡分类回归更新。",
+      "evidence": "331训练表并过滤与75分类/52回归评测重叠；Qwen3-8B、3种种子、0/4/8/16/32shot。消融准确率59.31→62.63→64.85→67.01，去证据奖励63.75；移去所选行后原Qwen表现下降，支持所选行有用，但上下文数量也改变。",
+      "limitations": "教师生成和近邻证据是代理真值，注意力集中不证明忠实因果解释；回归NMAE逐样本截到1。仅8B、文本表格、类别标签输出，没有校准概率；总训练预算不等，未给显存/速度实测。",
+      "value": "任务适配可借鉴证据奖励与分类回归联合训练，不能当作省显存的即插即用TFM插件。",
+      "reproducibility": "ACL主会、arXiv首发/修订和官方VeRL代码入口已核对；没有本地训练或复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2602.11700",
+        "https://aclanthology.org/2026.emnlp-main.1253/",
+        "https://aclanthology.org/2026.emnlp-main.1253.pdf",
+        "https://github.com/Kazeya27/TabSieve"
+      ],
+      "readScope": "work/collection/daily/2026-11-11/090006-048767/pdfs/tabsieve.txt：§3.1–3.3、4.1–4.4、6/Limitations、A.4、B.4；followup/tabsieve-meta.txt、last/tabsieve-meta.txt和code-latest-1.md。"
+    }
+  },
+  {
+    "id": "arxiv-2611.11319",
+    "title": "Verify Before You Fetch: Reliable KV Cache Compression for LLM Inference",
+    "url": "https://arxiv.org/abs/2611.11319",
+    "sourceUpdated": "2026-11-08",
+    "decision": "included",
+    "reviewedAt": "2026-11-11",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-11",
+      "claim": "采样加按需回取改善所测LLM压缩/卸载折中；实际2-bit实现不具有所宣称理论保证的全部前提。",
+      "contribution": "PoissonComp按分数独立采样；KVFetch结合收缩估计与Bernstein误差证书，选择回取集合。实现将存活token紧凑放置以释放vLLM页块。",
+      "evidence": "三模型、RULER/LOFT、32K/128K和8/16/32倍GPU KV预算；比较同预算KVzip/Fast KVzip。Qwen3-4B vLLM默认相对全量CPU卸载解码1.6倍、评分86.7对Dense88.0；容差放宽时36.6ms/token仍远慢于全GPU的5.8ms。实际2-bit sketch在epsilon0.01/0.05/0.1时违反目标失败率；精确sketch满足，但不是廉价生产前提。",
+      "limitations": "证明只针对注意力分母，假定固定查询独立于抽样、精确sketch及固定选择系数，不是端到端预测保证。完整KV先生成后卸载，首次峰值不消失。主机仍存完整缓存，排序/选择内核和同步调度限制批量吞吐。",
+      "value": "可用于缓存后查询的GPU容量与搬运折中实验；表格须重新验证查询依赖、误差传播、行列注意力及冷构建成本。",
+      "reproducibility": "官方Apache2.0代码、KVPress评测与vLLM原型可访问，press入口batch1；本文为作者报告，未本地复现。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/abs/2611.11319",
+        "https://arxiv.org/html/2611.11319v1",
+        "https://github.com/epsilon-prime/verifiedKV"
+      ],
+      "readScope": "work/collection/daily/2026-11-11/090006-048767/new-arrivals/verify-fetch.txt：§4/4.2、5.1–5.5、A.3，实际实现/保证差异；last/verify-fetch-meta.txt；code-latest-3.md。"
+    }
+  },
+  {
+    "id": "arxiv-2611.12304",
+    "title": "Evolving Infra: Agent-Adaptive LLM Serving at Scale",
+    "url": "https://arxiv.org/abs/2611.12304",
+    "sourceUpdated": "2026-11-09",
+    "decision": "included",
+    "reviewedAt": "2026-11-11",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-11",
+      "claim": "在所测大型LLM智能体集群中，节点角色切换与分支感知缓存管理改善吞吐及平均延迟，非所有尾延迟都改善。",
+      "contribution": "对称执行引擎、可跨角色读取的共享L2 KV池、分支/版本引用计数；在线迭代耗时模型驱动阶段分配与请求路由。",
+      "evidence": "阅读§4–6。36GB300，9节点TP4，GLM5.2/KimiK2.6、NVFP4/FP8 KV，CC/OSWorld/Putnam，30分钟暖机后测量；与Dynamo1.5.1及最佳静态SGLang比较。动态组合平均E2E相对Dynamo2.15倍、最佳静态1.33倍；同静态分配时基础设施/路由贡献1.37倍吞吐。平均角色切换6.2秒对重启754秒。",
+      "limitations": "CC回放固定输出长度/工具时长，不是所有任务在线闭环质量验证。部分Putnam并发下P95 TTFT反而增加；最佳静态某些设定吞吐接近或略优。额外大规模含3072GPU模拟须与实际测量区分；不是KV量化或单表容量解法。",
+      "value": "多上下文服务可参考引用计数、在途搬运、缓存失效和负载预测；表格不具备自回归解码阶段时不能照搬节点分工。",
+      "reproducibility": "论文方法、设置、消融已读，未核实该系统独立开源入口，code留空。未本地集群复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.12304",
+        "https://arxiv.org/html/2611.12304v1"
+      ],
+      "readScope": "work/collection/daily/2026-11-11/090006-048767/new-arrivals/evolving-infra.txt：§4.1–4.3、5.2–5.3、6.1–6.4；last/evolving-infra-meta.txt。"
+    }
+  },
+  {
+    "id": "arxiv-2611.11761",
+    "title": "BridgeKV: Large-Model Prefill and Small-Model Decoding for LLM Inference via KV Cache Translation",
+    "url": "https://arxiv.org/abs/2611.11761",
+    "sourceUpdated": "2026-11-09",
+    "decision": "included",
+    "reviewedAt": "2026-11-11",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-11",
+      "claim": "所测同家族模型对的学习型KV转换可提高小模型任务质量，并在长输出场景加速；不是无需训练的通用模型缓存共享。",
+      "contribution": "窗口化层混合、独立K/V非线性映射，先去源RoPE再加目标RoPE；冻结两模型训练转换器，部分任务再加LoRA。",
+      "evidence": "阅读§3.1–3.5、4.1–4.4和G。6组Llama/Qwen对、5任务，验证集选配置、一次测试，基线LoRA匹配可训练参数。30设定均报告优于小模型，其中12仅训练转换器；不等于匹配全部大模型推理资源。A40、batch1、20次中位数：1K输入256输出8B→1B为2.96秒，小模型2.80秒、大模型8.83秒。大70B→1B的33.86倍与能耗27.5倍来自离散事件仿真。",
+      "limitations": "每模型对/任务训练一个转换器，必须共享tokenizer；仍运行大模型prefill，不能直接消除首次编码OOM。主模型质量尚低于大模型，额外转换器/双权重有成本。TFM通常一次预测而非逐token解码，速度收益不能直接迁移。",
+      "value": "可作为大小TFM间表征或缓存蒸馏的研究线索；须先证明重复查询阶段能被小模型替代，再谈速度收益。",
+      "reproducibility": "arXiv HTML不存在，成功读取官方PDF。未找到并核实官方代码地址，code留空。所有质量/硬件结果为作者报告，仿真另标，未本地复现。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.11761",
+        "https://arxiv.org/pdf/2611.11761"
+      ],
+      "readScope": "work/collection/daily/2026-11-11/090006-048767/last/bridgekv.txt：§3.1–3.5、4.1–4.4、表3、图3/4、G；arXiv首发页。"
+    }
+  },
+  {
+    "id": "doi-10.64898-2026.11.06.765003",
+    "title": "A tabular foundation model rivals established species distribution models from presence-only records",
+    "url": "https://doi.org/10.64898/2026.11.06.765003",
+    "sourceUpdated": "2026-11-09",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-11",
+    "reason": "摘要显示生态分布预测及TFM基线比较，方法/空间划分/采样偏差需正文核对；官方HTML及PDF均403，本轮已补试一次。保留候选，待可访问一手全文，不据摘要入库。"
   }
 ]

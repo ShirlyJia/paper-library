@@ -1034,6 +1034,105 @@
       "sources": [
         "https://arxiv.org/abs/2611.09598"
       ]
+    },
+    {
+      "name": "CD-PFN / PC-PFN",
+      "paperIds": [
+        "arxiv-2611.05966"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.05966"
+      ]
+    },
+    {
+      "name": "MORTIS",
+      "paperIds": [
+        "arxiv-2611.08638"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.08638"
+      ]
+    },
+    {
+      "name": "KVGuard",
+      "paperIds": [
+        "arxiv-2611.06138"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.06138"
+      ]
+    },
+    {
+      "name": "DARIC",
+      "paperIds": [
+        "arxiv-2611.09109"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.09109"
+      ]
+    },
+    {
+      "name": "Nebula",
+      "paperIds": [
+        "arxiv-2611.09474"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.09474"
+      ]
+    },
+    {
+      "name": "BitDecoding-FP4",
+      "paperIds": [
+        "arxiv-2611.09825"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.09825"
+      ]
+    },
+    {
+      "name": "TableCache",
+      "paperIds": [
+        "arxiv-2601.08743"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2601.08743"
+      ]
+    },
+    {
+      "name": "TabSieve",
+      "paperIds": [
+        "arxiv-2602.11700"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2602.11700"
+      ]
+    },
+    {
+      "name": "VerKV",
+      "paperIds": [
+        "arxiv-2611.11319"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.11319"
+      ]
+    },
+    {
+      "name": "Evolving Infra",
+      "paperIds": [
+        "arxiv-2611.12304"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.12304"
+      ]
+    },
+    {
+      "name": "BridgeKV",
+      "paperIds": [
+        "arxiv-2611.11761"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.11761"
+      ]
     }
   ]
 }

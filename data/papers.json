@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-10",
+  "updatedAt": "2026-11-11",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -10447,6 +10447,477 @@
         "https://github.com/AkshatValse/surviving-llm-stampede"
       ],
       "addedAt": "2026-11-10"
+    },
+    {
+      "id": "arxiv-2611.05966",
+      "title": "Prior-data fitted networks for variable selection",
+      "date": "2026-11-04",
+      "updated": "2026-11-04",
+      "category": 3,
+      "section": "causal-discovery",
+      "topicId": "causal-graphs",
+      "topic": "因果图结构恢复",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.05966",
+      "pdf": "https://arxiv.org/pdf/2611.05966",
+      "code": "https://github.com/omelikechi/varselpfn",
+      "aliases": [
+        "CD-PFN / PC-PFN",
+        "CD-PFN",
+        "PC-PFN",
+        "varselpfn"
+      ],
+      "keywords": [
+        "变量选择",
+        "条件依赖",
+        "局部因果结构",
+        "后验包含概率",
+        "错误发现率"
+      ],
+      "related": [],
+      "summary": "把PFN的输出改成每个变量的入选概率：CD-PFN判断给定其他特征后是否仍有关联，PC-PFN判断目标的父子变量。作者在半合成与真实数据上评估筛选效果，并公开代码。可用于特征筛选和局部因果候选生成；概率依赖训练先验，真实光隧道实验中子变量的误选比例0.28高于0.1目标，不能视为通用因果识别或误选率保证。",
+      "sources": [
+        "https://arxiv.org/abs/2611.05966",
+        "https://arxiv.org/html/2611.05966v1",
+        "https://github.com/omelikechi/varselpfn"
+      ],
+      "addedAt": "2026-11-11"
+    },
+    {
+      "id": "arxiv-2611.08638",
+      "title": "MORTIS: Compiler-Guided KV-Cache Management for LLM Agent Programs",
+      "date": "2026-11-05",
+      "updated": "2026-11-05",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.08638",
+      "pdf": "https://arxiv.org/pdf/2611.08638",
+      "code": null,
+      "aliases": [
+        "MORTIS"
+      ],
+      "keywords": [
+        "缓存生命周期",
+        "程序分析",
+        "前缀共享",
+        "缓存淘汰",
+        "LLM推理迁移"
+      ],
+      "related": [],
+      "summary": "分析智能体程序中提示内容的稳定性和后续用途，调整共享前缀布局，并据此决定缓存保留、淘汰与预取。作者在SGLang的四类智能体负载中报告平均任务耗时改善1.45倍；主要收益来自布局与调度配合，单独调度约1.03倍。可借鉴多表缓存生命周期管理，但提示重排可能改变答案，未验证单张表OOM或LimiX推理。",
+      "sources": [
+        "https://arxiv.org/abs/2611.08638",
+        "https://arxiv.org/html/2611.08638v1"
+      ],
+      "addedAt": "2026-11-11"
+    },
+    {
+      "id": "arxiv-2611.06138",
+      "title": "KVGuard: A KV Cache Safety Checker for LLM Serving Systems",
+      "date": "2026-11-04",
+      "updated": "2026-11-04",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.06138",
+      "pdf": "https://arxiv.org/pdf/2611.06138",
+      "code": null,
+      "aliases": [
+        "KVGuard"
+      ],
+      "keywords": [
+        "缓存正确性",
+        "页式KV",
+        "内存访问检查",
+        "多请求隔离",
+        "LLM推理迁移"
+      ],
+      "related": [],
+      "summary": "在缓存分配、共享、搬运和GPU读取时检查块归属及初始化状态，捕捉跨请求误读、过期映射等错误。作者在vLLM/SGLang中复现29个历史问题并报告8个新问题。适合作为缓存优化后的正确性检查；它不负责加速或降低OOM，小模型长上下文任务的逐token开销最高达到约7.55–10.84倍。",
+      "sources": [
+        "https://arxiv.org/abs/2611.06138",
+        "https://arxiv.org/html/2611.06138v1"
+      ],
+      "addedAt": "2026-11-11"
+    },
+    {
+      "id": "arxiv-2611.09109",
+      "title": "DARIC: A Position-Independent KV Cache Reuse System with Distribution-Aware Recomputation",
+      "date": "2026-11-06",
+      "updated": "2026-11-06",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "status": "published",
+      "venue": "SIGMOD 2027（已录用）",
+      "url": "https://arxiv.org/abs/2611.09109",
+      "pdf": "https://arxiv.org/pdf/2611.09109",
+      "code": "https://github.com/Lenovo-ICI/DARIC",
+      "aliases": [
+        "DARIC"
+      ],
+      "keywords": [
+        "位置独立缓存",
+        "局部重算",
+        "首token延迟",
+        "主机缓存",
+        "LLM推理迁移"
+      ],
+      "related": [],
+      "summary": "把文档块预先编码成可复用KV，再按块位置和最新上下文分配少量重算，恢复跨块依赖。SIGMOD 2027已录用，代码公开。作者在SWE-bench子集报告首token时间2923降至1417毫秒、通过率68.6%降至68.4%。针对命中缓存后的重复编码，不能据此断言首次OOM已解决；迁移到表格双向注意力仍需验证。",
+      "sources": [
+        "https://arxiv.org/abs/2611.09109",
+        "https://arxiv.org/html/2611.09109v1",
+        "https://2027.sigmodconf.hosting.acm.org/sigmod_papers.shtml",
+        "https://github.com/Lenovo-ICI/DARIC"
+      ],
+      "addedAt": "2026-11-11"
+    },
+    {
+      "id": "arxiv-2611.09474",
+      "title": "Nebula: Distributed Position-Independent Caching for LLM Serving",
+      "date": "2026-11-06",
+      "updated": "2026-11-06",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.09474",
+      "pdf": "https://arxiv.org/pdf/2611.09474",
+      "code": null,
+      "aliases": [
+        "Nebula"
+      ],
+      "keywords": [
+        "分布式缓存",
+        "位置独立缓存",
+        "请求路由",
+        "预填充",
+        "LLM推理迁移"
+      ],
+      "related": [],
+      "summary": "在多节点间按内容片段管理KV，让路由同时考虑已有缓存和排队负载，并动态分配前缀与片段缓存空间。作者在8张H20、RDMA和大容量主机内存上报告，相对本地片段缓存加Dynamo，平均首token时间降低61.4%。实验每次只生成1个token，不能外推为完整生成加速或表格单样本容量提升。",
+      "sources": [
+        "https://arxiv.org/abs/2611.09474",
+        "https://arxiv.org/html/2611.09474v1"
+      ],
+      "addedAt": "2026-11-11"
+    },
+    {
+      "id": "arxiv-2611.09825",
+      "title": "BitDecoding-FP4: Native FP4 KV Cache Decoding via Algorithm-System Co-Design",
+      "date": "2026-11-06",
+      "updated": "2026-11-06",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.09825",
+      "pdf": "https://arxiv.org/pdf/2611.09825",
+      "code": "https://github.com/OpenBitSys/BitDecoding-FP4",
+      "aliases": [
+        "BitDecoding-FP4"
+      ],
+      "keywords": [
+        "FP4",
+        "KV量化",
+        "注意力融合",
+        "解码带宽",
+        "LLM推理迁移"
+      ],
+      "related": [],
+      "summary": "联合设计FP4缓存格式、注意力矩阵乘法和融合算子，降低长上下文解码的缓存容量与带宽开销。作者报告GLM的200K缓存由71.88降至20.27GiB；两款Qwen在256K上下文的逐token速度改善1.53–1.81倍。需要原生FP4硬件，个别任务仍降分；这些数字不代表总显存或首次上下文构建成本，表格推理尚待验证。",
+      "sources": [
+        "https://arxiv.org/abs/2611.09825",
+        "https://arxiv.org/html/2611.09825v1",
+        "https://github.com/OpenBitSys/BitDecoding-FP4"
+      ],
+      "addedAt": "2026-11-11"
+    },
+    {
+      "id": "arxiv-2608.20024",
+      "title": "Systematic Evaluation of TabPFN-TS and Chronos-2 for Zero-Shot Heat Load Forecasting in District Heating Networks",
+      "date": "2026-08-20",
+      "updated": "2026-10-06",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "topic": "工业与工程预测",
+      "status": "published",
+      "venue": "Energy and AI 2026",
+      "url": "https://arxiv.org/abs/2608.20024",
+      "pdf": "https://arxiv.org/pdf/2608.20024",
+      "code": "https://github.com/benspoek/tsfm-heatload",
+      "aliases": [
+        "TabPFN-TS / Chronos-2 供热预测",
+        "MRRC"
+      ],
+      "keywords": [
+        "供热预测",
+        "滚动上下文",
+        "残差修正",
+        "预测成本"
+      ],
+      "related": [],
+      "summary": "在德国两个供热网络中比较TabPFN-TS、Chronos-2与训练型基线，并组合低频长期预测和短期高频残差修正。作者发现更长历史并不总更准；多分辨率修正相对直接高频预测减少记录的预测耗时。主实验使用已知未来气温，配置选择周与全年评估有重叠；真实天气预报和跨地区泛化仍需验证。",
+      "sources": [
+        "https://arxiv.org/abs/2608.20024",
+        "https://arxiv.org/html/2608.20024v2",
+        "https://doi.org/10.1016/j.egyai.2026.100942",
+        "https://api.crossref.org/works/10.1016/j.egyai.2026.100942",
+        "https://github.com/benspoek/tsfm-heatload"
+      ],
+      "addedAt": "2026-11-11"
+    },
+    {
+      "id": "arxiv-2607.07756",
+      "title": "The Importance of Encoder Choice: A Tabular-Image Study",
+      "date": "2026-07-08",
+      "updated": "2026-07-08",
+      "category": 4,
+      "section": "semantic-fusion",
+      "topicId": "multimodal-schema",
+      "topic": "跨字段体系与多模态融合",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2607.07756",
+      "pdf": "https://arxiv.org/pdf/2607.07756",
+      "code": null,
+      "aliases": [
+        "Encoder Choice",
+        "Tabular-Image Encoder Study"
+      ],
+      "keywords": [
+        "多模态融合",
+        "表格编码器",
+        "训练查询表征差异",
+        "TabArena相关"
+      ],
+      "related": [],
+      "summary": "固定图像编码器和融合流程，在7个图像加表格数据集上替换TabPFN、TabICL等编码器，并处理ICL训练行与查询行的表征差异。编码器选择会改变多模态比较，融合也并非总有收益。TabArena仅用于选择模型名单，不是本研究的评测任务；未验证LimiX或跨患者、跨场景泛化。",
+      "sources": [
+        "https://arxiv.org/abs/2607.07756",
+        "https://arxiv.org/html/2607.07756v1"
+      ],
+      "addedAt": "2026-11-11"
+    },
+    {
+      "id": "doi-10.5281-zenodo.24091866",
+      "title": "Stratified few-label protocols can overstate macro-averaged metrics for tabular foundation models",
+      "date": "2026-11-09",
+      "updated": "2026-11-10",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "topic": "通用评测与分布泛化",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://zenodo.org/records/24111852",
+      "pdf": "https://zenodo.org/records/24111852/files/P1_stratified_protocols_preprint_v2.pdf",
+      "code": "https://github.com/provezano/stratified-few-label-protocols",
+      "aliases": [
+        "少样本分层抽样审计"
+      ],
+      "keywords": [
+        "少样本评测",
+        "分层抽样",
+        "类别覆盖",
+        "宏平均F1",
+        "LimiX",
+        "TabPFN",
+        "TabICL"
+      ],
+      "related": [],
+      "summary": "比较每类等量标注和随机标注的少样本评测，把差异拆成类别覆盖与类别比例两部分。作者在32个留到最终分析的数据表上，报告四款模型的宏平均F1高出0.030–0.075；但另一组近期数据未确认同样差异。代码与结果公开，LimiX-16M属于补充探索模型；可用于检查抽样是否符合实际标注过程。",
+      "sources": [
+        "https://zenodo.org/records/24111852",
+        "https://zenodo.org/api/records/24091867",
+        "https://zenodo.org/api/records/24111852",
+        "https://zenodo.org/records/24082391",
+        "https://github.com/provezano/stratified-few-label-protocols"
+      ],
+      "addedAt": "2026-11-11"
+    },
+    {
+      "id": "arxiv-2601.08743",
+      "title": "TableCache: Primary Foreign Key Guided KV Cache Precomputation for Low Latency Text-to-SQL",
+      "date": "2026-01-13",
+      "updated": "2026-01-13",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "context-cache",
+      "topic": "KV 压缩与缓存复用",
+      "status": "published",
+      "venue": "EMNLP 2026",
+      "url": "https://arxiv.org/abs/2601.08743",
+      "pdf": "https://arxiv.org/pdf/2601.08743",
+      "code": "https://github.com/RUCKBReasoning/TableCache",
+      "aliases": [
+        "TableCache"
+      ],
+      "keywords": [
+        "Text-to-SQL",
+        "主外键",
+        "缓存预计算",
+        "查询重排",
+        "首token延迟"
+      ],
+      "related": [],
+      "summary": "把数据库模式按表预计算成KV，以主外键关系保留关键跨表依赖，再按共用表重排查询、流水加载。EMNLP 2026，代码公开。两款7B模型在Spider/BIRD上减少预填充耗时，但部分准确率下降超过文中“1%以内”的表述，免训练设置下降更大。它缓存的是LLM模式文本，迁移LimiX及首次OOM仍需另测。",
+      "sources": [
+        "https://arxiv.org/abs/2601.08743",
+        "https://aclanthology.org/2026.emnlp-main.459/",
+        "https://aclanthology.org/2026.emnlp-main.459.pdf",
+        "https://github.com/RUCKBReasoning/TableCache"
+      ],
+      "addedAt": "2026-11-11"
+    },
+    {
+      "id": "arxiv-2602.11700",
+      "title": "TabSieve: Explicit In-Table Evidence Selection for Tabular Prediction",
+      "date": "2026-02-12",
+      "updated": "2026-09-24",
+      "category": 6,
+      "section": "adaptation-target",
+      "topicId": "parameter-finetuning",
+      "topic": "参数微调与训练策略",
+      "status": "published",
+      "venue": "EMNLP 2026",
+      "url": "https://arxiv.org/abs/2602.11700",
+      "pdf": "https://arxiv.org/pdf/2602.11700",
+      "code": "https://github.com/Kazeya27/TabSieve",
+      "aliases": [
+        "TabSieve",
+        "TAB-GRPO"
+      ],
+      "keywords": [
+        "证据选择",
+        "强化学习",
+        "分类回归联合训练",
+        "上下文筛选",
+        "表格LLM"
+      ],
+      "related": [],
+      "summary": "训练Qwen3-8B先指出上下文中哪些行有用，再预测目标。由331张表生成选择与推理轨迹，随后用证据奖励、预测奖励和分类回归平衡进行强化学习。作者在75个分类与52个回归表上报告收益，代码公开。回归误差聚合前截断，证据是真值代理而非因果解释；未给出减少OOM或端到端加速的证据。",
+      "sources": [
+        "https://arxiv.org/abs/2602.11700",
+        "https://aclanthology.org/2026.emnlp-main.1253/",
+        "https://aclanthology.org/2026.emnlp-main.1253.pdf",
+        "https://github.com/Kazeya27/TabSieve"
+      ],
+      "addedAt": "2026-11-11"
+    },
+    {
+      "id": "arxiv-2611.11319",
+      "title": "Verify Before You Fetch: Reliable KV Cache Compression for LLM Inference",
+      "date": "2026-11-08",
+      "updated": "2026-11-08",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.11319",
+      "pdf": "https://arxiv.org/pdf/2611.11319",
+      "code": "https://github.com/epsilon-prime/verifiedKV",
+      "aliases": [
+        "VerKV",
+        "PoissonComp",
+        "KVFetch"
+      ],
+      "keywords": [
+        "缓存采样",
+        "按需回取",
+        "误差界",
+        "KV卸载",
+        "LLM推理迁移"
+      ],
+      "related": [],
+      "summary": "在GPU保留采样缓存，将完整KV放在主机内存；每步先估计误差，再补取必要token。作者在Qwen3-4B上相对全量卸载获得约1.6倍解码速度，但仍慢于完整缓存驻GPU。误差证明依赖精确估计和独立查询，实际2-bit估计在严格容差下会违反目标；先构建完整KV，因此不能直接解决首次编码OOM。",
+      "sources": [
+        "https://arxiv.org/abs/2611.11319",
+        "https://arxiv.org/html/2611.11319v1",
+        "https://github.com/epsilon-prime/verifiedKV"
+      ],
+      "addedAt": "2026-11-11"
+    },
+    {
+      "id": "arxiv-2611.12304",
+      "title": "Evolving Infra: Agent-Adaptive LLM Serving at Scale",
+      "date": "2026-11-09",
+      "updated": "2026-11-09",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.12304",
+      "pdf": "https://arxiv.org/pdf/2611.12304",
+      "code": null,
+      "aliases": [
+        "Evolving Infra"
+      ],
+      "keywords": [
+        "预填充解码分离",
+        "动态资源分配",
+        "分布式缓存",
+        "缓存引用计数",
+        "LLM推理迁移"
+      ],
+      "related": [],
+      "summary": "让节点无需重启即可在预填充和解码间切换，并跟踪智能体分支是否还会使用缓存，以调整资源和淘汰策略。作者在36张GB300上报告动态混合负载比最佳固定配置端到端延迟改善1.33倍。依赖分支信息、共享主机缓存与RDMA；部分负载尾延迟变差，未证明单表OOM或单卡表格推理收益。",
+      "sources": [
+        "https://arxiv.org/abs/2611.12304",
+        "https://arxiv.org/html/2611.12304v1"
+      ],
+      "addedAt": "2026-11-11"
+    },
+    {
+      "id": "arxiv-2611.11761",
+      "title": "BridgeKV: Large-Model Prefill and Small-Model Decoding for LLM Inference via KV Cache Translation",
+      "date": "2026-11-09",
+      "updated": "2026-11-09",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.11761",
+      "pdf": "https://arxiv.org/pdf/2611.11761",
+      "code": null,
+      "aliases": [
+        "BridgeKV"
+      ],
+      "keywords": [
+        "跨模型KV",
+        "大小模型协作",
+        "缓存翻译",
+        "解码加速",
+        "LLM推理迁移"
+      ],
+      "related": [],
+      "summary": "由大模型编码输入，再把KV转换为同家族小模型的缓存，由小模型继续生成。作者在6组模型、5个任务上报告相对参数预算匹配的小模型更高质量；A40单请求实测约3倍于全程8B模型的速度。需要每组模型及任务训练转换器，大模型首次编码仍保留；33.86倍集群收益来自仿真，非表格或生产实测。",
+      "sources": [
+        "https://arxiv.org/abs/2611.11761",
+        "https://arxiv.org/pdf/2611.11761"
+      ],
+      "addedAt": "2026-11-11"
     }
   ],
   "collectionUpdates": [
@@ -11068,6 +11539,26 @@
         "doi-10.1186-s12911-026-03654-3",
         "doi-10.53941-ijndi.2026.100023",
         "ismir-2026-metamatch"
+      ],
+      "updated": []
+    },
+    {
+      "date": "2026-11-11",
+      "added": [
+        "arxiv-2601.08743",
+        "arxiv-2602.11700",
+        "arxiv-2607.07756",
+        "arxiv-2608.20024",
+        "arxiv-2611.05966",
+        "arxiv-2611.06138",
+        "arxiv-2611.08638",
+        "arxiv-2611.09109",
+        "arxiv-2611.09474",
+        "arxiv-2611.09825",
+        "arxiv-2611.11319",
+        "arxiv-2611.11761",
+        "arxiv-2611.12304",
+        "doi-10.5281-zenodo.24091866"
       ],
       "updated": []
     }
