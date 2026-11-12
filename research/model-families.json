@@ -1133,6 +1133,35 @@
       "sources": [
         "https://arxiv.org/abs/2611.11761"
       ]
+    },
+    {
+      "name": "WG-KV",
+      "paperIds": [
+        "arxiv-2512.17452"
+      ],
+      "sources": [
+        "https://aclanthology.org/2026.emnlp-main.1063/",
+        "https://github.com/EMCLab-Sinica/WG-KV"
+      ]
+    },
+    {
+      "name": "SolidAttention",
+      "paperIds": [
+        "usenix-fast26-solidattention"
+      ],
+      "sources": [
+        "https://www.usenix.org/conference/fast26/presentation/zheng"
+      ]
+    },
+    {
+      "name": "CWFM",
+      "paperIds": [
+        "doi-10.3390-electronics15194397"
+      ],
+      "sources": [
+        "https://www.mdpi.com/2079-9292/15/19/4397",
+        "https://github.com/fit-alessandro-berti/foundation-causality0"
+      ]
     }
   ]
 }

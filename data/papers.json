@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-11",
+  "updatedAt": "2026-11-12",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -10172,14 +10172,18 @@
       "pdf": "https://arxiv.org/pdf/2608.02157",
       "code": null,
       "aliases": [
-        "RamanPFN"
+        "RamanPFN",
+        "RamanPFN: learning from Raman spectral structure with a tabular foundation model"
       ],
       "keywords": [
         "光谱",
         "TabPFN",
         "输入适配",
         "低秩分解",
-        "冻结模型"
+        "冻结模型",
+        "TabICL",
+        "Kumo Tabular",
+        "固定配置"
       ],
       "related": [
         1,
@@ -10187,9 +10191,9 @@
         5
       ],
       "id": "arxiv-2608.02157",
-      "title": "RamanPFN: learning from Raman spectral structure with a tabular foundation model",
+      "title": "RamanPFN: A physics-guided spectral foundation framework for in-context learning across diverse Raman applications",
       "date": "2026-08-03",
-      "updated": "2026-09-30",
+      "updated": "2026-11-10",
       "category": 6,
       "section": "adaptation-target",
       "topicId": "input-adapters",
@@ -10197,10 +10201,10 @@
       "status": "preprint",
       "venue": "预印本",
       "url": "https://arxiv.org/abs/2608.02157",
-      "summary": "冻结TabPFN，把长拉曼光谱转换为全局组分与局部低秩特征，再组合多个预测。作者在74个光谱数据集上评测；129个回归目标中109个优于直接TabPFN输入。适合借鉴有连续结构的高维特征适配，但特征搜索和集成增加了计算，尚未证明降低端到端延迟或显存。",
+      "summary": "冻结表格模型，把拉曼光谱转成全局非负组分与局部低秩特征，再组合预测。v3改为跨任务固定配置，并扩展到TabPFN3、TabICLv2与Kumo Tabular；旧版129个回归目标的比较更新为87个改善。作者在两套光谱协议中报告收益，但多次分解和集成仍有成本，尚未证明降低端到端延迟或显存，也不能直接套用任意无序表格列。",
       "sources": [
         "https://arxiv.org/abs/2608.02157",
-        "https://arxiv.org/html/2608.02157v2"
+        "https://arxiv.org/html/2608.02157v3"
       ],
       "addedAt": "2026-11-10"
     },
@@ -10918,6 +10922,329 @@
         "https://arxiv.org/pdf/2611.11761"
       ],
       "addedAt": "2026-11-11"
+    },
+    {
+      "id": "arxiv-2610.26005",
+      "title": "Scenario Generalization and Sector Transfer in Real Surface Irrigation Surrogate Modelling with Tabular Models",
+      "date": "2026-10-19",
+      "updated": "2026-10-19",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "topic": "工业与工程预测",
+      "status": "preprint",
+      "venue": "预印本；作者标注 MACLEAN 2026 Workshop 录用",
+      "url": "https://arxiv.org/abs/2610.26005",
+      "pdf": "https://arxiv.org/pdf/2610.26005",
+      "code": null,
+      "aliases": [
+        "灌溉跨场景与跨地块泛化"
+      ],
+      "keywords": [
+        "TabPFN",
+        "TabICL",
+        "域偏移",
+        "跨对象泛化",
+        "坐标特征"
+      ],
+      "related": [
+        2,
+        5,
+        6
+      ],
+      "summary": "用真实地块地形和模拟水流标签，比较同一地块的新灌溉工况与跨地块预测。作者发现同地块高分不能保证迁移；利用未标注目标地形建立坐标系能改善相似地块间预测，但跨形状仍失败。可借鉴其按工况、按对象拆分的评测；尚未验证实测水位或生产部署。",
+      "sources": [
+        "https://arxiv.org/abs/2610.26005",
+        "https://arxiv.org/html/2610.26005"
+      ],
+      "addedAt": "2026-11-12"
+    },
+    {
+      "id": "arxiv-2609.11838",
+      "title": "Target leakage, not model class, explains reported accuracy in survey-based cardiovascular screening: a leakage-tiered audit of glass-box and tabular foundation models",
+      "date": "2026-09-10",
+      "updated": "2026-09-10",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "topic": "通用评测与分布泛化",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2609.11838",
+      "pdf": "https://arxiv.org/pdf/2609.11838",
+      "code": "https://github.com/raadbintareaf/cvd-glassbox-screening",
+      "aliases": [
+        "诊断信息泄漏分层审计"
+      ],
+      "keywords": [
+        "数据泄漏",
+        "特征可用性",
+        "TabPFN",
+        "TabICL",
+        "校准",
+        "公平性"
+      ],
+      "related": [
+        2
+      ],
+      "summary": "在 BRFSS 问卷中逐层移除既往诊断及检查信息，比较透明模型与 TabPFN v2、TabICL。作者报告，去掉两项诊断相关特征带来的性能下降远大于模型间差异。代码公开，可借鉴特征在决策时是否可用的审计；目标是既往心梗诊断，不能视为未来发病预测，结论也受模型版本与预算影响。",
+      "sources": [
+        "https://arxiv.org/abs/2609.11838",
+        "https://arxiv.org/html/2609.11838",
+        "https://github.com/raadbintareaf/cvd-glassbox-screening"
+      ],
+      "addedAt": "2026-11-12"
+    },
+    {
+      "id": "arxiv-2607.17962",
+      "title": "Topological Signatures of Context-Level Reliability in TabPFN",
+      "date": "2026-07-20",
+      "updated": "2026-07-20",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "inference-mechanisms",
+      "topic": "模型机制与行为分析",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2607.17962",
+      "pdf": "https://arxiv.org/pdf/2607.17962",
+      "code": null,
+      "aliases": [
+        "TabPFN 拓扑可靠性诊断"
+      ],
+      "keywords": [
+        "TabPFN",
+        "模型机制",
+        "拓扑",
+        "概率误差",
+        "可靠性"
+      ],
+      "related": [
+        2
+      ],
+      "summary": "把 TabPFN 各层查询表征构成近邻图，跟踪连接断裂与环结构，研究上下文整体是否可靠。作者在合成任务上观察到图的碎片化与概率误差相关；它提供机制诊断线索，但尚无真实业务数据上的告警阈值，也未证明改变图结构就能改善预测。",
+      "sources": [
+        "https://arxiv.org/abs/2607.17962",
+        "https://arxiv.org/html/2607.17962"
+      ],
+      "addedAt": "2026-11-12"
+    },
+    {
+      "id": "arxiv-2606.31126",
+      "title": "Can Tabular In-Context Learners Generalize to Biomolecular Property Prediction?",
+      "date": "2026-06-30",
+      "updated": "2026-07-08",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "biomedical-applications",
+      "topic": "生命科学与医疗预测",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2606.31126",
+      "pdf": "https://arxiv.org/pdf/2606.31126",
+      "code": null,
+      "aliases": [
+        "生物分子表格 ICL 评测"
+      ],
+      "keywords": [
+        "TabPFN",
+        "TabICL",
+        "蛋白质表征",
+        "分子描述符",
+        "少样本",
+        "分布外"
+      ],
+      "related": [
+        4,
+        6
+      ],
+      "summary": "把冻结蛋白质嵌入或分子描述符交给 TabPFN3、TabICLv2，比较少标注和结构化划分下的性质预测。作者在 ProteinGym、分子数据集等发现，效果依赖输入表征与拆分方式，少样本收益不保证分布外表现。部分大任务需降维或未能运行，可用于判断表格模型作为领域表征读出器的适用范围。",
+      "sources": [
+        "https://arxiv.org/abs/2606.31126",
+        "https://arxiv.org/html/2606.31126"
+      ],
+      "addedAt": "2026-11-12"
+    },
+    {
+      "id": "arxiv-2512.17452",
+      "title": "KV Admission: Learning What to Write for Efficient Long-Context LLM Inference",
+      "date": "2025-12-19",
+      "updated": "2026-08-29",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "status": "published",
+      "venue": "EMNLP 2026",
+      "url": "https://aclanthology.org/2026.emnlp-main.1063/",
+      "pdf": "https://aclanthology.org/2026.emnlp-main.1063.pdf",
+      "code": "https://github.com/EMCLab-Sinica/WG-KV",
+      "aliases": [
+        "WG-KV",
+        "Write-Gated KV",
+        "KV Admission"
+      ],
+      "keywords": [
+        "KV缓存",
+        "缓存准入",
+        "稀疏注意力",
+        "OOM",
+        "prefill",
+        "decode",
+        "LLM迁移"
+      ],
+      "related": [],
+      "summary": "在 KV 写入缓存前用小门控网络决定保留哪些项，并配合局部窗口和按头分页缓存。作者在 Llama/Qwen 的长上下文实验中降低缓存占用和推理延迟，代码公开；门控需额外训练并依赖定制稀疏内核。可借鉴缓存准入与管理，但尚未验证 LimiX 的双向表格注意力，也不等于消除首次编码的全部显存峰值。",
+      "sources": [
+        "https://aclanthology.org/2026.emnlp-main.1063/",
+        "https://aclanthology.org/2026.emnlp-main.1063.pdf",
+        "https://arxiv.org/abs/2512.17452",
+        "https://github.com/EMCLab-Sinica/WG-KV"
+      ],
+      "addedAt": "2026-11-12"
+    },
+    {
+      "id": "usenix-fast26-solidattention",
+      "title": "SolidAttention: Low-Latency SSD-based Serving on Memory-Constrained PCs",
+      "date": "2026-02",
+      "updated": "2026-02",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "status": "published",
+      "venue": "FAST 2026",
+      "url": "https://www.usenix.org/conference/fast26/presentation/zheng",
+      "pdf": "https://www.usenix.org/system/files/fast26-zheng.pdf",
+      "code": null,
+      "aliases": [
+        "SolidAttention"
+      ],
+      "keywords": [
+        "KV缓存",
+        "SSD卸载",
+        "预取",
+        "I/O重叠",
+        "OOM",
+        "LLM迁移"
+      ],
+      "related": [],
+      "summary": "将 KV 存在 SSD，通过合并读写块、根据历史选择预取和重叠计算与 I/O 降低等待。作者在受限内存 PC 上相对 SSD 卸载加稀疏注意力基线，报告长上下文推理最高约3.1倍加速；质量仍有小幅变化。可借鉴卸载与调度，但没有证明解决首次编码激活 OOM，表格查询是否具备连续解码的局部性仍需测量。",
+      "sources": [
+        "https://www.usenix.org/conference/fast26/presentation/zheng",
+        "https://www.usenix.org/system/files/fast26-zheng.pdf"
+      ],
+      "addedAt": "2026-11-12"
+    },
+    {
+      "id": "doi-10.5281-zenodo.24115801",
+      "title": "Ranking Commits by Size Beats Tabular Foundation Models Given Twenty Labels in Just-in-Time Defect Prediction",
+      "date": "2026-11-10",
+      "updated": "2026-11-10",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "topic": "工业与工程预测",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://zenodo.org/records/24115802",
+      "pdf": "https://zenodo.org/records/24115802/files/T4_size_vs_tabular_FMs_preprint_v1.pdf",
+      "code": null,
+      "aliases": [
+        "代码提交规模与少标签缺陷预测"
+      ],
+      "keywords": [
+        "TabPFN",
+        "TabICL",
+        "少样本",
+        "缺陷预测",
+        "标签生成",
+        "基线比较"
+      ],
+      "related": [
+        2,
+        5
+      ],
+      "summary": "预测代码提交是否引入缺陷时，比较只按新增行数排序与使用20条标注的 TabPFN、TabICL。作者在305个开源项目上报告，简单排序在各语料平均领先0.07–0.12 AUROC；扩大标签量后差距因项目而异。重新生成28个仓库的标签还发现文件过滤会抬高部分基线，适合借鉴强简单基线与标签审计；尚未验证闭源业务，所有缺陷标签仍有自动追溯噪声。",
+      "sources": [
+        "https://zenodo.org/records/24115802",
+        "https://zenodo.org/api/records/24115801",
+        "https://zenodo.org/api/records/24115802/files/T4_size_vs_tabular_FMs_preprint_v1.pdf/content"
+      ],
+      "addedAt": "2026-11-12"
+    },
+    {
+      "id": "arxiv-2608.06842",
+      "title": "Tabular Foundation Models and the Unity of Economic Behaviour",
+      "date": "2026-08-07",
+      "updated": "2026-08-07",
+      "category": 2,
+      "section": "prediction-decisions",
+      "topicId": "scores-routing",
+      "topic": "评分、固定选项与路由",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2608.06842",
+      "pdf": "https://arxiv.org/pdf/2608.06842",
+      "code": null,
+      "aliases": [
+        "跨领域经济行为预测"
+      ],
+      "keywords": [
+        "TabFM",
+        "行为预测",
+        "冻结模型",
+        "上下文学习",
+        "效用模型"
+      ],
+      "related": [
+        5,
+        6
+      ],
+      "summary": "把一个人在其他领域的选择，以及其他人的标注选择，作为冻结 TabFM 的上下文，预测被遮住的行为领域。作者在一次保留测试中观察到优于群体中位数，打乱个人行为历史后收益消失；另用共同效用函数压缩表征。仍需目标任务的他人标签，效用层也要拟合，不能据此宣称发现普遍经济规律或无标签跨任务预测。",
+      "sources": [
+        "https://arxiv.org/abs/2608.06842",
+        "https://arxiv.org/html/2608.06842v1"
+      ],
+      "addedAt": "2026-11-12"
+    },
+    {
+      "id": "doi-10.3390-electronics15194397",
+      "title": "Estimating Causal Effects from Tabular Data with Assumption Gates and Automated Estimator Selection for Trustworthy Artificial Intelligence",
+      "date": "2026-09-24",
+      "updated": "2026-09-24",
+      "category": 3,
+      "section": "causal-models",
+      "topicId": "causal-reliability",
+      "topic": "效应去偏与可靠性",
+      "status": "published",
+      "venue": "Electronics 2026",
+      "url": "https://www.mdpi.com/2079-9292/15/19/4397",
+      "pdf": null,
+      "code": "https://github.com/fit-alessandro-berti/foundation-causality0",
+      "aliases": [
+        "CWFM",
+        "Causal World Foundation Model"
+      ],
+      "keywords": [
+        "因果效应",
+        "估计器选择",
+        "组合估计",
+        "假设核验",
+        "拒答",
+        "校准"
+      ],
+      "related": [
+        2,
+        6
+      ],
+      "summary": "先按用户声明检查因果假设，再拟合多个传统估计器并选择或组合结果。作者在1800个合成效应查询中发现，浅层选择器和凸组合比所测深度路由器误差更低；代码与结果已公开。拒答只能执行已声明规则，无法发现未声明混杂，非线性处理分配还会误过支持性检查，适合借鉴可审计流程而非视作因果正确性保证。",
+      "sources": [
+        "https://www.mdpi.com/2079-9292/15/19/4397",
+        "https://doi.org/10.3390/electronics15194397",
+        "https://github.com/fit-alessandro-berti/foundation-causality0"
+      ],
+      "addedAt": "2026-11-12"
     }
   ],
   "collectionUpdates": [
@@ -11561,6 +11888,23 @@
         "doi-10.5281-zenodo.24091866"
       ],
       "updated": []
+    },
+    {
+      "date": "2026-11-12",
+      "added": [
+        "arxiv-2512.17452",
+        "arxiv-2606.31126",
+        "arxiv-2607.17962",
+        "arxiv-2608.06842",
+        "arxiv-2609.11838",
+        "arxiv-2610.26005",
+        "doi-10.3390-electronics15194397",
+        "doi-10.5281-zenodo.24115801",
+        "usenix-fast26-solidattention"
+      ],
+      "updated": [
+        "arxiv-2608.02157"
+      ]
     }
   ]
 }
