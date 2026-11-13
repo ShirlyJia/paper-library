@@ -69,6 +69,23 @@ class QueueTests(unittest.TestCase):
         self.assertTrue(queue.needs_update_check({"existingIds": ["p"], "updated": "2026-10-05"}, papers))
         self.assertTrue(queue.needs_update_check({"existingIds": ["p"], "officialDecision": "Accept"}, papers))
 
+    def test_repository_labels_do_not_reopen_reviewed_preprints(self):
+        papers = {"p": {"updated": "2026-11-09", "status": "preprint", "venue": "预印本"}}
+        for venue in ("预印本", "arXiv (Cornell University)", "bioRxiv",
+                      "预印本；作者标注 Workshop 录用"):
+            with self.subTest(venue=venue):
+                candidate = {"existingIds": ["p"], "updated": "2026-11-09", "venue": venue}
+                self.assertFalse(queue.needs_update_check(candidate, papers))
+                candidate["updated"] = "2026-11-10"
+                self.assertTrue(queue.needs_update_check(candidate, papers))
+
+    def test_new_conference_venue_still_triggers_verification(self):
+        papers = {"p": {"updated": "2026-11-09", "status": "preprint", "venue": "预印本"}}
+        candidate = {"existingIds": ["p"], "updated": "2026-11-09", "venue": "NeurIPS 2026"}
+        self.assertTrue(queue.needs_update_check(candidate, papers))
+        papers["p"]["venue"] = "NeurIPS 2026"
+        self.assertFalse(queue.needs_update_check(candidate, papers))
+
 
 class ApplyReviewTests(unittest.TestCase):
     def setUp(self):

@@ -59,7 +59,12 @@ def needs_update_check(item, papers):
     if not paper:
         return False
     newer = (item.get("updated") or "") > paper.get("updated", "")
-    venue = paper.get("status") == "preprint" and bool(item.get("officialDecision") or item.get("venue"))
+    source_venue = str(item.get("venue") or "").strip()
+    known_venue = str(paper.get("venue") or "").strip()
+    # Index venue fields also contain repositories; those are not acceptance updates.
+    repository = re.search(r"arxiv|biorxiv|medrxiv|chemrxiv|techrxiv|ssrn|preprint|预印本", source_venue, re.I)
+    changed_venue = source_venue and source_venue.casefold() != known_venue.casefold() and not repository
+    venue = paper.get("status") == "preprint" and bool(item.get("officialDecision") or changed_venue)
     return newer or venue
 
 
