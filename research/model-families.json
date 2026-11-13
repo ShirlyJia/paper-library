@@ -608,10 +608,12 @@
     {
       "name": "LightPFN",
       "paperIds": [
-        "lead-5a5cc8230b8c"
+        "lead-5a5cc8230b8c",
+        "lightpfn-1-5-technical-report"
       ],
       "sources": [
-        "https://github.com/GioOtto/LightPFN/blob/main/paper/LightPFN_report.pdf"
+        "https://github.com/GioOtto/LightPFN/blob/main/paper/LightPFN_report.pdf",
+        "https://github.com/GioOtto/LightPFN/blob/main/paper/LightPFN15_report.pdf"
       ]
     },
     {
@@ -1161,6 +1163,78 @@
       "sources": [
         "https://www.mdpi.com/2079-9292/15/19/4397",
         "https://github.com/fit-alessandro-berti/foundation-causality0"
+      ]
+    },
+    {
+      "name": "AugMask",
+      "paperIds": [
+        "arxiv-2606.03347"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.03347"
+      ]
+    },
+    {
+      "name": "RAD-TFM",
+      "paperIds": [
+        "arxiv-2611.10230"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.10230"
+      ]
+    },
+    {
+      "name": "SaCRL",
+      "paperIds": [
+        "arxiv-2610.00968"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2610.00968"
+      ]
+    },
+    {
+      "name": "MediPFN",
+      "paperIds": [
+        "arxiv-2611.13219"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.13219"
+      ]
+    },
+    {
+      "name": "MoE-Learner",
+      "paperIds": [
+        "arxiv-2611.11504"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.11504"
+      ]
+    },
+    {
+      "name": "TKNP",
+      "paperIds": [
+        "arxiv-2611.13293"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.13293"
+      ]
+    },
+    {
+      "name": "SHADOWPREFILL",
+      "paperIds": [
+        "arxiv-2611.13176"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.13176"
+      ]
+    },
+    {
+      "name": "FOSCAR",
+      "paperIds": [
+        "arxiv-2611.09722"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.09722"
       ]
     }
   ]

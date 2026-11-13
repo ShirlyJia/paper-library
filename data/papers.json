@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-12",
+  "updatedAt": "2026-11-13",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -11245,6 +11245,828 @@
         "https://github.com/fit-alessandro-berti/foundation-causality0"
       ],
       "addedAt": "2026-11-12"
+    },
+    {
+      "id": "arxiv-2611.11921",
+      "title": "An Evaluation of Tabular Foundation Models as Training-Free World Models",
+      "date": "2026-11-09",
+      "updated": "2026-11-09",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.11921",
+      "pdf": "https://arxiv.org/pdf/2611.11921",
+      "code": null,
+      "aliases": [
+        "TFM World Models"
+      ],
+      "keywords": [
+        "世界模型",
+        "状态转移",
+        "少样本",
+        "多步滚动",
+        "推理延迟"
+      ],
+      "related": [
+        2,
+        5
+      ],
+      "summary": "把状态与动作转成表格，用冻结 TabPFN v2 逐维预测下一步状态变化。作者在五个动力学系统上发现，少量历史下优于同数据量从头训练的神经网络，但短上下文的多步滚动会失效；Hopper 单步约3秒，尚不能替代实时规划中的训练型世界模型。",
+      "sources": [
+        "https://arxiv.org/abs/2611.11921",
+        "https://arxiv.org/html/2611.11921"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2611.12491",
+      "title": "Out-of-the-Box Tabular Foundation Models for Bayesian Optimization in Materials Discovery",
+      "date": "2026-11-09",
+      "updated": "2026-11-09",
+      "category": 2,
+      "section": "prediction-decisions",
+      "topicId": "strategic-feedback",
+      "status": "preprint",
+      "venue": "预印本；作者标注 NeurIPS 2026 AI4Mat Workshop 录用",
+      "url": "https://arxiv.org/abs/2611.12491",
+      "pdf": "https://arxiv.org/pdf/2611.12491",
+      "code": "https://github.com/PriorLabs/matsci-bo-bench",
+      "aliases": [
+        "TFM Materials BO"
+      ],
+      "keywords": [
+        "贝叶斯优化",
+        "主动学习",
+        "预测分布",
+        "材料发现",
+        "TabPFN",
+        "TabICL"
+      ],
+      "related": [
+        1,
+        5
+      ],
+      "summary": "直接用 TabPFN-3、TabICLv2 的预测分布选择下一条实验候选，比较两套材料基准共15个任务。作者发现其在回溯候选池上具竞争力，但方法排序随采集规则和指标改变，最优配置还按测试结果事后挑选；不能视为已验证真实实验闭环或普遍胜过高斯过程。",
+      "sources": [
+        "https://arxiv.org/abs/2611.12491",
+        "https://arxiv.org/html/2611.12491"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2611.13550",
+      "title": "Tabular Foundation Models in Financial Predictions",
+      "date": "2026-11-10",
+      "updated": "2026-11-10",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "credit-risk",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.13550",
+      "pdf": "https://arxiv.org/pdf/2611.13550",
+      "code": null,
+      "aliases": [
+        "Financial TabFM"
+      ],
+      "keywords": [
+        "财务预测",
+        "利润方向",
+        "时间划分",
+        "计算成本",
+        "Google TabFM"
+      ],
+      "related": [
+        2,
+        5
+      ],
+      "summary": "用历史财务报表预测企业下一年利润是否增加，比较冻结 Google TabFM、微调 Llama 和树模型。作者在2023–2024年配对测试中报告 TabFM 排序指标更高，但主实验比需调参的基线多用一年历史；约11.83分钟和24.27GiB显存是两年整批预测成本，树模型训练后预测仍更快。",
+      "sources": [
+        "https://arxiv.org/abs/2611.13550",
+        "https://arxiv.org/pdf/2611.13550"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2606.04876",
+      "title": "Towards Pretraining Text Encoders for TabPFN",
+      "date": "2026-06-03",
+      "updated": "2026-06-03",
+      "category": 6,
+      "section": "adaptation-target",
+      "topicId": "input-adapters",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2606.04876",
+      "pdf": "https://arxiv.org/pdf/2606.04876",
+      "code": null,
+      "aliases": [
+        "TabPFN Text Adapter"
+      ],
+      "keywords": [
+        "文本特征",
+        "冻结模型",
+        "输入适配",
+        "语义融合"
+      ],
+      "related": [
+        4,
+        5
+      ],
+      "summary": "冻结文本编码器和 TabPFN 2.5，只训练把单元格文本投到模型内部的轻量适配器，替代先压成数值列的 PCA 管线。作者在13个 TextTabBench 任务中报告回归平均归一化误差更低，但分类仍落后于 ConTextTab 和 PCA 基线；更少 token 尚无端到端计时和峰值显存证据。",
+      "sources": [
+        "https://arxiv.org/abs/2606.04876",
+        "https://arxiv.org/html/2606.04876"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2606.03347",
+      "title": "AugMask: Training Diffusion Models on Incomplete Tabular Data via Stochastic Augmentation and Masking",
+      "date": "2026-06-02",
+      "updated": "2026-06-02",
+      "category": 2,
+      "section": "prediction-quality",
+      "topicId": "missing-noisy-data",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2606.03347",
+      "pdf": "https://arxiv.org/pdf/2606.03347",
+      "code": "https://github.com/normal-kim/AugMask",
+      "aliases": [
+        "AugMask"
+      ],
+      "keywords": [
+        "缺失数据",
+        "扩散模型",
+        "损失掩码",
+        "合成表格"
+      ],
+      "related": [
+        6
+      ],
+      "summary": "缺失表格训练生成模型时，用随机补全提供条件，但仅在真实可见单元格上计算损失，减少把猜测当标签的偏差。六个数据集、不同缺失比例下改善特征空间扩散模型的合成质量与下游预测；未覆盖MNAR缺失，也不能直接套到潜空间扩散。",
+      "sources": [
+        "https://arxiv.org/abs/2606.03347",
+        "https://arxiv.org/html/2606.03347"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2606.00872",
+      "title": "Images as Tables: In-Context Learning with TabPFN for Low-Data Detection of AI-Generated Images",
+      "date": "2026-05-30",
+      "updated": "2026-05-30",
+      "category": 4,
+      "section": "semantic-fusion",
+      "topicId": "multimodal-schema",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2606.00872",
+      "pdf": "https://arxiv.org/pdf/2606.00872",
+      "code": "https://github.com/jpwalter30/Towards-Generalizable-Detection-of-AI-Generated-Images",
+      "aliases": [
+        "Images as Tables"
+      ],
+      "keywords": [
+        "图像嵌入",
+        "少样本分类",
+        "跨生成器迁移"
+      ],
+      "related": [
+        1,
+        5
+      ],
+      "summary": "将冻结DINOv3图像表示经PCA变成表格特征，再交给TabPFN判断图片真假。在GenImage八种生成器中，小样本和部分跨生成器迁移优于所比LATTE；高样本混合评测反而落后。未测压缩等真实扰动，也没有量化部署速度。",
+      "sources": [
+        "https://arxiv.org/abs/2606.00872",
+        "https://arxiv.org/html/2606.00872"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2605.22892",
+      "title": "Is TabPFN the Silver Bullet for Insurance Pricing?",
+      "date": "2026-05-21",
+      "updated": "2026-10-09",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "credit-risk",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2605.22892",
+      "pdf": "https://arxiv.org/pdf/2605.22892",
+      "code": "https://github.com/B-Deprez/tabpfn_insurance",
+      "aliases": [
+        "TabPFN保险定价"
+      ],
+      "keywords": [
+        "保险定价",
+        "暴露期",
+        "GLM",
+        "推理成本"
+      ],
+      "related": [
+        2,
+        5
+      ],
+      "summary": "在法国与比利时车险数据上比较TabPFN v2.6/v3、GLM与XGBoost。传统GLM在理赔次数任务中表现更好，损失金额任务结果混合；增大上下文并非稳定获益，TabPFN整折运行也更慢。研究提示需单独核验暴露期与样本权重处理。",
+      "sources": [
+        "https://arxiv.org/abs/2605.22892",
+        "https://arxiv.org/html/2605.22892"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2605.21544",
+      "title": "Tabular foundation models for robust calibration of near-infrared chemical sensing data",
+      "date": "2026-05-20",
+      "updated": "2026-05-20",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2605.21544",
+      "pdf": "https://arxiv.org/pdf/2605.21544",
+      "code": "https://github.com/GBeurier/nirs4all",
+      "aliases": [
+        "NIRS-TabPFN"
+      ],
+      "keywords": [
+        "光谱",
+        "预处理",
+        "外推",
+        "多数据集评测"
+      ],
+      "related": [
+        2,
+        4
+      ],
+      "summary": "在54个近红外回归和12个分类任务中，将TabPFN-2.5接入光谱预处理搜索。回归平均排名受益于预处理，但与Ridge差异未显著，外推时优势缩小；分类中直接使用原光谱同样有竞争力。预算和硬件不对齐，不能据此判断推理速度。",
+      "sources": [
+        "https://arxiv.org/abs/2605.21544",
+        "https://arxiv.org/html/2605.21544"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2605.10896",
+      "title": "V4FinBench: Benchmarking Tabular Foundation Models, LLMs, and Standard Methods on Corporate Bankruptcy Prediction",
+      "date": "2026-05-11",
+      "updated": "2026-05-13",
+      "category": 6,
+      "section": "adaptation-distribution",
+      "topicId": "subpopulation-shift",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2605.10896",
+      "pdf": "https://arxiv.org/pdf/2605.10896",
+      "code": "https://github.com/genwro-ai/V4FinBench",
+      "aliases": [
+        "V4FinBench"
+      ],
+      "keywords": [
+        "类别不平衡",
+        "原型采样",
+        "公司分组",
+        "金融"
+      ],
+      "related": [
+        1,
+        2,
+        5
+      ],
+      "summary": "发布四国公司财务困境多期限基准，在公司分组的五折评测中，用聚类选取多数类代表样本配合TabPFN微调，改善极低正例比例下预测。标签来自财务比率而非法律破产，划分未按时间外推；LLM另用较小数据预算，不能直接与全量结果横比。",
+      "sources": [
+        "https://arxiv.org/abs/2605.10896",
+        "https://arxiv.org/html/2605.10896"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2605.06343",
+      "title": "Mind the Gap? A Distributional Comparison of Real and Synthetic Priors for Tabular Foundation Models",
+      "date": "2026-05-07",
+      "updated": "2026-05-07",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2605.06343",
+      "pdf": "https://arxiv.org/pdf/2605.06343",
+      "code": null,
+      "aliases": [
+        "Mind the Gap"
+      ],
+      "keywords": [
+        "TabArena",
+        "先验覆盖",
+        "分布差异",
+        "评估"
+      ],
+      "related": [
+        5,
+        6
+      ],
+      "summary": "用表格统计量衡量TabICL合成先验与真实表的差异，发现二者容易区分；但在TALENT及TabArena中，所测距离没有显著预测模型相对表现。可作为先验诊断的反例，不能据此说预训练分布无关或所有表格模型均如此。",
+      "sources": [
+        "https://arxiv.org/abs/2605.06343",
+        "https://arxiv.org/html/2605.06343"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2611.10230",
+      "title": "RAD-TFM: Robust and Domain-Adapted Tabular Foundation Models",
+      "date": "2026-11-06",
+      "updated": "2026-11-06",
+      "category": 6,
+      "section": "adaptation-distribution",
+      "topicId": "subpopulation-shift",
+      "status": "published",
+      "venue": "NeurIPS 2026（已录用，Poster）",
+      "url": "https://arxiv.org/abs/2611.10230",
+      "pdf": "https://arxiv.org/pdf/2611.10230",
+      "code": null,
+      "aliases": [
+        "RAD-TFM"
+      ],
+      "keywords": [
+        "领域适配",
+        "鲁棒补训",
+        "合成任务",
+        "TabArena"
+      ],
+      "related": [
+        1,
+        2
+      ],
+      "summary": "先按目标域统计信息调整合成数据生成器，再寻找当前模型相对传统基线的弱点，用这些任务继续训练TabPFN/TabICL。六组分类基准含TabArena报告收益；目标域训练表参与适配，且额外搜索成本和checkpoint选择不完全对齐，不能解释成零样本通用提升。",
+      "presentation": "Poster",
+      "sources": [
+        "https://arxiv.org/abs/2611.10230",
+        "https://arxiv.org/html/2611.10230",
+        "https://openreview.net/forum?id=6dfLwFHIwj",
+        "https://neurips.cc/virtual/2026/poster/155295"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "doi-10-3390-agriculture16202198",
+      "title": "Reliability-Aware Evaluation of TabPFN for Small-Sample Crop Classification in Mountainous Agricultural Regions Using Multi-Temporal Sentinel-2-Derived Features",
+      "date": "2026-10-10",
+      "updated": "2026-10-10",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "status": "published",
+      "venue": "Agriculture 2026",
+      "url": "https://www.mdpi.com/2077-0472/16/20/2198",
+      "pdf": null,
+      "code": null,
+      "aliases": [
+        "TabPFN Crop Reliability"
+      ],
+      "keywords": [],
+      "related": [
+        2,
+        4
+      ],
+      "summary": "用遥感特征分类作物，比较随机划分和空间分离验证。TabPFN在所比模型中仍领先，但空间验证Macro-F1由0.8632降至0.6559，显示随机结果过于乐观；部分标签借助同类植被指数构造，尚非独立跨地区证据。",
+      "sources": [
+        "https://www.mdpi.com/2077-0472/16/20/2198"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "doi-10-3390-foods15193507",
+      "title": "Interpretable Small-Sample Hyperspectral Phenotyping of Wheat Protein Fractions via Order-Optimized Derivative Preprocessing and TabPFN",
+      "date": "2026-10-01",
+      "updated": "2026-10-01",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "status": "published",
+      "venue": "Foods 2026",
+      "url": "https://www.mdpi.com/2304-8158/15/19/3507",
+      "pdf": null,
+      "code": null,
+      "aliases": [
+        "Wheat ODP-TabPFN"
+      ],
+      "keywords": [],
+      "related": [
+        2,
+        4
+      ],
+      "summary": "用训练集选择光谱导数阶数和波段，再接TabPFN预测小麦蛋白组分。随机留出测试取得较高拟合度，但留品种验证波动较大；额外重取样来自同一批收获材料，只支持测量流程重复性，不能视作外部生物学验证。",
+      "sources": [
+        "https://www.mdpi.com/2304-8158/15/19/3507"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "doi-10-3389-fnagi-2026-1905374",
+      "title": "Prediction of cognitive impairment in Parkinson’s disease using TabPFN: an integrative analysis of clinical data, longitudinal trajectories, and lipidomics",
+      "date": "2026-09-30",
+      "updated": "2026-09-30",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "biomedical-applications",
+      "status": "published",
+      "venue": "Frontiers in Aging Neuroscience 2026",
+      "url": "https://www.frontiersin.org/journals/aging-neuroscience/articles/10.3389/fnagi.2026.1905374/full",
+      "pdf": null,
+      "code": null,
+      "aliases": [
+        "PD-TabPFN"
+      ],
+      "keywords": [],
+      "related": [
+        2
+      ],
+      "summary": "用91名患者的临床表格作为TabPFN上下文预测后续认知损害，内部AUC为0.822，独立PPMI队列为0.742。外部数据缺少主要脂质指标，不能验证其单独贡献；随访窗口受结局记录影响，尚不足以作为固定时间临床风险工具。",
+      "sources": [
+        "https://www.frontiersin.org/journals/aging-neuroscience/articles/10.3389/fnagi.2026.1905374/full"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2610.00968",
+      "title": "Structure-agnostic Causal Representation Learning",
+      "date": "2026-10-01",
+      "updated": "2026-10-01",
+      "category": 3,
+      "section": "causal-models",
+      "topicId": "causal-reliability",
+      "status": "published",
+      "venue": "NeurIPS 2026（已录用，Poster）",
+      "url": "https://arxiv.org/abs/2610.00968",
+      "pdf": "https://arxiv.org/pdf/2610.00968",
+      "code": null,
+      "aliases": [
+        "SaCRL"
+      ],
+      "keywords": [
+        "因果表示",
+        "多环境",
+        "不变性",
+        "域外泛化"
+      ],
+      "related": [
+        2,
+        6
+      ],
+      "summary": "在多环境数据中同时比较三种不变性约束，用软选择与最坏环境风险学习表示。合成和图像域实验显示潜力，但超参数借助测试域成绩选择，真实图像也没有真因果图；不能把选中结构或OOD增益当作部署保证。",
+      "presentation": "Poster",
+      "sources": [
+        "https://arxiv.org/abs/2610.00968",
+        "https://arxiv.org/html/2610.00968",
+        "https://openreview.net/forum?id=8gtLRyYY45",
+        "https://neurips.cc/virtual/2026/poster/155070"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2611.14462",
+      "title": "Accurate predictions of properties of energetic materials with tabular foundation models",
+      "date": "2026-11-10",
+      "updated": "2026-11-10",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.14462",
+      "pdf": "https://arxiv.org/pdf/2611.14462",
+      "code": null,
+      "aliases": [
+        "Energetic Materials TabPFN"
+      ],
+      "keywords": [
+        "实体分组",
+        "重复测量",
+        "回归评测"
+      ],
+      "related": [
+        2,
+        4
+      ],
+      "summary": "在三套材料性质数据上比较TabPFN与传统回归器，按材料身份分组，避免重复测量跨训练测试泄漏。作者报告较好预测成绩；手工特征与学习嵌入收益不同，CPU/GPU混合计时不能证明同硬件的速度优势。",
+      "sources": [
+        "https://arxiv.org/abs/2611.14462",
+        "https://arxiv.org/html/2611.14462"
+      ],
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2611.13219",
+      "title": "MediPFN: Amortized In-Context Nuisance Learning and Inference for Causal Mediation Analysis",
+      "date": "2026-11-09",
+      "updated": "2026-11-09",
+      "category": 3,
+      "section": "causal-estimation",
+      "topicId": "treatment-effects",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.13219",
+      "pdf": "https://arxiv.org/pdf/2611.13219",
+      "code": null,
+      "aliases": [
+        "MediPFN"
+      ],
+      "keywords": [
+        "因果中介",
+        "自然间接效应",
+        "TabPFN v3",
+        "交叉拟合",
+        "区间校准"
+      ],
+      "related": [
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.13219",
+        "https://arxiv.org/html/2611.13219"
+      ],
+      "summary": "冻结 TabPFN v3，用角色适配器学习因果中介估计所需的预测，再以嵌套交叉拟合和校准输出区间。作者在合成及半合成任务中减少重复拟合成本；覆盖率改善主要依靠独立校准和扩大区间，仍需无遗漏混杂等识别条件，不能直接推广到真实中介效应。",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2611.11504",
+      "title": "Data-informed Adaptation of Foundation Models for Causal Effect Estimation",
+      "date": "2026-11-08",
+      "updated": "2026-11-08",
+      "category": 3,
+      "section": "causal-estimation",
+      "topicId": "treatment-effects",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.11504",
+      "pdf": "https://arxiv.org/pdf/2611.11504",
+      "code": null,
+      "aliases": [
+        "MoE-Learner"
+      ],
+      "keywords": [
+        "CATE",
+        "因果专家选择",
+        "TabPFN",
+        "检索加权",
+        "交叉拟合"
+      ],
+      "related": [
+        5,
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.11504",
+        "https://arxiv.org/html/2611.11504",
+        "https://github.com/horsepurve/MoE-Learner"
+      ],
+      "summary": "从 TabPFN 提取结果、倾向和预后等表示，按距离与结果差异的关系，为每个处理组选择一个专家，再检索加权估计个体效应。作者在四组半合成基准上报告较好的平均个体效应排名；选择标准是经验代理，不能证明因果有效性，代码仓库目前仅有占位文件。",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2611.11381",
+      "title": "Does Predictive Performance Translate to Causal Performance? Evaluating tabular foundation models as nuisance learners for causal effect estimation",
+      "date": "2026-11-08",
+      "updated": "2026-11-08",
+      "category": 3,
+      "section": "causal-models",
+      "topicId": "causal-reliability",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.11381",
+      "pdf": "https://arxiv.org/pdf/2611.11381",
+      "code": "https://github.com/a-weckstein/Tabular-FM-causal-simulations",
+      "aliases": [
+        "PFN Causal Nuisance Evaluation"
+      ],
+      "keywords": [
+        "TabPFN v3",
+        "Mitra v2",
+        "交叉拟合",
+        "倾向评分",
+        "TMLE",
+        "AIPW"
+      ],
+      "related": [
+        2
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.11381",
+        "https://arxiv.org/pdf/2611.11381",
+        "https://github.com/a-weckstein/Tabular-FM-causal-simulations",
+        "https://github.com/a-weckstein/ACIC-plasmode-pipeline"
+      ],
+      "summary": "比较 TabPFN v3、Mitra v2 与传统学习器作为因果估计中的结果及倾向预测器。作者在合成和半合成试验中发现，复杂机制下 TFM 有优势，但固定权重并不消除对训练样本的记忆；小样本或高维数据不做交叉拟合时，置信区间仍会明显失准。代码公开。",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2611.13293",
+      "title": "Decode Token Parallelism: Memory-Efficient Distributed Attention Parallelism for Scalable LLM Decoding",
+      "date": "2026-11-09",
+      "updated": "2026-11-09",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.13293",
+      "pdf": "https://arxiv.org/pdf/2611.13293",
+      "code": null,
+      "aliases": [
+        "TKNP",
+        "Decode Token Parallelism"
+      ],
+      "keywords": [
+        "分布式推理",
+        "请求并行",
+        "KV容量",
+        "多GPU",
+        "解码吞吐"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.13293",
+        "https://arxiv.org/html/2611.13293"
+      ],
+      "summary": "把模型层权重分布到不同节点，同时让各请求的 KV 留在所属节点，通过交换当前 token 激活执行分布式解码。作者在32/64张 H100 上减少权重复制、提高部分大批量吞吐；单个上下文并未跨节点拆分，不能直接解决单表超出一个节点显存的问题，表格迁移仍待验证。",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2611.13412",
+      "title": "Bursts That Outlast Themselves: Persistent Degradation in Prefix-Cached Agent Serving",
+      "date": "2026-11-10",
+      "updated": "2026-11-10",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.13412",
+      "pdf": "https://arxiv.org/pdf/2611.13412",
+      "code": null,
+      "aliases": [
+        "Prefix Cache Collapse"
+      ],
+      "keywords": [
+        "前缀缓存",
+        "缓存抖动",
+        "准入控制",
+        "显存预算",
+        "服务排队"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.13412",
+        "https://arxiv.org/html/2611.13412"
+      ],
+      "summary": "研究短时流量突增为何会让前缀缓存长期失效：缓存淘汰后重算变慢，排队又进一步挤占缓存。作者用活动 KV 预算和在回合边界暂停部分已有会话恢复命中率；排队仍可能增长。可借鉴多上下文表格服务的预算控制，尚未验证 TFM，也不解决首次编码的单表 OOM。",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2611.13176",
+      "title": "SHADOWPREFILL: Keeping Your Next Model Warm for Per-Step Model Routing in Agentic LLM Serving",
+      "date": "2026-11-09",
+      "updated": "2026-11-09",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.13176",
+      "pdf": "https://arxiv.org/pdf/2611.13176",
+      "code": null,
+      "aliases": [
+        "SHADOWPREFILL"
+      ],
+      "keywords": [
+        "模型路由",
+        "后台预填充",
+        "缓存预热",
+        "KV预算",
+        "首token延迟"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.13176",
+        "https://arxiv.org/html/2611.13176"
+      ],
+      "summary": "面向同一任务逐步切换不同 LLM，利用空闲时段提前为可能切换到的模型构建各自缓存，减少切换时重算。作者在16张 H100 的四组模型配对中报告切换首 token 延迟改善，整体模型调用时间平均仅减少7%；依赖空闲算力和额外缓存，不能将不同模型 KV 直接共享。",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2611.10178",
+      "title": "The Storage View Of KV Cache: Characterizing Cache Behavior Across LLM Workloads",
+      "date": "2026-11-06",
+      "updated": "2026-11-06",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.10178",
+      "pdf": "https://arxiv.org/pdf/2611.10178",
+      "code": null,
+      "aliases": [
+        "KV Cache Storage View"
+      ],
+      "keywords": [
+        "KV生命周期",
+        "多会话复用",
+        "TTL",
+        "缓存淘汰",
+        "存储分层"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.10178",
+        "https://arxiv.org/html/2611.10178"
+      ],
+      "summary": "从存储角度分析11组轨迹中的15种 LLM 工作负载，区分同会话和跨会话缓存复用。作者发现按负载设置保留时间、识别会话结束有机会减少无效占用；但这是轨迹分析，未证明有限容量下的端到端提速。表格服务可借鉴上下文身份和生命周期管理，具体策略仍需实测。",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2611.09722",
+      "title": "FOSCAR: Accelerating Decode Attention over 2- and 4-Bit KV Caches through Affine Folding",
+      "date": "2026-11-06",
+      "updated": "2026-11-06",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.09722",
+      "pdf": "https://arxiv.org/pdf/2611.09722",
+      "code": "https://github.com/FutureMLS-Lab/FOSCAR",
+      "aliases": [
+        "FOSCAR"
+      ],
+      "keywords": [
+        "KV量化",
+        "INT2",
+        "INT4",
+        "注意力内核",
+        "H100",
+        "B200"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.09722",
+        "https://arxiv.org/html/2611.09722",
+        "https://github.com/FutureMLS-Lab/FOSCAR"
+      ],
+      "summary": "针对2/4位 KV 省显存却未必更快的问题，把反量化的缩放和偏移折叠进注意力矩阵运算，减少逐元素指令。作者在 H100/B200 测得解码内核及高缓存命中服务的收益，代码公开；预填充仍用 BF16，不能直接解决首次编码 OOM，LimiX 的缓存形状与预测精度尚需验证。",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "lightpfn-1-5-technical-report",
+      "title": "LightPFN 1.5: Native Categoricals, Quantile Regression, Wide Tables, and Fast Portable Inference under 5 Million Parameters",
+      "date": "2026-11-10",
+      "updated": "2026-11-11",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "status": "report",
+      "venue": "官方技术报告",
+      "url": "https://github.com/GioOtto/LightPFN/blob/main/paper/LightPFN15_report.pdf",
+      "pdf": "https://raw.githubusercontent.com/GioOtto/LightPFN/main/paper/LightPFN15_report.pdf",
+      "code": "https://github.com/GioOtto/LightPFN",
+      "aliases": [
+        "LightPFN 1.5",
+        "LightPFN 1.5.1"
+      ],
+      "keywords": [
+        "LightPFN",
+        "TabArena",
+        "类别适配",
+        "分位数回归",
+        "混合精度",
+        "缓存复用",
+        "小模型"
+      ],
+      "related": [
+        2,
+        5,
+        6
+      ],
+      "summary": "在约480万参数内新增类别适配器、分位数回归及宽表微调，1.5.1 又改进共享半精度权重、缓存和单次前向路径。TabArena 已核实其51数据集结果；作者的同GPU计时支持部分推理提速，但开发集反复选型、部分 TabArena 划分参与早停，且回归仍落后较大 TFM，不能把小参数等同于全面领先。代码和权重公开。",
+      "sources": [
+        "https://github.com/GioOtto/LightPFN/blob/main/paper/LightPFN15_report.pdf",
+        "https://raw.githubusercontent.com/GioOtto/LightPFN/main/paper/LightPFN15_report.tex",
+        "https://github.com/GioOtto/LightPFN/releases/tag/v1.5.0",
+        "https://raw.githubusercontent.com/GioOtto/LightPFN/main/CHANGELOG.md",
+        "https://github.com/autogluon/tabarena/pull/719",
+        "https://huggingface.co/spaces/TabArena/leaderboard/raw/main/website_texts.py"
+      ],
+      "dateNote": "首发按1.5.0官方发布日2026-11-10；阅读技术报告修订1.1（2026-11-11）及同权重的1.5.1推理更新。与旧版LightPFN报告分别保留。",
+      "addedAt": "2026-11-13"
     }
   ],
   "collectionUpdates": [
@@ -11905,6 +12727,37 @@
       "updated": [
         "arxiv-2608.02157"
       ]
+    },
+    {
+      "date": "2026-11-13",
+      "added": [
+        "arxiv-2605.06343",
+        "arxiv-2605.10896",
+        "arxiv-2605.21544",
+        "arxiv-2605.22892",
+        "arxiv-2606.00872",
+        "arxiv-2606.03347",
+        "arxiv-2606.04876",
+        "arxiv-2610.00968",
+        "arxiv-2611.09722",
+        "arxiv-2611.10178",
+        "arxiv-2611.10230",
+        "arxiv-2611.11381",
+        "arxiv-2611.11504",
+        "arxiv-2611.11921",
+        "arxiv-2611.12491",
+        "arxiv-2611.13176",
+        "arxiv-2611.13219",
+        "arxiv-2611.13293",
+        "arxiv-2611.13412",
+        "arxiv-2611.13550",
+        "arxiv-2611.14462",
+        "doi-10-3389-fnagi-2026-1905374",
+        "doi-10-3390-agriculture16202198",
+        "doi-10-3390-foods15193507",
+        "lightpfn-1-5-technical-report"
+      ],
+      "updated": []
     }
   ]
 }
