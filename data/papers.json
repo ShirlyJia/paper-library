@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-13",
+  "updatedAt": "2026-11-16",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -7731,18 +7731,19 @@
       "id": "report-vector-tabctx",
       "title": "tabctx: Multi-tenant Context Caching and Serving for Tabular Foundation Models",
       "date": "2026-08-28",
-      "updated": "2026-10-28",
-      "dateNote": "首发采用官方 CHANGELOG 的 0.1.0 Initial release 日期；PyPI 最早可见上传为 2026-08-29 的 0.9.0。能力按核验时 main 分支文档与源码记录。",
+      "updated": "2026-11-13",
+      "dateNote": "首发采用官方 CHANGELOG 的 0.1.0 Initial release 日期；PyPI 最早可见上传为 2026-08-29 的 0.9.0。能力按核验时 main 分支文档与源码记录。 本次增量核对 0.21.0（2026-11-13）变更与 2026-11-16 main 分支两种新后端实现。",
       "category": 5,
       "section": "inference-efficiency",
       "topicId": "serving-scheduling",
       "topic": "批处理与并行调度",
       "related": [
-        1
+        1,
+        3
       ],
       "status": "report",
       "venue": "Vector Institute · 官方项目文档",
-      "summary": "为 TabICL、TabPFN 提供统一服务入口，将训练表的上下文缓存按数据集与租户管理，支持显存预算、淘汰、落盘恢复和多 GPU 放置。官方文档与源码展示了服务机制；多卡分配的是不同上下文，一个上下文仍不能跨卡拆分，单张表受单卡容量限制。可参考推理服务工程，不能据此承诺彻底避免 OOM 或固定加速倍数。",
+      "summary": "为表格模型提供统一服务与上下文管理，支持显存预算、缓存淘汰、落盘恢复和多 GPU 放置。0.21.0 新增 SurvivalPFN 生存预测、CausalPFN 因果推断；两者保存原始训练行，每次查询仍重新计算，不能等同于编码缓存复用。实现固定上下文以稳定分批结果，但因果效应依赖无遗漏混杂等假设。多卡仍分配不同上下文，单个上下文不能跨卡拆分。",
       "url": "https://github.com/VectorInstitute/tabctx",
       "pdf": null,
       "code": "https://github.com/VectorInstitute/tabctx",
@@ -7761,14 +7762,21 @@
         "LRU",
         "缓存淘汰",
         "多GPU调度",
-        "OOM"
+        "OOM",
+        "SurvivalPFN",
+        "CausalPFN",
+        "生存预测",
+        "因果推断",
+        "原始上下文"
       ],
       "sources": [
         "https://github.com/VectorInstitute/tabctx",
         "https://github.com/VectorInstitute/tabctx/blob/main/README.md",
         "https://github.com/VectorInstitute/tabctx/blob/main/src/tabctx/cache/manager.py",
         "https://github.com/VectorInstitute/tabctx/blob/main/benchmarks/README.md",
-        "https://github.com/VectorInstitute/tabctx/blob/main/CHANGELOG.md"
+        "https://github.com/VectorInstitute/tabctx/blob/main/CHANGELOG.md",
+        "https://github.com/VectorInstitute/tabctx/blob/main/src/tabctx/backends/causalpfn.py",
+        "https://github.com/VectorInstitute/tabctx/blob/main/src/tabctx/backends/survivalpfn.py"
       ],
       "addedAt": "2026-10-30"
     },
@@ -12067,6 +12075,366 @@
       ],
       "dateNote": "首发按1.5.0官方发布日2026-11-10；阅读技术报告修订1.1（2026-11-11）及同权重的1.5.1推理更新。与旧版LightPFN报告分别保留。",
       "addedAt": "2026-11-13"
+    },
+    {
+      "id": "arxiv-2611.15965",
+      "title": "PhysICL: In-Context Learning of Physical Fields on Unstructured Meshes from Procedural Priors",
+      "date": "2026-11-11",
+      "updated": "2026-11-11",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "status": "preprint",
+      "venue": "arXiv 预印本",
+      "summary": "把一次仿真作为一行、网格分块作为列，将 TabICL 式上下文预测扩展到物理场。固定块与锚点预算并分批解码，使作者在百万节点网格上以约4.3 GiB完成所测推理；五类 PLAID 任务显示可行性，但多项任务仍落后低秩基线或专门训练的算子。可参考工程场预测与分块执行，不能据此保证更大上下文的显存或工程精度。",
+      "url": "https://arxiv.org/abs/2611.15965",
+      "pdf": "https://arxiv.org/pdf/2611.15965",
+      "code": null,
+      "aliases": [
+        "PhysICL"
+      ],
+      "keywords": [
+        "物理场",
+        "TabICL",
+        "网格分块",
+        "峰值显存",
+        "工程仿真",
+        "代理模型"
+      ],
+      "related": [
+        5,
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.15965",
+        "https://arxiv.org/html/2611.15965"
+      ],
+      "addedAt": "2026-11-16"
+    },
+    {
+      "id": "arxiv-2611.15329",
+      "title": "TabOmics: A Small, Open Tabular Foundation Model for Wide Omics Data",
+      "date": "2026-11-11",
+      "updated": "2026-11-11",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "status": "preprint",
+      "venue": "arXiv 预印本",
+      "summary": "面向少样本、多特征组学分类的730万参数模型。融合注意力、分块与低精度激活减少中间显存，同时保留全部特征；作者在46任务上报告与较大模型接近的表现，但宽表依然较慢，且对比固定集成次数而非等特征覆盖。部分任务共享患者或标签来源，不能当作46个独立临床验证。代码、权重和评测记录公开。",
+      "url": "https://arxiv.org/abs/2611.15329",
+      "pdf": "https://arxiv.org/pdf/2611.15329",
+      "code": "https://github.com/lbotecur/tabomics",
+      "aliases": [
+        "TabOmics"
+      ],
+      "keywords": [
+        "组学",
+        "宽表",
+        "混合精度",
+        "分块推理",
+        "显存",
+        "TabPFN"
+      ],
+      "related": [
+        2,
+        5,
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.15329",
+        "https://arxiv.org/html/2611.15329v1",
+        "https://github.com/lbotecur/tabomics",
+        "https://github.com/lbotecur/tabomics-paper"
+      ],
+      "addedAt": "2026-11-16"
+    },
+    {
+      "id": "arxiv-2611.15607",
+      "title": "FADO: Learning Causal Explanations with Prior-Fitted Networks",
+      "date": "2026-11-11",
+      "updated": "2026-11-11",
+      "category": 3,
+      "section": "causal-models",
+      "topicId": "causal-knowledge",
+      "status": "preprint",
+      "venue": "arXiv 预印本",
+      "summary": "从一张观测表直接估计逐特征干预效应，用合成因果机制训练先验拟合网络，区别于预测相关性的特征重要性。作者的合成与半合成测试支持部分识别能力，但真实邮件随机试验中仍把结果泄漏列当作原因，效应估计与区间也有局限。可作为因果解释候选和压力测试对象，不能绕过因果可识别性。代码和检查点公开。",
+      "url": "https://arxiv.org/abs/2611.15607",
+      "pdf": "https://arxiv.org/pdf/2611.15607",
+      "code": "https://github.com/MLGlobalHealth/FADO",
+      "aliases": [
+        "FADO"
+      ],
+      "keywords": [
+        "因果解释",
+        "干预效应",
+        "PFN",
+        "可识别性",
+        "数据泄漏",
+        "先验依赖"
+      ],
+      "related": [
+        2,
+        4
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.15607",
+        "https://arxiv.org/html/2611.15607v1",
+        "https://github.com/MLGlobalHealth/FADO"
+      ],
+      "addedAt": "2026-11-16"
+    },
+    {
+      "id": "arxiv-2611.16088",
+      "title": "Subsurface schematisation from sparse CPT data using the tabular foundation model TabPFN",
+      "date": "2026-11-11",
+      "updated": "2026-11-11",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "status": "preprint",
+      "venue": "arXiv 预印本",
+      "summary": "把勘探位置与深度作为特征，用少量已测土壤指标预测地下剖面。作者在4000个合成剖面及荷兰两个现场的留出测点上比较 TabPFN、专用生成模型和插值；所测现场默认点预测较好，但换用均值指标会改变排序。合成数据微调提高合成精度，却损害现场表现；现场区间校准及跨地质环境泛化仍未验证。",
+      "url": "https://arxiv.org/abs/2611.16088",
+      "pdf": "https://arxiv.org/pdf/2611.16088",
+      "code": "https://github.com/tigtie09/tabpfn-for-subsurface-schematisation",
+      "aliases": [
+        "TabPFN 地层重建"
+      ],
+      "keywords": [
+        "TabPFN",
+        "地质勘探",
+        "空间预测",
+        "合成到真实",
+        "微调退化"
+      ],
+      "related": [
+        2,
+        5,
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.16088",
+        "https://arxiv.org/html/2611.16088"
+      ],
+      "dateNote": "按arXiv首发日；正文的期刊模板不作为正式录用凭证。",
+      "addedAt": "2026-11-16"
+    },
+    {
+      "id": "arxiv-2611.15130",
+      "title": "Read Once, Answer Many: Parallel Prompting for Shared-Context LLM Inference",
+      "date": "2026-11-11",
+      "updated": "2026-11-11",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "arXiv 预印本",
+      "summary": "让共享长文档的多个问题并行生成，在注意力核内共读前缀 KV，减少重复读取。作者在 QuALITY 冷缓存整批任务中比 SGLang FlashInfer 快1.81倍，但长答案的 LooGLE 反而慢。可借鉴共享表格上下文的批查询读取；当前是单卡、贪心生成和预先已知问题的实现，不能直接视为 LimiX 实测或首次编码 OOM 解法。代码公开。",
+      "url": "https://arxiv.org/abs/2611.15130",
+      "pdf": "https://arxiv.org/pdf/2611.15130",
+      "code": "https://github.com/jlab-nlp/parallel-prompting",
+      "aliases": [
+        "Read Once, Answer Many"
+      ],
+      "keywords": [
+        "共享上下文",
+        "缓存读取",
+        "批查询",
+        "HBM带宽",
+        "SGLang",
+        "LLM迁移"
+      ],
+      "related": [
+        1
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.15130",
+        "https://arxiv.org/html/2611.15130v1",
+        "https://github.com/jlab-nlp/parallel-prompting"
+      ],
+      "addedAt": "2026-11-16"
+    },
+    {
+      "id": "arxiv-2605.13734",
+      "title": "KVServe: Service-Aware KV Cache Compression for Communication-Efficient Disaggregated LLM Serving",
+      "date": "2026-05-13",
+      "updated": "2026-05-13",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "published",
+      "venue": "ACM SIGCOMM 2026",
+      "summary": "把 KV 变换、量化、编码组成可选方案，离线筛选质量与耗时，再按网络带宽在线选择，收益不够时跳过压缩。作者在不同 GPU、10–100 Gbps网络和六任务上验证传输收益；精度约束是经验阈值，离线搜索也有成本。可参考表格上下文的跨设备缓存传输，不能直接减少首次编码峰值。SIGCOMM 2026 正式论文，代码公开。",
+      "url": "https://arxiv.org/abs/2605.13734",
+      "pdf": "https://arxiv.org/pdf/2605.13734",
+      "code": "https://github.com/hpdps-group/KVServe",
+      "aliases": [
+        "KVServe"
+      ],
+      "keywords": [
+        "服务感知压缩",
+        "KV缓存",
+        "跨设备传输",
+        "带宽",
+        "贝叶斯优化",
+        "LLM迁移"
+      ],
+      "related": [
+        1
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.13734",
+        "https://arxiv.org/html/2605.13734v1",
+        "https://conferences.sigcomm.org/sigcomm/2026/program/papers/",
+        "https://github.com/hpdps-group/KVServe"
+      ],
+      "addedAt": "2026-11-16"
+    },
+    {
+      "id": "arxiv-2605.17613",
+      "title": "VeriCache: Turning Lossy KV Cache into Lossless LLM Inference",
+      "date": "2026-05-17",
+      "updated": "2026-05-17",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "arXiv 预印本",
+      "summary": "用压缩 KV 快速生成候选，再调回完整 KV 校验，通过错开不同请求的搬运与校验提高吞吐。作者在长上下文生成和远程前缀缓存中报告接近完整缓存的任务质量及提速，但需额外保存完整缓存并留出校验显存。可参考预算调度；依赖多步自回归生成，不能直接迁移成一次前向的表格预测，也未解决首次构建 OOM。",
+      "url": "https://arxiv.org/abs/2605.17613",
+      "pdf": "https://arxiv.org/pdf/2605.17613",
+      "code": null,
+      "aliases": [
+        "VeriCache"
+      ],
+      "keywords": [
+        "投机解码",
+        "KV缓存校验",
+        "卸载",
+        "资源调度",
+        "LLM迁移"
+      ],
+      "related": [
+        1
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.17613",
+        "https://arxiv.org/html/2605.17613"
+      ],
+      "addedAt": "2026-11-16"
+    },
+    {
+      "id": "mfmb-2026-banking-icl",
+      "title": "When Do In-Context Tabular Foundation Models Help in Banking?",
+      "date": "2026-11",
+      "updated": "2026-11",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "credit-risk",
+      "status": "workshop",
+      "venue": "MFMB 2026 Workshop @ ACM ICAIF 2026",
+      "url": "https://thebal.ai/mfmb2026/papers/mfmb2026-1215.pdf",
+      "pdf": "https://thebal.ai/mfmb2026/papers/mfmb2026-1215.pdf",
+      "code": null,
+      "aliases": [
+        "Banking TFM Evaluation",
+        "银行表格基础模型评测"
+      ],
+      "keywords": [
+        "信用风险",
+        "TabPFN",
+        "TabICL",
+        "Nori",
+        "样本不平衡",
+        "时间外验证"
+      ],
+      "related": [
+        2,
+        5
+      ],
+      "summary": "在真实消费信贷上比较 Nori、TabICL、TabPFN 与树模型，检验少标签与类别不平衡条件。作者使用未来月份留出数据，发现补足少数类往往比更换模型更有效，树模型也获益；大样本平衡上下文下树模型重新占优。生产模型训练数据远多于实验模型，特征数与硬件也不完全一致，不能把差距归因于模型能力。",
+      "sources": [
+        "https://thebal.ai/mfmb2026/papers/mfmb2026-1215.pdf",
+        "https://thebal.ai/mfmb2026/accepted-papers.html"
+      ],
+      "dateNote": "官方Workshop名单和论文正文核实MFMB2026（11月15日）Talk；首发具体日无法确认，保留2026-11，不以会议日代替首发。",
+      "addedAt": "2026-11-16"
+    },
+    {
+      "id": "arxiv-2605.04911",
+      "title": "Breaking the Quality–Privacy Tradeoff in Tabular Data Generation via In-Context Learning",
+      "date": "2026-05-06",
+      "updated": "2026-05-06",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "status": "published",
+      "venue": "NeurIPS 2026",
+      "url": "https://arxiv.org/abs/2605.04911",
+      "pdf": "https://arxiv.org/pdf/2605.04911",
+      "code": null,
+      "aliases": [
+        "DiffICL"
+      ],
+      "keywords": [
+        "LimiX",
+        "潜在扩散",
+        "表格生成",
+        "数据增强",
+        "特征解码",
+        "经验隐私指标"
+      ],
+      "related": [
+        5,
+        6
+      ],
+      "summary": "冻结 LimiX 编码器，在表征空间学习条件扩散，再为新数据集训练逐特征解码器生成表格。作者在14数据集报告合成数据效用与近邻距离隐私指标的改善，并测试数据增强；但距离指标不是差分隐私保证，基线选检查点的数据隔离说明不足。可参考 LimiX 表征的生成用途，实际使用仍需训练解码器，代码可用性未核实。",
+      "sources": [
+        "https://arxiv.org/abs/2605.04911",
+        "https://arxiv.org/html/2605.04911v1",
+        "https://nips.cc/Downloads/2026"
+      ],
+      "dateNote": "首发采用arXiv2026-05-06；NeurIPS2026官方论文目录核实收录，未附展示等级。",
+      "addedAt": "2026-11-16"
+    },
+    {
+      "id": "doi-10-3390-electronics15215156",
+      "title": "Tabular Foundation Models Versus Established Tabular Learners: A Regime-Stratified Critical Review",
+      "date": "2026-11-06",
+      "updated": "2026-11-06",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "tabular-surveys",
+      "status": "published",
+      "venue": "Electronics 15(21), 5156",
+      "url": "https://www.mdpi.com/2079-9292/15/21/5156",
+      "pdf": "https://www.mdpi.com/2079-9292/15/21/5156/pdf",
+      "code": null,
+      "aliases": [
+        "Regime-Stratified TFM Review"
+      ],
+      "keywords": [
+        "TFM综述",
+        "评测协议",
+        "时间划分",
+        "推理成本",
+        "复现"
+      ],
+      "related": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "summary": "按样本规模、特征数、数据划分与计算预算重新组织表格基础模型和传统方法的比较，强调上下文构造、可靠性及部署成本需要共同报告。可作为评测设计与相关工作索引；这是作者对已有文献的分层综述，没有新增统一复现实验，且排除未正式发表的技术报告，结论不能代表所有最新模型。",
+      "sources": [
+        "https://www.mdpi.com/2079-9292/15/21/5156",
+        "https://doi.org/10.3390/electronics15215156"
+      ],
+      "addedAt": "2026-11-16"
     }
   ],
   "collectionUpdates": [
@@ -12758,6 +13126,24 @@
         "lightpfn-1-5-technical-report"
       ],
       "updated": []
+    },
+    {
+      "date": "2026-11-16",
+      "added": [
+        "arxiv-2605.04911",
+        "arxiv-2605.13734",
+        "arxiv-2605.17613",
+        "arxiv-2611.15130",
+        "arxiv-2611.15329",
+        "arxiv-2611.15607",
+        "arxiv-2611.15965",
+        "arxiv-2611.16088",
+        "doi-10-3390-electronics15215156",
+        "mfmb-2026-banking-icl"
+      ],
+      "updated": [
+        "report-vector-tabctx"
+      ]
     }
   ]
 }

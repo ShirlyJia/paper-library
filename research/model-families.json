@@ -1236,6 +1236,42 @@
       "sources": [
         "https://arxiv.org/abs/2611.09722"
       ]
+    },
+    {
+      "name": "PhysICL",
+      "paperIds": [
+        "arxiv-2611.15965"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.15965"
+      ]
+    },
+    {
+      "name": "TabOmics",
+      "paperIds": [
+        "arxiv-2611.15329"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.15329"
+      ]
+    },
+    {
+      "name": "FADO",
+      "paperIds": [
+        "arxiv-2611.15607"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.15607"
+      ]
+    },
+    {
+      "name": "DiffICL",
+      "paperIds": [
+        "arxiv-2605.04911"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.04911"
+      ]
     }
   ]
 }
