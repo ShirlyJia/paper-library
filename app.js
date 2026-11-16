@@ -1,4 +1,4 @@
-import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo, recentCollectionUpdates, beijingDate, todayAdditions, millisecondsUntilBeijingMidnight, defaultSort, searchTerms, highlightParts } from './library.js?v=11';
+import { PAGE_SIZE, readState, stateSearch, filterPapers, safeURL, toCSV, scopePath, scopeValues, normalizeScope, paperPath, belongsTo, recentCollectionUpdates, beijingDate, todayAdditions, millisecondsUntilBeijingMidnight, defaultSort, searchTerms, highlightParts } from './library.js?v=12';
 
 const $ = id => document.getElementById(id);
 const STORE_KEY = 'structured-data-paper-library:saved:v1';

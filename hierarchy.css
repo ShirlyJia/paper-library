@@ -1,5 +1,12 @@
 :root { --branch-line: #dce1d6; }
 .site-header { max-width: 1600px; padding-inline: 40px; }
+.header-nav .saved-button { flex-shrink: 0; }
+.internal-papers-link { display: flex; align-items: center; gap: 18px; padding: 8px 12px; border: 1px solid #dedfd7; border-radius: 6px; background: var(--paper); }
+.internal-papers-link:hover { border-color: #aab8a4; background: #f1f4ee; }
+.internal-papers-copy { display: flex; flex-direction: column; min-width: 0; }
+.internal-papers-title { font-size: 12px; font-weight: 600; color: var(--green); }
+.internal-papers-description { font-size: 10px; color: var(--muted); }
+.internal-papers-destination { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--muted); white-space: nowrap; }
 .workspace { max-width: 1600px; grid-template-columns: 300px minmax(0, 1fr); gap: 40px; padding-inline: 40px; }
 .sidebar { top: 18px; padding-top: 30px; min-height: 0; height: calc(100vh - 130px); }
 .shelf-label { align-items: center; padding: 0 9px 16px; }
@@ -118,6 +125,9 @@ h1 { font-size: clamp(27px, 2.55vw, 37px); line-height: 1.4; overflow-wrap: anyw
 .activity-link:hover { text-decoration: underline; text-underline-offset: 3px; }
 .activity-count { flex-shrink: 0; color: var(--muted); font-size: 10px; font-variant-numeric: tabular-nums; }
 @media (max-width: 560px) {
+  .site-header { height: auto; min-height: 76px; flex-wrap: wrap; gap: 14px; padding-block: 16px; }
+  .header-nav { width: 100%; justify-content: space-between; gap: 16px; }
+  .internal-papers-link { flex: 1; max-width: 280px; min-width: 0; gap: 12px; }
   .activity-board > summary { gap: 8px; flex-wrap: wrap; position: relative; padding-right: 48px; }
   #activity-summary { flex-basis: 100%; }
   .activity-toggle { position: absolute; right: 0; top: 11px; }
