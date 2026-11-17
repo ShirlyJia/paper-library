@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-16",
+  "updatedAt": "2026-11-17",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -1797,7 +1797,7 @@
       "topic": "模型与产品动态",
       "status": "published",
       "venue": "ICML 2026",
-      "summary": "TabICLv2 改进特征分组、目标编码和长上下文注意力尺度，并分别支持分类、回归。在 TabArena 与 TALENT 比较，并提供模块消融和训练配置；两套基准采用不同集成规模。TALENT 速度图混用 H100 实测和既有耗时，不能当统一硬件加速比；论文的分布回归验证主要限于玩具数据。",
+      "summary": "TabICLv2 改进特征分组、目标编码和长上下文注意力尺度，并分别支持分类、回归。在 TabArena 与 TALENT 比较，并提供模块消融和训练配置；两套基准采用不同集成规模。TALENT 速度图混用 H100 实测和既有耗时，不能当统一硬件加速比；论文的分布回归验证主要限于玩具数据。 2026-11-16 官方修复 OOM 缩小批次重试时标签嵌入被重复累加的问题；属于预测正确性修复，未证明降低显存或加速。",
       "url": "https://arxiv.org/abs/2602.11139",
       "pdf": "https://arxiv.org/pdf/2602.11139",
       "code": "https://github.com/soda-inria/tabicl",
@@ -1809,7 +1809,8 @@
       "topicId": "tabular-releases",
       "sources": [
         "https://arxiv.org/abs/2602.11139",
-        "https://proceedings.mlr.press/v306/qu26a.html"
+        "https://proceedings.mlr.press/v306/qu26a.html",
+        "https://github.com/soda-inria/tabicl/commit/7ccaddaa45f9d586d90df37126d39a0cb2a964e7"
       ],
       "aliases": [
         "TabICLv2",
@@ -12435,6 +12436,424 @@
         "https://doi.org/10.3390/electronics15215156"
       ],
       "addedAt": "2026-11-16"
+    },
+    {
+      "id": "arxiv-2611.17600",
+      "title": "LightTAR: Light and Fast Target-Aware Representations for Multimodal Tabular Learning",
+      "date": "2026-11-12",
+      "updated": "2026-11-12",
+      "category": 4,
+      "section": "semantic-fusion",
+      "topicId": "semantic-embeddings",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把冻结文本或图像嵌入与训练标签结合，用正则化 PLS 补充 5 个目标相关特征。作者在 40 个多模态表格、21 种学习器上报告整体收益；在更杂乱的字符串表格上，分类收益未稳定成立。参数探索用了评测中的 3 个文本数据集；该方法增加输入列，不能当作显存优化。",
+      "url": "https://arxiv.org/abs/2611.17600",
+      "pdf": "https://arxiv.org/pdf/2611.17600",
+      "code": "https://github.com/eilamshapira/LightTAR",
+      "aliases": [
+        "LightTAR"
+      ],
+      "keywords": [
+        "LightTAR",
+        "结构化数据"
+      ],
+      "related": [
+        1,
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.17600",
+        "https://arxiv.org/html/2611.17600"
+      ],
+      "addedAt": "2026-11-17"
+    },
+    {
+      "id": "arxiv-2611.12062",
+      "title": "Translating KV Caches Between Hybrid-Attention Language Models: MLA Latents, Linear-Attention States and Sparse-Attention Indexers",
+      "date": "2026-11-09",
+      "updated": "2026-11-09",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "冻结两端语言模型，训练映射把已有上下文缓存转换成另一模型可读的状态，减少切换时重新编码。作者在同 tokenizer 的 Kimi、Qwen 等模型对上测试首字延迟和质量；延迟不含已发生的源模型编码，也有质量损失。缓存仍为目标模型原生规模，尚未验证表格模型或首次输入 OOM。",
+      "url": "https://arxiv.org/abs/2611.12062",
+      "pdf": "https://arxiv.org/pdf/2611.12062",
+      "code": null,
+      "aliases": [
+        "Hybrid KV Translation"
+      ],
+      "keywords": [
+        "Hybrid KV Translation",
+        "结构化数据"
+      ],
+      "related": [
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.12062",
+        "https://arxiv.org/html/2611.12062",
+        "https://www.hostinger.com/blog/kv-cache-translation/"
+      ],
+      "addedAt": "2026-11-17"
+    },
+    {
+      "id": "arxiv-2611.14697",
+      "title": "Beyond Row-Level Prediction: Evaluating and Learning Composition for Reusable Table Representations",
+      "date": "2026-11-10",
+      "updated": "2026-11-10",
+      "category": 6,
+      "section": "adaptation-target",
+      "topicId": "parameter-finetuning",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "检验行级表格模型能否生成整张表可复用的向量。冻结 ConTextTab，仅学习单元格到行、行到表的聚合头，用子表重叠比例约束相似度；在 100 张合成表和 100 张真实表上改善组合一致性。但真实表源检索仍弱于简单 schema/text 指纹，闭集源恢复不能等同开放检索效果。",
+      "url": "https://arxiv.org/abs/2611.14697",
+      "pdf": "https://arxiv.org/pdf/2611.14697",
+      "code": null,
+      "aliases": [
+        "ConTextTab-R"
+      ],
+      "keywords": [
+        "ConTextTab-R",
+        "结构化数据"
+      ],
+      "related": [
+        1,
+        4,
+        5
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.14697",
+        "https://arxiv.org/html/2611.14697"
+      ],
+      "addedAt": "2026-11-17"
+    },
+    {
+      "id": "arxiv-2611.12942",
+      "title": "Tabular Foundation Models vs Tuned Gradient Boosting for Telecom Churn: A Profit- and Calibration-Aware Evaluation",
+      "date": "2026-11-06",
+      "updated": "2026-11-06",
+      "category": 2,
+      "section": "prediction-decisions",
+      "topicId": "scores-routing",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "比较表格基础模型与调参梯度提升在电信流失预测中的概率、排序及营销收益指标。三个真实运营商数据集与两个虚构数据集采用 10 次划分，并检查重复样本和调参预算；TabPFN-3.5 在两项真实任务的预期收益提升通过校正检验，Orange 未通过。收益来自设定成本模型，并非实际营销收入。",
+      "url": "https://arxiv.org/abs/2611.12942",
+      "pdf": "https://arxiv.org/pdf/2611.12942",
+      "code": "https://github.com/ihpolash/tfm-churn-profit-audit",
+      "aliases": [
+        "TFM Churn Profit Audit"
+      ],
+      "keywords": [
+        "TFM Churn Profit Audit",
+        "结构化数据"
+      ],
+      "related": [
+        1,
+        5
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.12942",
+        "https://arxiv.org/html/2611.12942"
+      ],
+      "addedAt": "2026-11-17"
+    },
+    {
+      "id": "arxiv-2606.05265",
+      "title": "Data-efficient flood depth prediction through domain-aware coreset selection and tabular foundation models",
+      "date": "2026-06-03",
+      "updated": "2026-11-06",
+      "category": 5,
+      "section": "context-selection",
+      "topicId": "representative-context",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "先按暴雨强度和受灾流域选事件，再结合位置、地形与训练标签选代表点，用 5 万行支持洪水深度预测。最新修订在休斯敦仿真数据上以约 0.7% 训练行取得接近全量树模型的结果；随机选点平均值也可能更好，收益主要在覆盖和稳定性。尚无推理显存或加速实测，外地区与真实水深泛化待验证。",
+      "url": "https://arxiv.org/abs/2606.05265",
+      "pdf": "https://arxiv.org/pdf/2606.05265",
+      "code": null,
+      "aliases": [
+        "Flood Coreset"
+      ],
+      "keywords": [
+        "Flood Coreset",
+        "结构化数据"
+      ],
+      "related": [
+        1,
+        2,
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.05265",
+        "https://arxiv.org/html/2606.05265"
+      ],
+      "addedAt": "2026-11-17"
+    },
+    {
+      "id": "arxiv-2606.09323",
+      "title": "TRL-Bench: Standardizing Cross-Paradigm Representation-Level Evaluation of Tabular Encoders",
+      "date": "2026-06-08",
+      "updated": "2026-11-11",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "semantic-relational-benchmarks",
+      "status": "published",
+      "venue": "NeurIPS 2026 · Poster",
+      "summary": "固定表示接口和轻量预测头，比较 20 个表格编码器在 16 类任务上的表现，覆盖预测、实体匹配与数据湖搜索。预测任务含 TabArena 来源表；最新修订按验证集选择聚合方式。模型排名随任务明显变化，不能用预测分数代替表征通用性；各编码器训练与预处理不同，也不是现有 TFM 的统一性能榜。",
+      "url": "https://arxiv.org/abs/2606.09323",
+      "pdf": "https://arxiv.org/pdf/2606.09323",
+      "code": "https://github.com/LOGO-CUHKSZ/TRL-Bench",
+      "aliases": [
+        "TRL-Bench"
+      ],
+      "keywords": [
+        "TRL-Bench",
+        "结构化数据"
+      ],
+      "related": [
+        4,
+        5,
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.09323",
+        "https://arxiv.org/html/2606.09323",
+        "https://neurips.cc/virtual/2026/poster/139385"
+      ],
+      "addedAt": "2026-11-17"
+    },
+    {
+      "id": "arxiv-2611.08918",
+      "title": "Composable Causality: A Toolkit for Systematic Time-Series Causal Discovery and Treatment-Effect Benchmarking",
+      "date": "2026-11-06",
+      "updated": "2026-11-06",
+      "category": 3,
+      "section": "causal-discovery",
+      "topicId": "causal-graphs",
+      "status": "published",
+      "venue": "NeurIPS 2026 · Evaluations and Datasets Track · Poster",
+      "summary": "把时间序列因果图、作用机制、噪声、缺失和干预拆成可组合模块，保存并重放噪声来构造已知个体效应。作者比较 8 种发现算法与 4 种效应估计器，并展示变量方差排序会抬高部分发现分数。其调参可访问真图，效应实验使用随机处理；适合诊断算法假设，不能直接代表未知真实因果结构。",
+      "url": "https://arxiv.org/abs/2611.08918",
+      "pdf": "https://arxiv.org/pdf/2611.08918",
+      "code": "https://github.com/hferdous/Composable_Causality",
+      "aliases": [
+        "DTCD"
+      ],
+      "keywords": [
+        "DTCD",
+        "结构化数据"
+      ],
+      "related": [
+        1,
+        2
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.08918",
+        "https://arxiv.org/html/2611.08918",
+        "https://neurips.cc/virtual/2026/poster/139605"
+      ],
+      "addedAt": "2026-11-17"
+    },
+    {
+      "id": "arxiv-2505.14312",
+      "title": "MultiTab: A Comprehensive Benchmark Suite for Multi-Dimensional Evaluation in Tabular Domains",
+      "date": "2025-05-20",
+      "updated": "2025-05-20",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "status": "published",
+      "venue": "KDD 2026 · Datasets and Benchmarks Track",
+      "summary": "按样本量、类别不平衡和特征关系等条件拆分 196 张表，比较 13 种模型，并提供调参日志。每折固定 100 次搜索、分别保留验证与测试数据，模型优劣随数据条件改变。缺失行被删除，分组阈值为经验规则；补充 TabPFN 对比仅涉及旧版 v1 的 42 张表，不能当作当前基础模型排名。",
+      "url": "https://arxiv.org/abs/2505.14312",
+      "pdf": "https://arxiv.org/pdf/2505.14312",
+      "code": "https://github.com/kyungeun-lee/multitab",
+      "aliases": [
+        "MultiTab"
+      ],
+      "keywords": [
+        "MultiTab",
+        "结构化数据"
+      ],
+      "related": [
+        2
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2505.14312",
+        "https://arxiv.org/html/2505.14312",
+        "https://kdd2026.kdd.org/papers/",
+        "https://doi.org/10.1145/3770855.3817455"
+      ],
+      "addedAt": "2026-11-17"
+    },
+    {
+      "id": "arxiv-2608.30337",
+      "title": "Coarse composition suffices: tabular in-context learning for multi-activity antimicrobial peptide profiling",
+      "date": "2026-08-28",
+      "updated": "2026-09-06",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "biomedical-applications",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把肽序列转换成 330 个数值特征，固定 TabPFN 比较多标签独立预测、链式预测与标签组合分类。在 ESCAPE 的 5,495 条配对样本上，匹配上下文份数后组合分类的平均精确率仍高于原基线。结论限于既定划分，未按同源簇留出；论文的“天然校准”说法缺少直接验证，不应据此承诺实验筛选可靠性。",
+      "url": "https://arxiv.org/abs/2608.30337",
+      "pdf": "https://arxiv.org/pdf/2608.30337",
+      "code": null,
+      "aliases": [
+        "AMP Profile ICL"
+      ],
+      "keywords": [
+        "AMP Profile ICL",
+        "结构化数据"
+      ],
+      "related": [
+        2,
+        4,
+        5
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.30337",
+        "https://arxiv.org/html/2608.30337",
+        "https://doi.org/10.64898/2026.08.27.747591",
+        "https://api.biorxiv.org/details/biorxiv/10.64898/2026.08.27.747591"
+      ],
+      "dateNote": "bioRxiv 官方版本接口核实 v1 首发 2026-08-28；arXiv v1 为 2026-08-31，v2 为 2026-09-06。",
+      "addedAt": "2026-11-17"
+    },
+    {
+      "id": "zenodo-24183936",
+      "title": "Razor: Learning What to Forget in the KV Cache with a Description-Length Price",
+      "date": "2026-11-13",
+      "updated": "2026-11-13",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "冻结语言模型，训练小型门控决定哪些缓存可删，以输出分布差异约束损失，再配合真正释放缓存的实现和分块编码。作者在 Qwen3-1.7B/4B 上报告显存收益；4k 检索任务删除约 76% 缓存后平均分下降约 2.3 点，重复词统计退化明显。仅单请求、小模型验证，未证明可直接迁移到表格推理。",
+      "url": "https://doi.org/10.5281/zenodo.24183936",
+      "pdf": "https://zenodo.org/api/records/24183936/files/razor_preprint.pdf/content",
+      "code": "https://github.com/Manaslu-AI/razor",
+      "aliases": [
+        "Razor"
+      ],
+      "keywords": [
+        "Razor",
+        "结构化数据"
+      ],
+      "related": [
+        6
+      ],
+      "sources": [
+        "https://doi.org/10.5281/zenodo.24183936",
+        "https://doi.org/10.5281/zenodo.24183935",
+        "https://github.com/Manaslu-AI/razor"
+      ],
+      "addedAt": "2026-11-17"
+    },
+    {
+      "id": "zenodo-24198181",
+      "title": "Context Curation Is Not a Free Lunch: An Empirical Test of Inference-Time Robustness for Tabular Foundation Models Under Distribution Shift",
+      "date": "2026-11-13",
+      "updated": "2026-11-13",
+      "category": 5,
+      "section": "context-selection",
+      "topicId": "representative-context",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "在五个二分类数据集上比较随机、重加权等上下文选择策略，目标分布信息不含标签。作者未观察到密度重加权稳定优于随机选择，单个真实漂移案例甚至更差；这不证明所有上下文选择都无效。公开代码未固定 TabPFN 版本，类别采样描述与正文有差异，复用结果前需核对实际配置。",
+      "url": "https://doi.org/10.5281/zenodo.24198181",
+      "pdf": "https://zenodo.org/api/records/24198181/files/Context_Curation_preprint%20(1).pdf/content",
+      "code": "https://github.com/MansoobeZahra/Context_Curation",
+      "aliases": [
+        "Context Curation Under Shift"
+      ],
+      "keywords": [
+        "Context Curation Under Shift",
+        "结构化数据"
+      ],
+      "related": [
+        6,
+        2
+      ],
+      "sources": [
+        "https://doi.org/10.5281/zenodo.24198181",
+        "https://doi.org/10.5281/zenodo.24198180",
+        "https://github.com/MansoobeZahra/Context_Curation",
+        "https://doi.org/10.5281/zenodo.21953755"
+      ],
+      "dateNote": "论文预印本记录首发 2026-11-13；配套代码及结果包已于 2026-08-15 公开，不混同为新模型版本。",
+      "addedAt": "2026-11-17"
+    },
+    {
+      "id": "rs-11112632-v1",
+      "title": "Estimand-Relative Validity and Context-Driven Instability of Shapley Explanations for Tabular Foundation Models",
+      "date": "2026-11-12",
+      "updated": "2026-11-12",
+      "category": 3,
+      "section": "causal-models",
+      "topicId": "causal-reliability",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "比较五种隐藏特征的方式如何改变 TabPFN v2、TabICL v2 的 Shapley 解释。在低维合成与四组真实数据中，解释目标改变时方法排名也改变，换一批上下文造成的波动远大于列顺序等扰动。参考解释来自数据生成函数，不能直接判定模型自身解释不忠实；结论限于不超过 8 维的二分类，原始记录尚未公开。",
+      "url": "https://doi.org/10.21203/rs.3.rs-11112632/v1",
+      "pdf": "https://www.researchsquare.com/article/rs-11112632/v1.pdf?c=1794500294000",
+      "code": null,
+      "aliases": [
+        "TFM Shapley Reliability"
+      ],
+      "keywords": [
+        "TFM Shapley Reliability",
+        "结构化数据"
+      ],
+      "related": [
+        2,
+        5
+      ],
+      "sources": [
+        "https://doi.org/10.21203/rs.3.rs-11112632/v1",
+        "https://www.researchsquare.com/article/rs-11112632/v1",
+        "https://assets-eu.researchsquare.com/files/rs-11112632/v1/d9727875eab043c6f8728d69.pdf"
+      ],
+      "addedAt": "2026-11-17"
+    },
+    {
+      "id": "biorxiv-2026.11.03.764067",
+      "title": "Is the Bitter Lesson coming to genomic prediction? An untuned tabular foundation model matches or beats specialized methods",
+      "date": "2026-11-15",
+      "updated": "2026-11-15",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "biomedical-applications",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用 TabPFN-3.5 从基因标记预测植物性状，并重跑传统遗传预测模型以匹配划分。六个物种、18 个性状中，四项配对差异区间支持正收益；大豆按整家族留出后优势消失。高维输入仍需训练内 PCA、标记抽稀和增加集成成员，不能把题名中的“无调参”理解为零配置，也未证明新育种周期泛化。",
+      "url": "https://doi.org/10.64898/2026.11.03.764067",
+      "pdf": null,
+      "code": "https://github.com/flag0010/tabpfn-gp-manuscript",
+      "aliases": [
+        "TabPFN Genomic Prediction"
+      ],
+      "keywords": [
+        "TabPFN Genomic Prediction",
+        "结构化数据"
+      ],
+      "related": [
+        4,
+        5
+      ],
+      "sources": [
+        "https://doi.org/10.64898/2026.11.03.764067",
+        "https://github.com/flag0010/tabpfn-gp-manuscript/blob/main/manuscript/main.tex",
+        "https://api.biorxiv.org/details/biorxiv/10.64898/2026.11.03.764067"
+      ],
+      "addedAt": "2026-11-17"
     }
   ],
   "collectionUpdates": [
@@ -13143,6 +13562,27 @@
       ],
       "updated": [
         "report-vector-tabctx"
+      ]
+    },
+    {
+      "date": "2026-11-17",
+      "added": [
+        "arxiv-2505.14312",
+        "arxiv-2606.05265",
+        "arxiv-2606.09323",
+        "arxiv-2608.30337",
+        "arxiv-2611.08918",
+        "arxiv-2611.12062",
+        "arxiv-2611.12942",
+        "arxiv-2611.14697",
+        "arxiv-2611.17600",
+        "biorxiv-2026.11.03.764067",
+        "rs-11112632-v1",
+        "zenodo-24183936",
+        "zenodo-24198181"
+      ],
+      "updated": [
+        "arxiv-2602.11139"
       ]
     }
   ]

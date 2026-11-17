@@ -1272,6 +1272,42 @@
       "sources": [
         "https://arxiv.org/abs/2605.04911"
       ]
+    },
+    {
+      "name": "LightTAR",
+      "paperIds": [
+        "arxiv-2611.17600"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.17600"
+      ]
+    },
+    {
+      "name": "ConTextTab-R",
+      "paperIds": [
+        "arxiv-2611.14697"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.14697"
+      ]
+    },
+    {
+      "name": "DTCD",
+      "paperIds": [
+        "arxiv-2611.08918"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.08918"
+      ]
+    },
+    {
+      "name": "Razor",
+      "paperIds": [
+        "zenodo-24183936"
+      ],
+      "sources": [
+        "https://doi.org/10.5281/zenodo.24183936"
+      ]
     }
   ]
 }
