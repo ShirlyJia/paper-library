@@ -21,6 +21,7 @@ apply_review = load("apply_review")
 
 REVIEW = {"reviewStatus": "completed", "claim": "c", "contribution": "c", "evidence": "e", "limitations": "l",
           "value": "v", "reproducibility": "r", "conclusion": "证据已支持", "sources": ["https://a"], "readScope": "方法与实验"}
+VALUE = {"decision": "include", "comparison": "相对直接前作增加受控评测", "reason": "提供新的可复用证据"}
 PAPER = {"id": "arxiv-2610.00001", "title": "New", "date": "2026-10-10", "updated": "2026-10-10", "category": 1,
          "section": "s", "topicId": "t", "status": "preprint", "venue": "预印本", "summary": "s",
          "url": "https://arxiv.org/abs/2610.00001", "pdf": None, "code": None}
@@ -97,7 +98,7 @@ class ApplyReviewTests(unittest.TestCase):
         return apply_review.apply(bundle, self.catalogue, self.decisions, self.registry)
 
     def test_inclusion_updates_catalogue_decisions_and_family(self):
-        self.run_apply({"date": "2026-10-16", "included": [{"paper": PAPER, "qualityReview": REVIEW, "brief": "b", "family": "NewFM"}],
+        self.run_apply({"date": "2026-10-16", "included": [{"paper": PAPER, "qualityReview": REVIEW, "valueAssessment": VALUE, "brief": "b", "family": "NewFM"}],
                         "deferred": [{"id": "d", "title": "D", "url": "https://d", "sourceUpdated": "2026-10-01", "reason": "需全文"}]})
         self.assertEqual([p["id"] for p in self.catalogue["papers"]], ["old", PAPER["id"]])
         self.assertEqual([d["decision"] for d in self.decisions], ["included", "deferred"])
@@ -119,6 +120,48 @@ class ApplyReviewTests(unittest.TestCase):
         self.run_apply({"date": "2026-10-16", "corrected": [{"paper": fixed, "qualityReview": REVIEW, "brief": "b"}]})
         self.assertEqual(self.catalogue["papers"][0]["addedAt"], "2026-10-01")
         self.assertEqual(self.decisions[0]["decision"], "existing")
+
+    def test_supported_evidence_without_value_approval_cannot_be_included(self):
+        for value in (None, {**VALUE, "decision": "defer"}, {**VALUE, "comparison": " "}):
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                self.run_apply({"date": "2026-11-17", "included": [
+                    {"paper": PAPER, "qualityReview": REVIEW, "valueAssessment": value, "brief": "b"}]})
+        self.assertEqual(len(self.catalogue["papers"]), 1)
+
+    def test_withdrawal_archives_dates_history_and_preserves_same_day_inclusion(self):
+        self.catalogue["collectionUpdates"] = [
+            {"date": "2026-10-01", "added": ["old"], "updated": []},
+            {"date": "2026-11-17", "added": [], "updated": ["old"]}]
+        self.decisions.append({"id": "old", "reviewedAt": "2026-11-17", "decision": "included"})
+        archive = {"papers": []}
+        bundle = {"date": "2026-11-17", "withdrawn": [{"id": "old", "decision": "deferred",
+                  "reason": "核心对照未完成", "restoreWhen": "补齐同预算对照", "qualityReview": REVIEW,
+                  "valueAssessment": {**VALUE, "decision": "defer"}}]}
+        apply_review.apply(bundle, self.catalogue, self.decisions, self.registry, archive)
+        self.assertEqual(self.catalogue["papers"], [])
+        self.assertEqual(self.catalogue["collectionUpdates"], [])
+        self.assertEqual(self.catalogue["updatedAt"], "2026-11-17")
+        self.assertEqual(archive["papers"][0]["paper"]["addedAt"], "2026-10-01")
+        self.assertEqual(archive["papers"][0]["paper"]["date"], PAPER["date"])
+        self.assertEqual(archive["papers"][0]["collectionHistory"], [
+            {"date": "2026-10-01", "kind": "added"}, {"date": "2026-11-17", "kind": "updated"}])
+        self.assertEqual([d["decision"] for d in self.decisions], ["included", "deferred"])
+        candidate = {"id": "old", "title": PAPER["title"], "url": "https://x/old", "existingIds": [], "updated": PAPER["updated"]}
+        queue.apply_decisions([candidate], self.decisions)
+        self.assertEqual(candidate["reviewState"], "deferred")
+        candidate["updated"] = "2026-11-18"
+        queue.apply_decisions([candidate], self.decisions)
+        self.assertEqual(candidate["reviewState"], "needs-review")
+
+    def test_public_paper_cannot_be_excluded_without_archiving(self):
+        with self.assertRaisesRegex(ValueError, "withdrawn"):
+            self.run_apply({"date": "2026-11-17", "excluded": [
+                {"id": "old", "title": "Old", "url": "https://x/old", "reason": "价值有限"}]})
+
+    def test_conflicting_decisions_cannot_change_publication_state(self):
+        with self.assertRaisesRegex(ValueError, "多个决定"):
+            self.run_apply({"date": "2026-11-17", "included": [{"paper": PAPER}],
+                            "withdrawn": [{"id": PAPER["id"]}]})
 
 
 

@@ -1068,32 +1068,6 @@
       "addedAt": "2026-10-12"
     },
     {
-      "id": "paper-baf74a758c",
-      "title": "Pavement performance prediction via a tabular foundation model",
-      "date": "2026-09",
-      "updated": "2026-09",
-      "category": 1,
-      "related": [
-        2
-      ],
-      "topic": "结构化数据应用",
-      "status": "published",
-      "venue": "Computer-Aided Civil and Infrastructure Engineering · 2026",
-      "summary": "用 TabPFN 预测下一巡检周期的路面状态，主实验为日本国道 6 号的 189 段路面，并与五类固定参数基线比较。国道 4 号补充验证表现明显下降，少数维修类 F1 为 0；巡检减负仅为情景推算。可参考小样本行业应用设计，尚不足以支持跨路网推广。",
-      "url": "https://doi.org/10.1016/j.cacaie.2026.100097",
-      "pdf": null,
-      "code": null,
-      "keywords": [],
-      "dateNote": "期次月份；在线首发日待核",
-      "section": "industry-applications",
-      "topicId": "engineering-applications",
-      "addedAt": "2026-10-12",
-      "sources": [
-        "https://doi.org/10.1016/j.cacaie.2026.100097",
-        "https://www.sciencedirect.com/science/article/pii/S1093968726030835"
-      ]
-    },
-    {
       "id": "report-nvidia-kumo-tabular",
       "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
       "date": "2026-09-29",
@@ -1486,27 +1460,6 @@
       ]
     },
     {
-      "id": "arxiv-2606.15314",
-      "title": "LLMs on Tabular Data with Limited Semantics: Evidence from Industrial Car Retrofit Prediction",
-      "date": "2026-06-13",
-      "updated": "2026-06-13",
-      "category": 1,
-      "related": [
-        4
-      ],
-      "topic": "结构化数据应用与真实场景验证",
-      "status": "preprint",
-      "venue": "预印本",
-      "summary": "在汽车原型改装数据上比较树模型、LLM 嵌入、直接提示和混合堆叠。车辆级任务用 80/20 分层随机切分，月度预测另设 16 个月留出；混合 LLM 结果仅在 200 行子集评估。200 行结果不能和全量基线直接比较；类别哈希削弱语义，随机切分也不等于跨时间部署验证。",
-      "url": "https://arxiv.org/abs/2606.15314",
-      "pdf": "https://arxiv.org/pdf/2606.15314",
-      "code": null,
-      "keywords": [],
-      "section": "industry-applications",
-      "topicId": "engineering-applications",
-      "addedAt": "2026-10-12"
-    },
-    {
       "id": "arxiv-2606.07345",
       "title": "TabSwift: An Efficient Tabular Foundation Model with Row-Wise Attention",
       "date": "2026-06-05",
@@ -1576,28 +1529,6 @@
         "https://arxiv.org/abs/2606.04485",
         "https://proceedings.mlr.press/v306/wang26kw.html"
       ],
-      "addedAt": "2026-10-12"
-    },
-    {
-      "id": "arxiv-2605.18635",
-      "title": "Data Presentation Over Architecture: Resampling Strategies for Credit Risk Prediction with Tabular Foundation Models",
-      "date": "2026-05-18",
-      "updated": "2026-05-18",
-      "category": 1,
-      "related": [
-        2,
-        5
-      ],
-      "topic": "结构化数据应用",
-      "status": "preprint",
-      "venue": "预印本",
-      "summary": "在固定上下文预算下比较信用风险任务的类别平衡、重采样和覆盖性选样。在 Home Credit 与 Lending Club 比较七种构造策略，后者使用时间切分；报告 AUC、MCC 与违约召回。仅两个数据集，传统基线未调分类阈值或类别权重；不能由默认阈值下的零召回推出 TFM 架构普遍更强。",
-      "url": "https://arxiv.org/abs/2605.18635",
-      "pdf": "https://arxiv.org/pdf/2605.18635",
-      "code": null,
-      "keywords": [],
-      "section": "industry-applications",
-      "topicId": "credit-risk",
       "addedAt": "2026-10-12"
     },
     {
@@ -2654,39 +2585,6 @@
         "verifiedAt": "2026-10-12"
       },
       "addedAt": "2026-10-12"
-    },
-    {
-      "id": "paper-3b87eab6aa",
-      "title": "Conformal Prediction for Tabular Prior-Data Fitted Networks with Missing Data",
-      "date": "2025",
-      "updated": "2025",
-      "category": 2,
-      "related": [
-        5
-      ],
-      "topic": "缺失模式条件下的预测区间校准",
-      "status": "workshop",
-      "venue": "EurIPS 2025 Tabular Data Workshop",
-      "summary": "将按缺失模式构造校准集的 CP-MDA-exact 接到 TabPFN 分位数预测上。论文摘要报告覆盖改善；作者公开 notebook 显示线性高斯模拟、MCAR 嵌套缺失及独立训练／校准／测试切分。原 PDF 当前不可访问；代码的额外分位数实验与主函数采用不同修正公式，且未见缺失模式只会告警，尚不足以支持任意缺失下的保证。",
-      "url": "https://openreview.net/pdf?id=TnZcC7GXI5",
-      "pdf": "https://openreview.net/pdf?id=TnZcC7GXI5",
-      "code": "https://github.com/Fdvanleeuwen/TabPFN_CP-MDA",
-      "keywords": [
-        "TabPFN"
-      ],
-      "section": "prediction-distributions",
-      "topicId": "prediction-intervals",
-      "recognition": {
-        "label": "Oral",
-        "source": "https://sites.google.com/view/eurips25-ai-td/home",
-        "verifiedAt": "2026-10-12"
-      },
-      "addedAt": "2026-10-12",
-      "sources": [
-        "https://openreview.net/forum?id=TnZcC7GXI5",
-        "https://github.com/Fdvanleeuwen/TabPFN_CP-MDA/blob/main/Simulation.ipynb",
-        "https://github.com/Fdvanleeuwen/TabPFN_CP-MDA/blob/main/Functions_for_implementation.ipynb"
-      ]
     },
     {
       "id": "arxiv-2510.25154",
@@ -7074,41 +6972,6 @@
       "sources": [
         "https://arxiv.org/abs/2610.29520",
         "https://arxiv.org/html/2610.29520v1"
-      ],
-      "addedAt": "2026-10-27"
-    },
-    {
-      "id": "arxiv-2610.25142",
-      "title": "Image Dehazing as In-Context Tabular Inference",
-      "date": "2026-10-18",
-      "updated": "2026-10-18",
-      "category": 1,
-      "section": "industry-applications",
-      "topicId": "engineering-applications",
-      "topic": "工业与工程预测",
-      "related": [
-        4,
-        5
-      ],
-      "status": "preprint",
-      "venue": "预印本",
-      "summary": "DehazeTab把图像块的颜色、纹理或视觉表征整理成表格，用冻结的TabPFN-3.5根据参考图块预测透射率，再重建去雾图像。作者的两组配对基准中，物理手工特征优于单独视觉嵌入；但主基准采用500张测试图像间留一互作参考，另一个独立子集仅10张，且比较方法的监督条件不同。作为视觉任务转为表格回归的探索收录，尚不能据此认定通用去雾优势；官方仓库目前只有说明页。",
-      "url": "https://arxiv.org/abs/2610.25142",
-      "pdf": "https://arxiv.org/pdf/2610.25142",
-      "code": null,
-      "aliases": [
-        "DehazeTab"
-      ],
-      "keywords": [
-        "TabPFN-3.5",
-        "视觉转表格",
-        "图像去雾",
-        "上下文检索"
-      ],
-      "sources": [
-        "https://arxiv.org/abs/2610.25142",
-        "https://arxiv.org/html/2610.25142v1",
-        "https://github.com/tranleanh/dehazetab"
       ],
       "addedAt": "2026-10-27"
     },
@@ -11652,33 +11515,6 @@
       "addedAt": "2026-11-13"
     },
     {
-      "id": "doi-10-3390-foods15193507",
-      "title": "Interpretable Small-Sample Hyperspectral Phenotyping of Wheat Protein Fractions via Order-Optimized Derivative Preprocessing and TabPFN",
-      "date": "2026-10-01",
-      "updated": "2026-10-01",
-      "category": 1,
-      "section": "industry-applications",
-      "topicId": "engineering-applications",
-      "status": "published",
-      "venue": "Foods 2026",
-      "url": "https://www.mdpi.com/2304-8158/15/19/3507",
-      "pdf": null,
-      "code": null,
-      "aliases": [
-        "Wheat ODP-TabPFN"
-      ],
-      "keywords": [],
-      "related": [
-        2,
-        4
-      ],
-      "summary": "用训练集选择光谱导数阶数和波段，再接TabPFN预测小麦蛋白组分。随机留出测试取得较高拟合度，但留品种验证波动较大；额外重取样来自同一批收获材料，只支持测量流程重复性，不能视作外部生物学验证。",
-      "sources": [
-        "https://www.mdpi.com/2304-8158/15/19/3507"
-      ],
-      "addedAt": "2026-11-13"
-    },
-    {
       "id": "doi-10-3389-fnagi-2026-1905374",
       "title": "Prediction of cognitive impairment in Parkinson’s disease using TabPFN: an integrative analysis of clinical data, longitudinal trajectories, and lipidomics",
       "date": "2026-09-30",
@@ -12758,40 +12594,6 @@
       "addedAt": "2026-11-17"
     },
     {
-      "id": "zenodo-24198181",
-      "title": "Context Curation Is Not a Free Lunch: An Empirical Test of Inference-Time Robustness for Tabular Foundation Models Under Distribution Shift",
-      "date": "2026-11-13",
-      "updated": "2026-11-13",
-      "category": 5,
-      "section": "context-selection",
-      "topicId": "representative-context",
-      "status": "preprint",
-      "venue": "预印本",
-      "summary": "在五个二分类数据集上比较随机、重加权等上下文选择策略，目标分布信息不含标签。作者未观察到密度重加权稳定优于随机选择，单个真实漂移案例甚至更差；这不证明所有上下文选择都无效。公开代码未固定 TabPFN 版本，类别采样描述与正文有差异，复用结果前需核对实际配置。",
-      "url": "https://doi.org/10.5281/zenodo.24198181",
-      "pdf": "https://zenodo.org/api/records/24198181/files/Context_Curation_preprint%20(1).pdf/content",
-      "code": "https://github.com/MansoobeZahra/Context_Curation",
-      "aliases": [
-        "Context Curation Under Shift"
-      ],
-      "keywords": [
-        "Context Curation Under Shift",
-        "结构化数据"
-      ],
-      "related": [
-        6,
-        2
-      ],
-      "sources": [
-        "https://doi.org/10.5281/zenodo.24198181",
-        "https://doi.org/10.5281/zenodo.24198180",
-        "https://github.com/MansoobeZahra/Context_Curation",
-        "https://doi.org/10.5281/zenodo.21953755"
-      ],
-      "dateNote": "论文预印本记录首发 2026-11-13；配套代码及结果包已于 2026-08-15 公开，不混同为新模型版本。",
-      "addedAt": "2026-11-17"
-    },
-    {
       "id": "rs-11112632-v1",
       "title": "Estimand-Relative Validity and Context-Driven Instability of Shapley Explanations for Tabular Foundation Models",
       "date": "2026-11-12",
@@ -12912,7 +12714,6 @@
         "arxiv-2605.15133",
         "arxiv-2605.18147",
         "arxiv-2605.18383",
-        "arxiv-2605.18635",
         "arxiv-2605.18654",
         "arxiv-2605.18696",
         "arxiv-2605.19662",
@@ -12924,7 +12725,6 @@
         "arxiv-2606.07345",
         "arxiv-2606.08800",
         "arxiv-2606.11473",
-        "arxiv-2606.15314",
         "arxiv-2606.18677",
         "arxiv-2606.26467",
         "arxiv-2606.30371",
@@ -12982,7 +12782,6 @@
         "arxiv-2610.13654",
         "arxiv-2610.13818",
         "paper-20e0758264",
-        "paper-3b87eab6aa",
         "paper-612809da03",
         "paper-62f5871d79",
         "paper-8380790f74",
@@ -12990,7 +12789,6 @@
         "paper-9fd1ee8bbf",
         "paper-a15b9c81ae",
         "paper-af13c15dd9",
-        "paper-baf74a758c",
         "paper-d00034280f",
         "paper-dd682e2bac",
         "paper-dee7306e6b",
@@ -13111,7 +12909,6 @@
         "arxiv-2605.15133",
         "arxiv-2605.18147",
         "arxiv-2605.18383",
-        "arxiv-2605.18635",
         "arxiv-2605.18654",
         "arxiv-2605.18696",
         "arxiv-2605.19662",
@@ -13126,7 +12923,6 @@
         "arxiv-2606.08679",
         "arxiv-2606.08800",
         "arxiv-2606.11473",
-        "arxiv-2606.15314",
         "arxiv-2606.18677",
         "arxiv-2606.26467",
         "arxiv-2606.30371",
@@ -13191,7 +12987,6 @@
         "arxiv-2610.13764",
         "arxiv-2610.13818",
         "paper-20e0758264",
-        "paper-3b87eab6aa",
         "paper-612809da03",
         "paper-62f5871d79",
         "paper-8380790f74",
@@ -13199,7 +12994,6 @@
         "paper-9fd1ee8bbf",
         "paper-a15b9c81ae",
         "paper-af13c15dd9",
-        "paper-baf74a758c",
         "paper-d00034280f",
         "paper-dd682e2bac",
         "paper-dee7306e6b",
@@ -13300,7 +13094,6 @@
     {
       "date": "2026-10-27",
       "added": [
-        "arxiv-2610.25142",
         "arxiv-2610.29520",
         "arxiv-2610.29530",
         "arxiv-2610.32487",
@@ -13541,7 +13334,6 @@
         "arxiv-2611.14462",
         "doi-10-3389-fnagi-2026-1905374",
         "doi-10-3390-agriculture16202198",
-        "doi-10-3390-foods15193507",
         "lightpfn-1-5-technical-report"
       ],
       "updated": []
@@ -13578,8 +13370,7 @@
         "arxiv-2611.17600",
         "biorxiv-2026.11.03.764067",
         "rs-11112632-v1",
-        "zenodo-24183936",
-        "zenodo-24198181"
+        "zenodo-24183936"
       ],
       "updated": [
         "arxiv-2602.11139"

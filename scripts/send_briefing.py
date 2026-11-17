@@ -93,8 +93,12 @@ def prepare(run_dir, root=ROOT):
     if re.search(r"file://|/Users/|work/collection/|<at\b|!\[", body):
         raise ValueError("小报含本机路径、提及或图片，须先整理为公开文字和链接")
     papers = {p["id"]: p for p in read_json(root / "data/papers.json")["papers"]}
+    archive_path = root / "research/withheld-papers.json"
+    archived = {e["paper"]["id"]: e["paper"] for e in read_json(archive_path)["papers"]} if archive_path.exists() else {}
+    withdrawn = [key for key in changed if key not in papers and key in archived]
+    known = {**archived, **papers}
     for paper_id in changed:
-        if paper_id not in papers or papers[paper_id]["url"] not in body:
+        if paper_id not in known or known[paper_id]["url"] not in body:
             raise ValueError(f"小报未覆盖已发布论文：{paper_id}")
     # A user-edited briefing may already have the public footer (plain or linked).
     if not any(line.startswith("访问站点：") and SITE in line for line in body.splitlines()):
@@ -102,7 +106,7 @@ def prepare(run_dir, root=ROOT):
     if len(body.encode()) > 28000:
         raise ValueError("小报超过单条消息预算，请缩短文字后重试")
     return {"date": review["date"], "title": title, "body": body, "ids": changed,
-            "papers": {key: papers[key] for key in changed}}
+            "papers": {key: known[key] for key in changed}, "withdrawnIds": withdrawn}
 
 
 def verify_live(prepared):
@@ -166,6 +170,8 @@ def deliver(run_dir, config, config_path=CONFIG, root=ROOT, dry_run=False):
         raise ValueError("同一日期和论文清单的小报正文已变化，请核对已发消息；不会另发重复话题")
     if receipt["status"] == "verified":
         return {"status": "already-sent", "messageId": receipt["messageId"]}
+    if prepared.get("withdrawnIds"):
+        raise ValueError("待发送小报含已撤下论文，请先核对并更新内容；不会补发旧版")
     if not resolved:
         resolve_chat(config, config_path)
     verify_live(prepared)

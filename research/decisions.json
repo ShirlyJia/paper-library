@@ -12709,5 +12709,238 @@
     "decision": "excluded",
     "reviewedAt": "2026-11-17",
     "reason": "阅读官方发布：主要为按需GPU、MLflow与模型接入说明，没有独立研究方法或受控实验；作为模型生态跟踪来源保留，不新增论文卡片。"
+  },
+  {
+    "id": "arxiv-2606.15314",
+    "title": "LLMs on Tabular Data with Limited Semantics: Evidence from Industrial Car Retrofit Prediction",
+    "url": "https://arxiv.org/abs/2606.15314",
+    "sourceUpdated": "2026-06-13",
+    "decision": "excluded",
+    "reviewedAt": "2026-11-17",
+    "reason": "主要比较树模型、现成语言嵌入、提示和堆叠，混合结果仅在200行子集，未与全量基线构成配对。弱语义场景有线索价值，但当前材料未给出足够可靠、独立的新方法或部署收益，不再单独公开。",
+    "qualityReview": {
+      "reviewedAt": "2026-10-15",
+      "reviewStatus": "completed",
+      "claim": "LLM 混合方案在与全量基线相同的数据和预算下更优。",
+      "contribution": "在汽车原型改装数据上比较树模型、LLM 嵌入、直接提示和混合堆叠。",
+      "evidence": "车辆级任务用 80/20 分层随机切分，月度预测另设 16 个月留出；混合 LLM 结果仅在 200 行子集评估。",
+      "limitations": "200 行结果不能和全量基线直接比较；类别哈希削弱语义，随机切分也不等于跨时间部署验证。",
+      "value": "揭示弱语义工业表格中 LLM 作为组件与独立预测器的差异。",
+      "conclusion": "有迹象但证据不足",
+      "reproducibility": "本次核对公开原文中的相关方法和评测材料；结果归属于作者，未运行模型或独立复现实验。",
+      "sources": [
+        "https://arxiv.org/html/2606.15314"
+      ],
+      "readScope": "本轮重读 arXiv v1 §4.2、§5、§6.1–6.3/表1–3，核对提示与混合方案的200–500行子集；复用2026-10-15既有其余方法审核。",
+      "auditReport": "research/QUALITY_AUDIT_2026-11-17.md",
+      "sourceSnapshot": {
+        "url": "https://arxiv.org/html/2606.15314",
+        "retrievedAt": "2026-10-15T03:02:23.784330+00:00",
+        "textSha256": "167db5d386223ba758d540c900bcb58b7856e8aeaa3ff885ebc6dcaeb98e1940"
+      }
+    },
+    "valueAssessment": {
+      "decision": "exclude",
+      "comparison": "相对既有树/嵌入/堆叠，以及库内 LightTAR 的配对语义特征评估，新增主要是一个工业任务场景；混合方案的关键优势未在相同测试集隔离。",
+      "reason": "主要比较树模型、现成语言嵌入、提示和堆叠，混合结果仅在200行子集，未与全量基线构成配对。弱语义场景有线索价值，但当前材料未给出足够可靠、独立的新方法或部署收益，不再单独公开。"
+    },
+    "restoreWhen": "补充相同测试样本、预算和输入下的受控对照，或能独立支持选型的时间外部署证据。"
+  },
+  {
+    "id": "arxiv-2605.18635",
+    "title": "Data Presentation Over Architecture: Resampling Strategies for Credit Risk Prediction with Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2605.18635",
+    "sourceUpdated": "2026-05-18",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-17",
+    "reason": "重采样和类别平衡的方向有价值，但传统基线未调整类别权重和阈值，默认零召回不能证明模型架构优势。相对库内银行少标签研究，当前未证明额外独立增量；先撤下，待补足公平对照。",
+    "qualityReview": {
+      "reviewedAt": "2026-10-15",
+      "reviewStatus": "completed",
+      "claim": "现有比较足以将违约召回收益归因于 TFM 架构。",
+      "contribution": "在固定上下文预算下比较信用风险任务的类别平衡、重采样和覆盖性选样。",
+      "evidence": "在 Home Credit 与 Lending Club 比较七种构造策略，后者使用时间切分；报告 AUC、MCC 与违约召回。",
+      "limitations": "仅两个数据集，传统基线未调分类阈值或类别权重；不能由默认阈值下的零召回推出 TFM 架构普遍更强。",
+      "value": "可参考类别不平衡下的上下文设计和阈值对照。",
+      "conclusion": "有迹象但证据不足",
+      "reproducibility": "本次核对公开原文中的相关方法和评测材料；结果归属于作者，未运行模型或独立复现实验。",
+      "sources": [
+        "https://arxiv.org/html/2605.18635"
+      ],
+      "readScope": "本轮重读 arXiv v1 §4.2–4.4、§5.1–5.5，核对表1和采样策略定义；复用2026-10-15其余正文审核。",
+      "auditReport": "research/QUALITY_AUDIT_2026-11-17.md",
+      "sourceSnapshot": {
+        "url": "https://arxiv.org/html/2605.18635",
+        "retrievedAt": "2026-10-15T03:02:27.671966+00:00",
+        "textSha256": "c966850e4805aa55c5b9c78b27a230f8c54324d57fca528c66cff45dada9c37c"
+      }
+    },
+    "valueAssessment": {
+      "decision": "defer",
+      "comparison": "相对常见平衡采样/SMOTE/KMeans组合，以及库内 When Do In-Context Tabular Foundation Models Help in Banking? 的同样本少数类实验，本作仍缺基线同步重采样、阈值与预算控制。",
+      "reason": "重采样和类别平衡的方向有价值，但传统基线未调整类别权重和阈值，默认零召回不能证明模型架构优势。相对库内银行少标签研究，当前未证明额外独立增量；先撤下，待补足公平对照。"
+    },
+    "restoreWhen": "在验证集调权重/阈值、对两类模型同步处理不平衡，并报告固定样本/预算的上下文策略增量。"
+  },
+  {
+    "id": "doi-10-3390-foods15193507",
+    "title": "Interpretable Small-Sample Hyperspectral Phenotyping of Wheat Protein Fractions via Order-Optimized Derivative Preprocessing and TabPFN",
+    "url": "https://www.mdpi.com/2304-8158/15/19/3507",
+    "sourceUpdated": "2026-10-01",
+    "decision": "excluded",
+    "reviewedAt": "2026-11-17",
+    "reason": "已有光谱预处理和特征选择接 TabPFN 的单点应用；198样本、40例随机测试及同收获批次重取样支持局部可行性，但没有形成额外的通用方法或跨地区/年度证据。本库已有更广的光谱预处理评估，当前独立保留的增量有限。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://www.mdpi.com/2304-8158/15/19/3507"
+      ],
+      "claim": "在所测小麦粉样本上，预处理与波段选择有用，但跨品种性能不稳定。",
+      "contribution": "训练集内联合选择导数阶数和近最优最小特征子集，分别检验预测、上下文重采样和品种迁移。",
+      "evidence": "正文§2.4–2.10、结果/表A1：198样本158/40划分，训练五折选特征/参数，对照PLSR/SVR/RF；三目标测试R² .847/.693/.850。留一品种且每折重选流程；白蛋白R² .282–.736。25追加样本独立制备但同收获来源。",
+      "limitations": "随机测试仅40例；bootstrap固定波段与测试集，只反映上下文变动。单年单站、研磨后测量，未证明整粒或异地外推；SHAP非分子因果证据。",
+      "value": "展示小样本光谱适配的选择流程和外部验证边界。",
+      "reproducibility": "公式、选择规则与版本公开，未核实可直接运行专属代码；未本地复现。",
+      "readScope": "本轮复核出版社 §2.4–2.8、§4.5与§5，确认训练内选择、158/40划分、25例同批次重制及跨品种范围；复用2026-11-13既有方法审核。",
+      "auditReport": "research/QUALITY_AUDIT_2026-11-17.md"
+    },
+    "valueAssessment": {
+      "decision": "exclude",
+      "comparison": "相对已有导数预处理、MRMR/RFE与 TabPFN，以及库内66项近红外任务评估，本作新增主要是小麦蛋白对象；没有新模型机制，品种外推波动且重取样来自同一收获批次。",
+      "reason": "已有光谱预处理和特征选择接 TabPFN 的单点应用；198样本、40例随机测试及同收获批次重取样支持局部可行性，但没有形成额外的通用方法或跨地区/年度证据。本库已有更广的光谱预处理评估，当前独立保留的增量有限。"
+    },
+    "restoreWhen": "补充跨年度/地区的独立外部验证，或证明可跨数据复用的新特征选择机制及实际测量成本收益。"
+  },
+  {
+    "id": "arxiv-2610.25142",
+    "title": "Image Dehazing as In-Context Tabular Inference",
+    "url": "https://arxiv.org/abs/2610.25142",
+    "sourceUpdated": "2026-10-18",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-17",
+    "reason": "把图块描述接入冻结 TabPFN 的问题改写有潜力，但主评测使用其余测试图的配对标签作参考，独立HSTS仅10对；缺同特征的树/近邻回归对照，尚未隔离TFM的额外贡献，暂缓公开。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "冻结表格基础模型可以通过图块特征到透射率的上下文回归完成去雾；所测配置下物理手工特征具备独立价值。",
+      "contribution": "将低层视觉的物理中间量重写为结构化回归，比较44维手工描述、128维CNN、192维ViT、172维混合特征，并改变参考图/patch检索预算。未提出新的基础模型或无需配对监督的去雾机制。",
+      "evidence": "读§III方法、§IV-A–E和表III–VIII。256×256图像按16×16、步幅8形成961图块，默认每参考图取100块、检索5张参考图，500行上下文输入冻结TabPFN-3.5。透射率标签依赖配对清晰图和估计大气光。SOTS-Outdoor500对采用leave-one-image-out：排除当前图，但其余测试图带标签作为参考；HSTS10对另用SOTS参考。作者报告默认手工特征在两组PSNR均高于单独CNN/ViT；混合只在SOTS略增，HSTS未超过手工或若干外部方法。真实图仅4张用无参考指标；运行时间含单图特征/检索/初始化/预测/重建，排除encoder加载与离线参考准备。为作者报告，未复现。",
+      "limitations": "主基准使用SOTS测试集内其余带标签图像作为参考，与独立参考集评测的信息条件不同；是否存在同场景跨图重叠尚未核验。没有等配对监督/等预算比较强专用监督网络，不能声称优于专用去雾。HSTS只有10对、真实场景4图，未报告随机种子区间；CNN/ViT空间分辨率不同混杂表征对照。未用同特征下树/近邻回归检验TFM的独立贡献。标签误差和物理假设会传递至重建；图块平均丢失细节，运行成本数秒而非实时。",
+      "value": "展示从图像提取物理相关结构化特征、以冻结TFM回归中间量的可迁移问题改写；可研究样本检索与表征作用，但应用价值目前仅属探索。",
+      "reproducibility": "arXiv正文包含方法、指标与参数；官方github/tranleanh/dehazetab本轮仅README(to be updated)，没有可运行实现，故code=null。TabPFN版本指明3.5，尚未独立/本地复现。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/abs/2610.25142",
+        "https://arxiv.org/html/2610.25142v1",
+        "https://github.com/tranleanh/dehazetab"
+      ],
+      "readScope": "本轮重读 arXiv v1 III-C–D、IV-A–B/表III，确认leave-one-image-out参考方式、HSTS10对与对照类型；复用2026-10-27既有方法及实验审核。",
+      "auditReport": "research/QUALITY_AUDIT_2026-11-17.md"
+    },
+    "valueAssessment": {
+      "decision": "defer",
+      "comparison": "相对物理图块特征、参考检索和现成回归组件，核心增量是以冻结 TabPFN 替换回归器；论文未用相同表示和监督条件的普通回归器证明这一步的独立价值。",
+      "reason": "把图块描述接入冻结 TabPFN 的问题改写有潜力，但主评测使用其余测试图的配对标签作参考，独立HSTS仅10对；缺同特征的树/近邻回归对照，尚未隔离TFM的额外贡献，暂缓公开。"
+    },
+    "restoreWhen": "补充完全独立参考/测试集、同特征树/近邻回归及匹配监督预算的专用方法对照，报告重复实验。"
+  },
+  {
+    "id": "zenodo-24198181",
+    "title": "Context Curation Is Not a Free Lunch: An Empirical Test of Inference-Time Robustness for Tabular Foundation Models Under Distribution Shift",
+    "url": "https://doi.org/10.5281/zenodo.24198181",
+    "sourceUpdated": "2026-11-13",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-17",
+    "reason": "负结果本身可有价值，但模型版本未固定、类别采样正文与实现不一致，部分策略不足名义样本数，妨碍解释固定预算下的上下文选择结果。今天初次收录后按更严格价值门槛撤下，待协议统一再审。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-17",
+      "claim": "所测密度重加权策略的收益不稳定；不足以据此断言上下文选择普遍无效或可替代重新训练。",
+      "contribution": "固定上下文预算，使用无标签目标域分类器选行，并把同一域权重交给树模型重训，区分上下文选择与重训练机制。",
+      "evidence": "正文§3–6：5二分类数据集、3构造偏移、4强度、3种子、3上下文大小200/500/1000，共540配对配置；目标特征来自与评分样本分离的30%无标签测试切片。折叠种子和预算得到60个数据集×偏移×强度单元后，重加权平均准确率变化+.0014、p=.122；Electricity时间间隔最大时.5622对随机.6195。树基线有8次、3折调参检查。",
+      "limitations": "只有5数据集且仅1真实漂移例，60单元仍共享数据集，不能称完全独立。未显著不等于证明等效或无效。正文称class-balanced匹配训练比例，实际strategies.py按类别等量取样，且稀有类不足时不补足总行数；kmeans也可能少于名义预算。requirements仅写tabpfn，baselines.py使用默认检查点，版本未固定。",
+      "value": "提供检验“更像目标的上下文一定更好”这一假设的负结果线索和共享域权重对照；不能把最近质心选择等同逐查询kNN，复现需先固定版本与实际样本数。",
+      "reproducibility": "已核对作者公开代码入口；实验结果属于作者报告，未在本机运行模型或做独立复现。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://doi.org/10.5281/zenodo.24198181",
+        "https://doi.org/10.5281/zenodo.24198180",
+        "https://github.com/MansoobeZahra/Context_Curation",
+        "https://doi.org/10.5281/zenodo.21953755"
+      ],
+      "readScope": "复用今天09:03批次已经读过的15页正文§3–6/表2–6、9及作者strategies.py、baselines.py、requirements、EXPERIMENT_MANIFEST；本轮重评收录价值，未重复下载或声称独立复现。",
+      "auditReport": "research/QUALITY_AUDIT_2026-11-17.md"
+    },
+    "valueAssessment": {
+      "decision": "defer",
+      "comparison": "相对随机上下文、密度重加权和库内 LUCoS/ARASH，新增价值应来自可信的分布漂移负结果；现有版本与实际样本预算冲突阻碍这项独立证据成立。",
+      "reason": "负结果本身可有价值，但模型版本未固定、类别采样正文与实现不一致，部分策略不足名义样本数，妨碍解释固定预算下的上下文选择结果。今天初次收录后按更严格价值门槛撤下，待协议统一再审。"
+    },
+    "restoreWhen": "固定 TabPFN/权重版本，统一正文与代码中的采样策略，补足或披露各策略实际样本数，并重跑匹配预算结果。"
+  },
+  {
+    "id": "paper-baf74a758c",
+    "title": "Pavement performance prediction via a tabular foundation model",
+    "url": "https://doi.org/10.1016/j.cacaie.2026.100097",
+    "sourceUpdated": "2026-09",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-17",
+    "reason": "此前只有出版商索引的部分正文，完整方法/外部验证尚未取得；跨路网及巡检减负主张缺少可核验的完整依据。不能用行业相关性替代完整证据，转为待核验。",
+    "qualityReview": {
+      "reviewedAt": "2026-10-15",
+      "reviewStatus": "partial",
+      "claim": "现有小样本实验足以支持跨路网推广及实际巡检减负。",
+      "contribution": "将 TabPFN 用于下一巡检周期的路面状态预测，考察小样本、不平衡和缺失数据。",
+      "evidence": "主实验为国道 6 号 189 段路面、按顺序划分的折；填补仅用上下文统计，与五类固定参数基线比较。",
+      "limitations": "国道 4 号补充验证中少数维修类 F1 为 0；25% 巡检减负是情景推算，且数据不能公开，不能视作跨路网部署验证。",
+      "value": "有行业验证价值，同时说明外部验证与数据完整性的重要性。",
+      "conclusion": "有迹象但证据不足",
+      "reproducibility": "本次核对公开原文中的相关方法和评测材料；结果归属于作者，未运行模型或独立复现实验。",
+      "sources": [
+        "https://doi.org/10.1016/j.cacaie.2026.100097",
+        "https://www.sciencedirect.com/science/article/pii/S1093968726030835"
+      ],
+      "readScope": "复用2026-10-15部分审核：仅出版商索引第3–5节片段；本轮DOI打开重定向仍不可读。未取得完整PDF，不声明完成方法重审。",
+      "auditReport": "research/QUALITY_AUDIT_2026-11-17.md"
+    },
+    "valueAssessment": {
+      "decision": "defer",
+      "comparison": "现有贡献是把 TabPFN 用于路面状态预测。相对普通小样本预测应用，独立价值需要可核验的外部路网/少数维修类与实际巡检效果，目前资料不足。",
+      "reason": "此前只有出版商索引的部分正文，完整方法/外部验证尚未取得；跨路网及巡检减负主张缺少可核验的完整依据。不能用行业相关性替代完整证据，转为待核验。"
+    },
+    "restoreWhen": "取得完整方法与外部验证正文，核对时间划分、少数类结果、基线配置与巡检减负测算。"
+  },
+  {
+    "id": "paper-3b87eab6aa",
+    "title": "Conformal Prediction for Tabular Prior-Data Fitted Networks with Missing Data",
+    "url": "https://openreview.net/pdf?id=TnZcC7GXI5",
+    "sourceUpdated": "2025",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-17",
+    "reason": "此前仅有摘要和作者notebook，完整正文仍受访问限制；主函数与附加实验的分位数修正不一致、未见缺失模式仅告警，核心覆盖主张未完成审核，撤下待补。",
+    "qualityReview": {
+      "reviewedAt": "2026-10-15",
+      "reviewStatus": "partial",
+      "claim": "当前材料足以确立任意缺失模式下的覆盖保证。",
+      "contribution": "将按缺失模式构造校准集的 CP-MDA-exact 接到 TabPFN 分位数预测上。",
+      "evidence": "论文摘要报告覆盖改善；作者公开 notebook 显示线性高斯模拟、MCAR 嵌套缺失及独立训练／校准／测试切分。",
+      "limitations": "原 PDF 当前不可访问；代码的额外分位数实验与主函数采用不同修正公式，且未见缺失模式只会告警，尚不足以支持任意缺失下的保证。",
+      "value": "保留为缺失模式校准的初步方法线索，使用前需复核代码与理论前提。",
+      "conclusion": "有迹象但证据不足",
+      "reproducibility": "已静态检查作者公开 notebook；主函数与附加实验的分位数修正公式不一致，需复现核查，未运行代码。",
+      "sources": [
+        "https://openreview.net/forum?id=TnZcC7GXI5",
+        "https://github.com/Fdvanleeuwen/TabPFN_CP-MDA/blob/main/Simulation.ipynb",
+        "https://github.com/Fdvanleeuwen/TabPFN_CP-MDA/blob/main/Functions_for_implementation.ipynb"
+      ],
+      "readScope": "复用2026-10-15作者两个notebook的静态审核；本轮OpenReview论坛返回验证页、PDF返回403，未新增完整正文阅读或运行复现。",
+      "auditReport": "research/QUALITY_AUDIT_2026-11-17.md"
+    },
+    "valueAssessment": {
+      "decision": "defer",
+      "comparison": "相对已有 CP-MDA 缺失模式校准，新增是接入 TabPFN 分位数预测；是否保留覆盖条件、如何处理未见模式，现有部分材料不足以确认独立方法价值。",
+      "reason": "此前仅有摘要和作者notebook，完整正文仍受访问限制；主函数与附加实验的分位数修正不一致、未见缺失模式仅告警，核心覆盖主张未完成审核，撤下待补。"
+    },
+    "restoreWhen": "取得全文并核对假设/证明，统一分位数公式，明确未见缺失模式的处理及覆盖实验。"
   }
 ]

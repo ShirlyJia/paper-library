@@ -2,6 +2,8 @@ import { readFile } from 'node:fs/promises';
 import { safeURL, paperPath, isFullDate, beijingDate } from '../library.js';
 const catalogue = JSON.parse(await readFile(new URL('../data/papers.json', import.meta.url), 'utf8'));
 const registry = JSON.parse(await readFile(new URL('../research/model-families.json', import.meta.url), 'utf8'));
+const withheld = JSON.parse(await readFile(new URL('../research/withheld-papers.json', import.meta.url), 'utf8'));
+const withheldIds = new Set(withheld.papers.map(entry => entry.paper.id));
 const categories = new Set(catalogue.categories.map(c => c.id));
 const ids = new Set(), urls = new Set();
 const errors = [];
@@ -81,7 +83,7 @@ for (const day of catalogue.collectionUpdates || []) {
 for (const id of ids) if (!firstAdded.has(id)) errors.push(`${id} 缺少首次收录记录`);
 for (const family of registry.families) {
   if (!family.name || !family.paperIds?.length || !family.sources?.length) errors.push('模型家族缺少名称、论文或来源');
-  for (const id of family.paperIds || []) if (!ids.has(id)) errors.push(`已知版本漏收: ${family.name} / ${id}`);
+  for (const id of family.paperIds || []) if (!ids.has(id) && !withheldIds.has(id)) errors.push(`已知版本漏收: ${family.name} / ${id}`);
   for (const source of family.sources || []) if (!safeURL(source)) errors.push(`${family.name} 来源无效`);
 }
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }

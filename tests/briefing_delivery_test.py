@@ -129,6 +129,24 @@ class BriefingDeliveryTests(unittest.TestCase):
             self.deliver()
         self.assertEqual(self.sends(), 1)
 
+    def archive_paper(self):
+        sender.save_json(self.root / "research/withheld-papers.json", {"papers": [{"paper": self.paper}]})
+        sender.save_json(self.root / "data/papers.json", {"papers": []})
+
+    def test_verified_briefing_still_deduplicates_after_paper_withdrawal(self):
+        self.deliver()
+        self.archive_paper()
+        calls = len(self.calls)
+        self.assertEqual(self.deliver()["status"], "already-sent")
+        self.assertEqual(len(self.calls), calls)
+        self.assertEqual(self.sends(), 1)
+
+    def test_unsent_briefing_with_withdrawn_paper_is_not_delivered(self):
+        self.archive_paper()
+        with self.assertRaisesRegex(ValueError, "已撤下"):
+            self.deliver()
+        self.assertEqual(self.sends(), 0)
+
     def test_changed_paper_list_does_not_create_duplicate_topic(self):
         self.deliver()
         second = {"id": "paper-2", "title": "Paper Two", "url": "https://arxiv.org/abs/2610.54321"}
