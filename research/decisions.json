@@ -12942,5 +12942,288 @@
       "reason": "此前仅有摘要和作者notebook，完整正文仍受访问限制；主函数与附加实验的分位数修正不一致、未见缺失模式仅告警，核心覆盖主张未完成审核，撤下待补。"
     },
     "restoreWhen": "取得全文并核对假设/证明，统一分位数公式，明确未见缺失模式的处理及覆盖实验。"
+  },
+  {
+    "id": "arxiv-2611.20174",
+    "title": "Weights & Caches: LLMs Can Program Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2611.20174",
+    "sourceUpdated": "2026-11-15",
+    "decision": "included",
+    "reviewedAt": "2026-11-18",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-18",
+      "claim": "无需梯度优化，由语言模型编写参数/缓存修改程序，可以实现或修复特定的表格预测计算。",
+      "contribution": "区别于选择提示、微调和只解释激活：分别构造 nanoTabPFN 权重、修复预训练 TabPFN 的符号乘积计算、在冻结权重下改写缓存行为，并设隐藏测试和一般任务保持检查。",
+      "evidence": [
+        "nanoTabPFN：20 个小型 TabArena-v0.1 分类数据集，仅 fold0/repeat0；零数据构造模型 AUC .849、log loss .397，SGD 基线 .876/.312。报告两次代理会话中更好的结果，不能声称胜过训练。",
+        "权重修复：5/6 特征、256/512 上下文四种设置，共 240 个最终隐藏测试、每个 500 查询；中位 R² 从约 -.024–.017 提高到 .991–.998。51 个 TabArena-Lite 数据集×3 seeds，误差几何比 1.0008，95% CI .9999–1.0017。",
+        "缓存修改：两类一维合成函数，各 10 个留出数据集、32–128 上下文和 500 查询；用早期/晚期 value 与位置对应关系改变外推或波形。"
+      ],
+      "limitations": "均为作者实验，未独立或本地复现。修复改动约 1.05 亿权重/125 tensors；代理可见开发集并收到三轮隐藏验证反馈，最终测试独立。缓存试验规模小、行为定制而非压缩；不能泛化为真实任务通用修复或 OOM/速度优化。",
+      "value": "提供可测试的模型内部干预路线，并用 TabArena 保持实验约束对原能力的破坏；可用于研究失败模式与定向修复。",
+      "reproducibility": "正文及附录给出程序与评测设置；本轮未核实独立代码发布链接。缓存试验用 GPT-6 Astra 等代理，代理成本与模型计算成本不同。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.20174",
+        "https://arxiv.org/html/2611.20174v1"
+      ],
+      "readScope": [
+        "v1 正文 §3.1–3.3、§4；附录 A 协议/数据/基线/会话，B 设置、诊断、干预及 Tables4–6，C 设置/评测和 C.1 算法开头；未声称读完全部附录。"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对既有 TabPFN 报告和内部机制分析，新增直接权重/缓存程序干预与隐藏测试及 TabArena 能力保持验证。",
+      "reason": "独立干预范式和失败修复证据成立；保留对合成任务、代理反馈与大范围权重变更的限制。"
+    }
+  },
+  {
+    "id": "arxiv-2611.18774",
+    "title": "In-context learning predicts clinical endpoints from bulk transcriptomes across diseases and platforms",
+    "url": "https://arxiv.org/abs/2611.18774",
+    "sourceUpdated": "2026-11-12",
+    "decision": "included",
+    "reviewedAt": "2026-11-18",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-18",
+      "claim": "冻结的高维转录组上下文模型在所测回顾性任务上有总体收益，提供跨队列及站点迁移评测。",
+      "contribution": "相对常规将 TabPFN 用于单个医学表格，PRTS 有行/基因压缩架构和跨任务模型，独立增量还包括公开 RealBulk、开发队列关联审计、跨平台与站点分组评测。",
+      "evidence": [
+        "原 RealBulk 175 个任务来自 174 个队列，其中 113 同队列、62 跨队列；另 13 个 TCGA 项目的 44 任务不用于开发。13 个主基线，作者总体相关指标均值 .376，较 TabPFN-3.5 +.013，CI .004–.022。",
+        "审计发现 34 个开发关联队列后排除 38 个任务，137 个清洁任务的总体差 +.015，CI .004–.026；仍有 6 个任务含 PreBULK 中同一人的不同样本、14 队列内 19 对不同 ID 的近重复样本。",
+        "跨队列差 +.008，CI -.007–.022；34 个 TCGA 站点分组任务差 +.007，CI -.007–.021，不能宣称迁移显著优于强基线。更强 6000 基因/生存基线进一步缩小优势。"
+      ],
+      "limitations": "作者回顾性评测，未独立或本地复现。模型看全部基因，主基线采用训练侧选择的 2000 高方差基因；后补强基线部分 Holm P=.054/.059。目标队列无标签标准化仍属传导式设置。速度由共享四卡作业按细胞数分摊，且部分计时早于比较器修复，不作为匹配条件下的单请求加速证据。",
+      "value": "基准、分组验证和泄漏审计可复用，能区分同队列得分与实际跨队列迁移价值，而非依靠单病种微小涨点。",
+      "reproducibility": "已读 GitHub README：公开代码、数据准备、权重链接及版本修正。未下载权重/运行实验；Hugging Face 文件未独立验证。论文 arXiv v1 11月12日，不能把聚合站11月17日更新时间写成论文v2。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.18774",
+        "https://arxiv.org/html/2611.18774v1",
+        "https://github.com/Hanziwww/PRTS"
+      ],
+      "readScope": [
+        "v1 Results 的主评测、跨队列/站点/成本；Discussion 局限；Methods 任务、架构、推理、RealBulk、关联泄漏审计、TCGA、比较器/统计；代码数据声明及官方 README。"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对库内单病种应用，新增基因级输入架构、公开多队列基准与开发数据关联审计；并有迁移不显著的独立边界信息。",
+      "reason": "公开评测资产与审计方法可复用，超出换数据集调用模型的增量；不以临床标题或总体排名作为收录依据。"
+    }
+  },
+  {
+    "id": "arxiv-2611.20468",
+    "title": "Tabular Foundation Models as Emulators for Forecasting Terrestrial Ecosystem Dynamics",
+    "url": "https://arxiv.org/abs/2611.20468",
+    "sourceUpdated": "2026-11-16",
+    "decision": "included",
+    "reviewedAt": "2026-11-18",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-18",
+      "claim": "冻结的表格模型可作为生态模拟器的终点代理；其情景外推误差与情景响应保真是不同问题。",
+      "contribution": "相对常规领域套用 TFM，本研究在相同留出地点比较当代/未来驱动，并显式检验气候情景变化幅度，揭示平均误差排名可能掩盖响应失真。",
+      "evidence": [
+        "CarbonGlobe/EDv3.0 模拟：54,152 地点、15 林龄；3,036 训练地点×15=45,540 上下文行，50779 留出地点/761685 stands，预测7种40年末输出。",
+        "当代场景 LSTM 在 7 项中 6 项更好。未来固定1858个地点，单个GFDL-ESM4的低/高排放情景；高情景 TabPFN 在4/7输出更好，生物量RMSE2.746，LSTM6.510，Informer6.212。",
+        "模拟器低/高情景生物量增加1.4/2.3，TabPFN仅+.6/+.4；所有代理低估情景效应，TabPFN高情景误差较小仍不保留响应幅度。"
+      ],
+      "limitations": "作者仿真实验，未独立复现。TFM使用158个汇总/参考特征、2 estimators；序列基线月度驱动、完整轨迹训练并平均3seed，输入与目标不完全匹配；没有同特征XGBoost强基线或推理成本实测。未来切换驱动来源也可能混杂；归一化/年龄参考量拟合范围未充分说明。",
+      "value": "提供情景迁移失败诊断：对业务中预测政策/环境变化的模型，需另检验响应方向与幅度，不能仅凭留出误差判断可用。",
+      "reproducibility": "正文有数据生成和划分设置；未核实专用复现代码公开。不是对实际气候结果或干预因果效应的验证。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.20468",
+        "https://arxiv.org/html/2611.20468v1"
+      ],
+      "readScope": [
+        "v1 正文 §3–6：数据/空间划分、TabPFN与序列基线输入、当代和未来情景结果、响应幅度与讨论；使用全文HTML。"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "区别于库内一般工程预测案例，新增相同地点的情景对照及响应失真诊断；没有将小幅误差收益当作独立方法创新。",
+      "reason": "具有可迁移的分布外评测和负结果价值，且结论由场景对照支撑。"
+    }
+  },
+  {
+    "id": "arxiv-2609.32167",
+    "title": "CAFE: Counterfactual Prediction via Fast Posterior Estimation",
+    "url": "https://arxiv.org/abs/2609.32167",
+    "sourceUpdated": "2026-09-26",
+    "decision": "included",
+    "reviewedAt": "2026-11-18",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-18",
+      "claim": "在规定的因果先验与观测条件下，摊销后验估计可表达反事实及因果图不唯一产生的不确定性。",
+      "contribution": "相对只输出点估计/效应或先拟合一个图的路线，CAFE 以观测表、完整事实个体和干预为输入，将多个相容机制的反事实后验作为直接预测目标。",
+      "evidence": [
+        "交替样本/特征注意力和5000分箱输出，无下游逐任务梯度拟合。C-Suite 7设置、N2000、双向2折、5seed，在模型基线中6/7最低；不含事实结果对照，该对照在fork中误差为0。",
+        "三变量线性高斯的6个等价DAG可算精确后验；N50→1000时IQD .161→.018；N1000后验均值RMSE .094、方差 .055。DECI/DiBS先验并非完全相同。",
+        "CausalMan Micro/Small模拟工厂与拟合贝叶斯网络的Sangiovese验证下游反事实任务；不能把拟合网络生成的标签当真实成对反事实观测。"
+      ],
+      "limitations": "理论需要完全观测、无环、独立加性噪声及重叠/连续性等条件；包括事实结果的输入有适用性约束。仿真隐藏变量测试不证明一般隐藏混杂可识别。下游计时不含8×RTX5090预训练，且各方法硬件口径未充分统一。作者实验，未本地复现。",
+      "value": "提供可检验的反事实分布估计路线和解析后验校验；可补足仅以预测误差判断因果模型的不足。",
+      "reproducibility": "已核对v1方法、解析实验和附录；本轮未找到作者专用公开代码。保留复现条件，不能引用数十万倍速度作为同成本比较。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2609.32167",
+        "https://arxiv.org/html/2609.32167v1"
+      ],
+      "readScope": [
+        "v1 §§2–4；附录 A.1 证明条件、B.2训练、C.1基线/C.2先验关系、D.3后验比较和D.4运行时间；未声称完整阅读D.5/D.6。"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对 CausalPFN/因果效应与单图反事实方法，独立增量是完整个体条件下的反事实后验摊销及相容图不确定性，带解析真值评测。",
+      "reason": "反事实分布与可识别性边界有独立研究价值，补录9月旧作而非按数量收录。"
+    }
+  },
+  {
+    "id": "arxiv-2611.21216",
+    "title": "MiSTiQ: MicroScaling Trellis Quantization for Extreme KV Cache Compression",
+    "url": "https://arxiv.org/abs/2611.21216",
+    "sourceUpdated": "2026-11-16",
+    "decision": "included",
+    "reviewedAt": "2026-11-18",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-18",
+      "claim": "在近似匹配的有效存储位宽下，MX-aware trellis 量化比所测码本基线更能保留部分LLM任务质量；不据此承诺实测推理加速。",
+      "contribution": "相对 QTIP 权重量化、NSNQuant/VecInfer 的显式码本，新增用于KV的beam-search编码及直接生成MX元素的哈希，并联合搜索块缩放与路径；有保留预处理只替换量化器的实验。",
+      "evidence": [
+        "Llama-3.1-8B-Instruct/Qwen3-8B，WikiText2、7个LongBench任务、GSM8K；H100，一般单卡、GSM8K四卡。有效位宽计入量化元数据，基线也转成同MX格式。",
+        "Table1约1.25bit UE5M3：GSM8K 35.48/52.46，而BF16为76.95/88.63，NSNQuant约1.24bit为23.12/29.04；更优相对排名不等于近乎无损。UE8M0下Llama LongBench35.79仍低于NSNQuant38.23。",
+        "Table2逐步替换trellis、MX-Hash和联合scale搜索；AppendixG.2固定VecInfer预处理，约1.25bit替换编码器改善指标，但该集成的绝对质量仍很低。"
+      ],
+      "limitations": "源自作者评测，未本地/独立复现；beam width128、长度1024、FP32编码搜索额外成本无端到端时间或峰值显存报告。基线被改成MX版本，不能推广为胜过原始最快实现。哈希依赖近高斯分布，表格K/V分布及硬件支持需另验。代码声明录用后发布，未核实录用。",
+      "value": "独立压缩器设计与匹配位宽消融可为上下文缓存驻留/带宽研究提供方法线索；不解决全模型参数OOM或已发生的上下文构建峰值。",
+      "reproducibility": "正文/附录给出Triton实现设置、离线哈希校准、码本适配与伪代码；未发布代码，本轮仅做正文审核。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.21216",
+        "https://arxiv.org/html/2611.21216v1"
+      ],
+      "readScope": [
+        "v1 Related Work、§§3–5方法描述、§6设置/结果/消融及Tables1–2、§7局限；Appendix A实现与基线适配、G.2同预处理替换结果。"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对库内KV量化/低秩方案，新增将trellis编码直接接到MX目标格式的独立量化器及组件消融，不只是同算法换模型。",
+      "reason": "方法增量明确且匹配位宽的质量收益有证据；以高损失/无速度实测的研究候选路线呈现，非可直接部署方案。"
+    }
+  },
+  {
+    "id": "arxiv-2611.20524",
+    "title": "GaugeRoPE: RoPE-Compatible Executable Latent Attention",
+    "url": "https://arxiv.org/abs/2611.20524",
+    "sourceUpdated": "2026-11-16",
+    "decision": "included",
+    "reviewedAt": "2026-11-18",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-18",
+      "claim": "在保留RoPE相容子空间并近似残差的前提下，低秩缓存可直接执行历史注意力，在所测长上下文解码下节省重建开销。",
+      "contribution": "相对Palu/ReCalKV的历史K/V重建及RoRoPE的实系数同频混合，刻画复线性相容映射并用独立残差K/V分支执行；不是完全等价、无损的注意力。",
+      "evidence": [
+        "Mistral-7B为主，另Qwen2.5与CodeLlama检查GQA/MHA；WikiText103训练段约200k/100k tokens校准，排除评测数据；RULER13任务×50、LongBench16任务×50同样本。",
+        "8/4bit组合KV压缩5.85×，RULER85.56 vs Full90.84；LongBench35.73 vs Full42.59、KIVI41.77。保留128近期原精度tokens后LongBench38.63，压缩约5.41×。",
+        "加速试验另用BF16缓存50%维度、保留256近期原精度tokens，H100PCIe、batch4、6×128步median，包含forward/argmax/cacheupdate但排除prefill。32K为Full2.18×，64K2.48×；batch1/8K仅Full0.56×，32K1.29×。",
+        "固定容量R1/R2、实/复系数、恢复残差RoPE等对照，揭示容量/位置近似导致质量损失；残差恢复可改善注意力但需重建。"
+      ],
+      "limitations": "均作者报告，未独立或本地复现。不能同时宣称5.85×压缩和2.48×加速，同一配置未做此组合实测。低位宽部分质量采用fakequant，需区分账面packed大小与实际运行内存；预填充和校准成本未计入解码吞吐。总体质量损失明显，迁移表格需检查无RoPE/双向掩码等架构差异。",
+      "value": "提供缓存压缩后直接计算的路线及机制对照，有助于避免只减存储却增加重建耗时；是待迁移LLM方法而非LimiX已验证优化。",
+      "reproducibility": "正文附录有校准/基线/测量细节和Triton执行说明；未核实作者独立代码发布；没有本地GPU结果。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.20524",
+        "https://arxiv.org/html/2611.20524v1"
+      ],
+      "readScope": [
+        "v1 §§2–4结构条件和方法、§5.1–5.4/Tables1–3、AppendixB校准、C.1近期token说明、F基线、G系统测量和Table9、H长度扩展。"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对Palu/ReCalKV/TransMLA，不仅压缩缓存，还明确相容结构与直接执行方式，匹配容量机制对照和长上下文实测支撑增量。",
+      "reason": "独立执行路径和质量/吞吐反例有研究价值；明确保留短请求回退、分配置计量及表格迁移边界。"
+    }
+  },
+  {
+    "id": "arxiv-2609.17895",
+    "title": "TabPFN-3.5: Technical Report",
+    "url": "https://arxiv.org/abs/2609.17895",
+    "sourceUpdated": "2026-09-22",
+    "decision": "existing",
+    "reviewedAt": "2026-11-18",
+    "reason": "核实配套库已发布的新工程优化，补充其适用阶段、限制与内存口径；保留原论文首发/修订日期。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-18",
+      "claim": "配套库的输出分块可以降低缓存回归预测后段的显存峰值；共享列降低特定预处理路径的主存副本。",
+      "contribution": "现有engine虽分块查询，随后仍拼接[n_test,5000]分布再解码；PR1417将预测到解码全过程按最多65536行切块并在CPU拼接已解码输出。PR1442保留共享base与独有编码列、按需物化，区别于仅减小querybatch。",
+      "evidence": [
+        "已读PR1417对应6baaa3e29e717f5e992a180d6f5fd2875641fa0f的regressor.py和测试：仅fit_with_cache且InferenceEngineExplicitKVCache、output_type!=full启用；37行/8行块混合类别和缺失值、4estimators，均值/中位数/众数/分位数有数值一致性测试，未在本机执行GPU测试。",
+        "作者L4 24GB，2000context×10features、4estimators均值输出：100k查询峰值12.1→8.3GB，200k–700k从OOM→8.3GB；100k时间15.5→15.7秒，无加速证据。",
+        "已读PR1442对应62eae9bf8a06fa7fcd045718032b6ba9ba1a514a：SharedColumnsTable与ownership条件；作者200k×200、4集成、2类别列CPU tracemalloc，持有副本4×→.04×，峰值4.42×→.45×，均排除调用者base；这是主存量，不是GPU显存。",
+        "release CHANGELOG确认11月17日10.1.0/10.2.0发布相关更改；不是TabPFN-3.5论文新修订。"
+      ],
+      "limitations": "作者PR结果和代码逻辑核验，非本地/独立性能复现。全量输入清洗和CPU输出仍增长；full/无缓存路径不适用。SharedColumnsTable受float32连续输入、预处理步骤和overwrite_fit_input所有权限制；fit_with_cache/finetune/batched仍会np.asarray物化。缓存驻留/上下文编码OOM另需处理。",
+      "value": "把OOM定位到预测输出与CPU预处理两个阶段，能直接指导表格服务分阶段排查；不泛化为上下文容量扩展。",
+      "reproducibility": "PR代码和测试公开，可跟踪指定commit；已有模型论文结论沿用之前审核，本轮未重审整篇报告。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://github.com/PriorLabs/TabPFN/pull/1417",
+        "https://github.com/PriorLabs/TabPFN/pull/1442",
+        "https://github.com/PriorLabs/TabPFN/pull/1422",
+        "https://github.com/PriorLabs/TabPFN/blob/3b6867eb8e6b3410b10969182e5b1b8811eb73c9/CHANGELOG.md"
+      ],
+      "readScope": [
+        "PR1417/1442正文、对应commit完整patch中的regressor/pipeline/SharedColumnsTable及相关测试；PR1422正文；发布CHANGELOG。仅完成本次工程结论审核。"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2611.20384",
+    "title": "JointQ: Joint Scale-and-Integer Quantization for Large Language Models",
+    "url": "https://arxiv.org/abs/2611.20384",
+    "sourceUpdated": "2026-11-16",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-18",
+    "reason": "正文承认正则参数用3个被报告模型的WikiText2和4个零样本评测任务调优，基线用默认值；未与直接前作Beacon/COMQ/PiSO比较、未分离warmstart与局部搜索。先保留候选，待独立留出调参/直接前作与匹配成本对照后复审。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-18",
+      "claim": "完整JointQ流程相对所测GPTQ配置有低位宽精度收益，但其独立局部搜索增量及公平泛化优势尚未充分分离。",
+      "contribution": "固定GPTQ输出格式，联合整数坐标移动和解析最优组scale；将per-channel的scale-eliminated目标扩展到有Hessian跨组耦合的情形。",
+      "evidence": [
+        "4个模型、4个主要设置，六任务均值14/16较vanillaGPTQ改善，PPL12/16；校准C4训练集1024×2048 tokens。",
+        "作者明确无正则的层内重建误差不劣于GPTQ不等于下游变好；最大W3per-channel收益明显依赖正则。",
+        "正文Limitations披露参数选择复用了WikiText2及ARC-c/e、PIQA、WinoGrande测试结果；2.63–15.71×离线量化时间，推理格式/成本与GPTQ相同。"
+      ],
+      "limitations": "测试集用于选择正则参数，只有未调参Llama2/HellaSwag/BoolQ作部分核验；没有Beacon/COMQ/PiSO对比且per-channel目标与Beacon相同；各warmstart/搜索组件未充分消融。不能把校准误差保证解释为泛化或推理加速保证。",
+      "value": "有求解器研究线索，但独立质量/增量门槛尚需补证，本轮不公开入库。",
+      "reproducibility": "作者链接OneCompression v1.4.2，未下载或运行；正文审核完成不等于收录通过。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2611.20384v1",
+        "https://arxiv.org/abs/2611.20384"
+      ],
+      "readScope": [
+        "v1 §3.7–3.9正则/warmstart/实现、§4设置/比较/消融/校准敏感性、§6及Limitations；未声称完整审阅49页证明与全部结果表。"
+      ]
+    }
   }
 ]

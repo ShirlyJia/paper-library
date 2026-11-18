@@ -1308,6 +1308,43 @@
       "sources": [
         "https://doi.org/10.5281/zenodo.24183936"
       ]
+    },
+    {
+      "name": "PRTS",
+      "paperIds": [
+        "arxiv-2611.18774"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.18774",
+        "https://github.com/Hanziwww/PRTS"
+      ]
+    },
+    {
+      "name": "CAFE",
+      "paperIds": [
+        "arxiv-2609.32167"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.32167"
+      ]
+    },
+    {
+      "name": "MiSTiQ",
+      "paperIds": [
+        "arxiv-2611.21216"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.21216"
+      ]
+    },
+    {
+      "name": "GaugeRoPE",
+      "paperIds": [
+        "arxiv-2611.20524"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.20524"
+      ]
     }
   ]
 }

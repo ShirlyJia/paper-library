@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-17",
+  "updatedAt": "2026-11-18",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -1246,7 +1246,7 @@
       "topic": "模型与产品动态",
       "status": "report",
       "venue": "技术报告",
-      "summary": "TabPFN-3.5 改进单元格编码、联合任务架构与推理配置，扩展分组、字符串及多模态表格。报告 TabArena、BeyondArena、STRABLE、MulTaBench 与关系任务；区分 Fast、Plus、Thinking 的前向和缓存耗时。多个配置与任务封装不能视作一个同成本模型；大于 128k 行的样本侧计算仍为二次扩展。",
+      "summary": "TabPFN-3.5 扩展单元格编码及联合任务架构；不同配置的前向与缓存成本需分别比较。配套推理库 11月17日发布 10.1/10.2：缓存模式的回归输出按查询块解码，缓解预测后段峰值显存；预处理共享列减少主存副本。输出分块不支持 full 输出，也不扩大训练上下文容量；共享输入需遵守所有权约定，不能把主存改善当显存加速。",
       "url": "https://arxiv.org/abs/2609.17895",
       "pdf": "https://arxiv.org/pdf/2609.17895",
       "code": "https://github.com/PriorLabs/TabPFN",
@@ -1260,7 +1260,15 @@
         "TabPFN-3.5",
         "TabPFN3.5"
       ],
-      "addedAt": "2026-10-12"
+      "addedAt": "2026-10-12",
+      "dateNote": "首发仍为2026-09-15，论文修订仍为2026-09-22。本次补充2026-11-17配套推理库10.1/10.2的工程实现，不是论文或模型权重新版本。",
+      "sources": [
+        "https://arxiv.org/abs/2609.17895",
+        "https://github.com/PriorLabs/TabPFN/pull/1417",
+        "https://github.com/PriorLabs/TabPFN/pull/1442",
+        "https://github.com/PriorLabs/TabPFN/pull/1422",
+        "https://github.com/PriorLabs/TabPFN/blob/3b6867eb8e6b3410b10969182e5b1b8811eb73c9/CHANGELOG.md"
+      ]
     },
     {
       "id": "arxiv-2609.04540",
@@ -12656,6 +12664,209 @@
         "https://api.biorxiv.org/details/biorxiv/10.64898/2026.11.03.764067"
       ],
       "addedAt": "2026-11-17"
+    },
+    {
+      "id": "arxiv-2611.20174",
+      "title": "Weights & Caches: LLMs Can Program Tabular Foundation Models",
+      "date": "2026-11-15",
+      "updated": "2026-11-15",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "inference-mechanisms",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "让语言模型直接编写权重或缓存修改程序，修正表格模型的特定行为。作者在 240 个隐藏的符号乘积任务上修复 TabPFN-3.5，并用 51 个 TabArena-Lite 数据集检查性能保持；缓存修改仅验证了两类一维合成函数。权重修复改动约 1.05 亿个参数，尚不能推为通用自动修复，也没有缓存压缩、显存或速度收益证据。",
+      "url": "https://arxiv.org/abs/2611.20174",
+      "pdf": "https://arxiv.org/pdf/2611.20174",
+      "code": null,
+      "aliases": [
+        "Weights & Caches",
+        "WSP-NanoTabPFN",
+        "weight-space programming"
+      ],
+      "keywords": [
+        "TabPFN",
+        "TabArena",
+        "weight editing",
+        "cache intervention"
+      ],
+      "related": [
+        1,
+        2,
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.20174",
+        "https://arxiv.org/html/2611.20174v1"
+      ],
+      "addedAt": "2026-11-18"
+    },
+    {
+      "id": "arxiv-2611.18774",
+      "title": "In-context learning predicts clinical endpoints from bulk transcriptomes across diseases and platforms",
+      "date": "2026-11-12",
+      "updated": "2026-11-12",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "biomedical-applications",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "PRTS 面向高维转录组，用冻结的上下文模型处理分类、回归与生存预测，并公开代码及 RealBulk 评测。作者排除关联开发队列后保留 137 个任务，另测 44 个 TCGA 任务；总体收益主要来自同队列，跨队列和站点分组对强基线的优势未显著。部分受试者跨数据源重叠仍未完全排除；属回顾性研究，不能视为临床有效性验证。",
+      "url": "https://arxiv.org/abs/2611.18774",
+      "pdf": "https://arxiv.org/pdf/2611.18774",
+      "code": "https://github.com/Hanziwww/PRTS",
+      "aliases": [
+        "PRTS",
+        "RealBulk"
+      ],
+      "keywords": [
+        "transcriptomics",
+        "cross-cohort",
+        "site-grouped",
+        "TabPFN"
+      ],
+      "related": [
+        2,
+        5
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.18774",
+        "https://arxiv.org/html/2611.18774v1"
+      ],
+      "addedAt": "2026-11-18"
+    },
+    {
+      "id": "arxiv-2611.20468",
+      "title": "Tabular Foundation Models as Emulators for Forecasting Terrestrial Ecosystem Dynamics",
+      "date": "2026-11-16",
+      "updated": "2026-11-16",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用 TabPFN-3.5 预测生态模拟器的 40 年末状态，并在同一批未见地点上比较当代与未来气候情景。作者发现高排放情景下部分指标比序列模型更准，但所有方法都低估模拟器的生物量变化，说明较低预测误差不等于保留情景响应。证据来自一个模拟器和两种未来情景，不是真实长期观测验证；输入信息与序列基线亦不完全一致。",
+      "url": "https://arxiv.org/abs/2611.20468",
+      "pdf": "https://arxiv.org/pdf/2611.20468",
+      "code": null,
+      "aliases": [
+        "Ecosystem Emulators"
+      ],
+      "keywords": [
+        "TabPFN",
+        "environmental forecasting",
+        "distribution shift",
+        "scenario response"
+      ],
+      "related": [
+        2,
+        5
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.20468",
+        "https://arxiv.org/html/2611.20468v1"
+      ],
+      "addedAt": "2026-11-18"
+    },
+    {
+      "id": "arxiv-2609.32167",
+      "title": "CAFE: Counterfactual Prediction via Fast Posterior Estimation",
+      "date": "2026-09-26",
+      "updated": "2026-09-26",
+      "category": 3,
+      "section": "causal-models",
+      "topicId": "causal-unified",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "输入观测表、个体事实状态和假设干预，直接输出反事实分布，并保留多个相容因果图带来的不确定性。作者用可计算后验的三变量模型和 C-Suite 等仿真检验分布与预测效果。个体输入包含事实结果；理论依赖完全观测、无环和独立加性噪声，工业与葡萄园反事实真值仍来自模拟，不能据此解决一般隐藏混杂或确认真实干预效果。",
+      "url": "https://arxiv.org/abs/2609.32167",
+      "pdf": "https://arxiv.org/pdf/2609.32167",
+      "code": null,
+      "aliases": [
+        "CAFE",
+        "Counterfactual Prediction via Fast Posterior Estimation"
+      ],
+      "keywords": [
+        "counterfactual",
+        "posterior estimation",
+        "causal foundation model"
+      ],
+      "related": [
+        1,
+        2,
+        5
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2609.32167",
+        "https://arxiv.org/html/2609.32167v1"
+      ],
+      "addedAt": "2026-11-18"
+    },
+    {
+      "id": "arxiv-2611.21216",
+      "title": "MiSTiQ: MicroScaling Trellis Quantization for Extreme KV Cache Compression",
+      "date": "2026-11-16",
+      "updated": "2026-11-16",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把 KV 缓存编码成 trellis 路径，按目标低精度格式重建，减少大码本存储并与 MX 计算衔接。作者在 Llama-3.1-8B、Qwen3-8B 上比较匹配位宽；约 1.25 bit 时优于所测量化基线，但数学任务准确率仍远低于 BF16。未提供端到端加速/峰值显存实测，代码计划录用后发布；用于表格缓存还需验证分布、编码开销和算子。",
+      "url": "https://arxiv.org/abs/2611.21216",
+      "pdf": "https://arxiv.org/pdf/2611.21216",
+      "code": null,
+      "aliases": [
+        "MiSTiQ"
+      ],
+      "keywords": [
+        "KV cache",
+        "trellis quantization",
+        "microscaling",
+        "LLM迁移",
+        "OOM"
+      ],
+      "related": [
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.21216",
+        "https://arxiv.org/html/2611.21216v1"
+      ],
+      "addedAt": "2026-11-18"
+    },
+    {
+      "id": "arxiv-2611.20524",
+      "title": "GaugeRoPE: RoPE-Compatible Executable Latent Attention",
+      "date": "2026-11-16",
+      "updated": "2026-11-16",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "让压缩后的 KV 直接参与注意力，减少逐次重建历史缓存的计算；方法包含与 RoPE 相容的分量和近似残差。作者在 H100 上的长上下文解码测得收益，但短上下文单请求可变慢。5.85×存储压缩与2.48×解码加速来自不同精度配置，不能合并；LongBench亦有明显掉分。表格模型需先验证位置编码、掩码和预测精度。",
+      "url": "https://arxiv.org/abs/2611.20524",
+      "pdf": "https://arxiv.org/pdf/2611.20524",
+      "code": null,
+      "aliases": [
+        "GaugeRoPE"
+      ],
+      "keywords": [
+        "KV cache",
+        "latent attention",
+        "RoPE",
+        "decode throughput",
+        "LLM迁移"
+      ],
+      "related": [
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.20524",
+        "https://arxiv.org/html/2611.20524v1"
+      ],
+      "addedAt": "2026-11-18"
     }
   ],
   "collectionUpdates": [
@@ -13374,6 +13585,20 @@
       ],
       "updated": [
         "arxiv-2602.11139"
+      ]
+    },
+    {
+      "date": "2026-11-18",
+      "added": [
+        "arxiv-2609.32167",
+        "arxiv-2611.18774",
+        "arxiv-2611.20174",
+        "arxiv-2611.20468",
+        "arxiv-2611.20524",
+        "arxiv-2611.21216"
+      ],
+      "updated": [
+        "arxiv-2609.17895"
       ]
     }
   ]
