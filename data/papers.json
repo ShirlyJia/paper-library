@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-18",
+  "updatedAt": "2026-11-19",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -1069,9 +1069,9 @@
     },
     {
       "id": "report-nvidia-kumo-tabular",
-      "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
+      "title": "NVIDIA Kumo Tabular: Pushing the Accuracy–Efficiency Frontier for Tabular Prediction",
       "date": "2026-09-29",
-      "updated": "2026-09-29",
+      "updated": "2026-11-17",
       "category": 1,
       "section": "industry-models",
       "topicId": "tabular-releases",
@@ -1080,27 +1080,37 @@
         5
       ],
       "topic": "通用表格模型",
-      "status": "report",
-      "venue": "NVIDIA 官方技术说明",
-      "summary": "Kumo Tabular 结合列注意力、行压缩与上下文 KV 缓存，官方说明披露四组基准及指定单卡评测。原生单次前向最多十类，更多类别依赖编码扩展；缓存收益与分布外表现需按任务验证。可参考其推理路径，性能结论属于官方报告。",
-      "url": "https://huggingface.co/blog/nvidia/kumo-tabular",
-      "pdf": null,
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "交错列/行编码与上下文缓存的表格模型；新论文补齐 Test-GQA 和主存到 GPU 的缓存流水，并报告 TabArena 等八组基准。首次拟合峰值仍主要来自编码器，缓存主要帮助重复查询；每个集成成员限制行列规模，超过十类要拆分。多数对比的置信区间重叠，分组、超大表及预算不同时优势不一致，不宜把缓存速度等同首次预测速度。",
+      "url": "https://arxiv.org/abs/2611.23001",
+      "pdf": "https://arxiv.org/pdf/2611.23001",
       "code": "https://github.com/NVIDIA/structured-data-models",
       "keywords": [
         "TFM",
         "表格基础模型",
-        "Kumo Tabular"
+        "Kumo Tabular",
+        "Test-GQA",
+        "主存缓存",
+        "拟合显存",
+        "TabArena"
       ],
       "aliases": [
         "Kumo Tabular",
         "Kumo-Tabular",
-        "NVIDIA Kumo"
+        "NVIDIA Kumo",
+        "arXiv:2611.23001",
+        "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction"
       ],
       "sources": [
         "https://huggingface.co/blog/nvidia/kumo-tabular",
-        "https://huggingface.co/nvidia/Kumo-Tabular"
+        "https://huggingface.co/nvidia/Kumo-Tabular",
+        "https://arxiv.org/abs/2611.23001",
+        "https://arxiv.org/html/2611.23001v1",
+        "https://github.com/NVIDIA/structured-data-models"
       ],
-      "addedAt": "2026-10-12"
+      "addedAt": "2026-10-12",
+      "dateNote": "保留官方技术说明首次公开日期 2026-09-29；对应 arXiv 论文 v1 于 2026-11-17 公开，与既有模型条目合并，不重复收录。"
     },
     {
       "id": "arxiv-2609.36108",
@@ -7702,8 +7712,8 @@
       "id": "report-nvidia-structured-data-models",
       "title": "NVIDIA Structured Data Models",
       "date": "2026",
-      "updated": "2026-10-30",
-      "dateNote": "项目首发暂仅记已确认年份，不以仓库创建日代替公开日期。GitHub 最早发行版 v0.1.0 发布于 2026-10-14；已有 Kumo Tabular 模型技术说明作为独立条目保留。",
+      "updated": "2026-11-19",
+      "dateNote": "项目首发暂仅记已确认年份，不以仓库创建日代替公开日期。GitHub 最早发行版 v0.1.0 发布于 2026-10-14；已有 Kumo Tabular 模型技术说明作为独立条目保留。 2026-11-19 核验 main 提交 82c4d79 的编译分块改动，不代表已发布稳定版。",
       "category": 1,
       "section": "industry-models",
       "topicId": "tabular-releases",
@@ -7714,7 +7724,7 @@
       ],
       "status": "report",
       "venue": "NVIDIA · 官方项目文档",
-      "summary": "GPU 原生的结构化模型基础库，用统一张量语义、可组合预处理和模型接口接入表格、关系及时间序列模型，支持固定上下文的 fit/predict 缓存复用，并提供 TabArena 等评测入口。它提供底层数据与模型组件；各模型的输入类型、缓存与训练能力仍有差异，不能据统一接口推断统一性能或服务级多卡调度能力。",
+      "summary": "GPU 原生结构化模型库，提供统一张量、预处理与模型接口、fit/predict 缓存复用及 TabArena 入口。11 月 19 日 main 改动在编译路径跳过按空闲显存自动分块，减少动态形状重编译，但大查询需调用方分块或使用非编译路径；这不是 OOM 修复。现有测试不能证明大表容量或统一服务级多卡能力。",
       "url": "https://github.com/NVIDIA/structured-data-models",
       "pdf": null,
       "code": "https://github.com/NVIDIA/structured-data-models",
@@ -7734,7 +7744,11 @@
         "KV缓存",
         "TabArena",
         "TabICLv2",
-        "Kumo Tabular"
+        "Kumo Tabular",
+        "torch.compile",
+        "动态形状",
+        "查询分块",
+        "OOM"
       ],
       "sources": [
         "https://github.com/NVIDIA/structured-data-models",
@@ -7742,7 +7756,8 @@
         "https://github.com/NVIDIA/structured-data-models/blob/main/docs/source/processing.md",
         "https://github.com/NVIDIA/structured-data-models/blob/main/sdm/models/base/icl.py",
         "https://github.com/NVIDIA/structured-data-models/blob/main/benchmark/tabular/README.md",
-        "https://github.com/NVIDIA/structured-data-models/releases/tag/v0.1.0"
+        "https://github.com/NVIDIA/structured-data-models/releases/tag/v0.1.0",
+        "https://github.com/NVIDIA/structured-data-models/commit/82c4d79fc0da4eacf59ee563e30dd5a2bce16e49"
       ],
       "addedAt": "2026-10-30"
     },
@@ -12867,6 +12882,238 @@
         "https://arxiv.org/html/2611.20524v1"
       ],
       "addedAt": "2026-11-18"
+    },
+    {
+      "id": "arxiv-2611.22308",
+      "title": "VRLLM: Turning LLMs into Powerful Tabular Classifiers",
+      "date": "2026-11-17",
+      "updated": "2026-11-17",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "credit-risk",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "将交易字段转成保留商户名称的文本，用 LoRA 微调 Llama-3.2-1B 做欺诈分类。Visa 作者在私有时间留出集上报告，与生产模型集成优于单用任一模型，并检查未见商户与连续时间窗口。可参考语义字段与互补性评测；数据、工作点及代码未充分公开，TFM 基线的上下文与训练预算不同，不能据此断言通用表格模型落后。",
+      "url": "https://arxiv.org/abs/2611.22308",
+      "pdf": "https://arxiv.org/pdf/2611.22308",
+      "code": null,
+      "aliases": [
+        "VRLLM"
+      ],
+      "keywords": [
+        "Visa Research",
+        "交易风控",
+        "LoRA",
+        "高基数类别"
+      ],
+      "related": [
+        4,
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.22308",
+        "https://arxiv.org/html/2611.22308v1"
+      ],
+      "addedAt": "2026-11-19"
+    },
+    {
+      "id": "arxiv-2611.22828",
+      "title": "TabDAG: Structured Evolutionary Search for Tabular Feature Engineering",
+      "date": "2026-11-17",
+      "updated": "2026-11-17",
+      "category": 4,
+      "section": "semantic-features",
+      "topicId": "feature-search",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "让 LLM 编辑受类型约束的特征计算图，用静态检查和训练折内行为测试排除无效或泄漏程序。作者在十个数据集、三种预测器上比较相同候选预算，报告较少失败评估及相对原始特征的收益；对其他搜索方法的优势经多重校正后并不稳定。适合借鉴可审计的特征搜索流程，不能据失败率推断总调用成本更低。",
+      "url": "https://arxiv.org/abs/2611.22828",
+      "pdf": "https://arxiv.org/pdf/2611.22828",
+      "code": null,
+      "aliases": [
+        "TabDAG"
+      ],
+      "keywords": [
+        "LLM 特征工程",
+        "DAG",
+        "泄漏检查",
+        "TabPFN"
+      ],
+      "related": [
+        2,
+        5
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.22828",
+        "https://arxiv.org/html/2611.22828v1"
+      ],
+      "addedAt": "2026-11-19"
+    },
+    {
+      "id": "arxiv-2611.22019",
+      "title": "Computed Permutation Trellis Coding: Near-Optimal Quantization from Two Multiplications and a 64-Byte Table",
+      "date": "2026-11-17",
+      "updated": "2026-11-17",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用计算生成的 trellis 码本和 64 字节查表压缩权重，减少高质量低比特码本的解码成本。作者在相同 YAQA 管线中比较 QTIP 码本并测 GPU 线性层；低误差并未自动转为更快推理，H100 上 4-bit CPTC 仍慢于 INT4。可参考权重格式与核函数协同设计，KV 缓存、表格模型及完整服务性能尚未验证。",
+      "url": "https://arxiv.org/abs/2611.22019",
+      "pdf": "https://arxiv.org/pdf/2611.22019",
+      "code": null,
+      "aliases": [
+        "CPTC"
+      ],
+      "keywords": [
+        "权重量化",
+        "trellis",
+        "部署",
+        "解码融合",
+        "INT4"
+      ],
+      "related": [
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.22019",
+        "https://arxiv.org/pdf/2611.22019v1"
+      ],
+      "addedAt": "2026-11-19"
+    },
+    {
+      "id": "arxiv-2611.22280",
+      "title": "XM-Sparse: High-Throughput Sparse-Attention LLM Serving over Scale-up Memory Pools",
+      "date": "2026-11-17",
+      "updated": "2026-11-17",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "将稀疏注意力的热点 KV 与全历史索引缓存分别卸载、预取，用融合读取减少搬运停顿。作者在八张 B300 的计算/内存池上测试，同池对照吞吐提高 1.06–1.34 倍；容量实验用虚拟映射模拟 24TB，并固定未命中及专家路由。针对并发解码的常驻缓存压力，不能直接当作单卡表格首次编码 OOM 的解法。",
+      "url": "https://arxiv.org/abs/2611.22280",
+      "pdf": "https://arxiv.org/pdf/2611.22280",
+      "code": null,
+      "aliases": [
+        "XM-Sparse"
+      ],
+      "keywords": [
+        "稀疏注意力",
+        "内存池",
+        "KV卸载",
+        "索引缓存",
+        "在线吞吐"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.22280",
+        "https://arxiv.org/html/2611.22280v1"
+      ],
+      "addedAt": "2026-11-19"
+    },
+    {
+      "id": "arxiv-2611.19710",
+      "title": "Joint Learning of Factual and Counterfactual Worlds for Causal Prior-data Fitted Networks",
+      "date": "2026-11-15",
+      "updated": "2026-11-15",
+      "category": 3,
+      "section": "causal-models",
+      "topicId": "causal-reliability",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "在同一合成机制下联合学习接受与不接受处理的结果分布，保留两种结果的相关性，再近似汇总群体效应分布。作者在 Do-PFN、UWYK 和重训 CausalPFN 上做分辨率与标签预算消融，多数设置的效应区间改善，部分粗网格设置退化。平均效应分布仍是近似，校准保证限于训练先验，不能消除真实数据的识别限制。",
+      "url": "https://arxiv.org/abs/2611.19710",
+      "pdf": "https://arxiv.org/pdf/2611.19710",
+      "code": null,
+      "aliases": [
+        "Joint Causal PFN",
+        "Joint Learning for Causal PFNs"
+      ],
+      "keywords": [
+        "因果PFN",
+        "联合潜在结果",
+        "ITE",
+        "ATE",
+        "区间校准"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.19710",
+        "https://arxiv.org/html/2611.19710v1"
+      ],
+      "addedAt": "2026-11-19"
+    },
+    {
+      "id": "arxiv-2611.18972",
+      "title": "NVFP4-MLA: Unified FP4 KV-Cache Storage and Attention Computation for Multi-Head Latent Attention",
+      "date": "2026-11-13",
+      "updated": "2026-11-13",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用二维分块量化和敏感通道残差，让 MLA 缓存直接以 FP4 存储并参与注意力计算，避免中间重新量化。作者在 Rubin 上测 DeepSeek-R1、Kimi-K3：相对 BF16，MLA 缓存缩小约 3.2/3.05 倍，并测到服务收益；不等于总显存同比下降，Kimi 的其他状态未计入压缩率。依赖 MLA 和硬件核函数，表格迁移仍需验证。",
+      "url": "https://arxiv.org/abs/2611.18972",
+      "pdf": "https://arxiv.org/pdf/2611.18972",
+      "code": null,
+      "aliases": [
+        "NVFP4-MLA"
+      ],
+      "keywords": [
+        "FP4",
+        "MLA",
+        "KV缓存",
+        "量化",
+        "Rubin",
+        "前缀复用"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.18972",
+        "https://arxiv.org/html/2611.18972v1"
+      ],
+      "addedAt": "2026-11-19"
+    },
+    {
+      "id": "arxiv-2611.18914",
+      "title": "How Much Do Foundation Models Add to Gradient Boosting on Financial Event Sequences?",
+      "date": "2026-11-13",
+      "updated": "2026-11-13",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "credit-risk",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "比较金融序列模型与只用当时可得历史特征的树模型，并复查 TabFormer、IBM AML 的评测。作者发现训练时间边界、历史字段和模拟数据尾部可显著改变结论，提供部分统计代码与预测；不能据此宣布商业模型或图模型失效。主试验用逐数据集预训练的小模型，后续组合有适应性开发偏差，完整模型和特征管线未公开。",
+      "url": "https://arxiv.org/abs/2611.18914",
+      "pdf": "https://arxiv.org/pdf/2611.18914",
+      "code": "https://github.com/datarisk-io/fm-vs-gbdt-eval",
+      "aliases": [
+        "Financial Event Sequences",
+        "TBS",
+        "Temporal Boosting-Sequence ensemble"
+      ],
+      "keywords": [
+        "金融序列",
+        "GBDT",
+        "基线公平性",
+        "时间泄漏",
+        "TabFormer",
+        "IBM AML"
+      ],
+      "related": [
+        2,
+        4
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.18914",
+        "https://arxiv.org/html/2611.18914v1",
+        "https://github.com/datarisk-io/fm-vs-gbdt-eval"
+      ],
+      "addedAt": "2026-11-19"
     }
   ],
   "collectionUpdates": [
@@ -13599,6 +13846,22 @@
       ],
       "updated": [
         "arxiv-2609.17895"
+      ]
+    },
+    {
+      "date": "2026-11-19",
+      "added": [
+        "arxiv-2611.18914",
+        "arxiv-2611.18972",
+        "arxiv-2611.19710",
+        "arxiv-2611.22019",
+        "arxiv-2611.22280",
+        "arxiv-2611.22308",
+        "arxiv-2611.22828"
+      ],
+      "updated": [
+        "report-nvidia-kumo-tabular",
+        "report-nvidia-structured-data-models"
       ]
     }
   ]

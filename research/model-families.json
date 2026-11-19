@@ -1345,6 +1345,69 @@
       "sources": [
         "https://arxiv.org/abs/2611.20524"
       ]
+    },
+    {
+      "name": "VRLLM",
+      "paperIds": [
+        "arxiv-2611.22308"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.22308"
+      ]
+    },
+    {
+      "name": "TabDAG",
+      "paperIds": [
+        "arxiv-2611.22828"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.22828"
+      ]
+    },
+    {
+      "name": "CPTC",
+      "paperIds": [
+        "arxiv-2611.22019"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.22019"
+      ]
+    },
+    {
+      "name": "XM-Sparse",
+      "paperIds": [
+        "arxiv-2611.22280"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.22280"
+      ]
+    },
+    {
+      "name": "Joint Causal PFN",
+      "paperIds": [
+        "arxiv-2611.19710"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.19710"
+      ]
+    },
+    {
+      "name": "NVFP4-MLA",
+      "paperIds": [
+        "arxiv-2611.18972"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.18972"
+      ]
+    },
+    {
+      "name": "Financial Event Sequences",
+      "paperIds": [
+        "arxiv-2611.18914"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.18914"
+      ]
     }
   ]
 }
