@@ -1408,6 +1408,96 @@
       "sources": [
         "https://arxiv.org/abs/2611.18914"
       ]
+    },
+    {
+      "name": "TFM Scaling Laws",
+      "paperIds": [
+        "arxiv-2611.24214"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.24214"
+      ]
+    },
+    {
+      "name": "TabBioMed",
+      "paperIds": [
+        "arxiv-2611.23779"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.23779"
+      ]
+    },
+    {
+      "name": "ICICLE",
+      "paperIds": [
+        "arxiv-2611.24469"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.24469"
+      ]
+    },
+    {
+      "name": "TripleKV",
+      "paperIds": [
+        "arxiv-2611.25112"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.25112"
+      ]
+    },
+    {
+      "name": "RoCoKV",
+      "paperIds": [
+        "arxiv-2611.25433"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.25433"
+      ]
+    },
+    {
+      "name": "TraceKV",
+      "paperIds": [
+        "arxiv-2611.15569"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.15569"
+      ]
+    },
+    {
+      "name": "Berth",
+      "paperIds": [
+        "arxiv-2611.25091"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.25091"
+      ]
+    },
+    {
+      "name": "TabPack",
+      "paperIds": [
+        "arxiv-2607.05380"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2607.05380"
+      ]
+    },
+    {
+      "name": "跨版本 KV 复用",
+      "paperIds": [
+        "arxiv-2611.14051"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.14051"
+      ]
+    },
+    {
+      "name": "MorphServe",
+      "paperIds": [
+        "arxiv-2506.02006"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2506.02006"
+      ]
     }
   ]
 }

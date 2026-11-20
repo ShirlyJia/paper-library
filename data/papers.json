@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-19",
+  "updatedAt": "2026-11-20",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -1256,13 +1256,16 @@
       "topic": "模型与产品动态",
       "status": "report",
       "venue": "技术报告",
-      "summary": "TabPFN-3.5 扩展单元格编码及联合任务架构；不同配置的前向与缓存成本需分别比较。配套推理库 11月17日发布 10.1/10.2：缓存模式的回归输出按查询块解码，缓解预测后段峰值显存；预处理共享列减少主存副本。输出分块不支持 full 输出，也不扩大训练上下文容量；共享输入需遵守所有权约定，不能把主存改善当显存加速。",
+      "summary": "TabPFN-3.5 的配套推理库 10.1/10.2 支持缓存回归输出分块，缓解预测后段显存峰值；不支持 full 输出，也不扩大训练上下文。11 月 19 日 main 进一步让含数值类别列的 float32 查询表保留精度，供适用的集成成员共享，减少主存副本。仅选列、重排和编码的路径可共享，字符串类别或其他变换仍可能复制；主存改善不等于显存或模型能力提升。",
       "url": "https://arxiv.org/abs/2609.17895",
       "pdf": "https://arxiv.org/pdf/2609.17895",
       "code": "https://github.com/PriorLabs/TabPFN",
       "keywords": [
         "TabPFN",
-        "TFM"
+        "TFM",
+        "float32查询预处理",
+        "共享输入",
+        "主存副本"
       ],
       "section": "industry-models",
       "topicId": "tabular-releases",
@@ -1271,13 +1274,14 @@
         "TabPFN3.5"
       ],
       "addedAt": "2026-10-12",
-      "dateNote": "首发仍为2026-09-15，论文修订仍为2026-09-22。本次补充2026-11-17配套推理库10.1/10.2的工程实现，不是论文或模型权重新版本。",
+      "dateNote": "首发仍为2026-09-15，论文修订仍为2026-09-22。本次补充2026-11-17配套推理库10.1/10.2的工程实现，不是论文或模型权重新版本。 2026-11-20 补核 11-19 main 提交 aa526ac 的查询预处理改动；论文修订日期与该未发版实现的日期分开记录。",
       "sources": [
         "https://arxiv.org/abs/2609.17895",
         "https://github.com/PriorLabs/TabPFN/pull/1417",
         "https://github.com/PriorLabs/TabPFN/pull/1442",
         "https://github.com/PriorLabs/TabPFN/pull/1422",
-        "https://github.com/PriorLabs/TabPFN/blob/3b6867eb8e6b3410b10969182e5b1b8811eb73c9/CHANGELOG.md"
+        "https://github.com/PriorLabs/TabPFN/blob/3b6867eb8e6b3410b10969182e5b1b8811eb73c9/CHANGELOG.md",
+        "https://github.com/PriorLabs/TabPFN/commit/aa526ac6698573dbce2709c1e7f531e03d98a565"
       ]
     },
     {
@@ -7712,8 +7716,8 @@
       "id": "report-nvidia-structured-data-models",
       "title": "NVIDIA Structured Data Models",
       "date": "2026",
-      "updated": "2026-11-19",
-      "dateNote": "项目首发暂仅记已确认年份，不以仓库创建日代替公开日期。GitHub 最早发行版 v0.1.0 发布于 2026-10-14；已有 Kumo Tabular 模型技术说明作为独立条目保留。 2026-11-19 核验 main 提交 82c4d79 的编译分块改动，不代表已发布稳定版。",
+      "updated": "2026-11-20",
+      "dateNote": "项目首发暂仅记已确认年份，不以仓库创建日代替公开日期。GitHub 最早发行版 v0.1.0 发布于 2026-10-14；已有 Kumo Tabular 模型技术说明作为独立条目保留。 2026-11-19 核验 main 提交 82c4d79 的编译分块改动，不代表已发布稳定版。 2026-11-20 核验 main 提交 317b7b5 新增 FP8 KV 存储；未将主分支实现标为稳定版发布。",
       "category": 1,
       "section": "industry-models",
       "topicId": "tabular-releases",
@@ -7724,7 +7728,7 @@
       ],
       "status": "report",
       "venue": "NVIDIA · 官方项目文档",
-      "summary": "GPU 原生结构化模型库，提供统一张量、预处理与模型接口、fit/predict 缓存复用及 TabArena 入口。11 月 19 日 main 改动在编译路径跳过按空闲显存自动分块，减少动态形状重编译，但大查询需调用方分块或使用非编译路径；这不是 OOM 修复。现有测试不能证明大表容量或统一服务级多卡能力。",
+      "summary": "GPU 原生结构化模型库，提供预处理、fit/predict 缓存复用及 TabArena 入口。11 月 20 日 main 新增按头 FP8 KV 存储，但注意力计算前仍还原到查询精度，尚不能断言降低首次构建峰值或提速。此前编译路径跳过自动分块，大查询仍需调用方分块。实现可参考，实际质量、峰值显存与耗时尚需基准验证。",
       "url": "https://github.com/NVIDIA/structured-data-models",
       "pdf": null,
       "code": "https://github.com/NVIDIA/structured-data-models",
@@ -7748,7 +7752,9 @@
         "torch.compile",
         "动态形状",
         "查询分块",
-        "OOM"
+        "OOM",
+        "FP8 KV",
+        "按头量化"
       ],
       "sources": [
         "https://github.com/NVIDIA/structured-data-models",
@@ -7757,7 +7763,8 @@
         "https://github.com/NVIDIA/structured-data-models/blob/main/sdm/models/base/icl.py",
         "https://github.com/NVIDIA/structured-data-models/blob/main/benchmark/tabular/README.md",
         "https://github.com/NVIDIA/structured-data-models/releases/tag/v0.1.0",
-        "https://github.com/NVIDIA/structured-data-models/commit/82c4d79fc0da4eacf59ee563e30dd5a2bce16e49"
+        "https://github.com/NVIDIA/structured-data-models/commit/82c4d79fc0da4eacf59ee563e30dd5a2bce16e49",
+        "https://github.com/NVIDIA/structured-data-models/commit/317b7b5d3063663a7029a08318b03f445a130c5a"
       ],
       "addedAt": "2026-10-30"
     },
@@ -13114,6 +13121,339 @@
         "https://github.com/datarisk-io/fm-vs-gbdt-eval"
       ],
       "addedAt": "2026-11-19"
+    },
+    {
+      "id": "arxiv-2611.24214",
+      "title": "Towards Reliable Scaling Laws for Tabular Foundation Models",
+      "date": "2026-11-18",
+      "updated": "2026-11-18",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用 nanoTabPFN 的 6,120 次训练检查表格模型规模规律，并在 21 个 TabArena 分类数据集上检验选参偏差与外推误差。合成验证与真实表格可能导向不同的算力分配，曲线拟合好也不保证扩大预算后的收益准确。代码及训练结果已公开；结论限于所测小模型、先验和分类任务，不能直接推算大型 LimiX 的规模收益。",
+      "url": "https://arxiv.org/abs/2611.24214",
+      "pdf": "https://arxiv.org/pdf/2611.24214",
+      "code": "https://github.com/JohannesHog/tfm-scaling-laws",
+      "aliases": [
+        "TFM Scaling Laws"
+      ],
+      "keywords": [
+        "TabArena",
+        "规模规律",
+        "评估协议",
+        "选择偏差"
+      ],
+      "related": [
+        2
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.24214",
+        "https://arxiv.org/html/2611.24214v1",
+        "https://github.com/JohannesHog/tfm-scaling-laws"
+      ],
+      "addedAt": "2026-11-20"
+    },
+    {
+      "id": "arxiv-2611.23779",
+      "title": "TabBioMed: A Large-Scale Benchmark for Biomedical Tabular Learning",
+      "date": "2026-11-18",
+      "updated": "2026-11-18",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "biomedical-applications",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "整理 94 个生物医学表格与 23 个模型实现，采用分组／分子骨架切分，并审计预训练重叠、数据源相关性和调参成本。TabICLv2、TabM 等表现接近，前十模型的成对比较没有显著差异；还比较了与 TabArena 排名的相关性。提供领域选型及高维评测依据；两基准预算不同，94 张表也非完全独立任务，不能据此宣布普遍最优模型。",
+      "url": "https://arxiv.org/abs/2611.23779",
+      "pdf": "https://arxiv.org/pdf/2611.23779",
+      "code": "https://github.com/AI-sandbox/TabBioMed",
+      "aliases": [
+        "TabBioMed"
+      ],
+      "keywords": [
+        "TabArena",
+        "生物医学",
+        "数据泄漏审计",
+        "分组评测",
+        "调参预算"
+      ],
+      "related": [
+        2,
+        5
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.23779",
+        "https://arxiv.org/html/2611.23779v1",
+        "https://github.com/AI-sandbox/TabBioMed"
+      ],
+      "addedAt": "2026-11-20"
+    },
+    {
+      "id": "arxiv-2611.24469",
+      "title": "ICICLE: In-Context Inference for Curve-Learning Extrapolation",
+      "date": "2026-11-18",
+      "updated": "2026-11-18",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "pipeline-search",
+      "status": "workshop",
+      "venue": "NeurIPS 2026 AXIOM Workshop · Poster",
+      "summary": "用集合式超参数编码和 PFN 预测未完成的学习曲线，帮助调参系统决定暂停或继续哪个训练试验。作者在 LCBench、PD1、Taskset 和含 33 个超参数的 Meta-Album 上评测，后者平均归一化遗憾为 0.103，对照 Quick-Tune 为 0.133。模型较 FT-PFN 更小，但合成训练预算不同；报告的优化预算未计完整调度开销，不能直接当端到端提速。",
+      "url": "https://arxiv.org/abs/2611.24469",
+      "pdf": "https://arxiv.org/pdf/2611.24469",
+      "code": "https://github.com/lauritsf/icicle",
+      "aliases": [
+        "ICICLE"
+      ],
+      "keywords": [
+        "学习曲线",
+        "freeze-thaw",
+        "超参数优化",
+        "PFN"
+      ],
+      "related": [
+        2
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.24469",
+        "https://arxiv.org/html/2611.24469v1",
+        "https://axiom-neurips2026.github.io/",
+        "https://github.com/lauritsf/icicle"
+      ],
+      "dateNote": "最早已核实公开版本为 2026-11-18 arXiv v1；AXIOM 官网核实录用及 Poster，未将盲审投稿时间当作公开时间。",
+      "addedAt": "2026-11-20"
+    },
+    {
+      "id": "arxiv-2611.25112",
+      "title": "TripleKV: Predict, Prefetch, Protect -- KV Cache Management for AI Agents",
+      "date": "2026-11-18",
+      "updated": "2026-11-18",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "面向反复调用工具的 LLM，把缓存分层放在显存、主存和 SSD，并预测下次调用时间，提前回载且保护待用缓存。四类代理轨迹回放中，相同主存预算下相对 vLLM+L3 的 P95 首 token 延迟最多降低 49%。解决的是卸载缓存回读和排队，不能扩大单卡上下文容量；用于表格服务需验证查询可预测性、缓存命中与失效条件。",
+      "url": "https://arxiv.org/abs/2611.25112",
+      "pdf": "https://arxiv.org/pdf/2611.25112",
+      "code": null,
+      "aliases": [
+        "TripleKV"
+      ],
+      "keywords": [
+        "SSD卸载",
+        "缓存预取",
+        "三级缓存",
+        "尾延迟",
+        "服务调度",
+        "LLM迁移待验证"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.25112",
+        "https://arxiv.org/html/2611.25112v1"
+      ],
+      "addedAt": "2026-11-20"
+    },
+    {
+      "id": "arxiv-2611.25433",
+      "title": "RoCoKV: Accelerating LLM Inference Serving through Uncertainty and Redundancy Aware KV Cache Compression",
+      "date": "2026-11-19",
+      "updated": "2026-11-19",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "根据输出不确定性调整注意力读取预算，并抑制与近期推理内容重复的 token，配合融合 CUDA 核接入 vLLM。A40 上 R1-Llama-8B 的 AIME25 推理耗时缩短到基线的约 1/1.27。其服务实现仍保留完整 KV 页，减少的是读取和计算，并非缓存常驻容量；低预算也有精度损失，LimiX 的选择信号和非自回归查询路径需另验。",
+      "url": "https://arxiv.org/abs/2611.25433",
+      "pdf": "https://arxiv.org/pdf/2611.25433",
+      "code": null,
+      "aliases": [
+        "RoCoKV"
+      ],
+      "keywords": [
+        "动态稀疏注意力",
+        "CUDA融合",
+        "vLLM",
+        "不确定性",
+        "常驻KV未减少",
+        "LLM迁移待验证"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.25433",
+        "https://arxiv.org/html/2611.25433v1"
+      ],
+      "addedAt": "2026-11-20"
+    },
+    {
+      "id": "arxiv-2611.15569",
+      "title": "TraceKV: Policy-Preserving Low-Rank KV Cache Compression for Reasoning Vision-Language Models",
+      "date": "2026-11-11",
+      "updated": "2026-11-11",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用模型自己生成的推理轨迹校准低秩 KV，再结合低比特量化与融合读取核。三种 7–8B 视觉语言模型在 70% 秩、INT4 配置下，缓存缩小 5.64 倍且平均任务分数接近原版；另一个 50% 秩速度配置在 L40S 上将峰值显存从 32.13 降至 18.57GB。两配置不能合并宣传，且预填充仍重建 KV；表格模型需另做校准与质量验证。",
+      "url": "https://arxiv.org/abs/2611.15569",
+      "pdf": "https://arxiv.org/pdf/2611.15569",
+      "code": null,
+      "aliases": [
+        "TraceKV"
+      ],
+      "keywords": [
+        "低秩KV",
+        "Fisher校准",
+        "INT4",
+        "融合注意力",
+        "LLM迁移待验证"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.15569",
+        "https://arxiv.org/html/2611.15569v1",
+        "https://github.com/AK-DREAM/TraceKV"
+      ],
+      "addedAt": "2026-11-20"
+    },
+    {
+      "id": "arxiv-2611.25091",
+      "title": "Berth: SLO-Preserving GPU Sharing Without New Preemption",
+      "date": "2026-11-18",
+      "updated": "2026-11-18",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "控制后台任务送入 GPU 的计算量，结合已有时间片机制，让在线推理与训练共享 GPU。A100 的 31 个场景中，平均响应达标率 95.8%，后台任务保留单独运行时 48% 的吞吐，并补测 GH200 和 vLLM。适合研究表格服务的并发干扰；方法不管理显存容量，依赖驱动控制与任务 profiling，混合高负载下仍可能超时。",
+      "url": "https://arxiv.org/abs/2611.25091",
+      "pdf": "https://arxiv.org/pdf/2611.25091",
+      "code": null,
+      "aliases": [
+        "Berth"
+      ],
+      "keywords": [
+        "GPU共享",
+        "SLO",
+        "尾延迟",
+        "MPS",
+        "调度",
+        "LLM迁移待验证"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.25091",
+        "https://arxiv.org/html/2611.25091v1"
+      ],
+      "addedAt": "2026-11-20"
+    },
+    {
+      "id": "arxiv-2607.05380",
+      "title": "TabPack: Efficient Hyperparameter Ensembles for Tabular Deep Learning",
+      "date": "2026-07-06",
+      "updated": "2026-07-06",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "pipeline-search",
+      "status": "published",
+      "venue": "ICML 2026",
+      "summary": "把不同超参数的 MLP 打包并行训练，每轮用验证集筛选集成成员，以一次训练替代多轮调参。作者在 17 个中大型表格及 TabArena-Lite 上验证；补充五个百万级任务中四个优于对照，但后者未重新完整调参。可作为 TFM 的效率对照和轻量预测备选；它仍须逐任务训练，验证集较小会有选择过拟合，打包也可能增加训练显存。",
+      "url": "https://arxiv.org/abs/2607.05380",
+      "pdf": "https://arxiv.org/pdf/2607.05380",
+      "code": "https://github.com/yandex-research/tabpack",
+      "aliases": [
+        "TabPack"
+      ],
+      "keywords": [
+        "TabArena-Lite",
+        "MLP集成",
+        "超参数优化",
+        "训练打包",
+        "TabM"
+      ],
+      "related": [
+        1,
+        2
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2607.05380",
+        "https://arxiv.org/html/2607.05380v1",
+        "https://proceedings.mlr.press/v306/gorishniy26a.html",
+        "https://github.com/yandex-research/tabpack"
+      ],
+      "addedAt": "2026-11-20"
+    },
+    {
+      "id": "arxiv-2611.14051",
+      "title": "Can KV Cache Be Reused Across Model Updates? A DeepSeek-V4-Flash Case Study",
+      "date": "2026-11-10",
+      "updated": "2026-11-10",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "在四组模型升级中，把旧版本生成的上下文缓存直接交给新版本，检查答题质量、输出概率和首 token 延迟。DeepSeek 的长问答任务中，已有缓存时延迟改善，但 HotpotQA 与 2WikiMQA 分数下降约 3 和 7 点，短输入还可能变慢。说明缓存可用不等于新旧行为一致；可借鉴其兼容性测试，不能据此放宽 LimiX 的版本失效规则。",
+      "url": "https://arxiv.org/abs/2611.14051",
+      "pdf": "https://arxiv.org/pdf/2611.14051",
+      "code": null,
+      "aliases": [
+        "跨版本 KV 复用"
+      ],
+      "keywords": [
+        "跨版本缓存",
+        "输出保真",
+        "缓存失效",
+        "FCD",
+        "LLM迁移待验证"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.14051",
+        "https://arxiv.org/html/2611.14051v1"
+      ],
+      "addedAt": "2026-11-20"
+    },
+    {
+      "id": "arxiv-2506.02006",
+      "title": "MorphServe: Efficient and Workload-Aware LLM Serving via Runtime Quantized Layer Swapping and KV Cache Resizing",
+      "date": "2025-05-24",
+      "updated": "2026-01-07",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "published",
+      "venue": "MLSys 2026",
+      "summary": "在负载升高时把部分全精度权重换成量化副本，将腾出的显存分给 KV 缓存；负载降低后恢复。MLSys 正文在 L4/A100、四类模型和两条突发流量轨迹上展示延迟与质量取舍，实验使用 72 秒代表片段。它重分配权重和缓存预算，未压缩已有 KV。表格服务可参考资源控制思路，但需验证精度切换后的上下文一致性，并计入离线校准和主存副本成本。",
+      "url": "https://arxiv.org/abs/2506.02006",
+      "pdf": "https://arxiv.org/pdf/2506.02006",
+      "code": null,
+      "aliases": [
+        "MorphServe"
+      ],
+      "keywords": [
+        "动态量化",
+        "权重卸载",
+        "KV容量",
+        "突发负载",
+        "LLM迁移待验证"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2506.02006",
+        "https://arxiv.org/html/2506.02006v2",
+        "https://proceedings.mlsys.org/paper_files/paper/2026/hash/8144a9d62e506af0fcdeac0e456b2710-Abstract-Conference.html",
+        "https://github.com/ds2-lab/MorphServe",
+        "https://proceedings.mlsys.org/paper_files/paper/2026/file/8144a9d62e506af0fcdeac0e456b2710-Paper-Conference.pdf"
+      ],
+      "dateNote": "arXiv 记录首次提交 2025-05-24，v2 修订 2026-01-07；正式版本发表于 MLSys 2026。",
+      "addedAt": "2026-11-20"
     }
   ],
   "collectionUpdates": [
@@ -13861,6 +14201,25 @@
       ],
       "updated": [
         "report-nvidia-kumo-tabular",
+        "report-nvidia-structured-data-models"
+      ]
+    },
+    {
+      "date": "2026-11-20",
+      "added": [
+        "arxiv-2506.02006",
+        "arxiv-2607.05380",
+        "arxiv-2611.14051",
+        "arxiv-2611.15569",
+        "arxiv-2611.23779",
+        "arxiv-2611.24214",
+        "arxiv-2611.24469",
+        "arxiv-2611.25091",
+        "arxiv-2611.25112",
+        "arxiv-2611.25433"
+      ],
+      "updated": [
+        "arxiv-2609.17895",
         "report-nvidia-structured-data-models"
       ]
     }

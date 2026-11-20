@@ -13572,5 +13572,534 @@
         "v1 §2.2–2.3、§3选读、§4–7、附录J/K及低比特前作讨论；未完整验证理论证明。"
       ]
     }
+  },
+  {
+    "id": "arxiv-2611.24214",
+    "title": "Towards Reliable Scaling Laws for Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2611.24214",
+    "sourceUpdated": "2026-11-18",
+    "decision": "included",
+    "reviewedAt": "2026-11-20",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-20",
+      "conclusion": "证据已支持",
+      "claim": "在指定 nanoTabPFN 家族中，规模律拟合误差、预算外推误差及模型选择偏差需要分开评估。",
+      "contribution": "相对仅报告缩放曲线，增加更高预算留出、逐数据集留出及验证集数量敏感性，提供可复用的规模评估协议。",
+      "evidence": [
+        "6,075 个训练运行覆盖 10^13–10^16 FLOPs，45 个 10^17 FLOPs 运行检验外推；20 个 1,826–553,482 参数模型，约 80,500 GPU 小时不含评测。",
+        "21 个 TabArena 分类表；真实表 NLL 高预算预测 0.289、实际 0.309，外推 MAE 0.011，明显大于合成验证 0.001。",
+        "每表留出、不同验证表数及 20 次重复显示模型选择偏差；NLL 与 AUC 需要的数据集数量不同，文中 8/20 不可当通用最低门槛。"
+      ],
+      "limitations": "作者实验，未独立或本地复现。采用 nanoTabPFN 架构和 TabICLv1 MLP 先验、小规模分类及特定 FLOPs 计算；不直接支持大型 TFM 或后训练收益预测。",
+      "value": "为现有表格模型研发与横向评测提供预算外推、验证任务覆盖和选型偏差诊断，而非只增加预训练配方。",
+      "reproducibility": "已读取官方 README：提供 6,120 次运行结果下载与校验、绘图和分析代码；未执行训练或复现。",
+      "readScope": [
+        "arXiv v1 §§1–5、附录 A.1–A.4、B、C；官方仓库 README 的数据与分析复现说明。"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.24214",
+        "https://arxiv.org/html/2611.24214v1",
+        "https://github.com/JohannesHog/tfm-scaling-laws"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对仅报告缩放曲线，增加更高预算留出、逐数据集留出及验证集数量敏感性，提供可复用的规模评估协议。",
+      "reason": "为现有表格模型研发与横向评测提供预算外推、验证任务覆盖和选型偏差诊断，而非只增加预训练配方。"
+    }
+  },
+  {
+    "id": "arxiv-2611.23779",
+    "title": "TabBioMed: A Large-Scale Benchmark for Biomedical Tabular Learning",
+    "url": "https://arxiv.org/abs/2611.23779",
+    "sourceUpdated": "2026-11-18",
+    "decision": "included",
+    "reviewedAt": "2026-11-20",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-20",
+      "conclusion": "证据已支持",
+      "claim": "这套生物医学评测表明模型排名受任务、切分、来源相关性和预算影响，不能单凭平均名次选出普遍赢家。",
+      "contribution": "相对通用 TabArena，增加八类生物医学任务、分组和骨架切分、来源家族重加权、预训练重叠剔除及资源审计。",
+      "evidence": [
+        "94 数据集、23 模型实现，其中 21 个可覆盖全任务；小样本采用外层五折，大样本固定划分或 70/15/15，变换在训练集拟合。",
+        "TabICLv2 平均名次 8.011、TabM 8.170；前十模型 Wilcoxon–Holm 成对差异不显著。",
+        "HPO 上限 100 次且有 6 小时/折 2 小时预算，默认与最终拟合另计；24 GB A5500 为标准硬件，累计 5,334 小时约 95% 用于调参。",
+        "15 个可能预训练重叠任务剔除后复查；94 表归并为 71 个相同特征单元及 42 个来源家族，来源加权会改变领先模型。13 个共有模型与 TabArena 总体排名相关，但评估配置不同。"
+      ],
+      "limitations": "作者报告，未独立或本地复现。生物医学表并非独立同分布；有限预算导致各模型调参数量不同，失败处理策略影响排名。未覆盖 LimiX/Kumo/最新 TabPFN 版本，排名不代表概率校准或临床效用。",
+      "value": "数据与协议审计比单一应用结果提供更独立的复用价值，可指导领域选型、宽表测试与公平预算比较。",
+      "reproducibility": "官方仓库已提供评测代码，README 指向固定修订的数据集与公开榜单；本地未运行。",
+      "readScope": [
+        "v1 §§3–5；附录 B.1–B.2、B.4–B.5、C.1、D、E/F 的数据重叠、来源重加权和统计分析段落；未逐表重算全部 87 页结果。"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.23779",
+        "https://arxiv.org/html/2611.23779v1",
+        "https://github.com/AI-sandbox/TabBioMed"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对通用 TabArena，增加八类生物医学任务、分组和骨架切分、来源家族重加权、预训练重叠剔除及资源审计。",
+      "reason": "数据与协议审计比单一应用结果提供更独立的复用价值，可指导领域选型、宽表测试与公平预算比较。"
+    }
+  },
+  {
+    "id": "arxiv-2611.24469",
+    "title": "ICICLE: In-Context Inference for Curve-Learning Extrapolation",
+    "url": "https://arxiv.org/abs/2611.24469",
+    "sourceUpdated": "2026-11-18",
+    "decision": "included",
+    "reviewedAt": "2026-11-20",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-20",
+      "conclusion": "证据已支持",
+      "claim": "集合式配置表示可支持所测复杂超参数空间，在 Meta-Album 的 freeze-thaw 调参任务中改善最终遗憾。",
+      "contribution": "相对 FT-PFN 固定十个超参数槽，使用可变长度超参数集合编码、每配置复用表示，并建模学习曲线噪声和发散。",
+      "evidence": [
+        "6 层 PFN、1.28M 参数，对照 FT-PFN 14.7M；随机正交参数标识当前宽度 128，不能宣称无限参数。",
+        "LCBench 35 任务、PD1 28 实例、Taskset 24 任务，20 个 BO 种子、1,000 次迭代统一采集策略。Meta-Album 86 任务含 33 个超参数，遵循官方五折任务划分。",
+        "Meta-Album 归一化遗憾 0.103 对 0.133，配对改善 95% CI [0.006,0.056]；收益集中 extended，mini/micro 未显著。",
+        "ICICLE 使用 10.24M 合成训练任务，对照 2M，不能把收益完全归因架构；1/4/16 小时预算主要来自基准训练时间，优化器开销另按批次摊销。"
+      ],
+      "limitations": "作者实验，未独立或本地复现。离线表格模拟不能证明真实训练/调度端到端加速，FT-PFN 预训练预算未匹配。AXIOM 官网列为 Poster，不能标为 NeurIPS 主会或 Oral。",
+      "value": "提供以冻结 PFN 辅助模型选择和预算分配的具体可用路径，独立于分类预测器本身。",
+      "reproducibility": "官方仓库提供预训练 ONNX 模型、Ray Tune 暂停/恢复例子；未本地运行。OpenReview 网页及 API 拒绝访问，公开日期采用已核实 arXiv 首次提交日，不推断盲审提交即公开。",
+      "readScope": [
+        "v1 §§1–5、附录 A.1–A.4、B.1–B.4；AXIOM 官网 Accepted Poster 列表；官方 README。"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.24469",
+        "https://arxiv.org/html/2611.24469v1",
+        "https://axiom-neurips2026.github.io/",
+        "https://github.com/lauritsf/icicle"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对 FT-PFN 固定十个超参数槽，使用可变长度超参数集合编码、每配置复用表示，并建模学习曲线噪声和发散。",
+      "reason": "提供以冻结 PFN 辅助模型选择和预算分配的具体可用路径，独立于分类预测器本身。"
+    }
+  },
+  {
+    "id": "arxiv-2611.25112",
+    "title": "TripleKV: Predict, Prefetch, Protect -- KV Cache Management for AI Agents",
+    "url": "https://arxiv.org/abs/2611.25112",
+    "sourceUpdated": "2026-11-18",
+    "decision": "included",
+    "reviewedAt": "2026-11-20",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-20",
+      "conclusion": "证据已支持",
+      "claim": "在作者指定的工具代理回放和相同主存预算下，预测/保护/预取联合策略降低缓存回载尾延迟。",
+      "contribution": "相对三级缓存和朴素预取，加入工具感知的重用时间预测、非包含式主存管理和预取保护，避免已预取块再次被逐出。",
+      "evidence": [
+        "Qwen3-30B-A3B BF16，H100 NVL 94GB，32GiB GPU KV、64GiB 主存缓存、1TiB SSD；四套代理任务各 50 条真实轨迹后固定 token/工具延迟回放。",
+        "12/16/20 并发，在同 64GiB 主存下对比 vLLM+L3、TokenCake、ContinuumLMCache 等；相对 vLLM+L3 四任务最高 P95 TTFT 降幅 35%/49%/23%/33%。",
+        "GAIA/BC+ 20 并发保护集合超容量时，仍有 13%/38% 预取块被逐出；DRAM→GPU 约 200ms 仍在关键路径。",
+        "预取、预测与保护消融显示朴素预取仍有 21–45% 请求遭遇 SSD 读取；收益不是只增大缓存。"
+      ],
+      "limitations": "作者轨迹回放，非独立/本地复现；吞吐统计含缓存命中的输入 token，不等于新增计算吞吐。不能推断单上下文 OOM、首次 prefill 或任意无工具工作负载改善。",
+      "value": "给表格跨查询服务提供分层缓存、回载调度和保护策略的可检验设计，迁移前需建立上下文版本键及请求复用数据。",
+      "reproducibility": "正文交代 vLLM 0.24、PyTorch 2.11、CUDA 13 和实现规模；未核实公开可运行实现。",
+      "readScope": [
+        "v1 §§4–6.4、§7 相关工作，系统预算、回放协议、主实验与组件消融。"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.25112",
+        "https://arxiv.org/html/2611.25112v1"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对三级缓存和朴素预取，加入工具感知的重用时间预测、非包含式主存管理和预取保护，避免已预取块再次被逐出。",
+      "reason": "给表格跨查询服务提供分层缓存、回载调度和保护策略的可检验设计，迁移前需建立上下文版本键及请求复用数据。"
+    }
+  },
+  {
+    "id": "arxiv-2611.25433",
+    "title": "RoCoKV: Accelerating LLM Inference Serving through Uncertainty and Redundancy Aware KV Cache Compression",
+    "url": "https://arxiv.org/abs/2611.25433",
+    "sourceUpdated": "2026-11-19",
+    "decision": "included",
+    "reviewedAt": "2026-11-20",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-20",
+      "conclusion": "证据已支持",
+      "claim": "相同平均注意力 token 预算下，动态不确定性/冗余选择和定制 CUDA 核可改善所测推理模型的速度–准确率取舍。",
+      "contribution": "相对 RocketKV/R-KV，联合使用上一解码步熵的平滑反馈、近期 key 冗余以及保留 vLLM 页布局和 CUDA Graph 的三阶段核。",
+      "evidence": [
+        "R1-Llama-8B/R1-Qwen-7B，GSM8K/MATH500/AIME25；AIME 每题八次生成取平均 pass@1，其他一次。比较匹配平均 top-k 而非每步相同预算。",
+        "512 预算的 A40 Llama-8B AIME batch16：Full-KV 196.2s/247.3 token/s，RoCoKV 154.5s/341.3；合成 batch6 延迟 864.9→604.8s。",
+        "AIME 表中最高所测 RoCoKV 得分 23.75/35，Full-KV 为 31.25/40；加速不表示无损。",
+        "附录 C 明确 vLLM 保留所有分页 KV，只稀疏读取；§3.4 不确定性、冗余、反向选择及阈值消融支持组件作用。"
+      ],
+      "limitations": "作者报告，未独立或本地复现。参数阈值的独立验证划分未清楚交代；平均 token 预算不限制峰值，生成长度也影响耗时。未减少物理常驻 KV，未测表格或首次编码 OOM。",
+      "value": "可以借鉴稀疏访问与算子实现，但必须把带宽优化、常驻容量和首轮构建分开，避免按标题错误选型。",
+      "reproducibility": "作者称录用后放出代码，目前未核实可用仓库；正文有 kernel/图捕获和布局实现说明。",
+      "readScope": [
+        "v1 §§2.2–2.4、3.1–3.4；附录 C 系统实现、D 限制。"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.25433",
+        "https://arxiv.org/html/2611.25433v1"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对 RocketKV/R-KV，联合使用上一解码步熵的平滑反馈、近期 key 冗余以及保留 vLLM 页布局和 CUDA Graph 的三阶段核。",
+      "reason": "可以借鉴稀疏访问与算子实现，但必须把带宽优化、常驻容量和首轮构建分开，避免按标题错误选型。"
+    }
+  },
+  {
+    "id": "arxiv-2611.15569",
+    "title": "TraceKV: Policy-Preserving Low-Rank KV Cache Compression for Reasoning Vision-Language Models",
+    "url": "https://arxiv.org/abs/2611.15569",
+    "sourceUpdated": "2026-11-11",
+    "decision": "included",
+    "reviewedAt": "2026-11-20",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-20",
+      "conclusion": "证据已支持",
+      "claim": "生成轨迹驱动的敏感度校准、低秩分配与低比特实现可改善所测推理 VLM 的 KV 质量–存储取舍。",
+      "contribution": "相对静态样本 SVD/Palu，使用 on-policy 轨迹与 Fisher 敏感度分配秩；在潜在 V 聚合后重构，并在核内逐块恢复 K。",
+      "evidence": [
+        "256 个 ScienceQA train 校准样本，greedy 512 tokens、8 次 Monte Carlo backward；单 L40S 校准 7–8B 约 30min，不能把 training-free 写成零准备成本。",
+        "四模型、ScienceQA test2017/MathVista testmini1000/MMMU val900，greedy4096；含 token 匹配和真值轨迹校准对照。",
+        "三种 7–8B 在 70% 秩+INT4 时含元数据缓存缩小 5.64×，均分 73.41 对稠密 73.58；50% 秩质量均分为 69.93。",
+        "速度使用 50% 秩+INT4、Qwen2.5VL7B、16K、batch16、L40S，相对 HF+FlashAttention2 解码 1.83×，峰值 32.13→18.57GB；32K 对照 OOM 的时间为外推。"
+      ],
+      "limitations": "作者报告，无独立/本地复现。prefill 仍走标准注意力并重建 KV，不能证明首次上下文构建 OOM 解决。稠密模型校准轨迹未覆盖压缩后的全部分布变化，视觉语言实验不等于 TFM 验证。",
+      "value": "提供真正的缓存存储压缩路线以及区分校准、构建和暖查询成本的具体证据，适合作为 LimiX 压缩实验参考。",
+      "reproducibility": "已读取官方 GitHub README，仅项目页，明确代码和评测脚本待发布；code 字段留空。",
+      "readScope": [
+        "v1 §§4–5.4；附录 B、C.1、D、E；官方仓库 README。未声称完成全部理论证明复核。"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.15569",
+        "https://arxiv.org/html/2611.15569v1",
+        "https://github.com/AK-DREAM/TraceKV"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对静态样本 SVD/Palu，使用 on-policy 轨迹与 Fisher 敏感度分配秩；在潜在 V 聚合后重构，并在核内逐块恢复 K。",
+      "reason": "提供真正的缓存存储压缩路线以及区分校准、构建和暖查询成本的具体证据，适合作为 LimiX 压缩实验参考。"
+    }
+  },
+  {
+    "id": "arxiv-2611.25091",
+    "title": "Berth: SLO-Preserving GPU Sharing Without New Preemption",
+    "url": "https://arxiv.org/abs/2611.25091",
+    "sourceUpdated": "2026-11-18",
+    "decision": "included",
+    "reviewedAt": "2026-11-20",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-20",
+      "conclusion": "证据已支持",
+      "claim": "在单一运营者管理、已剖析任务和指定驱动条件下，送入量控制配合时间片可改善延迟关键服务与后台任务的取舍。",
+      "contribution": "相对仅静态分区/MPS优先级或逐命令调度，联合限制排队工作、感知请求/迭代截止时间、共享预算及既有时间片。",
+      "evidence": [
+        "A100 PCIe40GB，31 场景覆盖视觉/BERT、负载突变、多个租户/后台任务，13 对照；一般三次运行，未能运行的对照计零须单独看可运行子集。",
+        "平均达标 95.8%（独占97.9%），后台48%；可共同运行的27点对 XSched，Berth95.5%、XSched81.9%，后台都48%。",
+        "vLLM0.11 Qwen2.5 0.5/1.5B、180s轨迹，纯LLM服务场景最差服务99.8–100%；混合ResNet场景仅79.6/91.5%，不存在普遍SLO保证。",
+        "GH200 补测包括7B；限制章节明确所有任务显存本来就能放下，不管理内存容量、复制引擎/PCIe与带宽。"
+      ],
+      "limitations": "作者报告，无独立或本地复现。LD_PRELOAD及驱动非特权控制接口具有版本依赖；新模型/批次/GPU需重新剖析。部分对照使用简化复现或不同驱动，不应宣称压倒所有完整系统。",
+      "value": "为表格在线查询与后台训练共卡提供可检验调度思路，清楚限定其改善计算干扰而非单表 OOM。",
+      "reproducibility": "正文给出驱动580.178.04、CUDA12.8、PyTorch2.8与profiling控制；未核实可运行官方仓库。",
+      "readScope": [
+        "v1 §§3–4、5.1–5.9、§6限制；阅读对照可运行性、统计协议、消融、LLM和跨GPU实验。"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.25091",
+        "https://arxiv.org/html/2611.25091v1"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对仅静态分区/MPS优先级或逐命令调度，联合限制排队工作、感知请求/迭代截止时间、共享预算及既有时间片。",
+      "reason": "为表格在线查询与后台训练共卡提供可检验调度思路，清楚限定其改善计算干扰而非单表 OOM。"
+    }
+  },
+  {
+    "id": "arxiv-2607.05380",
+    "title": "TabPack: Efficient Hyperparameter Ensembles for Tabular Deep Learning",
+    "url": "https://arxiv.org/abs/2607.05380",
+    "sourceUpdated": "2026-07-06",
+    "decision": "included",
+    "reviewedAt": "2026-11-20",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-20",
+      "conclusion": "证据已支持",
+      "claim": "在所测中大型表格上，打包训练和在线集成降低获得有竞争力预测器所需的调参成本。",
+      "contribution": "相对 TabM 的统一超参数和离线多进程超参数集成，联合模型/优化器打包、逐轮贪心成员选择和双层早停。",
+      "evidence": [
+        "默认64个基模型、最多32个集成成员，结构/优化器采样；17表含8个TabReD时间切分任务，训练/验证/测试分离。",
+        "保守多种子协议先单次确定成员，再固定成员重跑，基线通常50–100次TPE；时长比较区分TFM默认推理与传统调参。",
+        "同超参数调优版平均名次1.4±0.7略优于默认1.6±0.6，但17表总调参65.5h对默认单次2.4h；不能解释为所有推理均加速27倍。",
+        "TabArena-Lite有小/中表补充且分类集成选择改用训练损失；百万级5表4胜的对照复用子采样调参结果，非等预算重调。",
+        "A10080GB训练，64基模型平均峰值5.8GB，对照TabM4.0GB；MacBook实验用M4 Pro MPS集成GPU，不是纯CPU。"
+      ],
+      "limitations": "作者报告，无独立/本地复现。验证集同时用于选成员和早停，较小或分布变化时可能过拟合。大量表格结果不是所有领域保证，打包需要实现相应层和优化器，仍有训练显存成本。",
+      "value": "独立增量在训练/超参数探索的执行方式及在线集成，提供与TFM比较的强轻量基线，且有TabArena关联。",
+      "reproducibility": "官方yandex-research/tabpack仓库提供TabPack与TabPackage；已核实PMLR ICML2026正式论文。未运行。",
+      "readScope": [
+        "v1 §§3–5，附录 A.1–A.6、C、D、F.1、F.8–F.9；PMLR 元数据与官方 README。"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2607.05380",
+        "https://arxiv.org/html/2607.05380v1",
+        "https://proceedings.mlr.press/v306/gorishniy26a.html",
+        "https://github.com/yandex-research/tabpack"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对 TabM 的统一超参数和离线多进程超参数集成，联合模型/优化器打包、逐轮贪心成员选择和双层早停。",
+      "reason": "独立增量在训练/超参数探索的执行方式及在线集成，提供与TFM比较的强轻量基线，且有TabArena关联。"
+    }
+  },
+  {
+    "id": "arxiv-2611.14051",
+    "title": "Can KV Cache Be Reused Across Model Updates? A DeepSeek-V4-Flash Case Study",
+    "url": "https://arxiv.org/abs/2611.14051",
+    "sourceUpdated": "2026-11-10",
+    "decision": "included",
+    "reviewedAt": "2026-11-20",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-20",
+      "conclusion": "证据已支持",
+      "claim": "跨模型版本直接复用缓存的任务可用性、原生输出保真和耗时是不同指标，不能由任一指标推断其余指标。",
+      "contribution": "相对仅测试缓存映射或加速，新增四组模型版本对照、固定后续输入的分布距离、完整回答/停止行为与层间干预分析。",
+      "evidence": [
+        "四组同家族/同核心架构版本，Source/Target/Reuse使用相同token和解码设置；NIAH每长度8历史×24查询，512–32K，并补V4.1到512K。",
+        "DeepSeek Flash→0731的585问答样本；预备源缓存条件下HotpotQA/2Wiki/MultiFieldQA中位配对TTFT改善5.08/2.10/2.51×，BABILong只有0.86×。",
+        "HotpotQA/2Wiki F1下降3.0/7.0点，配对95%CI排除0；MultiFieldQA均分相近但完整生成常不同。",
+        "Functional Cache Divergence对比相同后续历史下完整概率分布；NIAH随长度上升、自然文本更稳定；三层干预指出上游状态变化会传播。",
+        "585样本用SGLang、8×H100 TP8、4096分块和256token文件缓存页，逐页校验哈希及命中范围；TTFT含加载还原，排除源prefill与模型启动。"
+      ],
+      "limitations": "作者报告，无独立/本地复现。深入机制分析主要单对DeepSeek、贪心解码和有限问答任务；不同模型对运行环境不完全相同。缓存预先存在是加速前提，不证明冷启动或单表OOM改善。",
+      "value": "为表格模型缓存的版本键、失效条件及数值回归测试提供具体反例和评价方法，而非推荐直接跨权重复用。",
+      "reproducibility": "正文给出运行提交、缓存交接校验和bootstrap协议；未核实公开独立实验代码。",
+      "readScope": [
+        "v1 §§1–4.3、§6；附录 B.1–B.2 交接/运行/统计条件，未声称复算完整附录逐项结果。"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.14051",
+        "https://arxiv.org/html/2611.14051v1"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对仅测试缓存映射或加速，新增四组模型版本对照、固定后续输入的分布距离、完整回答/停止行为与层间干预分析。",
+      "reason": "为表格模型缓存的版本键、失效条件及数值回归测试提供具体反例和评价方法，而非推荐直接跨权重复用。"
+    }
+  },
+  {
+    "id": "arxiv-2506.02006",
+    "title": "MorphServe: Efficient and Workload-Aware LLM Serving via Runtime Quantized Layer Swapping and KV Cache Resizing",
+    "url": "https://arxiv.org/abs/2506.02006",
+    "sourceUpdated": "2026-01-07",
+    "decision": "included",
+    "reviewedAt": "2026-11-20",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-20",
+      "conclusion": "证据已支持",
+      "claim": "在论文固定的模型、硬件和短时突发流量条件中，运行时层精度切换与 KV 容量调节改善排队延迟，并在生成质量与服务能力之间取舍。",
+      "contribution": "相对固定INT4或固定FP16服务，按实时压力联合调整权重精度与可分配KV块，并异步保存生成进度。",
+      "evidence": [
+        "方法核验：预先量化层和 FP16 副本放在 pinned CPU 内存；按离线层敏感度顺序异步搬运和替换层，把释放空间分配给 PagedAttention 缓存。正式 §4.2 结合局部变换、量化替换及模型输出敏感度，排序离线计算。",
+        "正式 §5：四模型 Vicuna7B/Llama2-7B/Llama3-8B/CodeLlama34B，两条流量轨迹与四问答/摘要数据集；L4 24GB 或 A100 80GB，代表性 72 秒轨迹按硬件缩放到达率；同一 SwiftLLM 引擎比较 FP16、INT4 AWQ、LLM-PQ 和 PyramidKV。",
+        "正式 Table 4 的 Llama2/DuReader/BurstGPT：FP16 P95 TTFT 5.5223s、F1 27.68；AWQ 动态方案 1.2420s/27.33，静态 AWQ 1.1686s/25.55。支持延迟和质量取舍，不是所有指标严格领先。",
+        "正式 Table 5 同模型/数据/轨迹比较动态与静态选择性量化；动态 F1 24.63、TTFT 1.77s、SLO违例0%，FP16为25.19/5.65s/12.7%。层近可加性只在 Llama2/WikiText 选定层验证，混合精度生成质量范围为经验现象。"
+      ],
+      "limitations": "作者报告，无独立或本地复现。代表性短轨迹及有限模型/任务不足以保证长期业务收益；静态量化可有更低延迟。已有 KV 跨层精度切换的状态与输出误差需要目标任务验证，未测表格基础模型；主存副本、离线校准与换入成本须计入。",
+      "value": "补足权重与KV联合预算控制的经典系统路线，明确它处理并发压力而非无条件扩大原模型上下文。",
+      "reproducibility": "已读 MLSys 正式正文并核对作者仓库；README 仍明确完整代码待发布，故不标记可用代码。硬件、SwiftLLM基础和配置可追踪，未执行实验。",
+      "readScope": [
+        "arXiv v2 §§4.1、4.2问题与敏感度说明、4.3–4.4、§5实验/表1–3、§6。",
+        "MLSys 2026 正式 PDF §4.2离线敏感度排序、§5实验配置/主要结果、§5.2消融和表4–5、§6限制；正式摘要、作者发布页及官方README。PDF本轮后续重试已成功。"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2506.02006",
+        "https://arxiv.org/html/2506.02006v2",
+        "https://proceedings.mlsys.org/paper_files/paper/2026/hash/8144a9d62e506af0fcdeac0e456b2710-Abstract-Conference.html",
+        "https://github.com/ds2-lab/MorphServe",
+        "https://proceedings.mlsys.org/paper_files/paper/2026/file/8144a9d62e506af0fcdeac0e456b2710-Paper-Conference.pdf",
+        "https://github.com/ds2-lab/MorphServe/blob/main/README.md"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对固定INT4或固定FP16服务，按实时压力联合调整权重精度与可分配KV块，并异步保存生成进度。",
+      "reason": "补足权重与KV联合预算控制的经典系统路线，明确它处理并发压力而非无条件扩大原模型上下文。"
+    }
+  },
+  {
+    "id": "report-nvidia-structured-data-models",
+    "title": "NVIDIA Structured Data Models",
+    "url": "https://github.com/NVIDIA/structured-data-models",
+    "sourceUpdated": "2026-11-20",
+    "decision": "existing",
+    "reviewedAt": "2026-11-20",
+    "reason": "核对主分支新增缓存精度接口、存储与注意力读回路径及作者测试，保留既有编译分块限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-20",
+      "claim": "主分支已实现按头FP8 KV存储与fit接口，现有证据只支持存储格式及规定测试容差，不支持真实大表性能保证。",
+      "contribution": "相对11月19日未量化缓存，新增KVCacheDType/Float8PerHead、每头FP32缩放、缓存迁移保留元数据以及fit的kv_cache_dtype参数。",
+      "evidence": [
+        "commit317b7b5及前置比较中Float8PerHead使用E4M3、按每头absmax生成FP32scale，Cache.__setitem__转换KV条目。",
+        "sdm/nn/attention.py在前向调用key_value.dequantize(query.dtype)，不是直接消费FP8的注意力核；构建时还要保留原始KV及转换临时张量。",
+        "Kumo分类/回归作者测试覆盖None/fp8_per_head，放宽分类atol至0.05、回归rtol至0.02；缓存size单测计入缩放元数据，不能当业务精度或峰值显存基准。"
+      ],
+      "limitations": "只阅读实现和作者测试，未本地运行GPU代码或独立复现；当前主分支不是已核实稳定发行版。单元测试不能证实大表容量/延迟，原编译分块条件仍适用。",
+      "value": "直接对应表格模型的常驻缓存精度，可用于设计LimiX的低精度缓存实验，且明确反量化临时开销与初次OOM边界。",
+      "reproducibility": "开源实现、diff与单测可审计；本次未执行作者测试。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://github.com/NVIDIA/structured-data-models/commit/317b7b5d3063663a7029a08318b03f445a130c5a",
+        "https://github.com/NVIDIA/structured-data-models/blob/317b7b5d3063663a7029a08318b03f445a130c5a/sdm/cache.py",
+        "https://github.com/NVIDIA/structured-data-models/blob/317b7b5d3063663a7029a08318b03f445a130c5a/sdm/nn/attention.py"
+      ],
+      "readScope": [
+        "82c4d79→317b7b5比较：sdm/cache.py、sdm/models/base/icl.py、sdm/models/kumo/tabular/icl.py、sdm/nn/attention.py及相应cache/attention/Kumo单测。此前模型/编译结论复用已有审核。"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2609.17895",
+    "title": "TabPFN-3.5: Technical Report",
+    "url": "https://arxiv.org/abs/2609.17895",
+    "sourceUpdated": "2026-09-22",
+    "decision": "existing",
+    "reviewedAt": "2026-11-20",
+    "reason": "核对配套库11月19日新增float32查询表清洗与列共享条件，论文日期保持原值。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-20",
+      "claim": "指定float32数值类别输入及只读/选列/编码的CPU预处理路径可共享清洗后查询表，减少逐集成成员float64副本。",
+      "contribution": "相对已有fit共享/输出分块，扩展到predict清洗和特征子采样，避免先切列再重复复制。",
+      "evidence": [
+        "aa526ac changelog明确predict保留float32，clean_data_transform检查只编码类别和fit时类别为数值，常量列以分块copy恢复，其他条件回退通用途径。",
+        "transform_X_test将feature_indices传给pipeline，SharedColumnsTable共享基础表，仅持有编码列。",
+        "作者新增分类/回归、fit_preprocessors/fit_with_cache、全列/子采样测试，检查out.base、拥有列数、未知类别/NaN与原输入不变，并与float64查询输出比较。"
+      ],
+      "limitations": "只审阅代码与单测，未执行作者测试或测主存峰值。字符串训练类别/需写其他列/非适用布局等可能回退，不能推断显存节省或端到端速度。主分支提交不等于稳定发行。",
+      "value": "属于可直接参考的表格查询预处理主存优化，避免把CPU副本和GPU KV容量混为一谈。",
+      "reproducibility": "官方提交公开；检查了清洗分支、ensemble调用与相关测试，未运行。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://github.com/PriorLabs/TabPFN/commit/aa526ac6698573dbce2709c1e7f531e03d98a565"
+      ],
+      "readScope": [
+        "aa526ac changelog、clean_data_transform/_with_constants/_fitted_on_numbers、transform_X_test及共享表判定diff、test__predict__float32_with_categoricals__members_share_the_test_table等相关单测。未重审未变化的TabPFN论文正文。"
+      ]
+    }
+  },
+  {
+    "id": "report-tabpfn-4-preview",
+    "title": "TabPFN-4 Preview",
+    "url": "https://priorlabs.ai/technical-reports/tabpfn-4-preview",
+    "sourceUpdated": "2026-11-19",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-20",
+    "reason": "官方预告提供部分评测与10M行运行结果，但缺少架构/方法正文及可复核完整配置；与3.5/Kumo的长表时间含外推估计。等待正式技术报告、测试任务/拆分与预算后审核，不把榜单排名或预告作为质量审核。"
+  },
+  {
+    "id": "arxiv-2611.24599",
+    "title": "Morpho-Spectral Projection Analysis (MSPA) for Plant Spectroscopy",
+    "url": "https://arxiv.org/abs/2611.24599",
+    "sourceUpdated": "2026-11-18",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-20",
+    "reason": "已读方法工作流、实验划分/模型配置、组件消融与限制，确认可用于宽表预处理；但重复植株的Cotton/Soybean/Maize按处理×日×时段分层，未隔离生物个体。所谓TabFM实现/权重身份和端到端126.5×计时口径尚未可复核；官方仓库仅降维算子/演示，无完整模型benchmark脚本。保留候选，待划分ID、模型/权重及含投影成本的计时记录后补审。",
+    "qualityReview": {
+      "reviewStatus": "incomplete",
+      "reviewedAt": "2026-11-20",
+      "readScope": [
+        "v1 §2.5、§3.1–3.3、§4.3、§4.4部分及§5.4；官方README和仓库文件清单。"
+      ],
+      "sources": [
+        "https://arxiv.org/html/2611.24599v1",
+        "https://github.com/Lucas-Osco/mspa"
+      ],
+      "limitations": "不能由作者声称leak-free或熵下降直接证明分组泛化与概率校准；未完成完整实现/实验核验。"
+    }
+  },
+  {
+    "id": "arxiv-2611.21998",
+    "title": "KV-LTM: Persistent Per-Session KV Caches as Long-Term Memory for Personal Assistants",
+    "url": "https://arxiv.org/abs/2611.21998",
+    "sourceUpdated": "2026-11-16",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-20",
+    "reason": "一手摘要定位为持久会话KV的系统设计和评测协议，未给出已实现系统的实测收益；尚未完成正文论证核验。保留待审，补查真实存取成本、容量与回答质量后再判断，不将容量估算或拟议协议写成实验结果。"
+  },
+  {
+    "id": "arxiv-2611.25073",
+    "title": "PriTabICL: Differentially Private Tabular In-Context Learning with Task-Aligned Cluster-Wise Synthesis",
+    "url": "https://arxiv.org/abs/2611.25073",
+    "sourceUpdated": "2026-11-18",
+    "decision": "excluded",
+    "reviewedAt": "2026-11-20",
+    "reason": "逐节阅读后暂不公开：相对已有DP聚类/边际合成与提示示例选择，独立实证增量有限；仅四二分类表、单个13B语言模型、每种子100条平衡查询。PrivSyn平均+1.6pp而Holm后仅一格显著，GEM平均无改善；未在原生表格基模验证。TabICL在此指文本提示范式，不是TabICLv2模型。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-20",
+      "claim": "任务对齐分簇合成在所测少数设置提高私有文本ICL准确率，但普遍收益尚不足。",
+      "contribution": "DP聚类中心路由、任务对齐边际合成与固定公开释放量，查询复用固定合成数据。",
+      "evidence": [
+        "四个二分类表，Llama2-13B-Chat，ε1/2/4、δ1e-5，10配对种子，每种子100平衡测试查询，8示例。",
+        "PrivSyn12格8格均值提高，平均+1.6pp，仅Phishing ε2经Holm显著；GEM平均无提升。",
+        "消融显示聚类并非处处受益；Phishing无平衡kNN0.789反高于完整0.751，选择策略影响结论。",
+        "隐私论证依赖公开模式、裁剪、固定输出量和并行组合；不是对所有外部查询也承诺隐私。"
+      ],
+      "limitations": "作者实验，未独立/本地复现。小样本、单模型与有限显著差异不支持通用优越性；不否定其有条件DP构造。",
+      "value": "当前可作为隐私上下文候选资料，独立贡献不足以进入精选公开目录。",
+      "reproducibility": "论文提供配置及作者代码链接；未运行也未验证完整代码。",
+      "conclusion": "有迹象但证据不足",
+      "sources": [
+        "https://arxiv.org/html/2611.25073v1"
+      ],
+      "readScope": [
+        "v1 引言、§§III–V算法/隐私条件、§VI全部实验消融、§VII及结论。"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "exclude",
+      "comparison": "相对PrivTab/TabPATE及DP聚类与PrivSyn/GEM合成，主要是分簇、任务边际与示例路由组合。",
+      "reason": "所读证据尚未显示足够稳定、独立的改进来满足当前精选门槛；未来更强基线/更多任务或原生TFM验证可重审。"
+    }
+  },
+  {
+    "id": "arxiv-2611.24301",
+    "title": "LoopCache: Accelerating Long-Context Self-Speculative Decoding for Looped Transformers",
+    "url": "https://arxiv.org/abs/2611.24301",
+    "sourceUpdated": "2026-11-18",
+    "decision": "excluded",
+    "reviewedAt": "2026-11-20",
+    "reason": "已读§§4–5.3：方法依赖权重共享循环网络、逐token自推测和精确验证分支；循环KV共用并非普通表格预测可直接迁移的缓存压缩。六循环LLM、8×A100结果不能对应当前TFM查询路径。暂不公开，若表格模型采用循环推理/自推测再审；不评价为论文质量差。"
   }
 ]
