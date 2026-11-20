@@ -14,6 +14,7 @@ import subprocess
 import sys
 import uuid
 from datetime import datetime, timezone
+from functools import partial
 from pathlib import Path
 from urllib.request import Request, urlopen
 
@@ -40,9 +41,13 @@ class DeliveryError(RuntimeError):
         self.uncertain = uncertain
 
 
-def cli(args, identity):
+def cli(args, identity, *, config_dir=None):
     executable = shutil.which("lark-cli") or str(Path.home() / ".local/bin/lark-cli")
     env = {**os.environ, "LARKSUITE_CLI_NO_UPDATE_NOTIFIER": "1", "LARKSUITE_CLI_NO_SKILLS_NOTIFIER": "1"}
+    if config_dir is not None:
+        if not config_dir.is_dir():
+            raise ValueError("找不到飞书 CLI 的项目配置目录")
+        env["LARKSUITE_CLI_CONFIG_DIR"] = str(config_dir)
     try:
         result = subprocess.run([executable, *args, "--as", identity, "--format", "json"],
                                 cwd=ROOT, env=env, text=True, capture_output=True, timeout=55)
@@ -59,17 +64,32 @@ def cli(args, identity):
     return envelope["data"]
 
 
-def resolve_chat(config, config_path):
-    if config.get("identity") not in {"user", "bot"}:
+def delivery_client(config, config_path):
+    identity = config.get("identity")
+    if identity not in {"user", "bot"}:
         raise ValueError("飞书配置 identity 必须为 user 或 bot")
+    if config.get("botOpenId") and identity != "bot":
+        raise ValueError("飞书专用机器人配置须使用应用身份")
+    directory = config.get("cliConfigDir")
+    if directory:
+        return partial(cli, identity=identity, config_dir=(config_path.parent / directory).resolve())
+    return partial(cli, identity=identity)
+
+
+def resolve_chat(config, config_path, request):
+    if expected_bot := config.get("botOpenId"):
+        result = request(["api", "GET", "/open-apis/bot/v3/info"])
+        bot = result.get("bot", result)
+        if bot.get("open_id") != expected_bot or bot.get("activate_status") != 2:
+            raise ValueError("飞书 CLI 当前机器人与本机小报配置不符，停止发送")
     if not config.get("chatId"):
-        data = cli(["im", "+chat-search", "--query", config["chatName"], "--chat-modes", "topic",
-                    "--disable-search-by-user", "--page-size", "100"], config["identity"])
+        data = request(["im", "+chat-search", "--query", config["chatName"], "--chat-modes", "topic",
+                        "--disable-search-by-user", "--page-size", "100"])
         matches = [c for c in (data.get("chats") or []) if c.get("name") == config["chatName"]]
         if len(matches) != 1 or data.get("has_more"):
             raise ValueError("未找到唯一匹配的话题群；请核对登录身份、群成员资格或在本机配置已核实的 chatId")
         config["chatId"] = matches[0]["chat_id"]
-    chat = cli(["im", "chats", "get", "--params", json.dumps({"chat_id": config["chatId"]})], config["identity"])
+    chat = request(["im", "chats", "get", "--params", json.dumps({"chat_id": config["chatId"]})])
     if chat.get("name") != config["chatName"] or chat.get("chat_mode") != "topic" or chat.get("chat_status") != "normal":
         raise ValueError("群名称、话题模式或状态与授权目标不符，停止发送")
     save_json(config_path, config)
@@ -128,17 +148,17 @@ def matches(message, prepared):
             and normalized(prepared["body"]) in normalized(content))
 
 
-def verify_message(message_id, prepared, identity):
-    data = cli(["im", "+messages-mget", "--message-ids", message_id, "--no-reactions"], identity)
+def verify_message(message_id, prepared, request):
+    data = request(["im", "+messages-mget", "--message-ids", message_id, "--no-reactions"])
     if not any(m.get("message_id") == message_id and matches(m, prepared) for m in data.get("messages", [])):
         raise DeliveryError("已取得消息 ID，但回读内容尚未核对通过；保留回执，重试只读回消息")
 
 
-def recover_uncertain(receipt, prepared, config):
+def recover_uncertain(receipt, prepared, config, request):
     args = ["im", "+chat-messages-list", "--chat-id", config["chatId"], "--start", receipt["attemptedAt"],
             "--page-size", "50", "--no-reactions"]
     for _ in range(20):
-        page = cli(args, config["identity"])
+        page = request(args)
         found = [m for m in page.get("messages", []) if matches(m, prepared)]
         if found:
             return found[0]["message_id"]
@@ -155,8 +175,9 @@ def deliver(run_dir, config, config_path=CONFIG, root=ROOT, dry_run=False):
         return {"status": "no-changes"}
     if dry_run:
         return {"status": "preview", "target": config["chatName"], "identity": config["identity"], "body": prepared["body"]}
+    request = delivery_client(config, config_path)
     resolved = not config.get("chatId")
-    chat_id = resolve_chat(config, config_path) if resolved else config["chatId"]
+    chat_id = resolve_chat(config, config_path, request) if resolved else config["chatId"]
     key = str(uuid.uuid5(uuid.NAMESPACE_URL, json.dumps([chat_id, prepared["date"], prepared["ids"]], ensure_ascii=False)))
     path = root / "work/notifications/receipts" / f"{key}.json"
     digest = hashlib.sha256(prepared["body"].encode()).hexdigest()
@@ -173,11 +194,11 @@ def deliver(run_dir, config, config_path=CONFIG, root=ROOT, dry_run=False):
     if prepared.get("withdrawnIds"):
         raise ValueError("待发送小报含已撤下论文，请先核对并更新内容；不会补发旧版")
     if not resolved:
-        resolve_chat(config, config_path)
+        resolve_chat(config, config_path, request)
     verify_live(prepared)
     receipt.update(runDirectory=str(run_dir.relative_to(root)), date=prepared["date"], paperIds=prepared["ids"], chatId=chat_id)
     if receipt["status"] in {"sending", "uncertain"} and not receipt.get("messageId"):
-        found = recover_uncertain(receipt, prepared, config)
+        found = recover_uncertain(receipt, prepared, config, request)
         if found:
             receipt.update(messageId=found, status="sent")
             save_json(path, receipt)
@@ -189,8 +210,8 @@ def deliver(run_dir, config, config_path=CONFIG, root=ROOT, dry_run=False):
         receipt["status"] = "sending"
         save_json(path, receipt)
         try:
-            result = cli(["im", "+messages-send", "--chat-id", chat_id, "--markdown", prepared["body"],
-                          "--idempotency-key", key], config["identity"])
+            result = request(["im", "+messages-send", "--chat-id", chat_id, "--markdown", prepared["body"],
+                              "--idempotency-key", key])
             if not result.get("message_id"):
                 raise DeliveryError("发送响应缺少消息 ID，需回查", uncertain=True)
             receipt.update(status="sent", messageId=result["message_id"])
@@ -199,7 +220,7 @@ def deliver(run_dir, config, config_path=CONFIG, root=ROOT, dry_run=False):
             save_json(path, receipt)
             raise
         save_json(path, receipt)
-    verify_message(receipt["messageId"], prepared, config["identity"])
+    verify_message(receipt["messageId"], prepared, request)
     receipt.update(status="verified", verifiedAt=datetime.now(timezone.utc).isoformat(timespec="seconds"))
     save_json(path, receipt)
     save_json(run_dir / "feishu-delivery.json", receipt)
@@ -209,18 +230,18 @@ def deliver(run_dir, config, config_path=CONFIG, root=ROOT, dry_run=False):
 def send_pending(config_path=CONFIG, root=ROOT, run_dir=None, dry_run=False):
     if not config_path.exists():
         return [{"status": "not-configured"}]
-    config = read_json(config_path)
-    if not config.get("enabled"):
-        return [{"status": "disabled"}]
-    # Explicit activation date prevents an initial setup from flooding a group with history.
-    since = config["notBefore"]
-    datetime.strptime(since, "%Y-%m-%d")
-    paths = [run_dir / "review.json"] if run_dir else sorted((root / "work/collection/daily").glob("*/*/review.json"))
     lock = config_path.parent / "delivery.lock"
     lock.parent.mkdir(parents=True, exist_ok=True)
     results = []
     with lock.open("a") as handle:
         fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        config = read_json(config_path)
+        if not config.get("enabled"):
+            return [{"status": "disabled"}]
+        # Explicit activation date prevents an initial setup from flooding a group with history.
+        since = config["notBefore"]
+        datetime.strptime(since, "%Y-%m-%d")
+        paths = [run_dir / "review.json"] if run_dir else sorted((root / "work/collection/daily").glob("*/*/review.json"))
         for path in paths:
             review = read_json(path)
             if review["date"] < since:

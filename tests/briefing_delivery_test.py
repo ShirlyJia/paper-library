@@ -82,6 +82,7 @@ class BriefingDeliveryTests(unittest.TestCase):
 
     def test_send_readback_and_deduplicate_across_runs(self):
         self.assertEqual(self.deliver()["status"], "sent-and-verified")
+        self.config.update(identity="bot", cliConfigDir="paper-bot-cli", botOpenId="ou_new")
         self.assertEqual(self.deliver()["status"], "already-sent")
         self.assertEqual(self.sends(), 1)
         self.assertTrue((self.run / "feishu-delivery.json").exists())
@@ -91,6 +92,33 @@ class BriefingDeliveryTests(unittest.TestCase):
         sender.save_json(other / "review.json", {**self.review, "briefing": str((other / "briefing.md").relative_to(self.root))})
         with patch.object(sender, "cli", side_effect=self.fake_cli):
             self.assertEqual(sender.deliver(other, self.config, self.config_path, self.root)["status"], "already-sent")
+        self.assertEqual(self.sends(), 1)
+
+    def test_project_bot_profile_is_used_for_sending_and_recovery(self):
+        self.config.update(identity="bot", cliConfigDir="paper-bot-cli", botOpenId="ou_new")
+        profile = (self.config_path.parent / "paper-bot-cli").resolve()
+        active_bot = "ou_default"
+
+        def project_cli(args, identity, *, config_dir):
+            self.assertEqual(identity, "bot")
+            self.assertEqual(config_dir, profile)
+            if args == ["api", "GET", "/open-apis/bot/v3/info"]:
+                return {"bot": {"open_id": active_bot, "activate_status": 2}}
+            return self.fake_cli(args, identity)
+
+        def deliver():
+            return sender.deliver(self.run, self.config, self.config_path, self.root)
+
+        with patch.object(sender, "cli", side_effect=project_cli), patch.object(sender, "verify_live"):
+            with self.assertRaisesRegex(ValueError, "机器人.*不符"):
+                deliver()
+            self.assertEqual(self.sends(), 0)
+            active_bot = "ou_new"
+            self.mode = "timeout"
+            with self.assertRaises(sender.DeliveryError):
+                deliver()
+            self.mode = "normal"
+            self.assertEqual(deliver()["status"], "sent-and-verified")
         self.assertEqual(self.sends(), 1)
 
     def test_timeout_recovers_from_group_history_without_resending(self):

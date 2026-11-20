@@ -66,6 +66,7 @@ npm run collect:finish -- 本次目录 --review-input 本次目录/review-input.
 - 通过已安装的 `lark-cli` 发送 Markdown 富文本。每次实质更新创建一个新话题，保留论文原文链接和网站入口；无更新不发空小报，不自动 @ 群成员。
 - 发送与补发只在允许的工作日执行；周末保留未送达回执，到下一工作日再按原幂等键回查、重试，不另建重复话题。
 - 目标与身份仅保存在 Git 忽略的 `work/notifications/feishu.json`：`enabled`、`identity`（`user` 或 `bot`）、`chatName`、`notBefore`（启用日期），首次精确匹配唯一话题群后写入 `chatId`。不按模糊名称自动选群，不自动切换身份。凭证由飞书 CLI 管理，不写入仓库。
+- 专用机器人可通过 `cliConfigDir` 指定独立的飞书 CLI 配置目录，路径相对于本机配置文件，并使用 `botOpenId` 校验发送身份。切换身份沿用原群 ID、启用日期与投递回执。
 - 用户身份须完成飞书授权；机器人身份须具备权限并已加入目标群。身份失效或目标不匹配时停止发送，在当前对话报告处理方式。
 - 只发送 `publication.published=true` 的运行，发送前再次核对本次论文线上与本地一致。只读取该运行的 `briefing.md`，核对日期及论文链接覆盖。
 - 按群、北京时间日期和论文 ID 清单去重；回执保存在 `work/notifications/receipts/`，成功回读后也保存到运行目录的 `feishu-delivery.json`。同一清单正文变更不另发重复话题，先核对已有消息。CLI 请求使用固定幂等键；网络结果不明时先回查群历史，超过安全重试窗口不盲目重发。
