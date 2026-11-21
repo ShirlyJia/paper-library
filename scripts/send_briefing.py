@@ -17,10 +17,16 @@ from datetime import datetime, timezone
 from functools import partial
 from pathlib import Path
 from urllib.request import Request, urlopen
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "work/notifications/feishu.json"
 SITE = "https://shirlyjia.github.io/paper-library/"
+BEIJING = ZoneInfo("Asia/Shanghai")
+
+
+def is_workday():
+    return datetime.now(BEIJING).weekday() < 5
 
 
 def read_json(path):
@@ -170,6 +176,8 @@ def recover_uncertain(receipt, prepared, config, request):
 
 
 def deliver(run_dir, config, config_path=CONFIG, root=ROOT, dry_run=False):
+    if not dry_run and not is_workday():
+        return {"status": "weekend-skipped"}
     prepared = prepare(run_dir, root)
     if not prepared:
         return {"status": "no-changes"}
@@ -186,7 +194,14 @@ def deliver(run_dir, config, config_path=CONFIG, root=ROOT, dry_run=False):
         prior = read_json(prior_path)
         if prior.get("messageId") and prior.get("idempotencyKey") != key:
             raise ValueError("本次小报已有已发消息，论文清单已变化；须更正原消息并回读更新回执，不会另发重复话题")
-    receipt = read_json(path) if path.exists() else {"status": "pending", "idempotencyKey": key, "bodySha256": digest}
+    stored_receipt = None
+    if path.exists():
+        stored_receipt = read_json(path)
+        if not isinstance(stored_receipt, dict):
+            raise ValueError("小报回执格式无效，须核对已有消息")
+    receipt = stored_receipt.copy() if stored_receipt is not None else {
+        "status": "pending", "idempotencyKey": key, "bodySha256": digest,
+    }
     if receipt["bodySha256"] != digest:
         raise ValueError("同一日期和论文清单的小报正文已变化，请核对已发消息；不会另发重复话题")
     if receipt["status"] == "verified":
@@ -196,6 +211,8 @@ def deliver(run_dir, config, config_path=CONFIG, root=ROOT, dry_run=False):
     if not resolved:
         resolve_chat(config, config_path, request)
     verify_live(prepared)
+    if not is_workday():
+        return {"status": "weekend-skipped"}
     receipt.update(runDirectory=str(run_dir.relative_to(root)), date=prepared["date"], paperIds=prepared["ids"], chatId=chat_id)
     if receipt["status"] in {"sending", "uncertain"} and not receipt.get("messageId"):
         found = recover_uncertain(receipt, prepared, config, request)
@@ -205,10 +222,19 @@ def deliver(run_dir, config, config_path=CONFIG, root=ROOT, dry_run=False):
         elif (datetime.now(timezone.utc) - datetime.fromisoformat(receipt["attemptedAt"])).total_seconds() >= 3000:
             raise DeliveryError("旧发送结果仍不确定，已超过安全重试窗口；需人工核对群历史，禁止盲目补发")
     if not receipt.get("messageId"):
+        if not is_workday():
+            return {"status": "weekend-skipped"}
         if receipt["status"] not in {"sending", "uncertain"}:
             receipt["attemptedAt"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
         receipt["status"] = "sending"
         save_json(path, receipt)
+        if not is_workday():
+            # The attempt was recorded, but no request left this process.
+            if stored_receipt is None:
+                path.unlink()
+            else:
+                save_json(path, stored_receipt)
+            return {"status": "weekend-skipped"}
         try:
             result = request(["im", "+messages-send", "--chat-id", chat_id, "--markdown", prepared["body"],
                               "--idempotency-key", key])
@@ -228,6 +254,8 @@ def deliver(run_dir, config, config_path=CONFIG, root=ROOT, dry_run=False):
 
 
 def send_pending(config_path=CONFIG, root=ROOT, run_dir=None, dry_run=False):
+    if not dry_run and not is_workday():
+        return [{"status": "weekend-skipped"}]
     if not config_path.exists():
         return [{"status": "not-configured"}]
     lock = config_path.parent / "delivery.lock"
@@ -243,12 +271,24 @@ def send_pending(config_path=CONFIG, root=ROOT, run_dir=None, dry_run=False):
         datetime.strptime(since, "%Y-%m-%d")
         paths = [run_dir / "review.json"] if run_dir else sorted((root / "work/collection/daily").glob("*/*/review.json"))
         for path in paths:
-            review = read_json(path)
-            if review["date"] < since:
+            if not dry_run and not is_workday():
+                results.append({"status": "weekend-skipped"})
+                break
+            try:
+                review = read_json(path)
+                if review["date"] < since:
+                    continue
+                if not run_dir and review.get("publication", {}).get("published") is not True:
+                    continue
+                result = deliver(path.parent, config, config_path, root, dry_run)
+            except (DeliveryError, ValueError, OSError, KeyError, TypeError, AttributeError) as error:
+                if run_dir is not None:
+                    raise
+                results.append({"status": "failed", "runDirectory": str(path.parent.relative_to(root)), "error": str(error)})
                 continue
-            if not run_dir and review.get("publication", {}).get("published") is not True:
-                continue
-            results.append(deliver(path.parent, config, config_path, root, dry_run))
+            results.append(result)
+            if result["status"] == "weekend-skipped":
+                break
     return results
 
 
@@ -258,9 +298,10 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="Preview without accessing Feishu or sending")
     args = parser.parse_args()
     try:
-        print(json.dumps(send_pending(run_dir=args.run.resolve() if args.run else None, dry_run=args.dry_run), ensure_ascii=False, indent=2))
-        return 0
-    except (DeliveryError, ValueError, OSError, KeyError) as error:
+        results = send_pending(run_dir=args.run.resolve() if args.run else None, dry_run=args.dry_run)
+        print(json.dumps(results, ensure_ascii=False, indent=2))
+        return 1 if any(item["status"] == "failed" for item in results) else 0
+    except (DeliveryError, ValueError, OSError, KeyError, TypeError, AttributeError) as error:
         print(f"飞书小报待发送：{error}", file=sys.stderr)
         return 1
 

@@ -329,9 +329,11 @@ def finish(run_dir, review_input, published, notes):
     if CONFIG.exists():
         try:
             result = send_pending()
-            print("飞书小报：" + json.dumps(result, ensure_ascii=False))
         except (RuntimeError, ValueError, OSError, KeyError) as error:
             print(f"研究记录已保存；飞书小报待重试：{error}", file=sys.stderr)
+            return 1
+        print("飞书小报：" + json.dumps(result, ensure_ascii=False))
+        if any(item["status"] == "failed" for item in result):
             return 1
 
 

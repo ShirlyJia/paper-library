@@ -15,6 +15,10 @@ class BriefingDeliveryTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
+        self.now = datetime(2026, 11, 20, 15, 59, 59, tzinfo=timezone.utc)
+        clock = patch.object(sender, "datetime", wraps=datetime)
+        clock.start().now.side_effect = lambda tz: self.now.astimezone(tz)
+        self.addCleanup(clock.stop)
         self.root = Path(self.temp.name)
         self.run = self.root / "work/collection/daily/2026-10-19/run"
         self.run.mkdir(parents=True)
@@ -38,6 +42,8 @@ class BriefingDeliveryTests(unittest.TestCase):
         if args[1] == "+messages-send":
             if self.mode == "timeout":
                 raise sender.DeliveryError("timeout", uncertain=True)
+            if self.mode == "rejected":
+                raise sender.DeliveryError("rejected")
             return {"message_id": "om_sent"}
         if args[1] in {"+messages-mget", "+chat-messages-list"}:
             if self.mode == "read-fails":
@@ -70,6 +76,52 @@ class BriefingDeliveryTests(unittest.TestCase):
     def test_preview_never_accesses_feishu(self):
         self.assertEqual(self.deliver(dry_run=True)["status"], "preview")
         self.assertEqual(self.calls, [])
+
+    def test_weekend_blocks_automatic_and_manual_delivery_in_beijing(self):
+        start_of_saturday = self.now + timedelta(seconds=1)
+        with patch.object(sender, "cli") as cli:
+            for now in (start_of_saturday, start_of_saturday + timedelta(days=1)):
+                self.now = now
+                for run in (None, self.run):
+                    results = sender.send_pending(self.config_path, self.root, run_dir=run)
+                    self.assertEqual(results, [{"status": "weekend-skipped"}])
+            self.assertFalse(self.config_path.with_name("delivery.lock").exists())
+            self.assertFalse(self.config_path.with_name("receipts").exists())
+            results = sender.send_pending(self.config_path, self.root, run_dir=self.run, dry_run=True)
+            self.assertEqual(results[0]["status"], "preview")
+            cli.assert_not_called()
+        self.now = start_of_saturday + timedelta(days=2)
+        self.assertEqual(self.deliver()["status"], "sent-and-verified")
+
+    def test_crossing_midnight_during_live_check_defers_delivery(self):
+        def verify_live(prepared):
+            self.now += timedelta(seconds=1)
+
+        with patch.object(sender, "cli", side_effect=self.fake_cli):
+            with patch.object(sender, "verify_live", side_effect=verify_live):
+                results = sender.send_pending(self.config_path, self.root)
+        self.assertEqual(results, [{"status": "weekend-skipped"}])
+        self.assertEqual(self.sends(), 0)
+        self.assertFalse(self.config_path.with_name("receipts").exists())
+
+    def test_crossing_midnight_at_send_boundary_preserves_the_existing_receipt(self):
+        self.mode = "rejected"
+        with self.assertRaises(sender.DeliveryError):
+            self.deliver()
+        self.mode = "normal"
+        receipt = self.receipt()
+        before = receipt.read_bytes()
+        save_json = sender.save_json
+
+        def save_and_advance(path, data):
+            save_json(path, data)
+            if path == receipt and data["status"] == "sending":
+                self.now += timedelta(seconds=1)
+
+        with patch.object(sender, "save_json", side_effect=save_and_advance):
+            self.assertEqual(self.deliver()["status"], "weekend-skipped")
+        self.assertEqual(receipt.read_bytes(), before)
+        self.assertEqual(self.sends(), 1)
 
     def test_existing_site_footer_is_preserved_without_duplicate(self):
         path = self.run / "briefing.md"
@@ -134,7 +186,7 @@ class BriefingDeliveryTests(unittest.TestCase):
         with self.assertRaises(sender.DeliveryError):
             self.deliver()
         receipt = sender.read_json(self.receipt())
-        receipt["attemptedAt"] = (datetime.now(timezone.utc) - timedelta(hours=2)).isoformat()
+        receipt["attemptedAt"] = (self.now - timedelta(hours=2)).isoformat()
         sender.save_json(self.receipt(), receipt)
         self.mode = "not-found"
         with self.assertRaisesRegex(sender.DeliveryError, "安全重试窗口"):
@@ -212,6 +264,40 @@ class BriefingDeliveryTests(unittest.TestCase):
         with patch.object(sender, "cli", side_effect=self.fake_cli):
             self.assertEqual(sender.send_pending(self.config_path, self.root), [])
         self.assertEqual(self.calls, [])
+
+    def test_failed_backfill_allows_later_delivery_and_keeps_deduplication(self):
+        self.mode = "timeout"
+        with self.assertRaises(sender.DeliveryError):
+            self.deliver()
+        earlier_receipt = self.receipt()
+        data = sender.read_json(earlier_receipt)
+        data["attemptedAt"] = (self.now - timedelta(hours=2)).isoformat()
+        sender.save_json(earlier_receipt, data)
+        prior = earlier_receipt.read_bytes()
+
+        date = "2026-10-20"
+        later = self.run.parent.parent / date / "run"
+        later.mkdir(parents=True)
+        briefing = later / "briefing.md"
+        briefing.write_text((self.run / "briefing.md").read_text().replace(self.review["date"], date))
+        sender.save_json(later / "review.json", {**self.review, "date": date,
+                                                 "briefing": str(briefing.relative_to(self.root))})
+        self.body = sender.prepare(later, self.root)["body"]
+        self.mode = "normal"
+
+        def unavailable_history(args, identity):
+            if args[1] == "+chat-messages-list":
+                return {"messages": [], "has_more": False}
+            return self.fake_cli(args, identity)
+
+        with patch.object(sender, "cli", side_effect=unavailable_history), patch.object(sender, "verify_live"):
+            first = sender.send_pending(self.config_path, self.root)
+            second = sender.send_pending(self.config_path, self.root)
+        self.assertEqual([item["status"] for item in first], ["failed", "sent-and-verified"])
+        self.assertEqual([item["status"] for item in second], ["failed", "already-sent"])
+        self.assertIn("安全重试窗口", first[0]["error"])
+        self.assertEqual(earlier_receipt.read_bytes(), prior)
+        self.assertEqual(self.sends(), 2)
 
 
 if __name__ == "__main__":
