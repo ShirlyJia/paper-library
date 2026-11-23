@@ -14101,5 +14101,124 @@
     "decision": "excluded",
     "reviewedAt": "2026-11-20",
     "reason": "已读§§4–5.3：方法依赖权重共享循环网络、逐token自推测和精确验证分支；循环KV共用并非普通表格预测可直接迁移的缓存压缩。六循环LLM、8×A100结果不能对应当前TFM查询路径。暂不公开，若表格模型采用循环推理/自推测再审；不评价为论文质量差。"
+  },
+  {
+    "id": "arxiv-2611.26999",
+    "title": "JevRisk: Zero-Shot Financial Risk Assessment with a Language Decision Model",
+    "url": "https://arxiv.org/abs/2611.26999",
+    "sourceUpdated": "2026-11-20",
+    "decision": "included",
+    "reviewedAt": "2026-11-23",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-23",
+      "conclusion": "证据已支持",
+      "claim": "在作者的三组公开数据留出样本上，使用 Jev-1.14.0 的无标签风险排序优于规则计数和孤立森林，和约千条训练标签的监督模型可比较。",
+      "contribution": "用代码将规则来源、阈值状态及数值证据变成结构化案例。语言决策模型在同一案例上输出两个回答，乘积用于排序。对照指标计数、不同标签预算及模型替换，并给出职业问题的消融。",
+      "evidence": [
+        "阈值仅用开发集的无标签样本构造。AML 和 Home Credit 随机切分，Lending Club 用 2013–2014 年开发、2015 年测试。所有模型比较同一留出集的 4,000 例平衡抽样。",
+        "表 1 和 3 的作者 AUC 为 0.923、0.628、0.651。Lending Club 指标计数为 0.574，1,000 标签的最佳监督对照为 TabPFN 0.630，1 万标签的 TabPFN 为 0.667。",
+        "表 2 的合成 AML 消融中，客户问题单独 0.897，与职业问答输出相乘为 0.923。监督模型输入接近但不完全等同，重复抽取训练子集 20 次，区间只反映测试样本的抽样波动。"
+      ],
+      "limitations": "AML 标签是银行的合成客户风险评级，真实洗钱事件未验证。Lending Club 只覆盖获批贷款。职业变量可能成为受保护属性的代理，论文未测群体公平性。AUC 衡量排序，不能从乘积读出校准违约概率。",
+      "value": "为标签有限时的风控候选排序提供与现有规则和表格模型比较的设计，后续可用自己的时间留出数据复核。",
+      "reproducibility": "文中给出 Jev API 版本、字段、规则、问题、公开数据与开放替代模型，并披露抽样及消融设置。未核实有公开的端到端运行代码，未独立复现。",
+      "sources": [
+        "https://arxiv.org/abs/2611.26999",
+        "https://arxiv.org/html/2611.26999v1"
+      ],
+      "readScope": [
+        "§2 数据、标签与切分",
+        "§3.1–3.2 指标计算及得分",
+        "§4.1–4.3 基线、消融、表 1–3",
+        "§6 Discussion",
+        "附录 G 表 13 和 J 局限"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对同一指标的规则计数与 TabLLM 式通用判断，比较带规则证据的双问题风控排序。Lending Club 时间留出和分档标签预算补足选型证据。",
+      "reason": "对标签不足时何时考虑零样本排序、何时切回监督模型提供可核对的边界。公开预印本和三组数据对照可追溯。"
+    }
+  },
+  {
+    "id": "arxiv-2611.25942",
+    "title": "Gradient Boosting with Kolmogorov-Arnold Units for Interpretable Regression beyond Pairwise Interactions",
+    "url": "https://arxiv.org/abs/2611.25942",
+    "sourceUpdated": "2026-11-19",
+    "decision": "included",
+    "reviewedAt": "2026-11-23",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-23",
+      "conclusion": "证据已支持",
+      "claim": "在作者的 CTR23 回归设置中，模型能表达三阶及以上交互，且未用于开发的 30 项任务相对默认 EBM 的几何平均 RMSE 较低。",
+      "contribution": "用逐轮拟合的单个 Kolmogorov–Arnold 单元做提升，以交替惩罚最小二乘拟合内外样条。基于边际分布的乘积计算函数 ANOVA，单列和两列效应之外保留可测高阶剩余。",
+      "evidence": [
+        "作者在受控合成交互中比较完整模型及其二阶截断，检验高阶项能否表达目标关系。",
+        "CTR23 使用首个官方重复的 10 折。35 项里有 5 项参加过开发，单列的其余 30 项表中对 EBM 为 17 胜、11 未显著、2 负，几何平均 RMSE 低 30.9%。",
+        "三模型在这 30 项任务的平均名次为调参 LightGBM 1.50、MJBoost 1.83、默认 EBM 2.67。数值标准化只用训练折。"
+      ],
+      "limitations": "EBM 使用默认设置，LightGBM 在内层五折搜索 12 组参数。相同数据切分下未匹配调参预算。相依特征的效应在实际联合分布上可共变，分解量不支持因果解释。",
+      "value": "可作为对照，判断表格任务是否值得为二阶以上交互付出额外解释与计算开销。",
+      "reproducibility": "公开了 PyPI mjboost 0.2.0 和公开基准。论文写明全套表图复现脚本将随论文发布，本次核实的是包及原文，没有独立复现。",
+      "sources": [
+        "https://arxiv.org/abs/2611.25942",
+        "https://arxiv.org/html/2611.25942v1",
+        "https://pypi.org/project/mjboost/0.2.0/"
+      ],
+      "readScope": [
+        "§3.1–3.7 方法与计算",
+        "§4 函数分解",
+        "§5.1–5.6 回归设置、截断与结果，表 1 和图 3",
+        "代码可用性"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "默认 EBM 表达主效应和二阶项。MJBoost 对单元拟合与高阶分解给出完整实现，并比较同一模型完整预测和二阶截断。",
+      "reason": "对判断何时需要高阶交互提供可运行的对照，开发任务分开报告且保留强树模型名次。"
+    }
+  },
+  {
+    "id": "arxiv-2611.25936",
+    "title": "Hellinger Decision Trees for Density Ratio Estimation: Finite-Sample Guarantees",
+    "url": "https://arxiv.org/abs/2611.25936",
+    "sourceUpdated": "2026-11-19",
+    "decision": "included",
+    "reviewedAt": "2026-11-23",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-23",
+      "conclusion": "证据已支持",
+      "claim": "作者对有限轮的提升树算法给出条件性的超额风险界。按文中数据、调参和评价设置，10 项真实数据任务平均 Hellinger 风险低于四个对照。",
+      "contribution": "在平衡 Hellinger 风险下用牛顿提升拟合轴对齐树，分解估计、逼近及优化误差，并将贪心分裂找到的二阶下降量关联到训练风险实际下降。",
+      "evidence": [
+        "定理 3 建立单步下降关系。定理 5 与推论 6 将逼近、估计和有限步优化误差合并，收敛速率还要求假设 4 的逐轮进展条件。",
+        "10 项公开数据任务含 UCI 和 OpenML，20 次重复，各方法 48 个候选，采用相同的切分、验证指标和对数密度比裁剪规则。表 2 中 Hellinger 树平均风险 0.5108，逻辑损失树为 0.5210，前者在 7 项任务平均风险较小。",
+        "合成验证的速率实验为一维。真实数据真实密度比未知，表 2 评估留出集 Hellinger 风险。"
+      ],
+      "limitations": "假设 4 约束训练轨迹，其在具体数据与参数下是否高概率成立仍待论证。用本方法训练对应的风险作共同评价，结果不能替代下游加权、校准或分布外预测实验。",
+      "value": "给协变量偏移分析和重要性加权提供一个可比较的密度比估计基线，并明确理论保证所需的附加条件。",
+      "reproducibility": "给出算法、证明、公开数据及调参网格。未核实到作者公开实现，本次仅核对作者报告与正文推导。",
+      "sources": [
+        "https://arxiv.org/abs/2611.25936",
+        "https://arxiv.org/html/2611.25936v1"
+      ],
+      "readScope": [
+        "§2 算法与风险定义",
+        "§3.1–3.5 假设、误差界与算法步数",
+        "§4.3 训练轨迹假设的限制",
+        "§5.1–5.2 合成和公开数据实验、表 2"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "沿用既有 Hellinger 损失和树估计路线，独立增量是给有限轮算法本身合并三类误差，并和同结构的逻辑损失树比较。",
+      "reason": "提供分布变化分析可用的基线和适用条件。公开数据对照交代数据划分、统一候选数与度量，便于复核。"
+    }
   }
 ]

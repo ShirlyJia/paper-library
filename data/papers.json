@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-20",
+  "updatedAt": "2026-11-23",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -13454,6 +13454,109 @@
       ],
       "dateNote": "arXiv 记录首次提交 2025-05-24，v2 修订 2026-01-07；正式版本发表于 MLSys 2026。",
       "addedAt": "2026-11-20"
+    },
+    {
+      "id": "arxiv-2611.26999",
+      "title": "JevRisk: Zero-Shot Financial Risk Assessment with a Language Decision Model",
+      "date": "2026-11-20",
+      "updated": "2026-11-20",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "credit-risk",
+      "topic": "金融风控与信用预测",
+      "related": [
+        2
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "JevRisk 先用代码计算风险指标，再让 Jev 根据客户资料、活动摘要和指标回答客户风险与职业风险两个问题，取两项输出的乘积排序。作者在合成反洗钱数据及两组真实信贷数据上报告，排序均优于规则计数和孤立森林。Lending Club 按年份留出测试，标签增至 1 万时 TabPFN 超过 JevRisk。合成反洗钱结果及未做的群体公平性评估限制了外推。",
+      "url": "https://arxiv.org/abs/2611.26999",
+      "pdf": "https://arxiv.org/pdf/2611.26999",
+      "code": null,
+      "keywords": [
+        "结构化决策",
+        "金融风控",
+        "信贷风险",
+        "零样本",
+        "Jev",
+        "TabPFN"
+      ],
+      "aliases": [
+        "JevRisk",
+        "Jev-1.14.0"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.26999",
+        "https://arxiv.org/html/2611.26999v1"
+      ],
+      "addedAt": "2026-11-23"
+    },
+    {
+      "id": "arxiv-2611.25942",
+      "title": "Gradient Boosting with Kolmogorov-Arnold Units for Interpretable Regression beyond Pairwise Interactions",
+      "date": "2026-11-19",
+      "updated": "2026-11-19",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.25942",
+      "pdf": "https://arxiv.org/pdf/2611.25942",
+      "category": 2,
+      "section": "prediction-decisions",
+      "topicId": "symbolic-regression",
+      "topic": "显式表达式与符号回归",
+      "summary": "MJBoost 每轮增加一个由样条组成的 Kolmogorov–Arnold 单元，拟合后可将响应拆成单列效应、两列交互与高阶剩余。作者在未用于开发的 30 项 OpenML-CTR23 回归任务中报告，几何平均 RMSE 比默认 EBM 低 30.9%，调参后的 LightGBM 平均名次更好。分解采用特征边际分布的乘积作为参照，相关特征下的交互份额不能当作因果贡献。",
+      "code": "https://pypi.org/project/mjboost/0.2.0/",
+      "keywords": [
+        "可解释回归",
+        "高阶交互",
+        "样条",
+        "EBM",
+        "OpenML-CTR23"
+      ],
+      "aliases": [
+        "MJBoost"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.25942",
+        "https://arxiv.org/html/2611.25942v1",
+        "https://pypi.org/project/mjboost/0.2.0/"
+      ],
+      "addedAt": "2026-11-23"
+    },
+    {
+      "id": "arxiv-2611.25936",
+      "title": "Hellinger Decision Trees for Density Ratio Estimation: Finite-Sample Guarantees",
+      "date": "2026-11-19",
+      "updated": "2026-11-19",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.25936",
+      "pdf": "https://arxiv.org/pdf/2611.25936",
+      "category": 2,
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions",
+      "topic": "条件分布与不确定性分解",
+      "related": [
+        3
+      ],
+      "summary": "用平衡 Hellinger 损失训练提升树，估计同一特征在两批数据中的相对密度。作者对有限轮训练给出误差界，速率依赖于尾部、平滑性以及每一步取得足够优化进展。10 项公开数据任务采用相同调参规模和验证指标，对逻辑损失提升树有 7 项测试风险较低。评估指标是 Hellinger 风险，实际漂移校正的收益有待验证。",
+      "code": null,
+      "keywords": [
+        "密度比",
+        "协变量偏移",
+        "Hellinger 风险",
+        "决策树",
+        "有限样本保证"
+      ],
+      "aliases": [
+        "Hellinger trees",
+        "Hellinger Decision Trees"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.25936",
+        "https://arxiv.org/html/2611.25936v1"
+      ],
+      "addedAt": "2026-11-23"
     }
   ],
   "collectionUpdates": [
@@ -14222,6 +14325,15 @@
         "arxiv-2609.17895",
         "report-nvidia-structured-data-models"
       ]
+    },
+    {
+      "date": "2026-11-23",
+      "added": [
+        "arxiv-2611.25936",
+        "arxiv-2611.25942",
+        "arxiv-2611.26999"
+      ],
+      "updated": []
     }
   ]
 }
