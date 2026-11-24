@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-23",
+  "updatedAt": "2026-11-24",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -13557,6 +13557,114 @@
         "https://arxiv.org/html/2611.25936v1"
       ],
       "addedAt": "2026-11-23"
+    },
+    {
+      "id": "arxiv-2602.02523",
+      "title": "TabularMath: Evaluating Computational Extrapolation in Tabular Learning via Program-Verified Synthesis",
+      "date": "2026-02-04",
+      "updated": "2026-11-23",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2602.02523",
+      "pdf": "https://arxiv.org/pdf/2602.02523",
+      "code": null,
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "topic": "通用评测与分布泛化",
+      "related": [
+        2,
+        5
+      ],
+      "summary": "将 GSM8K、AIME 题目转成 114 组可运行规则，检验表格回归能否给出正确计算结果。针对 100 组 GSM8K，留出目标值最高的 20%，128 行总预算下 TabPFN v2.5 的中位 R² 为 0.76，取整命中率为 7.8%。PySR 在相同划分上为 76.1%，搜索算子先验和计算预算不同。结果适用于程序合成的确定性任务。",
+      "keywords": [
+        "表格基础模型",
+        "分布外外推",
+        "精确计算",
+        "符号回归",
+        "TabPFN",
+        "评测基准"
+      ],
+      "aliases": [
+        "TabularMath",
+        "TabularMath v2"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2602.02523",
+        "https://arxiv.org/pdf/2602.02523v2",
+        "https://api.datacite.org/dois/10.48550/arXiv.2602.02523"
+      ],
+      "addedAt": "2026-11-24"
+    },
+    {
+      "id": "arxiv-2611.27009",
+      "title": "Fair Property Tax: Reducing Regressivity in Machine-Learning Valuation",
+      "date": "2026-11-23",
+      "updated": "2026-11-23",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.27009",
+      "pdf": "https://arxiv.org/pdf/2611.27009",
+      "code": "https://github.com/ccao-data/model-res-avm",
+      "category": 2,
+      "section": "prediction-decisions",
+      "topicId": "scores-routing",
+      "topic": "评分、固定选项与路由",
+      "related": [
+        1
+      ],
+      "summary": "在 LightGBM 训练中惩罚估值误差和成交价的协方差，或用按价格偏离度加权的损失近似。使用同特征和历史切分，所选近似方案在 Cook County 的 2025 留出成交中将价格相关偏差幅度降低约 39%，对数价格 RMSE 约升 1.7%。公开估值代码提供直接惩罚选项，论文结果来自研究实现。",
+      "keywords": [
+        "结构化决策",
+        "房产估值",
+        "价格相关偏差",
+        "时间切分",
+        "LightGBM"
+      ],
+      "aliases": [
+        "Fair Property Tax",
+        "CCAO covariance penalty"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.27009",
+        "https://arxiv.org/html/2611.27009v1",
+        "https://api.datacite.org/dois/10.48550/arXiv.2611.27009",
+        "https://github.com/ccao-data/model-res-avm/pull/475",
+        "https://github.com/ccao-data/lightsnip/pull/21"
+      ],
+      "addedAt": "2026-11-24"
+    },
+    {
+      "id": "arxiv-2611.26980",
+      "title": "Contexture: Runtime Context Eviction for High-Throughput Agent Serving",
+      "date": "2026-11-23",
+      "updated": "2026-11-23",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.26980",
+      "pdf": "https://arxiv.org/pdf/2611.26980",
+      "code": null,
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "topic": "LLM 推理优化与迁移",
+      "summary": "Contexture 给被后续工具调用替换的旧结果标记，在共享 KV 紧张且重算代价可控时移出后续请求。两种 Qwen、两种 agent 框架及两类长程任务中，相对论文列出的强基线，延迟约束内会话吞吐提高 20–73%。适合参考交互式分析服务的缓存管理，单次表格推理的容量与质量仍需实测。",
+      "keywords": [
+        "KV 缓存",
+        "推理吞吐",
+        "缓存淘汰",
+        "工具输出",
+        "服务端内存"
+      ],
+      "aliases": [
+        "Contexture"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.26980",
+        "https://arxiv.org/html/2611.26980v1",
+        "https://api.datacite.org/dois/10.48550/arXiv.2611.26980"
+      ],
+      "addedAt": "2026-11-24"
     }
   ],
   "collectionUpdates": [
@@ -14332,6 +14440,15 @@
         "arxiv-2611.25936",
         "arxiv-2611.25942",
         "arxiv-2611.26999"
+      ],
+      "updated": []
+    },
+    {
+      "date": "2026-11-24",
+      "added": [
+        "arxiv-2602.02523",
+        "arxiv-2611.26980",
+        "arxiv-2611.27009"
       ],
       "updated": []
     }

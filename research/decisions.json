@@ -14220,5 +14220,126 @@
       "comparison": "沿用既有 Hellinger 损失和树估计路线，独立增量是给有限轮算法本身合并三类误差，并和同结构的逻辑损失树比较。",
       "reason": "提供分布变化分析可用的基线和适用条件。公开数据对照交代数据划分、统一候选数与度量，便于复核。"
     }
+  },
+  {
+    "id": "arxiv-2602.02523",
+    "title": "TabularMath: Evaluating Computational Extrapolation in Tabular Learning via Program-Verified Synthesis",
+    "url": "https://arxiv.org/abs/2602.02523",
+    "sourceUpdated": "2026-11-23",
+    "decision": "included",
+    "reviewedAt": "2026-11-24",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-24",
+      "conclusion": "证据已支持",
+      "claim": "在程序合成的确定性任务中，目标值上尾外推的 R² 和取整命中率反映不同能力。论文设定内 TabPFN v2.5 更善于拟合趋势，有限符号搜索可以准确恢复较多常见规则。",
+      "contribution": "用题目生成器和验证程序构造一条规则对应一张表，比较相同规则下的随机切分与上尾切分。对照表格基线外，加入解析拟合和 PySR，检验表内数值本身是否足以恢复规则。",
+      "evidence": [
+        "第 2–3 节构建 100 组 GSM8K 和 14 组 AIME 任务，每组 2048 条；对 7 个行数上限分别做 80/20 切分，上尾任务按目标值取最高的 20% 作测试。标准化用训练数据。AIME 主结果另行排除一组 float32 改变取整结果的任务。",
+        "第 4 节表 2、3：在 GSM8K 的 128 行总预算（102 条训练、26 条测试）下，TabPFN v2.5 外推中位 R² 0.76，取整命中 7.8%。2048 行预算时取整命中 8.2%，相比 128 行的改变量区间跨零。",
+        "同一 GSM8K 划分，PySR 用主要输入字段及最长 120 秒算子搜索达到 76.1% 外推命中、72 个任务全对。作者主要比较固定配置和预测误差，实验没有匹配模型推理、公式搜索和 LLM 总计算预算。"
+      ],
+      "limitations": "程序生成的输出分布不同于含噪业务回归。上尾划分检验按输出值外推，多数输入仍处在训练范围。规则先验、模型版本和命中精度需随新数据验证。",
+      "value": "可以复用同切分的双指标以及规则型和统计型对照。能帮助识别业务目标是否需要可执行规则，而仅凭回归拟合会高估逐笔正确率的情形。",
+      "reproducibility": "正文和附录给出种子、生成规则、评估协议和模型配置。原摘要称发布代码及数据，本次未核实具体可用入口，也未独立复现。",
+      "sources": [
+        "https://arxiv.org/abs/2602.02523",
+        "https://arxiv.org/pdf/2602.02523v2",
+        "https://api.datacite.org/dois/10.48550/arXiv.2602.02523"
+      ],
+      "readScope": [
+        "v2 §2–3 任务生成、数据划分、数值精度和基线",
+        "§4.1–4.5、表 2–4",
+        "§5 适用边界",
+        "arXiv 与 DataCite 版本时间，v1 公开记录 2026-02-04，v2 更新 2026-11-23"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "与库内 TabArena 等真实表格通用基准相比，生成协议隔离可精确求解的确定性规则，保留同规模的随机与上尾切分。",
+      "reason": "相同任务上的拟合和命中率有实质差异，符号基线证明多数简单规则有可恢复信号，为自动判断何时切换到规则模型提供可复用的评测设计。"
+    }
+  },
+  {
+    "id": "arxiv-2611.27009",
+    "title": "Fair Property Tax: Reducing Regressivity in Machine-Learning Valuation",
+    "url": "https://arxiv.org/abs/2611.27009",
+    "sourceUpdated": "2026-11-23",
+    "decision": "included",
+    "reviewedAt": "2026-11-24",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-24",
+      "conclusion": "证据已支持",
+      "claim": "在作者采用的成交筛选、时间切分和 LightGBM 设置下，选定的价格协方差惩罚可以降低高低价房产之间的系统性估值差异，预测误差上存在可测的取舍。",
+      "contribution": "Direct 在训练批次上惩罚中心化对数成交价和对数预测残差的协方差平方。Surrogate 以按样本相加的协方差上界实现加权平方损失。和相同特征与参数的零惩罚目标比较，并对照预测后再缩放。",
+      "evidence": [
+        "第 4 节以七个扩展时间窗口调参，使用 2023–24 年后段独立留出；由 2016–24 年重拟合后在 26,641 条 2025 成交上测试。各折计算中心和惩罚仅用训练样本，测试不用于选参数。",
+        "表 6 中验证选择的 Surrogate 在两个测试集上将 |PRB| 分别降低 48.6% 和 39.4%，对数价格 RMSE 分别增加 3.1% 和 1.7%，价格尺度 R² 小幅变化。八个其他县另作时间外测试，使用商业汇总数据与另一套特征口径。",
+        "Cook County Assessor 的 model-res-avm PR 475 和 lightsnip PR 21 已合并，可核对 Direct 选项的公开实现。"
+      ],
+      "limitations": "最后两个交叉验证窗有重叠。总体偏差指标可能遮住局部价格段误差，惩罚过强可反向偏差或增加误差。受限数据不提供行级复核；研究评估并非官方税基评估结果。",
+      "value": "给结构化决策模型提供按时间留出选择偏差惩罚的实例，同时记录预测误差和统计指标的代价。",
+      "reproducibility": "Direct 代码选项可核对。论文主实验成交数据及 ATTOM 外部数据不公开，本次未独立复现。",
+      "sources": [
+        "https://arxiv.org/abs/2611.27009",
+        "https://arxiv.org/html/2611.27009v1",
+        "https://api.datacite.org/dois/10.48550/arXiv.2611.27009",
+        "https://github.com/ccao-data/model-res-avm/pull/475",
+        "https://github.com/ccao-data/lightsnip/pull/21"
+      ],
+      "readScope": [
+        "§3.1–3.4 两种损失",
+        "§4 切分、验证与基线",
+        "§5 表 5、6 及附录 G 外部验证",
+        "数据与机构声明、公开代码 PR"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对同模型零惩罚及按预测缩放的对照，训练目标改变有明确数学落点，不依赖加入新特征或扩大模型。",
+      "reason": "未来年份留出、八县外部验证和公开实现给出了独立的决策偏差与精度取舍证据，可参考其时间回测协议。"
+    }
+  },
+  {
+    "id": "arxiv-2611.26980",
+    "title": "Contexture: Runtime Context Eviction for High-Throughput Agent Serving",
+    "url": "https://arxiv.org/abs/2611.26980",
+    "sourceUpdated": "2026-11-23",
+    "decision": "included",
+    "reviewedAt": "2026-11-24",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "reviewedAt": "2026-11-24",
+      "conclusion": "证据已支持",
+      "claim": "在助手工具历史存在可丢弃的旧结果时，联合辨识旧上下文与判断共享 KV 压力，可在所测 LLM 并发服务中提高约束内吞吐。",
+      "contribution": "追踪同文件、命令等工具结果的替换关系，先标为可移除候选并保留短宽限期。结合全局 KV 占用和缓存前缀在位长度，估算将旧文本真正移出时省下的缓存和需要重算的 token。",
+      "evidence": [
+        "§6.1 在两种 Qwen、Hermes/OpenClaw、两种长程基准的 8 种配置上进行真实 GPU 服务测量，用固定轨迹回放控制到达、输出长度和工具延迟。按作者的延迟约束，与无淘汰、压缩、AgentDiet、Continuum 中所选最强基线相比，吞吐提高 20–73%。",
+        "§6.2.3 另在至少曾完成的任务子集上做在线正确率试验。§6.3 的增量消融显示，选择旧历史减少大量预占，利用前缀驻留状态可避免部分额外重算。"
+      ],
+      "limitations": "回放测容量和延迟，正确率是另行抽取任务的实时实验。该结果依赖识别可替换工具内容，固定表格支持集和新旧上下文不一定具有相同的可移除性。单张大表 OOM、固定表格任务精度均未验证。",
+      "value": "针对多会话、会重复执行数据分析的服务，可借鉴按依赖关系标记旧中间产物，再按缓存占用与重算代价驱逐的策略。",
+      "reproducibility": "作者写明 GPU、vLLM、模型与默认参数，并给出回放设计。本次未核实公开的端到端实现或独立复现。",
+      "sources": [
+        "https://arxiv.org/abs/2611.26980",
+        "https://arxiv.org/html/2611.26980v1",
+        "https://api.datacite.org/dois/10.48550/arXiv.2611.26980"
+      ],
+      "readScope": [
+        "§3 缓存与历史压缩对比",
+        "§5.1–5.6 候选选择、淘汰时机与驻留核对",
+        "§6.1–6.3 配置、吞吐、准确率与消融",
+        "§6.5–6.6 卸载与开销"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相比固定窗口压缩、仅按运行时缓存占用管理，使用工具级替换关系和重算成本联合决定何时改变模型输入。",
+      "reason": "补充多会话交互分析里的服务侧缓存证据，并量化重算与保留之间的取舍。结构化单次推理另行验证。"
+    }
   }
 ]
