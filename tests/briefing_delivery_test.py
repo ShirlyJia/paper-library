@@ -209,6 +209,19 @@ class BriefingDeliveryTests(unittest.TestCase):
             self.deliver()
         self.assertEqual(self.sends(), 1)
 
+    def test_delivery_uses_the_paper_selection_saved_with_the_edition(self):
+        self.review["decisions"]["included"].append("model-card")
+        self.review["publication"]["briefingPaperIds"] = [self.paper["id"]]
+        sender.save_json(self.run / "review.json", self.review)
+        self.assertEqual(sender.prepare(self.run, self.root)["ids"], [self.paper["id"]])
+        self.assertEqual(self.deliver()["status"], "sent-and-verified")
+        self.assertEqual(self.deliver()["status"], "already-sent")
+        self.review["publication"]["briefingPaperIds"] = []
+        self.review["briefing"] = None
+        sender.save_json(self.run / "review.json", self.review)
+        self.assertEqual(self.deliver()["status"], "no-changes")
+        self.assertEqual(self.sends(), 1)
+
     def archive_paper(self):
         sender.save_json(self.root / "research/withheld-papers.json", {"papers": [{"paper": self.paper}]})
         sender.save_json(self.root / "data/papers.json", {"papers": []})

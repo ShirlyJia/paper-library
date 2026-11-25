@@ -1,5 +1,6 @@
 import copy
 import importlib.util
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -23,7 +24,7 @@ REVIEW = {"reviewStatus": "completed", "claim": "c", "contribution": "c", "evide
           "value": "v", "reproducibility": "r", "conclusion": "证据已支持", "sources": ["https://a"], "readScope": "方法与实验"}
 VALUE = {"decision": "include", "comparison": "相对直接前作增加受控评测", "reason": "提供新的可复用证据"}
 PAPER = {"id": "arxiv-2610.00001", "title": "New", "date": "2026-10-10", "updated": "2026-10-10", "category": 1,
-         "section": "s", "topicId": "t", "status": "preprint", "venue": "预印本", "summary": "s",
+         "section": "industry-models", "topicId": "tabular-releases", "status": "preprint", "venue": "预印本", "summary": "s",
          "url": "https://arxiv.org/abs/2610.00001", "pdf": None, "code": None}
 
 
@@ -90,7 +91,9 @@ class QueueTests(unittest.TestCase):
 
 class ApplyReviewTests(unittest.TestCase):
     def setUp(self):
-        self.catalogue = {"categories": [{"id": 1, "name": "A"}],
+        self.catalogue = {"categories": [{"id": 1, "code": "01", "name": "改名后的方向", "children": [
+            {"id": PAPER["section"], "name": "子方向", "children": [
+                {"id": PAPER["topicId"], "code": "01.01.01", "name": "议题"}]}]}],
                           "papers": [{**PAPER, "id": "old", "url": "https://x/old", "addedAt": "2026-10-01"}]}
         self.decisions, self.registry = [], {"families": []}
 
@@ -104,8 +107,9 @@ class ApplyReviewTests(unittest.TestCase):
         self.assertEqual([d["decision"] for d in self.decisions], ["included", "deferred"])
         self.assertEqual(self.registry["families"][0]["paperIds"], [PAPER["id"]])
         digest = apply_review.direction_digest({"included": [{"paper": {**PAPER, "aliases": ["NewFM"]}, "qualityReview": REVIEW, "brief": "一句话"}]}, self.catalogue)
-        self.assertIn("### 业界进展（1 篇）", digest)
-        self.assertIn("**[NewFM](https://arxiv.org/abs/2610.00001)**：一句话", digest)
+        self.assertIn("### 01 改名后的方向（新增 1 篇）", digest)
+        self.assertIn("01.01.01 子方向 › 议题", digest)
+        self.assertIn("**[NewFM](https://arxiv.org/abs/2610.00001)** 一句话", digest)
 
     def test_abstract_only_reviews_and_missing_reasons_are_rejected(self):
         for bundle in [{"date": "d", "included": [{"paper": PAPER, "qualityReview": {**REVIEW, "reviewStatus": "partial"}, "brief": "b"}]},
@@ -170,7 +174,7 @@ class BriefingTests(unittest.TestCase):
         import tempfile
         with tempfile.TemporaryDirectory() as folder:
             run = Path(folder)
-            (run / "briefing-highlights.md").write_text("## 今天的看点\n\n主线叙述")
+            (run / "briefing-highlights.md").write_text(f"## 今天的看点\n\n[New]({PAPER['url']}) 的发现。")
             plan = {"until": "2026-10-16"}
             channels = {"arxiv": {"status": "complete"}, "formal": {"status": "not-due"},
                         "fulltext": {"status": "incomplete", "failures": [{"status": "truncated", "error": "needs key"}]}}
@@ -178,7 +182,13 @@ class BriefingTests(unittest.TestCase):
                        "deferred": [{"title": "D", "url": "https://d", "reason": "需全文"}]}
             queue_state = {"items": [{"open": True, "score": 7}, {"open": True, "score": 1}]}
             text = daily.write_briefing(run, plan, applied).read_text()
-            for expected in ["今天收录 1 篇（近一个月的新论文 1 篇）", "归入业界进展方向", "## 今天的看点", "### 业界进展（1 篇）", "：一句话"]:
+            cats = json.loads((daily.ROOT / "data/papers.json").read_text())["categories"]
+            cat = next(c for c in cats if c["id"] == PAPER["category"])
+            section = next(s for s in cat["children"] if s["id"] == PAPER["section"])
+            topic = next(t for t in section["children"] if t["id"] == PAPER["topicId"])
+            for expected in ["今天新增 1 篇论文（近一个月首发 1 篇）", "涉及 1 个一级方向", "## 今天的看点",
+                             f"### {cat['code']} {cat['name']}（新增 1 篇）",
+                             f"{topic['code']} {section['name']} › {topic['name']}", "一句话"]:
                 self.assertIn(expected, text)
             self.assertLess(text.index("今天的看点"), text.index("各方向上新"))
             for process in ["暂缓", "队列", "OpenAlex", "上线", "贡献：", REVIEW["limitations"] + " "]:
@@ -188,6 +198,32 @@ class BriefingTests(unittest.TestCase):
                              "待审队列：2 条，其中高相关 1 条"]:
                 self.assertIn(expected, notes)
             self.assertIsNone(daily.write_briefing(run, plan, {"deferred": applied["deferred"]}))
+
+    def test_model_release_is_not_a_paper_but_html_research_report_is(self):
+        def report(venue, url, pdf=None):
+            return {"paper": {**PAPER, "status": "report", "venue": venue, "url": url, "pdf": pdf}}
+        model = report("官方模型说明", "https://huggingface.co/org/model", "https://example.org/model-card.pdf")
+        project = report("开源项目 · 官方文档", "https://github.com/org/project")
+        html = report("研究技术报告", "https://example.org/research/report")
+        paper = {"paper": PAPER}
+        selected = daily.briefing_entries({"included": [model, html], "corrected": [project, paper]})
+        self.assertEqual(selected, {"included": [html], "corrected": [paper]})
+        self.assertIsNone(daily.write_briefing(None, {}, {"included": [model], "corrected": [project]}))
+
+    def test_highlights_require_the_matching_link_for_each_featured_paper(self):
+        import tempfile
+        other = {**PAPER, "title": "Other", "url": "https://doi.org/10.1234/a(b)"}
+        entries = [{"paper": p} for p in (PAPER, other)]
+        first, second = f"[New]({PAPER['url']})", f"[Other]({other['url']})"
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "briefing-highlights.md"
+            for bad in ["New 与 Other", first + "。Other 的结果。", first + "。[Other](https://example.org/card)",
+                        f"[New]({other['url']}) 与 [Other]({PAPER['url']})"]:
+                path.write_text(bad)
+                with self.subTest(bad=bad), self.assertRaises(ValueError):
+                    daily.read_highlights(path, entries)
+            path.write_text(first + "。" + second)
+            self.assertEqual(daily.read_highlights(path, entries), path.read_text())
 
 if __name__ == "__main__":
     unittest.main()

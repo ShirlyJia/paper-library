@@ -8,6 +8,7 @@ import argparse
 import calendar
 import json
 import os
+import re
 import subprocess
 import sys
 from datetime import date, datetime, timedelta
@@ -216,39 +217,74 @@ CHANNEL_NAMES = {"arxiv": "arXiv", "fulltext": "OpenAlex 全文", "semantic": "�
                  "formal": "正式会议", "references": "参考文献", "consensus": "Consensus", "families": "模型家族", "web": "每日网页补查"}
 
 
-def write_briefing(run_dir, plan, applied):
-    """小报只写结论：一句速览 → 今天的看点（briefing-highlights.md，按 research/BRIEFING_PROMPT.md 撰写的叙述）→ 各方向一句话。
+def briefing_entries(applied):
+    """The catalogue also tracks model releases. Only research publications go in the briefing."""
+    def is_paper(entry):
+        paper = entry["paper"]
+        if paper["status"] != "report":
+            return paper["status"] in {"preprint", "workshop", "published"}
+        venue = paper["venue"].casefold()
+        if any(label in venue for label in ("模型说明", "模型卡", "项目文档", "架构说明", "model card", "readme")):
+            return False
+        # A research report can be published in HTML without a separate PDF.
+        return bool(paper.get("pdf") or "技术报告" in venue or "technical report" in venue)
 
-    暂缓、检索失败、发布状态等过程信息写进 run-notes.md，不混入小报。无新增或更正时不生成。
-    """
-    sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from apply_review import SHORT_DIRECTIONS, direction_digest
-    included, corrected = applied.get("included", []), applied.get("corrected", [])
+    return {kind: [entry for entry in applied.get(kind, []) if is_paper(entry)]
+            for kind in ("included", "corrected")}
+
+
+def read_highlights(path, entries):
+    if not path.is_file():
+        raise ValueError("请先写 briefing-highlights.md，并将重点论文名称链接到原文")
+    text = path.read_text().strip()
+    names = {e["paper"]["url"]: {e["paper"]["title"], e.get("name"), *(e["paper"].get("aliases") or [])}
+             for e in entries}
+    # Match the exact catalogue URL, including parentheses in a publisher DOI.
+    links = re.compile(r"\[([^\]\n]+)\]\((" + "|".join(re.escape(url) for url in names) + r")\)")
+    if not links.search(text):
+        raise ValueError("今天的看点缺少本期论文原文链接")
+    for paragraph in text.split("\n\n"):
+        linked = set()
+        for label, url in links.findall(paragraph):
+            if label not in names[url]:
+                raise ValueError(f"看点链接的名称与论文原文不符：{label}")
+            linked.add(url)
+        prose = links.sub("", paragraph)
+        if "](" in prose:
+            raise ValueError("今天的看点含有与本期论文原文不匹配的链接")
+        for entry in entries:
+            paper = entry["paper"]
+            name = entry.get("name") or next(iter(paper.get("aliases") or []), paper["title"])
+            if paper["url"] not in linked and re.search(r"(?<![\w-])" + re.escape(name) + r"(?![\w-])", prose, re.ASCII):
+                raise ValueError(f"今天的看点中 {name} 缺少对应论文原文链接")
+    return text
+
+
+def write_briefing(run_dir, plan, applied):
+    """Render a paper-only edition from a review bundle using the current catalogue hierarchy."""
+    selected = briefing_entries(applied)
+    included, corrected = selected["included"], selected["corrected"]
     if not included and not corrected:
         return None
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from apply_review import direction_digest
     catalogue = json.loads((ROOT / "data/papers.json").read_text())
-    counts = {}
-    for entry in included + corrected:
-        counts[entry["paper"]["category"]] = counts.get(entry["paper"]["category"], 0) + 1
-    directions = "、".join(SHORT_DIRECTIONS.get(c, str(c)) for c, _ in sorted(counts.items(), key=lambda x: -x[1]))
+    categories = {e["paper"]["category"] for e in included + corrected}
     recent = (date.fromisoformat(plan["until"]) - timedelta(days=30)).isoformat()
     fresh = sum(1 for e in included if e["paper"]["date"] >= recent)
-    highlights = run_dir / "briefing-highlights.md"
-    if not highlights.exists():
-        print("提示：缺少 briefing-highlights.md（今天的看点），小报只含自动部分。", file=sys.stderr)
+    highlights = read_highlights(run_dir / "briefing-highlights.md", included + corrected)
     age_counts = []
     if fresh:
-        age_counts.append(f"近一个月的新论文 {fresh} 篇")
+        age_counts.append(f"近一个月首发 {fresh} 篇")
     if len(included) > fresh:
         age_counts.append(f"补录旧作 {len(included) - fresh} 篇")
     split = f"（{'，'.join(age_counts)}）" if age_counts else ""
-    coverage = f"归入{directions}方向" if len(counts) == 1 else f"覆盖{directions} {len(counts)} 个方向"
-    overview = (f"今天收录 {len(included)} 篇{split}" + (f"，更正 {len(corrected)} 篇" if corrected else "")
-                + f"，{coverage}。目录现有 {len(catalogue['papers'])} 篇，"
-                + f"可在[论文库]({SITE}?sort=added)按收录时间查看。")
+    changes = ([f"新增 {len(included)} 篇论文{split}"] if included else [])
+    if corrected:
+        changes.append(f"更正 {len(corrected)} 篇")
+    overview = f"今天{'，'.join(changes)}，涉及 {len(categories)} 个一级方向。[按收录时间查看论文库]({SITE}?sort=added)"
     parts = [f"# 结构化数据研究小报｜{plan['until']}", "", overview, "",
-             highlights.read_text().strip() if highlights.exists() else "", "",
-             direction_digest(applied, catalogue).strip(), ""]
+             highlights, "", direction_digest(selected, catalogue).strip(), ""]
     path = run_dir / "briefing.md"
     path.write_text("\n".join(parts))
     return path
@@ -301,6 +337,7 @@ def finish(run_dir, review_input, published, notes):
     state = json.loads(STATE_PATH.read_text()) if STATE_PATH.exists() else {}
     advanced = [name for name, info in channels.items() if info["status"] == "complete"]
     briefing = write_briefing(run_dir, plan, applied)
+    briefing_ids = [e["paper"]["id"] for entries in briefing_entries(applied).values() for e in entries]
     write_run_notes(run_dir, plan, channels, applied, queue, published, notes)
     review = validate_review({
         "schemaVersion": 2, "date": plan["until"], "runDirectory": str(run_dir.relative_to(ROOT)),
@@ -308,7 +345,7 @@ def finish(run_dir, review_input, published, notes):
         "plan": plan, "channels": channels, "decisions": decisions, "qualityReviewedIds": reviewed,
         "queue": {"open": sum(1 for item in queue["items"] if item.get("open")), "total": len(queue["items"])},
         "briefing": str(briefing.relative_to(ROOT)) if briefing else None,
-        "publication": {"published": published}, "checkpoint": {"advanced": advanced,
+        "publication": {"published": published, "briefingPaperIds": briefing_ids}, "checkpoint": {"advanced": advanced,
                         "kept": sorted(set(channels) - set(advanced))}, "notes": notes,
     })
     (run_dir / "review.json").write_text(json.dumps(review, ensure_ascii=False, indent=2) + "\n")

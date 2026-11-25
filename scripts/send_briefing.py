@@ -104,7 +104,11 @@ def resolve_chat(config, config_path, request):
 
 def prepare(run_dir, root=ROOT):
     review = read_json(run_dir / "review.json")
-    changed = sorted(set(review["decisions"]["included"] + review["decisions"]["corrected"]))
+    reviewed = set(review["decisions"]["included"] + review["decisions"]["corrected"])
+    # Legacy receipts used the entire review. Freeze each new edition's selection at generation time.
+    changed = sorted(set(review.get("publication", {}).get("briefingPaperIds", reviewed)))
+    if not set(changed) <= reviewed:
+        raise ValueError("小报论文超出本期已审核的新增与更正范围")
     if not changed:
         return None
     if review.get("publication", {}).get("published") is not True:

@@ -4,7 +4,7 @@
 - 涉及检索、收录或查漏时，先读 `research/COLLECTION.md`。同时使用主题、模型家族／版本、正式会议、作者发布及引用追溯，不只搜 arXiv 标题。
 - 更新在工作日（周一至周五）北京时间 09:00 执行，遵循 `research/DAILY_UPDATE.md`；周六、周日不采集、不入库、不推送站点，也不发送或补发飞书小报。周一合并补查周末、周一及各渠道缺口，统一发布一次站点更新和小报；每 7 天的任务到期后在首个工作日执行。周末不推进检查点。
 - 结果优先，成本与节奏遵循 `research/EFFICIENCY.md`：每日自动增量、按周完整补查；已有证据实际覆盖的重叠检索、阅读和检查直接复用。初筛包、批大小和参考时间不是成果上限；高价值且资料齐备的候选继续审核，只补变化与缺口，不省略新结论和发布结果核验。
-- 更新流程：`npm run collect:daily` 采集到期渠道，`npm run queue` 管理待审队列，`npm run apply:review` 写入审核结果，`npm run collect:finish` 生成 review.json 与小报并推进实际完整完成的渠道检查点；审核者按 `research/BRIEFING_PROMPT.md` 只写小报的 `briefing-highlights.md`（"今天的看点"：150–300 字平实说明今天的主线和重点论文，合并更新时首句说明覆盖期间）；过程问题写进 `run-notes.md`，不混入小报。不为这些步骤另写一次性脚本。没有内容变化时不改目录更新时间、不空发小报。
+- 更新流程：`npm run collect:daily` 采集到期渠道，`npm run queue` 管理待审队列，`npm run apply:review` 写入审核结果，`npm run collect:finish` 生成 review.json 与小报并推进实际完整完成的渠道检查点。小报只计有原文的论文（含预印本和有独立正文的研究技术报告），按站内目录的编号、名称和主路径排列。审核者按 `research/BRIEFING_PROMPT.md` 写 `briefing-highlights.md`，在看点段内给重点论文名称加原文链接，用具体对照说明发现和适用条件。合并更新时首句说明覆盖期间。过程问题写进 `run-notes.md`。不为这些步骤另写一次性脚本。没有内容变化时不改目录更新时间、不空发小报。
 - 内容编辑完成后、提交前运行 `npm run record:updates`，维护不可随更正改写的 `addedAt` 和按日去重的 `collectionUpdates`。首发、论文修订与本站收录是三个独立日期。
 - 用户已授权的飞书群小报由 `collect:finish` 按本机 `work/notifications/feishu.json` 发送；只发已上线小报与站点链接，读取回执去重，失败用 `npm run briefing:send` 重试。群 ID、身份配置、回执和凭证不提交仓库，不向其他接收方发送。
 - 站点为团队共享论文库；页面、分享信息和公开目录不加个人署名。论文默认按首发时间倒序，修订和入库不能覆盖首发日期。
