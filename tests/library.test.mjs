@@ -103,8 +103,8 @@ test('topic scope narrows its parent and respects other filters', () => {
   assert.deepEqual(new Set(result.map(p => p.id)), new Set(['arxiv-2605.15133', 'arxiv-2605.05993']));
   assert.ok(filterPapers(papers, { ...state, codeOnly: true }, options).every(p => p.code));
   const path = scopePath(categories, state);
-  assert.deepEqual(path.map(n => n.name), ['结构化数据的因果分析与决策', '基于结构化数据的因果推断', '连续处理与工具变量']);
-  assert.ok(toCSV(result, categories).includes('基于结构化数据的因果推断'));
+  assert.deepEqual(path.map(n => n.name), ['因果分析与决策', '因果效应与干预评估', '连续处理与工具变量']);
+  assert.ok(toCSV(result, categories).includes('因果效应与干预评估'));
 });
 
 test('invalid child links fall back to the nearest valid ancestor', () => {
@@ -115,11 +115,13 @@ test('invalid child links fall back to the nearest valid ancestor', () => {
   assert.equal(wrongBranch.category, 3); assert.equal(wrongBranch.section, ''); assert.equal(wrongBranch.topic, '');
 });
 
-test('category titles retain the original paper list wording', () => {
-  assert.deepEqual(categories.map(c => c.name), [
-    '结构化数据模型的业界进展', '表格预测与决策优化', '结构化数据的因果分析与决策',
-    '语义结构化与表格特征构建', '表格模型的上下文学习与推理优化', '表格基础模型的微调与蒸馏',
-  ]);
+test('category names match the approved directory labels', () => {
+  const names = [
+    '模型进展、应用与评测', '表格预测与决策', '因果分析与决策',
+    '数据结构化与特征构建', '上下文学习与推理', '表格基础模型适配与蒸馏',
+  ];
+  assert.deepEqual(categories.map(c => c.name), names);
+  assert.deepEqual(categories.map(c => c.fullName), names);
 });
 test('external links reject executable schemes; CSV preserves quotes and blocks formula execution', () => {
   assert.equal(safeURL('javascript:alert(1)'), null);
