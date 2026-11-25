@@ -14341,5 +14341,613 @@
       "comparison": "相比固定窗口压缩、仅按运行时缓存占用管理，使用工具级替换关系和重算成本联合决定何时改变模型输入。",
       "reason": "补充多会话交互分析里的服务侧缓存证据，并量化重算与保留之间的取舍。结构化单次推理另行验证。"
     }
+  },
+  {
+    "id": "arxiv-2611.31049",
+    "title": "RoFE: Rotated Frozen Embeddings for Low-Data Multimodal Tabular Learning",
+    "url": "https://arxiv.org/abs/2611.31049",
+    "sourceUpdated": "2026-11-23",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.31049",
+        "https://arxiv.org/html/2611.31049",
+        "https://github.com/yihao-qiao/RoFE",
+        "https://yihao-qiao.github.io/RoFE/"
+      ],
+      "claim": "保留全部样本主成分时，逐列标准化会把标注行变成等距点，旋转能缓解此问题并改善少样本预测。",
+      "contribution": "在标注行拟合 PCA，用同一个随机正交矩阵转换上下文和查询，降低各列方差差异，让原有谱信息进入列间相关。默认对四个旋转的预测取平均，表格原字段保持原样。",
+      "evidence": "§3 命题 3.2 给出中心化数据满秩并保留 n−1 个主方向时的等距结果；§4 推导旋转后方差集中。§5 表 1–3 和附录表 7、15 比较同一 PFN 及多种采样设置：24 个图像和 20 个文本分类任务，每折固定查询集，多个抽样和编码器。每类 10 条、仅 DINOv3 嵌入和 TabICLv2 时，平均 AUROC 高于重实现 CoMET 2.1 个百分点，24 项中赢 23 项。回归扩展见 §5.3。",
+      "limitations": "几何等距的结论依赖满秩且保留全部 n−1 个方向，只适用于逐列标准化后的嵌入子空间。减少 PCA 维度后，带原表字段的部分差距变小。单次旋转已带来部分收益，四次平均增加前向开销。主任务超 10 类时做子集抽样，标签总数过千时增益接近零。",
+      "value": "给出少标签图文特征进入现有表格模型时的预处理诊断，可用固定特征、基础模型和预测预算做对照。",
+      "reproducibility": "作者公开项目与代码，使用基准已有划分和训练行拟合 PCA。本轮复核正文与仓库，未运行实验。",
+      "readScope": "arXiv v1 §§3–6、表 1–3、附录 C 的划分说明和表 7、15；作者项目与公开代码入口。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "CoMET 将 PCA 分数直接传给同一 PFN。LightTAR 用训练标签生成额外特征。RoFE 在特征维数不变、无需标签拟合变换的条件下修复 PCA 与标准化的交互。",
+      "reason": "有限假设下的几何推导和同编码器、同模型对照支持一种可单独复查的少样本失效机制。"
+    }
+  },
+  {
+    "id": "arxiv-2611.29789",
+    "title": "Tabular Foundation Models for Weighted Regression and Classification",
+    "url": "https://arxiv.org/abs/2611.29789",
+    "sourceUpdated": "2026-11-22",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.29789",
+        "https://arxiv.org/html/2611.29789",
+        "https://github.com/xiajunwen1007/WeightedPFN",
+        "https://huggingface.co/xiajunwen/WeightedPFN"
+      ],
+      "claim": "在目标相关的样本选择下，加权注意力配合加权合成任务微调可改善未加权目标分布的预测。",
+      "contribution": "将非负样本权重乘进上下文注意力的归一化系数，在查询上优化按总权重归一的任务损失。用 1.28 万个合成缺失任务微调已发布的 TabPFN-3.5 参数，然后在新任务上直接用上下文推理。",
+      "evidence": "§4 在 110 个回归和 156 个分类 TALENT 数据集上用人为选择的训练折及完整验证折做五折比较。表 1、3 中选择同时依赖输入和标签时，分类准确率由 75.74% 升至 81.28%，仅依赖标签时由 75.84% 升至 79.33%；只启用加权注意力或只用微调权重均不能复现完整收益。§4.4 在 78 个随机实验的数据上通过人为重采样引入倾向差异，再评估治疗选择。",
+      "limitations": "结果以控制下的选择机制和估计或已知权重为前提；标签相关选择的真实权重未必可识别。随机缺失或选择仅依赖输入时，原版分类精度略优。治疗实验经过重新采样，结论限于所测协议。理论速率依赖任务覆盖和正则条件。",
+      "value": "提供可检验的加权预测接口和对照，适用于研究选择偏差或把已有倾向权重输入预测器。",
+      "reproducibility": "作者的推理代码、权重和主要评测数据入口公开。本轮未运行。",
+      "readScope": "arXiv v1 §§2.1–2.3、§3 定理条件、§§4.1–4.5、表 1–4、§5 与数据可用性；代码及权重仓库。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "与原 TabPFN-3.5 及只改注意力系数的同模型分支相比，增加能学习如何使用样本权重的任务构造和目标函数。",
+      "reason": "对照同时隔离了推理时赋权和合成任务微调，且报告了何种选择机制下原模型仍更合适。"
+    }
+  },
+  {
+    "id": "arxiv-2611.29214",
+    "title": "NANO: Unifying Missingness and Input Uncertainty in Tabular Learning",
+    "url": "https://arxiv.org/abs/2611.29214",
+    "sourceUpdated": "2026-11-22",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.29214",
+        "https://arxiv.org/html/2611.29214"
+      ],
+      "claim": "同一个输入编码器可以接受缺失值和不同置信度的估计，并单独表示不适用。",
+      "contribution": "在未观测嵌入和估计值嵌入之间按置信度插值，零置信度退回未观测。对不适用字段使用另一种嵌入，可从同一行仍可读的模式条件列取信息。",
+      "evidence": "§4 在 11 个表格数据集和 9 种骨干上，用共同的遮挡重建任务固定同一骨干更换输入头，跨 5 个种子对照。表 3 中无估计时总体接近多个现有输入头，低置信的模拟估计多数能降低数值或分类重建误差；§4.3 表 4 对三个含人工不适用字段的数据集给出较小改善。",
+      "limitations": "估计值由已遮挡真值按设定噪声／类别分布模拟，实际部署的置信度可能失准。不适用任务多为人工增广，收益随骨干变化。实验是遮挡重建，未测冻结表格基础模型。",
+      "value": "给数据系统区分字段不存在和采集缺失的表示方法，并使估计值置信度可作为预测输入。",
+      "reproducibility": "正文说明掩码、校准和实验协议；截至核对正文给出的代码入口返回 404，未独立复现。",
+      "readScope": "arXiv v1 §§3.1–3.3、§§4.1–4.4、表 3–4、§5 及附录 F。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "与 NAIM、ReMasker 等表格缺失输入处理相比，新输入头同时表达估计置信度与模式决定的不适用，保留固定骨干的对照。",
+      "reason": "共享评测隔离了估计是否存在和字段是否适用两个变量，足以作为输入编码与置信度校准的研究参考。"
+    }
+  },
+  {
+    "id": "arxiv-2611.30889",
+    "title": "Tabular Foundation Models Are Surprisingly Effective In-Context Robot Learners",
+    "url": "https://arxiv.org/abs/2611.30889",
+    "sourceUpdated": "2026-11-23",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.30889",
+        "https://arxiv.org/html/2611.30889"
+      ],
+      "claim": "通用数值预测预训练的表格模型可以在所测留出仿真任务中借助示范做闭环模仿。",
+      "contribution": "以示范各时间步的冻结视觉特征和本体状态为特征，未来动作块为回归目标。视觉和动作投影只用所给示范拟合，闭环执行期间不更新预测器参数。",
+      "evidence": "§4.1–4.2 在 LIBERO 三个留出子集和 Meta-World 五类留出任务复用示范与初始状态。表 1 的 TabICLv2 平均成功率为 62.7% 和 49.3%。表 2 固定输入、目标和执行设置，只替换预测器，最强常规对照分别为 kNN 40.1% 和线性模型 44.1%。附录 G 表 S5 用多目标架构将 8 步动作块中位耗时从 881 降到 229 毫秒，成功率随平台略有升降。",
+      "limitations": "只验证了仿真。速度为单 RTX 4090、批量 1 并排除一次性上下文准备和仿真。部分子任务的最好结果来自其他模型；多目标版本尚未核验公开权重。",
+      "value": "说明学习通用输入到输出的条件预测如何复用于控制，也给出逐目标预测代价及可比较的多输出替代。",
+      "reproducibility": "使用公开仿真基准与既有视觉／表格模型，正文列出拆分、模态和计时范围；未独立运行。",
+      "readScope": "arXiv v1 §§3.1–3.3、§§4.1–4.4、表 1–4、局限及附录 G 表 S5。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对从同一示范检索动作的 kNN 和任务专用机器人策略，TabAct 使用通用表格 ICL 并在固定特征与动作接口下比较预测器。",
+      "reason": "留出任务和匹配输入对照将模型收益与表格化表示的收益区分开，还测量了预测到动作的路径开销。"
+    }
+  },
+  {
+    "id": "arxiv-2611.31491",
+    "title": "Pretrained Tabular Features and the Measurement of Financial Proximity",
+    "url": "https://arxiv.org/abs/2611.31491",
+    "sourceUpdated": "2026-11-23",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.31491",
+        "https://arxiv.org/html/2611.31491"
+      ],
+      "claim": "冻结表格表征对财务近邻图的拟合增量取决于输入字段和所用距离基线。",
+      "contribution": "用四个表格模型产生公司表征，分别在财务比率、底层财务量、宽口径申报字段上固定输入，将表征距离构造的近邻图与同输入直接距离对比，再检查邻居对表征主坐标的依赖。",
+      "evidence": "§§3–5 表 1–3 在 2011–2025 年美国上市证券的发行人季度面板上，比较同样本掩码、同十近邻及配对季度重采样。四个比率输入上，TabPFN-3.5 相对同输入直接距离差值 −0.0019 nats／发行人季度且区间跨零。宽财务字段上四个模型点估计皆正、三个配对区间高于零；收缩到首个表征坐标后近邻重合显著降低。",
+      "limitations": "全部是回顾性的样本内拟合，使用同时期同业收益，无法推出样本外预测或投资收益。区间以已有图与已拟合参数为条件，未校正从多个配置选择深挖对象。历史数据含 CRSP 等受限来源。",
+      "value": "检验用 TFM 做相似度时必须对比同一预处理和输入字段的非模型距离，给出了模型无增益与有增益的可对照设置。",
+      "reproducibility": "方法和表格公开；未取得完整金融商用数据，也未复现。",
+      "readScope": "arXiv v1 §§3–6，表 1–3 和附录的稳健性对照表 5、7。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对于 Fernández 财务历史距离，增加完全同输入的直接距离控制，并隔离特征范围与编码器的作用。",
+      "reason": "同输入控制显示少量手工比率时更换编码器不一定有价值，而宽字段上的结果为表征用途提供了限定范围的对照。"
+    }
+  },
+  {
+    "id": "report-lattice",
+    "title": "Lattice",
+    "url": "https://github.com/hachure-ai/Lattice",
+    "sourceUpdated": "2026-11-21",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在所测 TabArena 默认配置下，公开的 Lattice-tiny 推理更快，排名分数低于完整尺寸。",
+      "contribution": "提供完整和 Tiny 两组分类／回归冻结权重及共同推理实现，代码包含交替处理行和列的骨干变体、测试行分块与上下文缓存。榜单的折内估计不用 KV 缓存，整表复拟合开启缓存，过多分类类别走例外路径。",
+      "evidence": "作者公开权重和固定代码。TabArena PR #737 说明两种默认方法、八个集成成员与同一八折协议。维护者 v0.1.9.22 全任务全数据 CSV 的 GPU 已验证两行，Elo 1796/1691、中位预测 0.114/0.074 秒每千行、均无补值。公开分类 checkpoint 为约 37.35M/10.17M 参数。",
+      "limitations": "表中是 TabArena 该快照的跨数据集统计，两个 checkpoint 及模型尺寸有差异，未做独立模块归因。当前仓库更新的优化与榜单固定代码需要区分。公开权重为非商用许可。",
+      "value": "给具体可运行版本提供准确率与推理成本的匹配参考，支持进一步测试部署显存和缓存策略。",
+      "reproducibility": "作者推理代码、权重和榜单适配器均公开，维护者跑分可查。本轮未复现。",
+      "readScope": "作者 README 推理、缓存与 checkpoint 部分，固定代码 Interleaved 模块，默认与 Tiny 模型卡，TabArena PR #737 与 v0.1.9.22 全任务公开 CSV。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://github.com/hachure-ai/Lattice",
+        "https://huggingface.co/hachure-ai/Lattice",
+        "https://huggingface.co/hachure-ai/Lattice-tiny",
+        "https://huggingface.co/api/models/hachure-ai/Lattice",
+        "https://github.com/autogluon/tabarena/pull/737",
+        "https://huggingface.co/spaces/TabArena/leaderboard/blob/87bdf9f8c91a21ecfd2a23184aabcf7c75fe612d/data/entrants_models/imputation_yes/splits_all/tasks_all/datasets_all/website_leaderboard.csv",
+        "https://github.com/hachure-ai/Lattice/blob/e106f9fba5994f85aca9593ae82af561054ab77a/src/lattice/_model_interleave/model.py"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对 TabICLv2 等单系列默认模型，提供在同一榜单包装、折及集成协议下可直接对照的两种规模，仓库保存交替行列编码与缓存实现。",
+      "reason": "维护者独立重跑提供两种公开权重的可测质量／延迟边界，具备部署选型和复测价值。"
+    }
+  },
+  {
+    "id": "report-inpriora",
+    "title": "Inpriora: A Pretrained Tabular Foundation Model for Classification and Regression",
+    "url": "https://huggingface.co/ai-for-data/inpriora",
+    "sourceUpdated": "2026-11-17",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "公开版 Inpriora 在 TabArena 默认设置中验证了预测能力与推理成本。",
+      "contribution": "把自适应傅里叶与列内秩特征同时用于单元格编码。双分支分别投影上下文与查询，可预先编码已标注上下文。分类和回归各使用一个冻结 checkpoint。",
+      "evidence": "官方模型卡与固定源码明示编码和缓存流程。TabArena PR #730 用固定代码 dde547d0 与权重 f8638e83，在 RTX PRO 6000 维护者任务中完成全 816 个划分且无失败，报告汇总 Elo 1839、千行中位预测耗时 0.063 秒。PR 记录缓存开关和 12 类探针，和作者自跑结果分开。",
+      "limitations": "只在一个同分布榜单的默认设置验证，推理时间是跨数据集汇总；无独立消融可把分数归因于傅里叶、秩或分支中的某项。公开材料主要覆盖推理。",
+      "value": "提供独立复跑过的可下载模型，用于对照有标签上下文预编码和不同单元格表示。",
+      "reproducibility": "模型卡、Apache 2.0 权重、推理代码、适配器和日志公开，未在本地复现。",
+      "readScope": "官方模型卡方法、权重和评测；固定源码的 context cache 与 rank 入口；TabArena #729/#730 正式结果及适配检查。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://huggingface.co/ai-for-data/inpriora",
+        "https://huggingface.co/api/models/ai-for-data/inpriora",
+        "https://github.com/ai-for-data/inpriora",
+        "https://github.com/ai-for-data/inpriora/blob/dde547d0/src/inpriora/core/model.py",
+        "https://github.com/autogluon/tabarena/pull/729",
+        "https://github.com/autogluon/tabarena/pull/730"
+      ]
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对于 TabICLv2 等冻结上下文预测器，补充同时编码列内秩与傅里叶特征并分开投影上下文与查询的公开实现。",
+      "reason": "代码和权重可访问，维护者在完整标准划分验证了质量与速度，该价值可以独立于单个架构模块的归因。"
+    }
+  },
+  {
+    "id": "arxiv-2611.27973",
+    "title": "MemOnce: A Scalable Memory Architecture for Large Language Models",
+    "url": "https://arxiv.org/abs/2611.27973",
+    "sourceUpdated": "2026-11-20",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.27973",
+        "https://arxiv.org/html/2611.27973v1"
+      ],
+      "claim": "在所测长历史语言任务中，单份历史表征配合固定活跃记忆预算能减小活跃 GPU 缓存。",
+      "contribution": "保留每个因果编码片段末端一部分的末层隐状态，历史池可卸载。查询对历史全局检索一次，短窗口和远端 Top-K 共同经各层轻量投影生成 K/V。",
+      "evidence": "§§3.1–3.3 明确持久历史池与活跃状态；§4 和附录表 14 的 4B H100 设置中，1M token 时从 Qwen3.5 对照的 32.05 GB 活跃缓存降至 25 MB，另有 640 MB 卸载，预填充 286.86 对 41.36 秒。32K 时 MemOnce 预填充 1.38 秒，高于对照 0.87 秒。表 3、8、9 比较记忆任务和压缩／检索预算。",
+      "limitations": "单卡 OOM 的基线改用多卡；表中活跃历史状态不等于设备峰值或所有缓存。历史池仍随历史增长。因果聚合、记忆检索训练和结构改造是条件，表格双向编码或一次前向预测未测。",
+      "value": "给表格跨查询缓存提出可单独测量的设计，将长期保存的表征和每次前向实际装入的缓存分开考虑。",
+      "reproducibility": "正文附架构、训练配置和显存计时；文章未给可核验的 MemOnce 官方代码或权重入口。本轮未复现。",
+      "readScope": "arXiv v1 §§3–5、表 3、附录表 8–10 及表 14。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相比 YOCO 的跨层共享和库内 C2KV 的文档压缩与位置重对齐，MemOnce 从同一个末层历史表征按层重建 K/V，复用一次检索并限定活跃量。",
+      "reason": "有跨长度的实测、精度实验与活跃／卸载内存分项，能用于评估表格上下文缓存迁移边界。"
+    }
+  },
+  {
+    "id": "arxiv-2611.25369",
+    "title": "Fold the Loop: Decoding-Time KV Memory for Looped Vision-Language Models",
+    "url": "https://arxiv.org/abs/2611.25369",
+    "sourceUpdated": "2026-11-20",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.25369",
+        "https://arxiv.org/html/2611.25369v1"
+      ],
+      "claim": "保留精确前缀编码后，在同一循环模块内共享固定图像前缀缓存可节省解码存储。",
+      "contribution": "按共享权重模块和循环分组保留末次图像 K/V。前缀处理仍完整运行，问题和输出 K/V 保留各轮独立记录。",
+      "evidence": "§4 表 1 在单张 A800、BF16、LoopVL-1B 的 H2L3 八轮调用上比较同样本 FullKV，默认保留 4 份视觉 K/V、总前缀缓存为 0.52 倍，五项开放回答均分相差 −0.02 点。表 3、5 显示预填充共享和跨模块共享代价；图 5 在同显存约束下给出 1.4–1.7 倍批量与 1.05–1.25 倍吞吐。",
+      "limitations": "视觉结果主要来自一种 LoopVL，压缩前缀缓存量不等于首轮峰值显存。Lite 在文本密集任务有退化，Ouro 的文字前缀对照也显示不能简单迁移。表格适用条件是上下文已经冻结且后续查询分开读取，不适用于直接改写联合编码。",
+      "value": "给共享骨干的表格循环模型提供是否可复用某轮上下文的反例和正例，需先确认其查询路径及不变状态。",
+      "reproducibility": "正文与补充材料给出 LoopVL 权重、分组和配对协议；本轮未独立运行。",
+      "readScope": "arXiv v1 §§3–4、表 1、3、5、图 5 与附录全验证集对照；v2 主页说明只补作者机构与邮编。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相较 LoopICL 的共享参数和 MiniCache 的跨相邻调用合并，这里隔离了共享权重模块内、编码完成后的固定前缀缓存。",
+      "reason": "同样本消融具体表明缓存共享在哪个阶段成立及何时严重失效，足以保留为有边界的工程参考。"
+    }
+  },
+  {
+    "id": "arxiv-2604.16395",
+    "title": "Stream2LLM: Overlap Context Streaming and Prefill for Reduced Time-to-First-Token",
+    "url": "https://arxiv.org/abs/2604.16395",
+    "sourceUpdated": "2026-05-17",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2604.16395",
+        "https://arxiv.org/html/2604.16395",
+        "https://proceedings.mlsys.org/paper_files/paper/2026/hash/3b3889d313ba9476c12c2d77ea66b24f-Abstract-Conference.html",
+        "https://github.com/rajveerb/stream2llm/tree/mlsys_artifact"
+      ],
+      "claim": "当检索结果分批慢速到达时，重叠检索与编码能降低首个输出等待，调度策略决定内存紧张时的尾延迟。",
+      "contribution": "拆分优先排序和资源分配，区分只追加与修改既有上下文，按最长公共前缀失效缓存；显存不足时据硬件代价选择重算或换出。",
+      "evidence": "§6 基于两套真实检索轨迹、Llama-3.1-8B 与双卡张量并行。H200 上每秒 4 请求的追加式爬取负载图 8 中位首 token 约提速 10.8–11.0 倍；更新式近邻检索在每秒 1 请求时 P95 提速 2.49–2.63 倍。表 3 人为放大到达间隔施加内存压力，朴素流式在更新负载的 P99 可慢于非流式，按代价调度改善。",
+      "limitations": "收益依赖检索比编码慢的具体分块到达形态及可增量编码的因果前缀。评测焦点是分离的预填充实例和首 token，解码未测。表格双向上下文需用对应的缓存不变性验证。",
+      "value": "在关系记录滚动到达或被重排时，可复用调度、缓存失效和内存压力的评测框架。",
+      "reproducibility": "正式会议和作者 artifact 公开，含可复查的轨迹与评测说明，本轮未跑。",
+      "readScope": "arXiv v3 §§4.1–4.4、§§5–6、图 8–11、表 3–4；MLSys 2026 正式目录与 artifact README。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对于一次性取齐上下文后的前缀缓存及朴素流式 vLLM，对并发检索晚到、替换和可预占的缓存分开建模。",
+      "reason": "同工作负载的主实验与压力消融解释首答收益和排队回退，适合作为关系预测输入准备与服务调度的系统前作。"
+    }
+  },
+  {
+    "id": "arxiv-2611.31105",
+    "title": "LiveLoRA: Exact KV Cache Migration Across LoRA Updates for LLM Agents",
+    "url": "https://arxiv.org/abs/2611.31105",
+    "sourceUpdated": "2026-11-23",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.31105",
+        "https://arxiv.org/html/2611.31105"
+      ],
+      "claim": "固定历史、下层和 K/V 降维投影时，迁移后的最后一层 K/V 与全历史前向在精确算术中等价。",
+      "contribution": "保留最后一块的基础投影及低秩坐标，用新升维矩阵恢复 K/V，最新 token 经该块重算后原子提交适配器、缓存和输出。",
+      "evidence": "§3 定理 1 给出等价条件。§§5–6 在单张 H200 的 Qwen2.5-3B-Instruct 上，表 3 固定发布协调与 BF16 解码，8K 前缀每 32 或 128 token 更新时比全历史重放少 16.24% 或 3.90% 的测量总时长，与只重放最后一块近似持平。",
+      "limitations": "主要测高斯适配器更新，未评测任务适配质量。理论等价不保证有限精度逐位一致。需额外会话状态，进程内协议未验证分布式服务或分页缓存；较早层有变动时必须按受影响层重算。",
+      "value": "给表格模型热更新缓存提供明确失效条件。若低层支持表征固定且改动只在最后可分离的投影，可用一次完整重建检验复用是否成立。",
+      "reproducibility": "模型和实验条件公开，正文提供 FP32 / BF16 误差对照、配置与已计入成本；本轮未独立复现。",
+      "readScope": "arXiv v1 §§2–3、§§5–7、表 1–3、附录 A 和 F 的数值对照。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相较冻结历史 K/V 后直接切换适配器或全历史重新预填充，给出特定 LoRA 参数化下可版本一致地重建的条件。",
+      "reason": "有精确算术证明、有限精度检验和匹配时序评测，可用于判断表格适配后何时缓存必须失效。"
+    }
+  },
+  {
+    "id": "arxiv-2611.29663",
+    "title": "Exact on Paper: Which LLM Serving Shortcuts Flip Graded Answers, Measured Against the Noise of Reordering the Same Requests",
+    "url": "https://arxiv.org/abs/2611.29663",
+    "sourceUpdated": "2026-11-22",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.29663",
+        "https://arxiv.org/html/2611.29663"
+      ],
+      "claim": "在所测引擎与模型中，整体准确率近似一致时，缓存精度仍可能使单条判分发生额外变化。",
+      "contribution": "固定模型、引擎与评测数据逐项切换七个保持算术的服务设置，以及 FP8 KV 与权重对照。用同配置重启、同请求变序、批无关算子三种控制定位差异。",
+      "evidence": "§§2–6 表 2、图 2 在单张 RTX 5070 Ti、Qwen3 4B Instruct、vLLM 0.33.0、贪心解码下对 3,380 条做配对判分。默认实现的七项翻转在 1.47–1.78%，重排基线 1.72%，FP8 KV 为 3.36%。批无关算子下七项保持逐 token 一致，FP8 KV 判分翻转仍有 3.91%。",
+      "limitations": "只有一个模型、引擎版本和硬件。每个候选配置一次，且变序无法模拟全部线上并发路径。单条分类／回归结果的翻转或数值容差需按表格任务另定义。",
+      "value": "为切换缓存、精度或批处理时的回归检查提供可复用基线，将逐条变化和引擎重跑的自然波动一起测量。",
+      "reproducibility": "正文提供协议、配置和复跑控制，本轮未运行或核验独立材料。",
+      "readScope": "arXiv v1 §§2–6、表 2–3、图 2、§§8–10。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相较只看准确率或逐字串是否一致的检查，加入同配置重排和批无关算子对照，测逐条判分是否真正翻转。",
+      "reason": "该成对诊断协议能在表格模型的缓存和精度发布中原样采用评测逻辑，实际翻转率仍限原试验。"
+    }
+  },
+  {
+    "id": "arxiv-2608.21199",
+    "title": "Tydra: An Efficient Hybrid Model for Tabular Data",
+    "url": "https://arxiv.org/abs/2608.21199",
+    "sourceUpdated": "2026-08-21",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2608.21199",
+        "https://arxiv.org/html/2608.21199"
+      ],
+      "claim": "在共享合成先验和测试协议下，交替双向状态空间层与注意力可提高所测小表分类推理效率。",
+      "contribution": "将 Hydra 的双向状态空间混合与全注意力交替，用接近纯 Transformers 的训练程序，比较六种八层配置。",
+      "evidence": "架构图 2–3 与 Empirical Evaluation 显示共享任务生成器；表 1 在 30 个最多 2,000 行的 OpenML-CC-18 分类集上，使用五个确定性半划分，交替主配置为 19.99 ms／批及 AUROC 88.61%，25.8M 参数自训 TabPFN 式对照为 27.12 ms 及 88.90%。图 4 合成长表计时覆盖到 32,768 行。",
+      "limitations": "精度仅测小型分类表，合成长表只提供时间趋势。全注意力对照为作者自训架构，不代表 TabPFN 当前公开版本。计时不含模型加载，结果限于作者的批设置。",
+      "value": "保持同一先验并替换混合层，可作为表格骨干试验的纯 SSM、纯注意力与混合架构对照。",
+      "reproducibility": "附录提供配置与实现说明，本轮未独立训练或重测。",
+      "readScope": "arXiv v1 架构、训练和 Empirical Evaluation 章节，图 2–4、表 1 与局限。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对同任务训练的纯 Hydra 和 TabPFN 式注意力，加入可逐层调节的交替架构，并报告比例与位置消融。",
+      "reason": "表 1 的时间与精度对照可定位在所测数据上需要保留多少注意力层。"
+    }
+  },
+  {
+    "id": "arxiv-2602.04029",
+    "title": "PluRel: Synthetic Data unlocks Scaling Laws for Relational Foundation Models",
+    "url": "https://arxiv.org/abs/2602.04029",
+    "sourceUpdated": "2026-07-14",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2602.04029",
+        "https://arxiv.org/html/2602.04029",
+        "https://proceedings.mlr.press/v306/kothapalli26a.html",
+        "https://star-project.stanford.edu/plurel/",
+        "https://github.com/stanford-star/plurel"
+      ],
+      "claim": "对所测关系 Transformer，合成数据库覆盖范围与数据量共同影响预训练，并能改善留出真实库上的迁移。",
+      "contribution": "以无环有向图定义表结构，分层随机二部图建立主外键连接，按依赖次序生成含时间模式的字段值。拆开控制库数量与训练 token 总量。",
+      "evidence": "§3.1 图 1 最多 1,024 个合成数据库、320 亿 token 网格，并在 100 个新合成库测损失；固定另一轴时不总是单调。§3.2 查 18 项 RelBench 任务，§3.3 表 1 在六库留一、三个种子中，合成后续训比仅真实训练平均增加约 1.2 个 AUROC 和 3.0 个 R² 百分点。",
+      "limitations": "幂律来自指定生成器、RFM 和测量范围，真实库只测 RelBench。合成方案暂不含循环 schema；持续预训练多了额外的合成阶段，不能将增益只归因于替换数据来源或外推到完全等计算量。",
+      "value": "给 RT-PluRel 和 RT-J 等关系模型提供训练数据来源对照，可按结构多样性与总量分别设计试验。",
+      "reproducibility": "生成器、技术页面和模型入口公开，主会收录可查；本轮未复现。",
+      "readScope": "arXiv v2 §§2.1–2.3、§§3.1–3.3、图 1、4、表 1 及结论；ICML PMLR 页面与项目代码。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对用现成关系库训练的原版 Relational Transformer 与单表合成先验，PluRel 可控地生成跨表依赖并分开改动训练库数量和 token 数。",
+      "reason": "完整数据生成方法和留一真实库的对照是关系合成预训练的可复查前作。"
+    }
+  },
+  {
+    "id": "arxiv-2606.17516",
+    "title": "FoundCause: A Foundation Model for Causal Discovery with Latent Confounders from Observational Data",
+    "url": "https://arxiv.org/abs/2606.17516",
+    "sourceUpdated": "2026-11-17",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2606.17516",
+        "https://arxiv.org/html/2606.17516",
+        "https://github.com/amazon-science/foundcause"
+      ],
+      "claim": "所测摊销因果模型能同时给出边和混杂分数，边恢复及混杂表现依赖数据来源。",
+      "contribution": "用两轴注意力编码样本和变量，以成对依赖／不对称统计量修正注意力，拆分边存在和方向，并以潜变量 token 分支预测共享隐藏原因。",
+      "evidence": "§§4–5 用合成结构因果模型训练，表 2 对 14 个真实或半合成基准报告 AUROC 0.883、有向 F1 0.531。表 5 人为隐藏已知变量：在五个网络的 42 组方案中 FCI 的混杂 F1 更高，在同分布模拟中 FoundCause 更高，绝对值普遍有限。",
+      "limitations": "依赖无环、独立样本及合成先验。F1 仅在 14 项中的 3 项最高。隐藏变量可控评测不能替代真实潜因核验，默认阈值和镜像概率处理影响比较。",
+      "value": "给出有向边与混杂并行输出的架构对照，便于研究概率能否区分直接作用与未观测共因。",
+      "reproducibility": "公开作者代码和模型入口，正文列出固定 checkpoint、汇总及逐任务评测。本轮未运行。",
+      "readScope": "arXiv v2 §§2–5.3、图 1、表 2、4–5 及结论。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对 AVICI、Arrow 和把混杂表示为双向边的 CDFM，提供单独的混杂输出并在不同隐藏变量分布上比较。",
+      "reason": "有显式输出与负结果的受控比较，能在普通边预测以外提供独立证据。"
+    }
+  },
+  {
+    "id": "arxiv-2607.09577",
+    "title": "SurvFM enables tabular foundation models for right-censored survival prediction",
+    "url": "https://arxiv.org/abs/2607.09577",
+    "sourceUpdated": "2026-09-06",
+    "decision": "included",
+    "reviewedAt": "2026-11-25",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2607.09577",
+        "https://arxiv.org/html/2607.09577",
+        "https://github.com/yuelyu21/SurvFM",
+        "https://doi.org/10.5281/zenodo.21735311"
+      ],
+      "claim": "右删失数据的伪无事件时长目标能改善冻结表格回归模型在所测删失场景的目标估计。",
+      "contribution": "对训练折的 Kaplan–Meier 限制均值做留一估计构造个体伪 RMST，在固定时间窗上训练或提供给现有回归预测器。",
+      "evidence": "§2.3 固定骨干和潜在样本对照朴素时间标签，删失增加时伪标签改善模拟真值误差。§2.4 以 55 个公开静态任务、每任务十个固定拆分和 17 方法比较，在统一可运行子集最佳模型与强传统对照接近。§2.6 将两个不同来源的队列分别作为源或目标，目标结局未用于调参或重拟合。",
+      "limitations": "伪标签依赖训练队列随访及删失假设。不同时间窗的标的不同，群体分层结果不能作为个体校准或临床使用验证。跨队列实验只覆盖一个研究场景。",
+      "value": "展示无需改造骨干的任务适配，通过同骨干消融隔离删失标签构造的贡献。",
+      "reproducibility": "作者发布 MIT 推理包装及 Zenodo 版本，公开部分基准与实现。本轮未运行。",
+      "readScope": "arXiv v2 §§2.1–2.6、§3 讨论、§§4.1–4.7、代码及数据可用性。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "相对把删失时间当回归标签和训练专门生存模型，SurvFM 分离标签构造与冻结回归骨干，并比较多种模型。",
+      "reason": "同模型、同时间窗的有真值模拟及源到目标队列对照支持在所测范围内保留该适配方法。"
+    }
+  },
+  {
+    "id": "arxiv-2609.17488",
+    "title": "LimiX-2: A Contextual Mechanism Network Towards General Structured-Data Intelligence",
+    "url": "https://arxiv.org/abs/2609.17488",
+    "sourceUpdated": "2026-09-15",
+    "decision": "existing",
+    "reviewedAt": "2026-11-25",
+    "reason": "10 月 27 日旧权重警示之后，作者披露训练管道问题及修复，维护者核对补丁、重跑并以 LimiX-2-1016 替换旧榜单条目。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "TabArena 的更新使用经维护者复查和重跑的 LimiX-2-1016，替换了有污染警示的旧权重条目。",
+      "contribution": "延续 LimiX-2 原报告的单元格骨干及任务设定。作者披露确认基准重叠筛查与参考数据进入训练两项问题，表示修复并从内部确认未受影响的 checkpoint 重跑后期训练；维护者另复核推理预处理。",
+      "evidence": "原报告 §§2–5.1 的方法与评测沿用 10 月 28 日已有正文审查。GitHub issue #648 有作者 10 月 29 日、11 月 11 日说明。PR #720 维护者报告，新 checkpoint 的 diabetes 原列序及反序 1−AUC 为 0.1551／0.1555，blood-transfusion-service-center 为 0.2466／0.2449。登记锁定新权重 bbbf26c5 与推理代码 a917fa0；TabArena 11 月 13 日版本记录在两榜替换旧条目，BeyondArena 沿用同一 core2k 划分。",
+      "limitations": "列序复查仅检验了特定污染迹象。训练数据未独立全面审计，原报告的旧权重成绩不映射到新权重。新旧榜单运行同时改变权重和预处理，均使用 2 小时及 9 个大／宽表 8 小时预算，不能把差异单独归到重训。因果骨架来自原报告，不代表因果方向。",
+      "value": "模型比较可以绑定明确权重、版本和独立榜单，保留旧警示的历史证据并补上新检查点。",
+      "reproducibility": "公开权重、固定推理代码、维护者复查与榜单记录可追溯。本轮未下载及运行权重。",
+      "conclusion": "证据已支持",
+      "readScope": "复用 10 月 28 日已留档的 arXiv v1 §§2–4、§5.1、§5.5、§7 审核。本次核对 issue #648 的作者回复及维护者结论、PR #720 的方法对照、锁定代码及权重、榜单 v0.1.9.19 更替记录。",
+      "sources": [
+        "https://arxiv.org/abs/2609.17488",
+        "https://arxiv.org/html/2609.17488v1",
+        "https://github.com/limix-ldm-ai/LimiX",
+        "https://github.com/autogluon/tabarena/issues/648",
+        "https://andrejtschalzev.substack.com/p/who-is-cheating-on-tabarena",
+        "https://huggingface.co/spaces/TabArena/leaderboard/blob/main/website_texts.py",
+        "https://raw.githubusercontent.com/autogluon/tabarena/main/packages/tabarena/src/tabarena/models/limix_2/model.py",
+        "https://raw.githubusercontent.com/autogluon/tabarena/main/packages/tabarena/src/tabarena/models/limix_2/info.py",
+        "https://github.com/autogluon/tabarena/pull/720",
+        "https://github.com/autogluon/tabarena/pull/720#issuecomment-6799620565",
+        "https://huggingface.co/stable-ai/LimiX-2-1016/tree/bbbf26c5316c6f2f7a994063447ab3deaedc8ec5",
+        "https://github.com/autogluon/tabarena/blob/bfa8c50c17885e5b722d75ce5bcb5db3822257a3/packages/tabarena/src/tabarena/models/limix_2/info.py"
+      ]
+    }
+  },
+  {
+    "id": "arxiv-2606.03347",
+    "title": "AugMask: Training Diffusion Models on Incomplete Tabular Data via Stochastic Augmentation and Masking",
+    "url": "https://arxiv.org/abs/2606.03347",
+    "sourceUpdated": "2026-06-02",
+    "decision": "existing",
+    "reviewedAt": "2026-11-25",
+    "reason": "PMLR 卷 306 同名、同作者论文的正式会议已核实。本次只更新发表资料。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2606.03347",
+        "https://arxiv.org/html/2606.03347",
+        "https://proceedings.mlr.press/v306/kim26bh.html"
+      ],
+      "claim": "在所测MCAR/MAR场景，随机补全加观测位置损失掩码可改善特征空间表格扩散的合成质量和下游用途。",
+      "contribution": "将补全作为训练条件而非伪真值，分开检验随机增强AugFull与进一步屏蔽缺失位置损失AugMask；不改骨干结构。",
+      "evidence": "§3.1、3.3–4.2、§4分析及附录C：6数据集(4分类2回归)，60/20/20划分，10–90%五档MCAR/MAR，各3种子；固定同一缺失mask跨方法。观测值拟合归一化，LightGBM条件随机采样一次并固定。TabDiff/TabDDPM/CDTD在相同NoAug、AugFull、AugMask下比较，另比MIWAE、MissDiff、DiffPuter、ForestDiff；列分布、相关、precision/recall与合成训练真实测试XGBoost共同评估。表3及MAR表7提供90场景排名，随机扰动敏感性实验支持掩码降低错误补全监督影响。",
+      "limitations": "不是MNAR证据，6个中低维表不能覆盖极宽表；逐特征条件补全不显式学习共同缺失变量的联合分布。AugMask要求特征位置可对应损失，不能直接用于VAE潜空间；只读机制与实验，未核验理论证明。所报9.87秒是Adult增强步骤而非端到端训练加速；排名跨多个相关场景，不作为独立数据集数。",
+      "value": "为不完整表格的生成训练提供可分离的增强/损失接口，可用于检查补全误差是否被当作监督传播。",
+      "reproducibility": "作者公开AugMask代码，附录有数据、mask、基线配置和RTX4090环境；未本地复现。",
+      "readScope": "复用 11 月 13 日的 arXiv v1 方法与实验审核。v1 §3方法与实际实现、§4设置/评价/分析，表3及表7题注；附录C.1–C.5、C.7–C.9；不宣称完整证明审核。 本次只核对 PMLR 正式记录中的题名、作者、主会和页码。"
+    }
+  },
+  {
+    "id": "arxiv-2611.29497",
+    "title": "Gossamer: A Utility-Driven Architecture for Constant-Budget KV Cache Compression in Reasoning LLMs",
+    "url": "https://arxiv.org/abs/2611.29497",
+    "sourceUpdated": "2026-11-22",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-25",
+    "reason": "已定位固定 KV 预算与专用加速器设计，性能取自周期精确模拟，准确率来自语言任务。考虑表格时需明确批量查询内动态更新 KV 的适配点，并核对可复用实现或实测阶段开销。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "sources": [
+        "https://arxiv.org/html/2611.29497"
+      ],
+      "readScope": "方法 §III–IV 与 §V-B 性能评测设置。"
+    }
+  },
+  {
+    "id": "arxiv-2611.30587",
+    "title": "Quantizing Diffusion LLMs under Parallel Decoding: Commitment Risk and the Parallelism Tax",
+    "url": "https://arxiv.org/abs/2611.30587",
+    "sourceUpdated": "2026-11-23",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-25",
+    "reason": "已定位缓存阈值解码的 W4A4 对照和强制提交导致的错误。当前证据依赖多步掩码填充、置信阈值与强制提交，待有相同更新路径的表格模型或端到端表格时延对照。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "sources": [
+        "https://arxiv.org/html/2611.30587"
+      ],
+      "readScope": "§§3.2–3.3、§§5.2–5.4 的主结果、消融及阈值对照。"
+    }
+  },
+  {
+    "id": "arxiv-2606.29091",
+    "title": "Statistically Indistinguishable, Operationally Distinct: A Formal Barrier for Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2606.29091",
+    "sourceUpdated": "2026-06-27",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-25",
+    "reason": "合成业务状态测试揭示缺少规则的受控失败。理论下界要求输入表示在两类状态上的分布总变差界，当前正文的边际匹配与置换检验不能直接证立该条件；等待更强的分布验证或对照。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "sources": [
+        "https://arxiv.org/html/2606.29091"
+      ],
+      "readScope": "§§2–4 构造、总变差条件、对照和 §6 局限。"
+    }
+  },
+  {
+    "id": "arxiv-2605.30289",
+    "title": "Statistical Embeddings for Similarity, Retrieval, and Interpretable Alignment of Numeric Tabular Datasets",
+    "url": "https://arxiv.org/abs/2605.30289",
+    "sourceUpdated": "2026-05-28",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-25",
+    "reason": "表级统计描述和稀疏对齐具备相关性，主要验证依赖少量相近数据表及示例变量。待有更广的真实库检索和同预算描述符基线，以隔离嵌入增量。",
+    "qualityReview": {
+      "reviewStatus": "partial",
+      "sources": [
+        "https://arxiv.org/html/2605.30289"
+      ],
+      "readScope": "§§4.1–4.2、§§5.1、5.3 与 §6.2。"
+    }
   }
 ]

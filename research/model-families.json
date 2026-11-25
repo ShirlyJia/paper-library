@@ -1498,6 +1498,75 @@
       "sources": [
         "https://arxiv.org/abs/2506.02006"
       ]
+    },
+    {
+      "name": "WeightedPFN",
+      "paperIds": [
+        "arxiv-2611.29789"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.29789"
+      ]
+    },
+    {
+      "name": "Lattice",
+      "paperIds": [
+        "report-lattice"
+      ],
+      "sources": [
+        "https://github.com/hachure-ai/Lattice"
+      ],
+      "needsContext": true,
+      "searchNames": [
+        "Lattice",
+        "Lattice-tiny",
+        "Lattice-MT"
+      ]
+    },
+    {
+      "name": "Inpriora",
+      "paperIds": [
+        "report-inpriora"
+      ],
+      "sources": [
+        "https://huggingface.co/ai-for-data/inpriora"
+      ]
+    },
+    {
+      "name": "MemOnce",
+      "paperIds": [
+        "arxiv-2611.27973"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.27973"
+      ]
+    },
+    {
+      "name": "Tydra",
+      "paperIds": [
+        "arxiv-2608.21199"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.21199"
+      ]
+    },
+    {
+      "name": "PluRel",
+      "paperIds": [
+        "arxiv-2602.04029"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2602.04029"
+      ]
+    },
+    {
+      "name": "FoundCause",
+      "paperIds": [
+        "arxiv-2606.17516"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.17516"
+      ]
     }
   ]
 }

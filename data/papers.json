@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-24",
+  "updatedAt": "2026-11-25",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -1215,7 +1215,7 @@
       "topic": "模型与产品动态",
       "status": "report",
       "venue": "技术报告",
-      "summary": "LimiX-2 以单元格级双轴建模和上下文条件掩码支持分类、回归、缺失补全，并探索因果骨架恢复；骨架不等于因果方向。TabArena 于 10 月 27 日给其公开权重增加数据泄漏警示：维护者在 diabetes 与 blood-transfusion 两表观察到异常的列序敏感性，相关成绩需谨慎作为未见数据泛化证据。统一任务接口仍有研究价值，这项警示不能外推为其余任务均失效。",
+      "summary": "LimiX-2 用单元格级双轴建模和上下文条件掩码支持分类、回归、缺失补全，并探索因果骨架。旧权重曾因两张表受到 TabArena 数据污染警示。作者修复训练流程并重跑受影响阶段后，TabArena 于 11 月 13 日用维护者复跑的 LimiX-2-1016 替换 TabArena 与 BeyondArena 的旧条目，新榜单条目无该警示。",
       "url": "https://arxiv.org/abs/2609.17488",
       "pdf": "https://arxiv.org/pdf/2609.17488",
       "code": "https://github.com/limix-ldm-ai/LimiX",
@@ -1228,7 +1228,8 @@
       "aliases": [
         "LimiX-2",
         "LimiX2",
-        "LimiX 2"
+        "LimiX 2",
+        "LimiX-2-1016"
       ],
       "addedAt": "2026-10-12",
       "sources": [
@@ -1239,7 +1240,11 @@
         "https://andrejtschalzev.substack.com/p/who-is-cheating-on-tabarena",
         "https://huggingface.co/spaces/TabArena/leaderboard/blob/main/website_texts.py",
         "https://raw.githubusercontent.com/autogluon/tabarena/main/packages/tabarena/src/tabarena/models/limix_2/model.py",
-        "https://raw.githubusercontent.com/autogluon/tabarena/main/packages/tabarena/src/tabarena/models/limix_2/info.py"
+        "https://raw.githubusercontent.com/autogluon/tabarena/main/packages/tabarena/src/tabarena/models/limix_2/info.py",
+        "https://github.com/autogluon/tabarena/pull/720",
+        "https://github.com/autogluon/tabarena/pull/720#issuecomment-6799620565",
+        "https://huggingface.co/stable-ai/LimiX-2-1016/tree/bbbf26c5316c6f2f7a994063447ab3deaedc8ec5",
+        "https://github.com/autogluon/tabarena/blob/bfa8c50c17885e5b722d75ce5bcb5db3822257a3/packages/tabarena/src/tabarena/models/limix_2/info.py"
       ]
     },
     {
@@ -11292,8 +11297,8 @@
       "category": 2,
       "section": "prediction-quality",
       "topicId": "missing-noisy-data",
-      "status": "preprint",
-      "venue": "预印本",
+      "status": "published",
+      "venue": "ICML 2026",
       "url": "https://arxiv.org/abs/2606.03347",
       "pdf": "https://arxiv.org/pdf/2606.03347",
       "code": "https://github.com/normal-kim/AugMask",
@@ -11312,7 +11317,8 @@
       "summary": "缺失表格训练生成模型时，用随机补全提供条件，但仅在真实可见单元格上计算损失，减少把猜测当标签的偏差。六个数据集、不同缺失比例下改善特征空间扩散模型的合成质量与下游预测；未覆盖MNAR缺失，也不能直接套到潜空间扩散。",
       "sources": [
         "https://arxiv.org/abs/2606.03347",
-        "https://arxiv.org/html/2606.03347"
+        "https://arxiv.org/html/2606.03347",
+        "https://proceedings.mlr.press/v306/kim26bh.html"
       ],
       "addedAt": "2026-11-13"
     },
@@ -13665,6 +13671,449 @@
         "https://api.datacite.org/dois/10.48550/arXiv.2611.26980"
       ],
       "addedAt": "2026-11-24"
+    },
+    {
+      "id": "arxiv-2611.31049",
+      "title": "RoFE: Rotated Frozen Embeddings for Low-Data Multimodal Tabular Learning",
+      "date": "2026-11-23",
+      "updated": "2026-11-23",
+      "category": 4,
+      "section": "semantic-fusion",
+      "topicId": "semantic-embeddings",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把冻结的图文嵌入做 PCA 后直接送入表格基础模型，逐列标准化可能使少量标注样本失去原有距离。RoFE 在标准化前对主成分做随机正交旋转。作者在 24 个图像和 20 个文本分类任务上用相同表格模型对照验证了少样本收益。默认平均四次预测，标签充足时收益趋小。",
+      "url": "https://arxiv.org/abs/2611.31049",
+      "pdf": "https://arxiv.org/pdf/2611.31049",
+      "code": "https://github.com/yihao-qiao/RoFE",
+      "aliases": [
+        "RoFE",
+        "Rotated Frozen Embeddings"
+      ],
+      "related": [
+        2
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.31049",
+        "https://arxiv.org/html/2611.31049",
+        "https://github.com/yihao-qiao/RoFE",
+        "https://yihao-qiao.github.io/RoFE/"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "arxiv-2611.29789",
+      "title": "Tabular Foundation Models for Weighted Regression and Classification",
+      "date": "2026-11-22",
+      "updated": "2026-11-22",
+      "category": 2,
+      "section": "prediction-quality",
+      "topicId": "missing-noisy-data",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "在 TabPFN-3.5 的注意力中用样本权重调整上下文行的贡献，并用合成缺失任务与归一化加权损失微调。作者在 TALENT 上发现，当样本被观测的概率依赖目标时，加权版优于原模型。只依赖输入或随机缺失时，原模型略优。实际收益取决于权重质量。",
+      "url": "https://arxiv.org/abs/2611.29789",
+      "pdf": "https://arxiv.org/pdf/2611.29789",
+      "code": "https://github.com/xiajunwen1007/WeightedPFN",
+      "aliases": [
+        "WeightedPFN",
+        "Weighted TabPFN"
+      ],
+      "related": [
+        3
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.29789",
+        "https://arxiv.org/html/2611.29789",
+        "https://github.com/xiajunwen1007/WeightedPFN",
+        "https://huggingface.co/xiajunwen/WeightedPFN"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "arxiv-2611.29214",
+      "title": "NANO: Unifying Missingness and Input Uncertainty in Tabular Learning",
+      "date": "2026-11-22",
+      "updated": "2026-11-22",
+      "category": 2,
+      "section": "prediction-quality",
+      "topicId": "missing-noisy-data",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把未观测、带置信度的估计值和不适用分别编码。作者用 11 个数据集和 9 种表格骨干做遮挡重建，低置信模拟估计常能降低重建误差，单独编码不适用的增益较小。适用性标签多为人工构造，真实估计值的置信度需要校准。",
+      "url": "https://arxiv.org/abs/2611.29214",
+      "pdf": "https://arxiv.org/pdf/2611.29214",
+      "code": null,
+      "aliases": [
+        "NANO",
+        "Not Observed Not Applicable"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.29214",
+        "https://arxiv.org/html/2611.29214"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "arxiv-2611.30889",
+      "title": "Tabular Foundation Models Are Surprisingly Effective In-Context Robot Learners",
+      "date": "2026-11-23",
+      "updated": "2026-11-23",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "engineering-applications",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把视觉特征、机器人状态和示范动作做成表格，冻结 TabICLv2 用一段目标任务示范预测后续动作。作者在 LIBERO 和 Meta-World 的留出任务中固定输入和示范做预测器对照。实验限于仿真，默认逐目标预测在单张 RTX 4090 上生成一个动作块的中位耗时为 881 毫秒。",
+      "url": "https://arxiv.org/abs/2611.30889",
+      "pdf": "https://arxiv.org/pdf/2611.30889",
+      "code": null,
+      "aliases": [
+        "TabAct",
+        "Lattice-MT"
+      ],
+      "related": [
+        2,
+        4,
+        5
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.30889",
+        "https://arxiv.org/html/2611.30889"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "arxiv-2611.31491",
+      "title": "Pretrained Tabular Features and the Measurement of Financial Proximity",
+      "date": "2026-11-23",
+      "updated": "2026-11-23",
+      "category": 4,
+      "section": "semantic-fusion",
+      "topicId": "semantic-embeddings",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用冻结表格模型表征推断哪些上市公司互为财务近邻。作者对 2011–2025 年美国股票做样本内比较，使用四类财务比率时，同输入直接距离已取得相近拟合，换成更广的申报字段后多数模型表征才提供额外拟合收益。尚待样本外验证。",
+      "url": "https://arxiv.org/abs/2611.31491",
+      "pdf": "https://arxiv.org/pdf/2611.31491",
+      "code": null,
+      "aliases": [
+        "Financial Proximity",
+        "Pretrained Tabular Features"
+      ],
+      "related": [
+        1
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.31491",
+        "https://arxiv.org/html/2611.31491"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "report-lattice",
+      "title": "Lattice",
+      "date": "2026-11-18",
+      "updated": "2026-11-21",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "status": "report",
+      "venue": "官方模型说明",
+      "summary": "南京大学与 Hachure-AI 发布两种尺寸的表格基础模型，分类和回归各有冻结权重。TabArena 同一默认协议下复跑显示，Tiny 的中位预测用时从每千行 0.114 秒降至 0.074 秒，Elo 从 1796 降至 1691。该差异只反映两种完整配置，代码与研究用途权重分别发布。",
+      "url": "https://github.com/hachure-ai/Lattice",
+      "pdf": null,
+      "code": "https://github.com/hachure-ai/Lattice",
+      "aliases": [
+        "Lattice",
+        "Lattice-tiny"
+      ],
+      "related": [
+        2,
+        5
+      ],
+      "sources": [
+        "https://github.com/hachure-ai/Lattice",
+        "https://huggingface.co/hachure-ai/Lattice",
+        "https://huggingface.co/hachure-ai/Lattice-tiny",
+        "https://huggingface.co/api/models/hachure-ai/Lattice",
+        "https://github.com/autogluon/tabarena/pull/737",
+        "https://huggingface.co/spaces/TabArena/leaderboard/blob/87bdf9f8c91a21ecfd2a23184aabcf7c75fe612d/data/entrants_models/imputation_yes/splits_all/tasks_all/datasets_all/website_leaderboard.csv",
+        "https://github.com/hachure-ai/Lattice/blob/e106f9fba5994f85aca9593ae82af561054ab77a/src/lattice/_model_interleave/model.py"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "report-inpriora",
+      "title": "Inpriora: A Pretrained Tabular Foundation Model for Classification and Regression",
+      "date": "2026-11-13",
+      "updated": "2026-11-17",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "status": "report",
+      "venue": "官方模型说明",
+      "summary": "蚂蚁集团用合成数据训练 Inpriora，将傅里叶特征与列内排序用于单元格编码，为上下文和查询使用不同的注意力投影。TabArena 维护者用固定权重跑完 816 个划分，报告默认配置中位预测用时为每千行 0.063 秒。权重及实现公开，单个组件的贡献仍需消融。",
+      "url": "https://huggingface.co/ai-for-data/inpriora",
+      "pdf": null,
+      "code": "https://github.com/ai-for-data/inpriora",
+      "aliases": [
+        "Inpriora",
+        "AI4Data Inpriora"
+      ],
+      "related": [
+        2,
+        5
+      ],
+      "sources": [
+        "https://huggingface.co/ai-for-data/inpriora",
+        "https://huggingface.co/api/models/ai-for-data/inpriora",
+        "https://github.com/ai-for-data/inpriora",
+        "https://github.com/ai-for-data/inpriora/blob/dde547d0/src/inpriora/core/model.py",
+        "https://github.com/autogluon/tabarena/pull/729",
+        "https://github.com/autogluon/tabarena/pull/730"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "arxiv-2611.27973",
+      "title": "MemOnce: A Scalable Memory Architecture for Large Language Models",
+      "date": "2026-11-20",
+      "updated": "2026-11-20",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "把长历史压成末层隐状态，查询时只检索一次，再为各层重建所需的注意力缓存。作者在 4B 语言模型的百万 token 实验中，报告历史活跃缓存为 25 MB，另有 640 MB 历史池卸载到 CPU 内存或 SSD。需要训练解码和检索模块，表格模型的双向上下文和首次编码显存仍待验证。",
+      "url": "https://arxiv.org/abs/2611.27973",
+      "pdf": "https://arxiv.org/pdf/2611.27973",
+      "code": null,
+      "aliases": [
+        "MemOnce"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.27973",
+        "https://arxiv.org/html/2611.27973v1"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "arxiv-2611.25369",
+      "title": "Fold the Loop: Decoding-Time KV Memory for Looped Vision-Language Models",
+      "date": "2026-11-19",
+      "updated": "2026-11-20",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "循环视觉模型在前缀编码完成后，让同一共享权重模块的不同轮次读取同一份图像缓存。作者在 LoopVL-1B 上将默认配置的前缀缓存降至 52%，五项开放回答评测接近全缓存。联合编码仍按原流程计算，单次表格预测及首次编码峰值未验证。",
+      "url": "https://arxiv.org/abs/2611.25369",
+      "pdf": "https://arxiv.org/pdf/2611.25369",
+      "code": null,
+      "aliases": [
+        "FoldCache",
+        "FoldCache-Lite",
+        "Fold the Loop"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.25369",
+        "https://arxiv.org/html/2611.25369v1"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "arxiv-2604.16395",
+      "title": "Stream2LLM: Overlap Context Streaming and Prefill for Reduced Time-to-First-Token",
+      "date": "2026-03-29",
+      "updated": "2026-05-17",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "published",
+      "venue": "MLSys 2026",
+      "summary": "上下文分批到达时，服务提前编码已收到的部分，并根据最长公共前缀确定哪些缓存可复用。作者在 H200、Llama-3.1-8B 的检索轨迹中报告，在每秒 4 个请求的追加式爬取负载里，首 token 中位延迟降到约原来的 1/11。迁移到表格服务要求增量检索和可安全复用的上下文编码。",
+      "url": "https://arxiv.org/abs/2604.16395",
+      "pdf": "https://arxiv.org/pdf/2604.16395",
+      "code": "https://github.com/rajveerb/stream2llm/tree/mlsys_artifact",
+      "aliases": [
+        "Stream2LLM"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2604.16395",
+        "https://arxiv.org/html/2604.16395",
+        "https://proceedings.mlsys.org/paper_files/paper/2026/hash/3b3889d313ba9476c12c2d77ea66b24f-Abstract-Conference.html",
+        "https://github.com/rajveerb/stream2llm/tree/mlsys_artifact"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "arxiv-2611.31105",
+      "title": "LiveLoRA: Exact KV Cache Migration Across LoRA Updates for LLM Agents",
+      "date": "2026-11-23",
+      "updated": "2026-11-23",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "只更新最后一块的 LoRA 且固定 K/V 的降维矩阵时，可用旧会话保存的投影重建新版本缓存。作者在 Qwen2.5-3B 的 8K 匹配实验中报告，按 32 或 128 个 token 发布一次时，发布加生成的总耗时分别比全历史重放少 16.24% 和 3.90%。下层更新和真实任务适配质量未验证。",
+      "url": "https://arxiv.org/abs/2611.31105",
+      "pdf": "https://arxiv.org/pdf/2611.31105",
+      "code": null,
+      "aliases": [
+        "LiveLoRA",
+        "KV Cache Migration"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.31105",
+        "https://arxiv.org/html/2611.31105"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "arxiv-2611.29663",
+      "title": "Exact on Paper: Which LLM Serving Shortcuts Flip Graded Answers, Measured Against the Noise of Reordering the Same Requests",
+      "date": "2026-11-22",
+      "updated": "2026-11-22",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "用同配置重启和重排请求建立逐条判分翻转基线。在 Qwen3 4B 与 vLLM 的 3,380 个请求上，默认内核里前缀缓存、分块等选项的翻转接近重排基线，FP8 KV 达 3.36%，总体准确率仍接近。只测一个模型和一套环境，表格任务可借鉴该配对评测。",
+      "url": "https://arxiv.org/abs/2611.29663",
+      "pdf": "https://arxiv.org/pdf/2611.29663",
+      "code": null,
+      "aliases": [
+        "Exact on Paper",
+        "Correctness flip"
+      ],
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2611.29663",
+        "https://arxiv.org/html/2611.29663"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "arxiv-2608.21199",
+      "title": "Tydra: An Efficient Hybrid Model for Tabular Data",
+      "date": "2026-08-21",
+      "updated": "2026-08-21",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "aliases": [
+        "Tydra",
+        "Hydra-Transformer"
+      ],
+      "summary": "交替使用双向状态空间层和 Transformer 注意力处理上下文。作者在 30 个小型 OpenML 分类数据集上，报告主配置的每批平均时间从自训 TabPFN 式对照的 27.12 毫秒降到 19.99 毫秒，平均 AUROC 低 0.29 个百分点。长上下文只测了合成数据的耗时。",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2608.21199",
+      "pdf": "https://arxiv.org/pdf/2608.21199",
+      "code": null,
+      "related": [
+        5
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2608.21199",
+        "https://arxiv.org/html/2608.21199"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "arxiv-2602.04029",
+      "title": "PluRel: Synthetic Data unlocks Scaling Laws for Relational Foundation Models",
+      "date": "2026-02-03",
+      "updated": "2026-07-14",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "relational-releases",
+      "aliases": [
+        "PluRel",
+        "RT-PluRel"
+      ],
+      "summary": "用结构图生成关系表、用分层二部图建立外键、再生成依赖关联表的值。作者区分训练库数量和总 token 数，发现在所测范围内二者共同增长才稳定改善损失。先合成训练再续训真实库，在 RelBench 留一库测试上改善了均值，框架当前限定无环表结构。",
+      "status": "published",
+      "venue": "ICML 2026",
+      "url": "https://arxiv.org/abs/2602.04029",
+      "pdf": "https://arxiv.org/pdf/2602.04029",
+      "code": "https://github.com/stanford-star/plurel",
+      "related": [
+        4,
+        6
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2602.04029",
+        "https://arxiv.org/html/2602.04029",
+        "https://proceedings.mlr.press/v306/kothapalli26a.html",
+        "https://star-project.stanford.edu/plurel/",
+        "https://github.com/stanford-star/plurel"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "arxiv-2606.17516",
+      "title": "FoundCause: A Foundation Model for Causal Discovery with Latent Confounders from Observational Data",
+      "date": "2026-06-16",
+      "updated": "2026-11-17",
+      "category": 3,
+      "section": "causal-discovery",
+      "topicId": "causal-graphs",
+      "aliases": [
+        "FoundCause"
+      ],
+      "summary": "从观测表分别输出有向边和变量对的潜在混杂分数。作者用 14 个有参考图的真实或半合成数据集评估，平均有向边 F1 为 0.531。潜在混杂实验使用人工隐藏变量，结果随基准改变，无法直接确认任意观测表里的因果关系。",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2606.17516",
+      "pdf": "https://arxiv.org/pdf/2606.17516",
+      "code": "https://github.com/amazon-science/foundcause",
+      "related": [],
+      "sources": [
+        "https://arxiv.org/abs/2606.17516",
+        "https://arxiv.org/html/2606.17516",
+        "https://github.com/amazon-science/foundcause"
+      ],
+      "addedAt": "2026-11-25"
+    },
+    {
+      "id": "arxiv-2607.09577",
+      "title": "SurvFM enables tabular foundation models for right-censored survival prediction",
+      "date": "2026-07-10",
+      "updated": "2026-09-06",
+      "category": 6,
+      "section": "adaptation-target",
+      "topicId": "input-adapters",
+      "aliases": [
+        "SurvFM",
+        "RMST"
+      ],
+      "summary": "只用训练折把右删失随访转换成指定时间窗内的无事件时长伪标签，现有表格回归器无需改结构即可预测。作者在 55 个 SurvSet 数据集及两队列互相留出的迁移试验中比较多种骨干。外部结果限于所测队列，输出也只对应给定时间窗。",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2607.09577",
+      "pdf": "https://arxiv.org/pdf/2607.09577",
+      "code": "https://github.com/yuelyu21/SurvFM",
+      "related": [
+        1,
+        2
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2607.09577",
+        "https://arxiv.org/html/2607.09577",
+        "https://github.com/yuelyu21/SurvFM",
+        "https://doi.org/10.5281/zenodo.21735311"
+      ],
+      "addedAt": "2026-11-25"
     }
   ],
   "collectionUpdates": [
@@ -14451,6 +14900,31 @@
         "arxiv-2611.27009"
       ],
       "updated": []
+    },
+    {
+      "date": "2026-11-25",
+      "added": [
+        "arxiv-2602.04029",
+        "arxiv-2604.16395",
+        "arxiv-2606.17516",
+        "arxiv-2607.09577",
+        "arxiv-2608.21199",
+        "arxiv-2611.25369",
+        "arxiv-2611.27973",
+        "arxiv-2611.29214",
+        "arxiv-2611.29663",
+        "arxiv-2611.29789",
+        "arxiv-2611.30889",
+        "arxiv-2611.31049",
+        "arxiv-2611.31105",
+        "arxiv-2611.31491",
+        "report-inpriora",
+        "report-lattice"
+      ],
+      "updated": [
+        "arxiv-2606.03347",
+        "arxiv-2609.17488"
+      ]
     }
   ]
 }
