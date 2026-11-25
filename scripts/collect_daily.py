@@ -269,24 +269,24 @@ def write_briefing(run_dir, plan, applied):
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     from apply_review import direction_digest
     catalogue = json.loads((ROOT / "data/papers.json").read_text())
-    categories = {e["paper"]["category"] for e in included + corrected}
     recent = (date.fromisoformat(plan["until"]) - timedelta(days=30)).isoformat()
     fresh = sum(1 for e in included if e["paper"]["date"] >= recent)
     highlights = read_highlights(run_dir / "briefing-highlights.md", included + corrected)
-    age_counts = []
-    if fresh:
-        age_counts.append(f"近一个月首发 {fresh} 篇")
-    if len(included) > fresh:
-        age_counts.append(f"补录旧作 {len(included) - fresh} 篇")
-    split = f"（{'，'.join(age_counts)}）" if age_counts else ""
-    changes = ([f"新增 {len(included)} 篇论文{split}"] if included else [])
+    changes = []
+    if included:
+        ages = []
+        if fresh:
+            ages.append(f"{fresh} 篇为近一个月首发")
+        if len(included) > fresh:
+            ages.append(f"{len(included) - fresh} 篇为补录")
+        changes.append(f"新收 {len(included)} 篇论文（{'，'.join(ages)}）")
     if corrected:
         changes.append(f"更正 {len(corrected)} 篇")
-    overview = f"今天{'，'.join(changes)}，涉及 {len(categories)} 个一级方向。[按收录时间查看论文库]({SITE}?sort=added)"
-    parts = [f"# 结构化数据研究小报｜{plan['until']}", "", overview, "",
-             highlights, "", direction_digest(selected, catalogue).strip(), ""]
+    overview = f"本期{'，'.join(changes)}。"
+    parts = [f"# 结构化数据研究小报｜{plan['until']}", highlights,
+             direction_digest(selected, catalogue, SITE, overview)]
     path = run_dir / "briefing.md"
-    path.write_text("\n".join(parts))
+    path.write_text("\n\n".join(parts) + "\n")
     return path
 
 

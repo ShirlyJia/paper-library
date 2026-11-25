@@ -106,10 +106,20 @@ class ApplyReviewTests(unittest.TestCase):
         self.assertEqual([p["id"] for p in self.catalogue["papers"]], ["old", PAPER["id"]])
         self.assertEqual([d["decision"] for d in self.decisions], ["included", "deferred"])
         self.assertEqual(self.registry["families"][0]["paperIds"], [PAPER["id"]])
-        digest = apply_review.direction_digest({"included": [{"paper": {**PAPER, "aliases": ["NewFM"]}, "qualityReview": REVIEW, "brief": "一句话"}]}, self.catalogue)
-        self.assertIn("### 01 改名后的方向（新增 1 篇）", digest)
-        self.assertIn("01.01.01 子方向 › 议题", digest)
-        self.assertIn("**[NewFM](https://arxiv.org/abs/2610.00001)** 一句话", digest)
+
+    def test_direction_headings_link_to_catalogue_and_corrections_stand_alone(self):
+        edition = {"included": [{"paper": {**PAPER, "aliases": ["NewFM"]}, "brief": "一句话。"}],
+                   "corrected": [{"paper": self.catalogue["papers"][0], "brief": "补记录用。"}]}
+        digest = apply_review.direction_digest(edition, self.catalogue, daily.SITE, "本期收录。")
+        headings = [line for line in digest.splitlines() if line.startswith("#")]
+        self.assertEqual(headings, ["## 按方向浏览", f"### [改名后的方向]({daily.SITE}?category=1&sort=added)", "## 论文更正"])
+        self.assertIn("- 一句话。 [NewFM](https://arxiv.org/abs/2610.00001)", digest)
+        self.assertIn("## 论文更正\n\n- [New](https://x/old) 补记录用。", digest)
+        only_corrections = apply_review.direction_digest({"corrected": edition["corrected"]}, self.catalogue, daily.SITE, "更正 1 篇。")
+        self.assertEqual(only_corrections, "## 论文更正\n\n更正 1 篇。\n\n- [New](https://x/old) 补记录用。")
+        with self.assertRaisesRegex(ValueError, "主路径"):
+            apply_review.direction_digest({"included": [{"paper": {**PAPER, "topicId": "unknown"}, "brief": "b"}]},
+                                         self.catalogue, daily.SITE, "")
 
     def test_abstract_only_reviews_and_missing_reasons_are_rejected(self):
         for bundle in [{"date": "d", "included": [{"paper": PAPER, "qualityReview": {**REVIEW, "reviewStatus": "partial"}, "brief": "b"}]},
@@ -184,13 +194,11 @@ class BriefingTests(unittest.TestCase):
             text = daily.write_briefing(run, plan, applied).read_text()
             cats = json.loads((daily.ROOT / "data/papers.json").read_text())["categories"]
             cat = next(c for c in cats if c["id"] == PAPER["category"])
-            section = next(s for s in cat["children"] if s["id"] == PAPER["section"])
-            topic = next(t for t in section["children"] if t["id"] == PAPER["topicId"])
-            for expected in ["今天新增 1 篇论文（近一个月首发 1 篇）", "涉及 1 个一级方向", "## 今天的看点",
-                             f"### {cat['code']} {cat['name']}（新增 1 篇）",
-                             f"{topic['code']} {section['name']} › {topic['name']}", "一句话"]:
+            for expected in ["本期新收 1 篇论文（1 篇为近一个月首发）。", "## 今天的看点",
+                             f"### [{cat['name']}]({daily.SITE}?category=1&sort=added)", "一句话"]:
                 self.assertIn(expected, text)
-            self.assertLess(text.index("今天的看点"), text.index("各方向上新"))
+            self.assertLess(text.index("今天的看点"), text.index("按方向浏览"))
+            self.assertLess(text.index("按方向浏览"), text.index("本期新收"))
             for process in ["暂缓", "队列", "OpenAlex", "上线", "贡献：", REVIEW["limitations"] + " "]:
                 self.assertNotIn(process, text)
             notes = daily.write_run_notes(run, plan, channels, applied, queue_state, False, ["note"]).read_text()

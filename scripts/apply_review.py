@@ -150,41 +150,43 @@ def display_name(paper):
     return alias or paper["title"]
 
 
-def direction_digest(bundle, catalogue):
-    """按站内主路径排列，每篇只出现一次，单独标明更正。"""
+def direction_digest(bundle, catalogue, site, overview):
+    """Group additions by their catalogue direction and keep bibliographic corrections together."""
     topics = defaultdict(list)
     for kind in ("included", "corrected"):
         for entry in bundle.get(kind, []):
             p = entry["paper"]
             topics[p["category"], p["section"], p["topicId"]].append((kind, entry))
-    lines = ["## 各方向上新", ""]
+
+    directions, corrections = [], []
     for category in catalogue["categories"]:
-        detail = []
-        added = corrected = 0
+        additions = []
         for section in category["children"]:
             for topic in section["children"]:
                 rows = topics.pop((category["id"], section["id"], topic["id"]), [])
-                if not rows:
-                    continue
-                detail += [f"**{topic['code']} {section['name']} › {topic['name']}**", ""]
-                # Stable sorts put additions first and keep newer papers first within each kind.
-                rows.sort(key=lambda row: row[1]["paper"]["date"], reverse=True)
-                rows.sort(key=lambda row: row[0] == "corrected")
-                for kind, entry in rows:
+                for kind, entry in sorted(rows, key=lambda row: row[1]["paper"]["date"], reverse=True):
                     p = entry["paper"]
-                    tag = "（更正）" if kind == "corrected" else ""
-                    venue = "" if p["status"] == "preprint" or p["venue"] in entry["brief"] else f"（{p['venue']}）"
-                    name = entry.get("name") or display_name(p)
-                    detail.append(f"- **[{name}]({p['url']})**{tag} {entry['brief']}{venue}")
-                    added += kind == "included"
-                    corrected += kind == "corrected"
-                detail.append("")
-        if detail:
-            counts = "，".join(f"{label} {n} 篇" for label, n in [("新增", added), ("更正", corrected)] if n)
-            lines += [f"### {category['code']} {category['name']}（{counts}）", "", *detail]
+                    link = f"[{entry.get('name') or display_name(p)}]({p['url']})"
+                    if kind == "corrected":
+                        corrections.append(f"- {link} {entry['brief']}")
+                    else:
+                        venue = "" if p["status"] == "preprint" or p["venue"] in entry["brief"] else f"（{p['venue']}）"
+                        additions.append(f"- {entry['brief']} {link}{venue}")
+        if additions:
+            heading = f"### [{category['name']}]({site}?category={category['id']}&sort=added)"
+            directions.extend([heading, "", *additions, ""])
     if topics:
         raise ValueError(f"小报论文的主路径与站内目录不符：{list(topics)}")
-    return "\n".join(lines)
+
+    lines = []
+    if directions:
+        lines.extend(["## 按方向浏览", "", overview, "", *directions])
+    if corrections:
+        lines.extend(["## 论文更正", ""])
+        if not directions:
+            lines.extend([overview, ""])
+        lines.extend(corrections)
+    return "\n".join(lines).rstrip()
 
 
 def main():
