@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-25",
+  "updatedAt": "2026-11-26",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -4028,7 +4028,7 @@
       "id": "arxiv-2608.16429",
       "title": "Localized TabICLv2: Scaling Tabular In-Context Learning through k-NN",
       "date": "2026-07",
-      "updated": "2026-07",
+      "updated": "2026-08-17",
       "category": 5,
       "related": [
         6
@@ -4046,13 +4046,16 @@
       "dateNote": "日期按 2026 年 7 月 Workshop 版本",
       "section": "context-selection",
       "topicId": "retrieval-shots",
-      "addedAt": "2026-10-12"
+      "addedAt": "2026-10-12",
+      "sources": [
+        "https://arxiv.org/abs/2608.16429"
+      ]
     },
     {
       "id": "arxiv-2607.27546",
       "title": "Memory Efficient Tabular Foundation Models",
       "date": "2026-07",
-      "updated": "2026-07",
+      "updated": "2026-07-30",
       "category": 5,
       "related": [
         1
@@ -4070,7 +4073,10 @@
       "dateNote": "日期按 2026 年 7 月 Workshop 版本",
       "section": "inference-efficiency",
       "topicId": "model-compression",
-      "addedAt": "2026-10-12"
+      "addedAt": "2026-10-12",
+      "sources": [
+        "https://arxiv.org/abs/2607.27546"
+      ]
     },
     {
       "id": "arxiv-2606.18677",
@@ -11191,7 +11197,7 @@
       "id": "arxiv-2611.12491",
       "title": "Out-of-the-Box Tabular Foundation Models for Bayesian Optimization in Materials Discovery",
       "date": "2026-11-09",
-      "updated": "2026-11-09",
+      "updated": "2026-11-11",
       "category": 2,
       "section": "prediction-decisions",
       "topicId": "strategic-feedback",
@@ -11218,7 +11224,8 @@
       "summary": "直接用 TabPFN-3、TabICLv2 的预测分布选择下一条实验候选，比较两套材料基准共15个任务。作者发现其在回溯候选池上具竞争力，但方法排序随采集规则和指标改变，最优配置还按测试结果事后挑选；不能视为已验证真实实验闭环或普遍胜过高斯过程。",
       "sources": [
         "https://arxiv.org/abs/2611.12491",
-        "https://arxiv.org/html/2611.12491"
+        "https://arxiv.org/html/2611.12491",
+        "https://arxiv.org/html/2611.12491v2"
       ],
       "addedAt": "2026-11-13"
     },
@@ -13169,8 +13176,8 @@
       "category": 1,
       "section": "industry-applications",
       "topicId": "biomedical-applications",
-      "status": "preprint",
-      "venue": "预印本",
+      "status": "published",
+      "venue": "NeurIPS 2026",
       "summary": "整理 94 个生物医学表格与 23 个模型实现，采用分组／分子骨架切分，并审计预训练重叠、数据源相关性和调参成本。TabICLv2、TabM 等表现接近，前十模型的成对比较没有显著差异；还比较了与 TabArena 排名的相关性。提供领域选型及高维评测依据；两基准预算不同，94 张表也非完全独立任务，不能据此宣布普遍最优模型。",
       "url": "https://arxiv.org/abs/2611.23779",
       "pdf": "https://arxiv.org/pdf/2611.23779",
@@ -13192,7 +13199,9 @@
       "sources": [
         "https://arxiv.org/abs/2611.23779",
         "https://arxiv.org/html/2611.23779v1",
-        "https://github.com/AI-sandbox/TabBioMed"
+        "https://github.com/AI-sandbox/TabBioMed",
+        "https://neurips.cc/virtual/2026/poster/139791",
+        "https://openreview.net/forum?id=4WpEeaOeGW"
       ],
       "addedAt": "2026-11-20"
     },
@@ -14114,6 +14123,819 @@
         "https://doi.org/10.5281/zenodo.21735311"
       ],
       "addedAt": "2026-11-25"
+    },
+    {
+      "id": "arxiv-2611.32859",
+      "title": "Tabra Blends: Improving the Accuracy–Latency Trade-off with Complementary Tabular Models",
+      "date": "2026-11-24",
+      "updated": "2026-11-24",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "test-time-compute",
+      "related": [
+        1
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.32859",
+      "pdf": "https://arxiv.org/pdf/2611.32859",
+      "code": "https://github.com/tabra-ai/tabular-blends",
+      "aliases": [
+        "Tabra Blends"
+      ],
+      "keywords": [
+        "TabArena",
+        "Kumo Tabular",
+        "LimiX-2",
+        "预测集成"
+      ],
+      "summary": "在 51 个 TabArena 数据集的 816 个划分中，4 个 Kumo 估计器的均值与 1 条 LimiX-2 流水线各占一半，得到 2063.8 Elo。同卡 GH200 下，归一化拟合加预测总耗时比 Kumo-16 低 15%，单看预测耗时则从 0.335 秒升至 0.483 秒。与完整 LimiX 直接对打的平均误差几乎持平，较大的 Elo 差反映相对整个参评池的胜率。",
+      "sources": [
+        "https://arxiv.org/abs/2611.32859",
+        "https://arxiv.org/html/2611.32859v1",
+        "https://github.com/tabra-ai/tabular-blends"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2611.32504",
+      "title": "InducedTFMs: A Family of Sub-Quadratic Tabular Foundation Models Using Induced Attention",
+      "date": "2026-11-24",
+      "updated": "2026-11-24",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "memory-quantization",
+      "related": [
+        1
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.32504",
+      "pdf": "https://arxiv.org/pdf/2611.32504",
+      "aliases": [
+        "InducedTFM",
+        "InducedTFMs",
+        "HybridTFM"
+      ],
+      "keywords": [
+        "诱导注意力",
+        "TabArena",
+        "长上下文",
+        "表格推理"
+      ],
+      "summary": "以固定数目的诱导向量在行轴和列轴各做两次交叉注意力，保留单元格表示。等预算重训的 TabArena 分类中，与 TabICLv2 的 Elo 区间重叠。在 26 个较大分类数据集上，拟合加预测总耗时为 312 对 496 秒，排除共同预处理。较宽的表或较短的上下文中，TabICLv2 的行压缩更省时。",
+      "sources": [
+        "https://arxiv.org/abs/2611.32504",
+        "https://arxiv.org/html/2611.32504v1"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2611.28241",
+      "title": "Variable Importance Recovery in Tabular Foundation Models: A Simulation Study",
+      "date": "2026-11-20",
+      "updated": "2026-11-20",
+      "category": 5,
+      "section": "inference-strategies",
+      "topicId": "inference-mechanisms",
+      "related": [
+        2
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.28241",
+      "pdf": "https://arxiv.org/pdf/2611.28241",
+      "aliases": [
+        "Variable Importance Recovery"
+      ],
+      "keywords": [
+        "特征重要性",
+        "TabPFN-3",
+        "TabICLv2",
+        "LOCO",
+        "SAGE"
+      ],
+      "summary": "在生成机制已知的 48 组回归模拟中，用同一套模型无关方法比较变量重要性。TabPFN-3、TabICLv2 在边际重要性恢复上表现较强；在高相关的纯交互情形下，两者恢复有独有贡献的变量集合分别为 F1 约 0.67 和 0.57，三种提升树均值约 0.75。结果受模拟分布与重拟合调参方式约束。",
+      "sources": [
+        "https://arxiv.org/abs/2611.28241",
+        "https://arxiv.org/html/2611.28241v1"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2501.02945",
+      "title": "From Tables to Time: Extending TabPFN-v2 to Time Series Forecasting",
+      "date": "2024-12-14",
+      "updated": "2026-11-23",
+      "category": 6,
+      "section": "adaptation-target",
+      "topicId": "input-adapters",
+      "related": [
+        1,
+        2
+      ],
+      "status": "published",
+      "venue": "TMLR 2026",
+      "url": "https://arxiv.org/abs/2501.02945",
+      "pdf": "https://arxiv.org/pdf/2501.02945v5",
+      "code": "https://github.com/PriorLabs/tabpfn-time-series",
+      "aliases": [
+        "TabPFN-TS"
+      ],
+      "keywords": [
+        "时序预测",
+        "协变量",
+        "TabPFN-v2",
+        "GIFT-Eval",
+        "fev-bench"
+      ],
+      "summary": "把每个时间点转成一行，用时间索引、季节特征和未来已知协变量作为输入，冻结 TabPFN-v2 一次预测整个时间窗。在 28 个可用未来协变量的 fev-bench 任务上，作者报告的总体分数优于所测时序模型；另外两项超时。样本外趋势外推仍弱，同为 T4 归一时，GIFT-Eval 推理耗时约为两种专用时序基线的 30 倍。",
+      "dateNote": "首发采用可核实的 NeurIPS 2024 Table Representation Learning Workshop 发布日。统一合并后续 arXiv 与 TMLR 版本。",
+      "sources": [
+        "https://arxiv.org/abs/2501.02945",
+        "https://arxiv.org/html/2501.02945v5",
+        "https://arxiv.org/pdf/2501.02945v5",
+        "https://jmlr.org/tmlr/papers/bib/KIkQj8VOUY.bib",
+        "https://table-representation-learning.github.io/NeurIPS2024/",
+        "https://openreview.net/pdf?id=H02X7RO3OC",
+        "https://github.com/PriorLabs/tabpfn-time-series"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2503.17894",
+      "title": "Generative Learner for Distributional Causal Effects",
+      "date": "2025-03-23",
+      "updated": "2026-11-25",
+      "category": 3,
+      "section": "causal-estimation",
+      "topicId": "treatment-effects",
+      "related": [
+        2
+      ],
+      "status": "published",
+      "venue": "Machine Learning 2026",
+      "url": "https://link.springer.com/article/10.1007/s10994-026-07202-y",
+      "pdf": "https://link.springer.com/content/pdf/10.1007/s10994-026-07202-y.pdf",
+      "code": "https://github.com/marnare/generativeAI",
+      "aliases": [
+        "GenTE"
+      ],
+      "keywords": [
+        "处理效应",
+        "条件分位数",
+        "异质性",
+        "观测数据"
+      ],
+      "summary": "联合学习处理倾向、未处理的条件分位数及处理前后同一分位数的差，积分可得到条件平均处理效应。作者发现，随机模拟的 36 个对照中有 30 个平均效应估计误差最低；同架构消融中，显式拟合分位数的优势主要出现在双峰误差场景。适用条件包括二元处理、重叠和观测协变量足以控制混杂。",
+      "sources": [
+        "https://arxiv.org/abs/2503.17894",
+        "https://link.springer.com/article/10.1007/s10994-026-07202-y",
+        "https://github.com/marnare/generativeAI"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2608.19920",
+      "title": "Learning how to Forget: Fine-tuning for Long-Context Sparse Attention",
+      "date": "2026-08-20",
+      "updated": "2026-11-21",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "related": [
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2608.19920",
+      "pdf": "https://arxiv.org/pdf/2608.19920",
+      "code": "https://github.com/awslabs/keys_values",
+      "aliases": [
+        "Learning how to Forget",
+        "KeysAndValues"
+      ],
+      "keywords": [
+        "KV 缓存",
+        "稀疏注意力",
+        "H2O",
+        "缓存感知微调"
+      ],
+      "summary": "用部署时同一套 KV 淘汰策略微调语言模型，反传时回放淘汰记录并只保存缓存变化。Qwen3-4B 在 RULER 的 256K 单目标检索任务上，同用 H2O 缓存时，匹配策略微调的准确率为 96%，稠密微调后再压缩为 31%。表格前向可检验训练时即加入部署缓存压缩，但需适配行列掩码并测显存和时延。",
+      "sources": [
+        "https://arxiv.org/abs/2608.19920",
+        "https://arxiv.org/html/2608.19920v3",
+        "https://github.com/awslabs/keys_values"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2611.32257",
+      "title": "Seldon TFM family: Seldon-Mini, Seldon and Seldon+",
+      "date": "2026-11-24",
+      "updated": "2026-11-24",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        5
+      ],
+      "status": "report",
+      "venue": "技术报告",
+      "url": "https://arxiv.org/abs/2611.32257",
+      "pdf": "https://arxiv.org/pdf/2611.32257",
+      "aliases": [
+        "Seldon TFM",
+        "Seldon-Mini",
+        "Seldon+"
+      ],
+      "keywords": [
+        "Neuralk AI",
+        "TabArena",
+        "BeyondArena",
+        "表格基础模型"
+      ],
+      "summary": "报告披露 Seldon-Mini 和 Seldon 的行列编码、合成训练与分类、回归头。11 月 16 日 TabArena 快照中 Seldon 的 Elo 为 1904，和其前面三个配置的置信区间重叠。Seldon+ 为经 API 提供的分类模型，报告中的结果来自厂商另行评测，多分类评分口径与官方榜单不同。",
+      "sources": [
+        "https://arxiv.org/abs/2611.32257",
+        "https://arxiv.org/html/2611.32257v1",
+        "https://huggingface.co/Neuralk-AI/seldon-mini",
+        "https://huggingface.co/Neuralk-AI/seldon"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2611.31864",
+      "title": "No Fixed Configuration Is Best: Context- and Cost-Aware Tuning of LLM Pipelines, with an Application to Schema Matching and Mapping",
+      "date": "2026-11-24",
+      "updated": "2026-11-24",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "schema-matching",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.31864",
+      "pdf": "https://arxiv.org/pdf/2611.31864",
+      "aliases": [
+        "No Fixed Configuration Is Best"
+      ],
+      "keywords": [
+        "表结构匹配",
+        "字段映射",
+        "候选范围",
+        "分组交叉验证"
+      ],
+      "summary": "测量字段匹配中先限定目标表会怎样改变候选。固定数值配置时，这个开关在 MIMIC-III 到 OMOP 上使首位命中率提高约 30 个百分点，在 AdventureWorks 视图任务减少约 52 个百分点。双路并行后逐列仲裁达到 91.5% 平均首位命中率，计价成本为默认配置的 5.9 倍。",
+      "sources": [
+        "https://arxiv.org/abs/2611.31864",
+        "https://arxiv.org/html/2611.31864v1"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2611.32006",
+      "title": "TableRouter: Query-Aware Evidence Construction for Long-Table Question Answering",
+      "date": "2026-11-24",
+      "updated": "2026-11-24",
+      "category": 5,
+      "section": "context-selection",
+      "topicId": "retrieval-shots",
+      "related": [
+        4
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.32006",
+      "pdf": "https://arxiv.org/pdf/2611.32006",
+      "aliases": [
+        "TableRouter"
+      ],
+      "keywords": [
+        "长表问答",
+        "全表聚合",
+        "证据检索",
+        "推理上下文"
+      ],
+      "summary": "识别计数和求和等问题，先从完整表计算相关统计，再把结果交给语言模型。查找类问题以检索原行与列摘要为主。方法冻结后，Qwen2.5-7B 在 299 项 BIRD 单表问题上答对 107 项，最强外部对照答对 49 项。热索引的成本优势需有重复查询摊销。",
+      "sources": [
+        "https://arxiv.org/abs/2611.32006",
+        "https://arxiv.org/html/2611.32006v1"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2611.28440",
+      "title": "PFN-Syn: Generating Synthetic Tabular Data with Prior-Data Fitted Networks",
+      "date": "2026-09-04",
+      "updated": "2026-11-21",
+      "category": 2,
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions",
+      "related": [
+        4,
+        5
+      ],
+      "status": "workshop",
+      "venue": "VLDB 2026 Tabular Data Analysis Workshop (TaDA)",
+      "url": "https://arxiv.org/abs/2611.28440",
+      "pdf": "https://arxiv.org/pdf/2611.28440",
+      "code": "https://github.com/brains-group/table-agent-toolkit",
+      "aliases": [
+        "PFN-Syn"
+      ],
+      "keywords": [
+        "合成表格",
+        "TabICLv2",
+        "条件分布",
+        "逐列采样"
+      ],
+      "summary": "用冻结 TabICLv2 估计给定已生成列的条件分布，逐列采样整张合成表。在 8 个二分类数据集上，用合成表训练 XGBoost，再在真实留出集测试，平均平衡准确率为 0.678，TabDiff 为 0.660，真实表训练为 0.716。此评测还测了分布相似度和邻近度指标，正式隐私保证需另行建立。",
+      "dateNote": "采用官方 TaDA Workshop 会议日期，arXiv v1 于 11 月公布。",
+      "sources": [
+        "https://arxiv.org/abs/2611.28440",
+        "https://arxiv.org/html/2611.28440v1",
+        "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_16.pdf",
+        "https://github.com/brains-group/table-agent-toolkit"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2607.29120",
+      "title": "Curriculum Matters: Data-Efficient Relational PFN Pretraining with Synthetic Data",
+      "date": "2026-07-31",
+      "updated": "2026-07-31",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "semantic-relational-benchmarks",
+      "related": [
+        6
+      ],
+      "status": "workshop",
+      "venue": "VLDB 2026 Tabular Data Analysis Workshop (TaDA)",
+      "url": "https://arxiv.org/abs/2607.29120",
+      "pdf": "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_19.pdf",
+      "aliases": [
+        "Curriculum Matters",
+        "Relational PFN curriculum"
+      ],
+      "keywords": [
+        "关系数据基础模型",
+        "PluRel",
+        "RDB-PFN",
+        "预训练课程",
+        "RelBench"
+      ],
+      "summary": "用 PluRel 合成数据训练 0.7M 参数 RDB-PFN，保持单表数据和计算预算相同，按列数递增训练比全量混合将 23 项平均 AUC 从 0.541 提高到 0.703。将关系数据库展开成单表特征后，纯单表和关系课程在 19 项任务的 AUC 为 0.631 和 0.638；结果限于该展开方式和模型规模。",
+      "sources": [
+        "https://arxiv.org/abs/2607.29120",
+        "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_19.pdf"
+      ],
+      "dateNote": "首发日期采用 arXiv v1，正式出处为 VLDB 2026 TaDA Workshop。",
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2602.09572",
+      "title": "Predictive Query Language: A Domain-Specific Language for Predictive Modeling on Relational Databases",
+      "date": "2026-02-10",
+      "updated": "2026-07-24",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "data-integration",
+      "related": [
+        1,
+        5
+      ],
+      "status": "workshop",
+      "venue": "VLDB 2026 Tabular Data Analysis Workshop (TaDA)",
+      "url": "https://arxiv.org/abs/2602.09572",
+      "pdf": "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_1.pdf",
+      "aliases": [
+        "Predictive Query Language",
+        "PQL"
+      ],
+      "keywords": [
+        "Kumo",
+        "关系数据库",
+        "标签构造",
+        "时间窗",
+        "关系基础模型"
+      ],
+      "summary": "用声明式查询指定实体、锚点时间和预测标签时间窗，生成关系模型的训练表和上下文。在 H&M 表的万样本上下文里，两个标签查询的耗时约为 0.22 和 0.08 秒，朴素 Pandas 为 2.89 和 2.92 秒，计时排除数据读取并复用预处理图。多跳连接和历史记录更正需另处理。",
+      "sources": [
+        "https://arxiv.org/abs/2602.09572",
+        "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_1.pdf"
+      ],
+      "dateNote": "首发和修订采用 arXiv 记录，正式出处为 VLDB 2026 TaDA Workshop。",
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2603.15802",
+      "title": "Time-Aware Prior Fitted Networks for Zero-Shot Forecasting with Exogenous Variables",
+      "date": "2026-03-16",
+      "updated": "2026-07-18",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "tabular-releases",
+      "related": [
+        6,
+        2
+      ],
+      "status": "published",
+      "venue": "TMLR 2026",
+      "url": "https://arxiv.org/abs/2603.15802",
+      "pdf": "https://arxiv.org/pdf/2603.15802v2",
+      "aliases": [
+        "ApolloPFN"
+      ],
+      "keywords": [
+        "先验拟合网络",
+        "时序预测",
+        "外生变量",
+        "时间位置编码"
+      ],
+      "summary": "ApolloPFN 在合成任务里引入随时间变化的外生信号，用位置编码和预测窗口内的协变量交互改造 PFN。作者报告 M5 的平均 RMSSE 比 TabPFN-TS 低 5.7%，电价各任务胜负互见。固定合成数据的消融比较了位置编码与未来协变量交互，长序列仍受二次注意力限制。",
+      "dateNote": "首发采用有明确公开日期的 arXiv v1。另有更早的匿名投稿稿件，其准确公开日尚未核定。",
+      "sources": [
+        "https://arxiv.org/abs/2603.15802",
+        "https://arxiv.org/html/2603.15802v2",
+        "https://jmlr.org/tmlr/papers/bib/nJARpxp3cF.bib"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2611.32225",
+      "title": "Joint Classification and Generation on Tabular Data: an Empirical Study",
+      "date": "2026-11-24",
+      "updated": "2026-11-24",
+      "category": 2,
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions",
+      "related": [
+        1,
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.32225",
+      "pdf": "https://arxiv.org/pdf/2611.32225",
+      "aliases": [
+        "Joint Classification and Generation"
+      ],
+      "keywords": [
+        "表格生成",
+        "联合建模",
+        "TabICL",
+        "预算匹配"
+      ],
+      "summary": "对能分类也能生成的表格模型做算力对照。在 OpenML-CC18 的 24 张小表上，给定 10¹³ FLOPs 上限，TabICL 同时做两项的总分为 0.786，最好的两模型组合为 0.770。在 5 张较大的 UCI 表上，两模型方案在所测预算内持平或更好。总分按论文定义合并分类、校准和生成质量。",
+      "sources": [
+        "https://arxiv.org/abs/2611.32225",
+        "https://arxiv.org/html/2611.32225v1"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2611.32045",
+      "title": "SegPFN: Training-Free In-Context Segmentation with Tabular Prior-Data Fitted Networks",
+      "date": "2026-11-24",
+      "updated": "2026-11-24",
+      "category": 4,
+      "section": "semantic-fusion",
+      "topicId": "multimodal-schema",
+      "related": [
+        6,
+        5
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.32045",
+      "pdf": "https://arxiv.org/pdf/2611.32045",
+      "aliases": [
+        "SegPFN"
+      ],
+      "keywords": [
+        "图像分割",
+        "表格上下文学习",
+        "TabPFN 3.5",
+        "冻结视觉特征"
+      ],
+      "summary": "把参考图像的局部特征当成表格行，掩码当成标签，用冻结的 TabPFN 3.5 预测目标图像。在固定视觉特征、参考块和细化步骤的抽样评测中，整体 mIoU 为 60.67%，最强传统分类器为 58.24%。效果依赖视觉编码与规则细化，大图和大参考集的开销还有待测量。",
+      "sources": [
+        "https://arxiv.org/abs/2611.32045",
+        "https://arxiv.org/html/2611.32045v1"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2611.32295",
+      "title": "Norn: Context-Length-Aware Optimization of Weight and KV Cache Placement for Offloaded LLM Inference",
+      "date": "2026-11-24",
+      "updated": "2026-11-24",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.32295",
+      "pdf": "https://arxiv.org/pdf/2611.32295",
+      "aliases": [
+        "Norn"
+      ],
+      "keywords": [
+        "权重卸载",
+        "KV 放置",
+        "分块上下文编码",
+        "PCIe"
+      ],
+      "summary": "预先按上下文长度计算 GPU 和主存的权重、缓存及算子分配。语言模型首轮编码按子层处理所有输入块，避免每个块单独搬权重。RTX 3090 Ti 单卡、Qwen3-14B 的 64K 输入中，1K 块设置比传统分块的首 token 时延快 3.66 倍。迁移表格时需测子层分块的额外激活以及行列交互可否等价。",
+      "sources": [
+        "https://arxiv.org/abs/2611.32295",
+        "https://arxiv.org/html/2611.32295v1"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2611.32954",
+      "title": "LoomKV: Lossless KV Cache Compression from GPU Memory to SSD for LLM Serving",
+      "date": "2026-11-24",
+      "updated": "2026-11-24",
+      "category": 5,
+      "section": "inference-efficiency",
+      "topicId": "llm-efficiency-transfer",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2611.32954",
+      "pdf": "https://arxiv.org/pdf/2611.32954",
+      "aliases": [
+        "LoomKV"
+      ],
+      "keywords": [
+        "无损 KV",
+        "缓存分层",
+        "显存",
+        "服务吞吐"
+      ],
+      "summary": "用固定长度字典编码 BF16 缓存，外层缓存按实际字节分配，GPU 模式把解压与注意力合并。作者测得外层记录平均约为原大小的 71%，逐字节验证了 KV 恢复，外层缓存模式也复现了相同的贪心生成输出。表格可借鉴跨请求复用已编码上下文，需验证行列缓存布局及首次构建内存。",
+      "sources": [
+        "https://arxiv.org/abs/2611.32954",
+        "https://arxiv.org/html/2611.32954v1"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2606.04320",
+      "title": "OpenRFM: Democratizing Frontier Predictive Intelligence on Relational Data",
+      "date": "2026-06-03",
+      "updated": "2026-11-22",
+      "category": 1,
+      "section": "industry-models",
+      "topicId": "relational-releases",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2606.04320",
+      "pdf": "https://arxiv.org/pdf/2606.04320",
+      "aliases": [
+        "OpenRFM"
+      ],
+      "related": [
+        4,
+        5,
+        6
+      ],
+      "keywords": [
+        "关系适配器",
+        "RelBench",
+        "4DBInfer",
+        "多表关系预测"
+      ],
+      "summary": "用合成关系库预训练一个 3.5M 参数适配器，将表内及跨表证据编码成行，交给冻结表格模型。固定权重时，LLM 搜索表结构、样本及支持集的版本比默认方案改善 32 项中的 27 项。结果采用时间切分，但搜索有目标任务训练／验证反馈，复杂方案成本和多场景泛化仍待核。",
+      "sources": [
+        "https://arxiv.org/abs/2606.04320",
+        "https://arxiv.org/html/2606.04320v2"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2605.31156",
+      "title": "TabCausal: Pretraining Across Causal Environments for Tabular Causal Discovery",
+      "date": "2026-05-29",
+      "updated": "2026-08-18",
+      "category": 3,
+      "section": "causal-discovery",
+      "topicId": "causal-graphs",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2605.31156",
+      "pdf": "https://arxiv.org/pdf/2605.31156",
+      "aliases": [
+        "TabCausal"
+      ],
+      "keywords": [
+        "因果图",
+        "观测与干预",
+        "合成先验",
+        "AVICI"
+      ],
+      "code": "https://github.com/LAMDA-Tabular/TabCausal",
+      "summary": "同一预训练模型读取数值及逐单元格干预标记，一次预测有向边。在 7 个混合干预真实任务上，边级 F1 为 0.42，AVICI 为 0.28，SID 则更高。纯观测情形仍受 Markov 等价类与预训练机制约束。",
+      "sources": [
+        "https://arxiv.org/abs/2605.31156",
+        "https://arxiv.org/html/2605.31156v2"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2605.08146",
+      "title": "VT-Bench: A Unified Benchmark for Visual-Tabular Multi-Modal Learning",
+      "date": "2026-05-03",
+      "updated": "2026-05-26",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "semantic-relational-benchmarks",
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2605.08146",
+      "pdf": "https://arxiv.org/pdf/2605.08146",
+      "aliases": [
+        "VT-Bench"
+      ],
+      "related": [
+        4
+      ],
+      "keywords": [
+        "视觉表格融合",
+        "模态消融",
+        "多模态评测"
+      ],
+      "code": "https://github.com/LAMDA-NeSy/VT-Bench",
+      "summary": "以 14 个数据集和 23 个模型统一检查图像与表格的预测、问答。用最佳单模态误差作为数据参照，再用训练平均表示替换一个模态测实际依赖，发现部分融合模型移除一路后误差下降。问答另分解定位、字段读取和数值推理。",
+      "sources": [
+        "https://arxiv.org/abs/2605.08146",
+        "https://arxiv.org/html/2605.08146v3"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2602.04031",
+      "title": "The Illusion of Generalization in Tabular Language Models",
+      "date": "2026-02-03",
+      "updated": "2026-05-29",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "general-benchmarks",
+      "status": "published",
+      "venue": "ICML 2026",
+      "url": "https://proceedings.mlr.press/v306/gorla26a.html",
+      "pdf": "https://arxiv.org/pdf/2602.04031",
+      "aliases": [
+        "The Illusion of Generalization"
+      ],
+      "keywords": [
+        "Tabula-8B",
+        "训练污染",
+        "基准验证",
+        "多数类基线"
+      ],
+      "summary": "在 165 个 UniPredict 任务上复核 Tabula-8B，单独比对多数类基线、训练重叠和指令微调。高分任务中发现训练标签重叠，另有 119 项普通分类设置中，通用指令微调的参照已达到 58.6%，Tabula-8B 为 63.5%。该审计聚焦同一模型和分类语境。",
+      "sources": [
+        "https://arxiv.org/abs/2602.04031",
+        "https://arxiv.org/html/2602.04031v2",
+        "https://proceedings.mlr.press/v306/gorla26a.html"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2604.28076",
+      "title": "TopBench: A Benchmark for Implicit Predictive Reasoning in Tabular Question Answering",
+      "date": "2026-04-30",
+      "updated": "2026-06-17",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "semantic-relational-benchmarks",
+      "status": "published",
+      "venue": "ICML 2026",
+      "url": "https://proceedings.mlr.press/v306/ji26c.html",
+      "pdf": "https://arxiv.org/pdf/2604.28076",
+      "aliases": [
+        "TopBench"
+      ],
+      "related": [
+        2,
+        4
+      ],
+      "code": "https://github.com/LAMDA-Tabular/TopBench",
+      "keywords": [
+        "表格问答",
+        "预测意图",
+        "专用预测器",
+        "评测"
+      ],
+      "summary": "用 35 张来源表构造 779 个问题，要求识别用户隐含的预测任务，并按输出类型评估预测、决策、处理效果与筛选。给定正确目标和字段信息时，专用模型组合单点预测得分 0.76，强端到端助手为 0.66，差距包含信息输入差异。",
+      "dateNote": "采用可核验的 arXiv v1 日期，早期匿名投稿稿件公开日待核。",
+      "sources": [
+        "https://arxiv.org/abs/2604.28076",
+        "https://arxiv.org/html/2604.28076v2",
+        "https://proceedings.mlr.press/v306/ji26c.html"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2606.03689",
+      "title": "Staying Alive: Uncensored Survival Analysis with Tabular Foundation Models",
+      "date": "2026-06-02",
+      "updated": "2026-06-02",
+      "category": 2,
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions",
+      "related": [
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "url": "https://arxiv.org/abs/2606.03689",
+      "pdf": "https://arxiv.org/pdf/2606.03689",
+      "aliases": [
+        "TabSA",
+        "TabSA-BJ"
+      ],
+      "keywords": [
+        "生存预测",
+        "右删失",
+        "上下文补全"
+      ],
+      "summary": "冻结表格基模，从已观察的随访时间估计被删失样本的伪标签，再利用留出的上下文样本反复更新。GBSG 中同用 TabICL，迭代方案与分箱方案的 C 指数为 0.687 和 0.675，积分 Brier 分数为 0.217 和 0.189，显示排序收益和概率误差的取舍。",
+      "sources": [
+        "https://arxiv.org/abs/2606.03689",
+        "https://arxiv.org/html/2606.03689v1"
+      ],
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2606.12006",
+      "title": "Tabular Foundation Models for Clinical Survival Analysis via Survival-Aware Adaptation",
+      "date": "2026-06-10",
+      "updated": "2026-06-10",
+      "category": 6,
+      "section": "adaptation-target",
+      "topicId": "parameter-finetuning",
+      "related": [
+        2
+      ],
+      "status": "published",
+      "venue": "Artificial Intelligence in Healthcare 2026（Springer 论文集）",
+      "url": "https://arxiv.org/abs/2606.12006",
+      "pdf": "https://arxiv.org/pdf/2606.12006",
+      "code": "https://github.com/kaylode/survival-fm",
+      "aliases": [
+        "Survival-Aware Adaptation"
+      ],
+      "keywords": [
+        "表格基模",
+        "右删失",
+        "生存预测",
+        "多任务逻辑回归"
+      ],
+      "summary": "冻结 TabPFN、TabDPT 或 TabICL，在表示上训练一个联合生存分布的预测头，把右删失样本纳入似然。9 个队列中有 7 个任务由这类组合获得最高或并列最高的时间依赖 C 指数，两个任务仍由专用方法领先。适用于静态协变量和单事件测评。",
+      "sources": [
+        "https://arxiv.org/abs/2606.12006",
+        "https://arxiv.org/html/2606.12006v1",
+        "https://doi.org/10.1007/978-3-032-35387-0_23",
+        "https://github.com/kaylode/survival-fm"
+      ],
+      "dateNote": "日期采用 arXiv v1；Springer 论文集于 2026 年 8 月 12 日出版。",
+      "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2604.24368",
+      "title": "SAGE: Sparse Adaptive Guidance for Dependency-Aware Tabular Data Generation",
+      "date": "2026-04-27",
+      "updated": "2026-04-27",
+      "category": 2,
+      "section": "prediction-distributions",
+      "topicId": "predictive-distributions",
+      "related": [
+        4,
+        5
+      ],
+      "status": "published",
+      "venue": "ACL 2026",
+      "url": "https://aclanthology.org/2026.acl-long.174/",
+      "pdf": "https://aclanthology.org/2026.acl-long.174.pdf",
+      "aliases": [
+        "SAGE"
+      ],
+      "keywords": [
+        "合成表格",
+        "互信息",
+        "生成约束"
+      ],
+      "summary": "按已生成字段的取值区间估计互信息，再筛选上下文或改变采样分布。两种做法在约束上各有优劣：成人收入数据的教育字段一致性更适合筛选，住宅地理边界更适合修改采样分布。结果依赖经验的分箱和互信息估计。",
+      "sources": [
+        "https://arxiv.org/abs/2604.24368",
+        "https://arxiv.org/html/2604.24368v1",
+        "https://aclanthology.org/2026.acl-long.174/"
+      ],
+      "addedAt": "2026-11-26"
     }
   ],
   "collectionUpdates": [
@@ -14924,6 +15746,42 @@
       "updated": [
         "arxiv-2606.03347",
         "arxiv-2609.17488"
+      ]
+    },
+    {
+      "date": "2026-11-26",
+      "added": [
+        "arxiv-2501.02945",
+        "arxiv-2503.17894",
+        "arxiv-2602.04031",
+        "arxiv-2602.09572",
+        "arxiv-2603.15802",
+        "arxiv-2604.24368",
+        "arxiv-2604.28076",
+        "arxiv-2605.08146",
+        "arxiv-2605.31156",
+        "arxiv-2606.03689",
+        "arxiv-2606.04320",
+        "arxiv-2606.12006",
+        "arxiv-2607.29120",
+        "arxiv-2608.19920",
+        "arxiv-2611.28241",
+        "arxiv-2611.28440",
+        "arxiv-2611.31864",
+        "arxiv-2611.32006",
+        "arxiv-2611.32045",
+        "arxiv-2611.32225",
+        "arxiv-2611.32257",
+        "arxiv-2611.32295",
+        "arxiv-2611.32504",
+        "arxiv-2611.32859",
+        "arxiv-2611.32954"
+      ],
+      "updated": [
+        "arxiv-2607.27546",
+        "arxiv-2608.16429",
+        "arxiv-2611.12491",
+        "arxiv-2611.23779"
       ]
     }
   ]

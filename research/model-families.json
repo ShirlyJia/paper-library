@@ -826,10 +826,12 @@
       "name": "Seldon",
       "needsContext": true,
       "paperIds": [
-        "neuralk-seldon-technical-report"
+        "neuralk-seldon-technical-report",
+        "arxiv-2611.32257"
       ],
       "sources": [
-        "https://www.neuralk.ai/white-paper/seldon-foundation-made-tabular"
+        "https://www.neuralk.ai/white-paper/seldon-foundation-made-tabular",
+        "https://arxiv.org/abs/2611.32257"
       ]
     },
     {
@@ -1566,6 +1568,69 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2606.17516"
+      ]
+    },
+    {
+      "name": "InducedTFM",
+      "paperIds": [
+        "arxiv-2611.32504"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.32504"
+      ]
+    },
+    {
+      "name": "TabPFN-TS",
+      "paperIds": [
+        "arxiv-2501.02945"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2501.02945"
+      ]
+    },
+    {
+      "name": "ApolloPFN",
+      "paperIds": [
+        "arxiv-2603.15802"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2603.15802"
+      ]
+    },
+    {
+      "name": "SegPFN",
+      "paperIds": [
+        "arxiv-2611.32045"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.32045"
+      ]
+    },
+    {
+      "name": "OpenRFM",
+      "paperIds": [
+        "arxiv-2606.04320"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.04320"
+      ]
+    },
+    {
+      "name": "TabCausal",
+      "paperIds": [
+        "arxiv-2605.31156"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2605.31156"
+      ]
+    },
+    {
+      "name": "TabSA",
+      "paperIds": [
+        "arxiv-2606.03689"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.03689"
       ]
     }
   ]
