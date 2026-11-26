@@ -13794,33 +13794,6 @@
       "addedAt": "2026-11-25"
     },
     {
-      "id": "arxiv-2611.31491",
-      "title": "Pretrained Tabular Features and the Measurement of Financial Proximity",
-      "date": "2026-11-23",
-      "updated": "2026-11-23",
-      "category": 4,
-      "section": "semantic-fusion",
-      "topicId": "semantic-embeddings",
-      "status": "preprint",
-      "venue": "预印本",
-      "summary": "用冻结表格模型表征推断哪些上市公司互为财务近邻。作者对 2011–2025 年美国股票做样本内比较，使用四类财务比率时，同输入直接距离已取得相近拟合，换成更广的申报字段后多数模型表征才提供额外拟合收益。尚待样本外验证。",
-      "url": "https://arxiv.org/abs/2611.31491",
-      "pdf": "https://arxiv.org/pdf/2611.31491",
-      "code": null,
-      "aliases": [
-        "Financial Proximity",
-        "Pretrained Tabular Features"
-      ],
-      "related": [
-        1
-      ],
-      "sources": [
-        "https://arxiv.org/abs/2611.31491",
-        "https://arxiv.org/html/2611.31491"
-      ],
-      "addedAt": "2026-11-25"
-    },
-    {
       "id": "report-lattice",
       "title": "Lattice",
       "date": "2026-11-18",
@@ -13882,107 +13855,6 @@
         "https://github.com/ai-for-data/inpriora/blob/dde547d0/src/inpriora/core/model.py",
         "https://github.com/autogluon/tabarena/pull/729",
         "https://github.com/autogluon/tabarena/pull/730"
-      ],
-      "addedAt": "2026-11-25"
-    },
-    {
-      "id": "arxiv-2611.27973",
-      "title": "MemOnce: A Scalable Memory Architecture for Large Language Models",
-      "date": "2026-11-20",
-      "updated": "2026-11-20",
-      "category": 5,
-      "section": "inference-efficiency",
-      "topicId": "llm-efficiency-transfer",
-      "status": "preprint",
-      "venue": "预印本",
-      "summary": "把长历史压成末层隐状态，查询时只检索一次，再为各层重建所需的注意力缓存。作者在 4B 语言模型的百万 token 实验中，报告历史活跃缓存为 25 MB，另有 640 MB 历史池卸载到 CPU 内存或 SSD。需要训练解码和检索模块，表格模型的双向上下文和首次编码显存仍待验证。",
-      "url": "https://arxiv.org/abs/2611.27973",
-      "pdf": "https://arxiv.org/pdf/2611.27973",
-      "code": null,
-      "aliases": [
-        "MemOnce"
-      ],
-      "related": [],
-      "sources": [
-        "https://arxiv.org/abs/2611.27973",
-        "https://arxiv.org/html/2611.27973v1"
-      ],
-      "addedAt": "2026-11-25"
-    },
-    {
-      "id": "arxiv-2611.25369",
-      "title": "Fold the Loop: Decoding-Time KV Memory for Looped Vision-Language Models",
-      "date": "2026-11-19",
-      "updated": "2026-11-20",
-      "category": 5,
-      "section": "inference-efficiency",
-      "topicId": "llm-efficiency-transfer",
-      "status": "preprint",
-      "venue": "预印本",
-      "summary": "循环视觉模型在前缀编码完成后，让同一共享权重模块的不同轮次读取同一份图像缓存。作者在 LoopVL-1B 上将默认配置的前缀缓存降至 52%，五项开放回答评测接近全缓存。联合编码仍按原流程计算，单次表格预测及首次编码峰值未验证。",
-      "url": "https://arxiv.org/abs/2611.25369",
-      "pdf": "https://arxiv.org/pdf/2611.25369",
-      "code": null,
-      "aliases": [
-        "FoldCache",
-        "FoldCache-Lite",
-        "Fold the Loop"
-      ],
-      "related": [],
-      "sources": [
-        "https://arxiv.org/abs/2611.25369",
-        "https://arxiv.org/html/2611.25369v1"
-      ],
-      "addedAt": "2026-11-25"
-    },
-    {
-      "id": "arxiv-2604.16395",
-      "title": "Stream2LLM: Overlap Context Streaming and Prefill for Reduced Time-to-First-Token",
-      "date": "2026-03-29",
-      "updated": "2026-05-17",
-      "category": 5,
-      "section": "inference-efficiency",
-      "topicId": "llm-efficiency-transfer",
-      "status": "published",
-      "venue": "MLSys 2026",
-      "summary": "上下文分批到达时，服务提前编码已收到的部分，并根据最长公共前缀确定哪些缓存可复用。作者在 H200、Llama-3.1-8B 的检索轨迹中报告，在每秒 4 个请求的追加式爬取负载里，首 token 中位延迟降到约原来的 1/11。迁移到表格服务要求增量检索和可安全复用的上下文编码。",
-      "url": "https://arxiv.org/abs/2604.16395",
-      "pdf": "https://arxiv.org/pdf/2604.16395",
-      "code": "https://github.com/rajveerb/stream2llm/tree/mlsys_artifact",
-      "aliases": [
-        "Stream2LLM"
-      ],
-      "related": [],
-      "sources": [
-        "https://arxiv.org/abs/2604.16395",
-        "https://arxiv.org/html/2604.16395",
-        "https://proceedings.mlsys.org/paper_files/paper/2026/hash/3b3889d313ba9476c12c2d77ea66b24f-Abstract-Conference.html",
-        "https://github.com/rajveerb/stream2llm/tree/mlsys_artifact"
-      ],
-      "addedAt": "2026-11-25"
-    },
-    {
-      "id": "arxiv-2611.31105",
-      "title": "LiveLoRA: Exact KV Cache Migration Across LoRA Updates for LLM Agents",
-      "date": "2026-11-23",
-      "updated": "2026-11-23",
-      "category": 5,
-      "section": "inference-efficiency",
-      "topicId": "llm-efficiency-transfer",
-      "status": "preprint",
-      "venue": "预印本",
-      "summary": "只更新最后一块的 LoRA 且固定 K/V 的降维矩阵时，可用旧会话保存的投影重建新版本缓存。作者在 Qwen2.5-3B 的 8K 匹配实验中报告，按 32 或 128 个 token 发布一次时，发布加生成的总耗时分别比全历史重放少 16.24% 和 3.90%。下层更新和真实任务适配质量未验证。",
-      "url": "https://arxiv.org/abs/2611.31105",
-      "pdf": "https://arxiv.org/pdf/2611.31105",
-      "code": null,
-      "aliases": [
-        "LiveLoRA",
-        "KV Cache Migration"
-      ],
-      "related": [],
-      "sources": [
-        "https://arxiv.org/abs/2611.31105",
-        "https://arxiv.org/html/2611.31105"
       ],
       "addedAt": "2026-11-25"
     },
@@ -14296,40 +14168,6 @@
       "addedAt": "2026-11-26"
     },
     {
-      "id": "arxiv-2608.19920",
-      "title": "Learning how to Forget: Fine-tuning for Long-Context Sparse Attention",
-      "date": "2026-08-20",
-      "updated": "2026-11-21",
-      "category": 5,
-      "section": "inference-efficiency",
-      "topicId": "llm-efficiency-transfer",
-      "related": [
-        6
-      ],
-      "status": "preprint",
-      "venue": "预印本",
-      "url": "https://arxiv.org/abs/2608.19920",
-      "pdf": "https://arxiv.org/pdf/2608.19920",
-      "code": "https://github.com/awslabs/keys_values",
-      "aliases": [
-        "Learning how to Forget",
-        "KeysAndValues"
-      ],
-      "keywords": [
-        "KV 缓存",
-        "稀疏注意力",
-        "H2O",
-        "缓存感知微调"
-      ],
-      "summary": "用部署时同一套 KV 淘汰策略微调语言模型，反传时回放淘汰记录并只保存缓存变化。Qwen3-4B 在 RULER 的 256K 单目标检索任务上，同用 H2O 缓存时，匹配策略微调的准确率为 96%，稠密微调后再压缩为 31%。表格前向可检验训练时即加入部署缓存压缩，但需适配行列掩码并测显存和时延。",
-      "sources": [
-        "https://arxiv.org/abs/2608.19920",
-        "https://arxiv.org/html/2608.19920v3",
-        "https://github.com/awslabs/keys_values"
-      ],
-      "addedAt": "2026-11-26"
-    },
-    {
       "id": "arxiv-2611.32257",
       "title": "Seldon TFM family: Seldon-Mini, Seldon and Seldon+",
       "date": "2026-11-24",
@@ -14460,40 +14298,6 @@
       "addedAt": "2026-11-26"
     },
     {
-      "id": "arxiv-2607.29120",
-      "title": "Curriculum Matters: Data-Efficient Relational PFN Pretraining with Synthetic Data",
-      "date": "2026-07-31",
-      "updated": "2026-07-31",
-      "category": 1,
-      "section": "industry-benchmarks",
-      "topicId": "semantic-relational-benchmarks",
-      "related": [
-        6
-      ],
-      "status": "workshop",
-      "venue": "VLDB 2026 Tabular Data Analysis Workshop (TaDA)",
-      "url": "https://arxiv.org/abs/2607.29120",
-      "pdf": "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_19.pdf",
-      "aliases": [
-        "Curriculum Matters",
-        "Relational PFN curriculum"
-      ],
-      "keywords": [
-        "关系数据基础模型",
-        "PluRel",
-        "RDB-PFN",
-        "预训练课程",
-        "RelBench"
-      ],
-      "summary": "用 PluRel 合成数据训练 0.7M 参数 RDB-PFN，保持单表数据和计算预算相同，按列数递增训练比全量混合将 23 项平均 AUC 从 0.541 提高到 0.703。将关系数据库展开成单表特征后，纯单表和关系课程在 19 项任务的 AUC 为 0.631 和 0.638；结果限于该展开方式和模型规模。",
-      "sources": [
-        "https://arxiv.org/abs/2607.29120",
-        "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_19.pdf"
-      ],
-      "dateNote": "首发日期采用 arXiv v1，正式出处为 VLDB 2026 TaDA Workshop。",
-      "addedAt": "2026-11-26"
-    },
-    {
       "id": "arxiv-2602.09572",
       "title": "Predictive Query Language: A Domain-Specific Language for Predictive Modeling on Relational Databases",
       "date": "2026-02-10",
@@ -14595,66 +14399,6 @@
       "addedAt": "2026-11-26"
     },
     {
-      "id": "arxiv-2611.32045",
-      "title": "SegPFN: Training-Free In-Context Segmentation with Tabular Prior-Data Fitted Networks",
-      "date": "2026-11-24",
-      "updated": "2026-11-24",
-      "category": 4,
-      "section": "semantic-fusion",
-      "topicId": "multimodal-schema",
-      "related": [
-        6,
-        5
-      ],
-      "status": "preprint",
-      "venue": "预印本",
-      "url": "https://arxiv.org/abs/2611.32045",
-      "pdf": "https://arxiv.org/pdf/2611.32045",
-      "aliases": [
-        "SegPFN"
-      ],
-      "keywords": [
-        "图像分割",
-        "表格上下文学习",
-        "TabPFN 3.5",
-        "冻结视觉特征"
-      ],
-      "summary": "把参考图像的局部特征当成表格行，掩码当成标签，用冻结的 TabPFN 3.5 预测目标图像。在固定视觉特征、参考块和细化步骤的抽样评测中，整体 mIoU 为 60.67%，最强传统分类器为 58.24%。效果依赖视觉编码与规则细化，大图和大参考集的开销还有待测量。",
-      "sources": [
-        "https://arxiv.org/abs/2611.32045",
-        "https://arxiv.org/html/2611.32045v1"
-      ],
-      "addedAt": "2026-11-26"
-    },
-    {
-      "id": "arxiv-2611.32295",
-      "title": "Norn: Context-Length-Aware Optimization of Weight and KV Cache Placement for Offloaded LLM Inference",
-      "date": "2026-11-24",
-      "updated": "2026-11-24",
-      "category": 5,
-      "section": "inference-efficiency",
-      "topicId": "llm-efficiency-transfer",
-      "status": "preprint",
-      "venue": "预印本",
-      "url": "https://arxiv.org/abs/2611.32295",
-      "pdf": "https://arxiv.org/pdf/2611.32295",
-      "aliases": [
-        "Norn"
-      ],
-      "keywords": [
-        "权重卸载",
-        "KV 放置",
-        "分块上下文编码",
-        "PCIe"
-      ],
-      "summary": "预先按上下文长度计算 GPU 和主存的权重、缓存及算子分配。语言模型首轮编码按子层处理所有输入块，避免每个块单独搬权重。RTX 3090 Ti 单卡、Qwen3-14B 的 64K 输入中，1K 块设置比传统分块的首 token 时延快 3.66 倍。迁移表格时需测子层分块的额外激活以及行列交互可否等价。",
-      "sources": [
-        "https://arxiv.org/abs/2611.32295",
-        "https://arxiv.org/html/2611.32295v1"
-      ],
-      "addedAt": "2026-11-26"
-    },
-    {
       "id": "arxiv-2611.32954",
       "title": "LoomKV: Lossless KV Cache Compression from GPU Memory to SSD for LLM Serving",
       "date": "2026-11-24",
@@ -14745,37 +14489,6 @@
       "addedAt": "2026-11-26"
     },
     {
-      "id": "arxiv-2605.08146",
-      "title": "VT-Bench: A Unified Benchmark for Visual-Tabular Multi-Modal Learning",
-      "date": "2026-05-03",
-      "updated": "2026-05-26",
-      "category": 1,
-      "section": "industry-benchmarks",
-      "topicId": "semantic-relational-benchmarks",
-      "status": "preprint",
-      "venue": "预印本",
-      "url": "https://arxiv.org/abs/2605.08146",
-      "pdf": "https://arxiv.org/pdf/2605.08146",
-      "aliases": [
-        "VT-Bench"
-      ],
-      "related": [
-        4
-      ],
-      "keywords": [
-        "视觉表格融合",
-        "模态消融",
-        "多模态评测"
-      ],
-      "code": "https://github.com/LAMDA-NeSy/VT-Bench",
-      "summary": "以 14 个数据集和 23 个模型统一检查图像与表格的预测、问答。用最佳单模态误差作为数据参照，再用训练平均表示替换一个模态测实际依赖，发现部分融合模型移除一路后误差下降。问答另分解定位、字段读取和数值推理。",
-      "sources": [
-        "https://arxiv.org/abs/2605.08146",
-        "https://arxiv.org/html/2605.08146v3"
-      ],
-      "addedAt": "2026-11-26"
-    },
-    {
       "id": "arxiv-2602.04031",
       "title": "The Illusion of Generalization in Tabular Language Models",
       "date": "2026-02-03",
@@ -14836,104 +14549,6 @@
         "https://arxiv.org/abs/2604.28076",
         "https://arxiv.org/html/2604.28076v2",
         "https://proceedings.mlr.press/v306/ji26c.html"
-      ],
-      "addedAt": "2026-11-26"
-    },
-    {
-      "id": "arxiv-2606.03689",
-      "title": "Staying Alive: Uncensored Survival Analysis with Tabular Foundation Models",
-      "date": "2026-06-02",
-      "updated": "2026-06-02",
-      "category": 2,
-      "section": "prediction-distributions",
-      "topicId": "predictive-distributions",
-      "related": [
-        6
-      ],
-      "status": "preprint",
-      "venue": "预印本",
-      "url": "https://arxiv.org/abs/2606.03689",
-      "pdf": "https://arxiv.org/pdf/2606.03689",
-      "aliases": [
-        "TabSA",
-        "TabSA-BJ"
-      ],
-      "keywords": [
-        "生存预测",
-        "右删失",
-        "上下文补全"
-      ],
-      "summary": "冻结表格基模，从已观察的随访时间估计被删失样本的伪标签，再利用留出的上下文样本反复更新。GBSG 中同用 TabICL，迭代方案与分箱方案的 C 指数为 0.687 和 0.675，积分 Brier 分数为 0.217 和 0.189，显示排序收益和概率误差的取舍。",
-      "sources": [
-        "https://arxiv.org/abs/2606.03689",
-        "https://arxiv.org/html/2606.03689v1"
-      ],
-      "addedAt": "2026-11-26"
-    },
-    {
-      "id": "arxiv-2606.12006",
-      "title": "Tabular Foundation Models for Clinical Survival Analysis via Survival-Aware Adaptation",
-      "date": "2026-06-10",
-      "updated": "2026-06-10",
-      "category": 6,
-      "section": "adaptation-target",
-      "topicId": "parameter-finetuning",
-      "related": [
-        2
-      ],
-      "status": "published",
-      "venue": "Artificial Intelligence in Healthcare 2026（Springer 论文集）",
-      "url": "https://arxiv.org/abs/2606.12006",
-      "pdf": "https://arxiv.org/pdf/2606.12006",
-      "code": "https://github.com/kaylode/survival-fm",
-      "aliases": [
-        "Survival-Aware Adaptation"
-      ],
-      "keywords": [
-        "表格基模",
-        "右删失",
-        "生存预测",
-        "多任务逻辑回归"
-      ],
-      "summary": "冻结 TabPFN、TabDPT 或 TabICL，在表示上训练一个联合生存分布的预测头，把右删失样本纳入似然。9 个队列中有 7 个任务由这类组合获得最高或并列最高的时间依赖 C 指数，两个任务仍由专用方法领先。适用于静态协变量和单事件测评。",
-      "sources": [
-        "https://arxiv.org/abs/2606.12006",
-        "https://arxiv.org/html/2606.12006v1",
-        "https://doi.org/10.1007/978-3-032-35387-0_23",
-        "https://github.com/kaylode/survival-fm"
-      ],
-      "dateNote": "日期采用 arXiv v1；Springer 论文集于 2026 年 8 月 12 日出版。",
-      "addedAt": "2026-11-26"
-    },
-    {
-      "id": "arxiv-2604.24368",
-      "title": "SAGE: Sparse Adaptive Guidance for Dependency-Aware Tabular Data Generation",
-      "date": "2026-04-27",
-      "updated": "2026-04-27",
-      "category": 2,
-      "section": "prediction-distributions",
-      "topicId": "predictive-distributions",
-      "related": [
-        4,
-        5
-      ],
-      "status": "published",
-      "venue": "ACL 2026",
-      "url": "https://aclanthology.org/2026.acl-long.174/",
-      "pdf": "https://aclanthology.org/2026.acl-long.174.pdf",
-      "aliases": [
-        "SAGE"
-      ],
-      "keywords": [
-        "合成表格",
-        "互信息",
-        "生成约束"
-      ],
-      "summary": "按已生成字段的取值区间估计互信息，再筛选上下文或改变采样分布。两种做法在约束上各有优劣：成人收入数据的教育字段一致性更适合筛选，住宅地理边界更适合修改采样分布。结果依赖经验的分箱和互信息估计。",
-      "sources": [
-        "https://arxiv.org/abs/2604.24368",
-        "https://arxiv.org/html/2604.24368v1",
-        "https://aclanthology.org/2026.acl-long.174/"
       ],
       "addedAt": "2026-11-26"
     }
@@ -15727,19 +15342,14 @@
       "date": "2026-11-25",
       "added": [
         "arxiv-2602.04029",
-        "arxiv-2604.16395",
         "arxiv-2606.17516",
         "arxiv-2607.09577",
         "arxiv-2608.21199",
-        "arxiv-2611.25369",
-        "arxiv-2611.27973",
         "arxiv-2611.29214",
         "arxiv-2611.29663",
         "arxiv-2611.29789",
         "arxiv-2611.30889",
         "arxiv-2611.31049",
-        "arxiv-2611.31105",
-        "arxiv-2611.31491",
         "report-inpriora",
         "report-lattice"
       ],
@@ -15756,23 +15366,15 @@
         "arxiv-2602.04031",
         "arxiv-2602.09572",
         "arxiv-2603.15802",
-        "arxiv-2604.24368",
         "arxiv-2604.28076",
-        "arxiv-2605.08146",
         "arxiv-2605.31156",
-        "arxiv-2606.03689",
         "arxiv-2606.04320",
-        "arxiv-2606.12006",
-        "arxiv-2607.29120",
-        "arxiv-2608.19920",
         "arxiv-2611.28241",
         "arxiv-2611.28440",
         "arxiv-2611.31864",
         "arxiv-2611.32006",
-        "arxiv-2611.32045",
         "arxiv-2611.32225",
         "arxiv-2611.32257",
-        "arxiv-2611.32295",
         "arxiv-2611.32504",
         "arxiv-2611.32859",
         "arxiv-2611.32954"
