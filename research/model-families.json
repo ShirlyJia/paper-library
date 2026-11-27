@@ -1632,6 +1632,34 @@
       "sources": [
         "https://arxiv.org/abs/2606.03689"
       ]
+    },
+    {
+      "name": "STEP-D",
+      "paperIds": [
+        "arxiv-2611.34858"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.34858"
+      ]
+    },
+    {
+      "name": "MeGNN-Join",
+      "paperIds": [
+        "tada2026-megnn-join"
+      ],
+      "sources": [
+        "https://research.ibm.com/publications/predicting-table-joinability-in-data-lakes-using-a-metadata-knowledge-graph"
+      ]
+    },
+    {
+      "name": "PhysicsGate",
+      "paperIds": [
+        "doi-10.1088-3050-287x-aebee8"
+      ],
+      "sources": [
+        "https://doi.org/10.1088/3050-287X/aebee8",
+        "https://github.com/hanhanhanhanhanhanhanhanhanhanhan/PhysicsGate"
+      ]
     }
   ]
 }

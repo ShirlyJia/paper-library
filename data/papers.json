@@ -1,7 +1,7 @@
 {
   "version": 2,
   "title": "结构化数据论文库",
-  "updatedAt": "2026-11-26",
+  "updatedAt": "2026-11-27",
   "description": "围绕表格基础模型与结构化决策，按研究领域、子方向和具体议题整理模型、方法及应用证据。",
   "categories": [
     {
@@ -4568,9 +4568,9 @@
     },
     {
       "id": "arxiv-2610.14998",
-      "title": "Recurrent In-Context Learning for Tabular Foundation Models",
+      "title": "Tab-Loop: Recurrent In-Context Learning for Tabular Foundation Models",
       "date": "2026-10-10",
-      "updated": "2026-10-10",
+      "updated": "2026-11-25",
       "category": 5,
       "section": "inference-strategies",
       "topicId": "test-time-compute",
@@ -4580,7 +4580,7 @@
       "topic": "推理时计算与组合策略",
       "status": "preprint",
       "venue": "预印本",
-      "summary": "Tab-Loop 将 TabICLv2 的 12 个独立上下文学习块换成 4 个共享块循环执行。在相同预训练计算和 12 次块调用下，以少 62% 的参数取得接近的预测表现，评估覆盖 200 个 TALENT 数据集和 38 个 TabArena 分类数据集。继续增加循环可扩展计算深度，但参数减少不等于推理计算或延迟同比下降。",
+      "summary": "Tab-Loop 用 4 个共享块循环执行，替代 12 个独立块。第二版加入回归及两种预算对照。相同预训练计算下，分类与回归结果接近。完整训练、训练表数匹配时，分类表现仍相近，TALENT 回归中独立块基线的胜率更高。论文没有报告与参数缩减比例相应的实测时延收益。",
       "url": "https://arxiv.org/abs/2610.14998",
       "pdf": "https://arxiv.org/pdf/2610.14998",
       "code": null,
@@ -4598,7 +4598,9 @@
       ],
       "sources": [
         "https://arxiv.org/abs/2610.14998",
-        "https://arxiv.org/pdf/2610.14998"
+        "https://arxiv.org/pdf/2610.14998",
+        "https://arxiv.org/html/2610.14998v2",
+        "https://arxiv.org/pdf/2610.14998v1"
       ],
       "addedAt": "2026-10-14"
     },
@@ -14551,6 +14553,280 @@
         "https://proceedings.mlr.press/v306/ji26c.html"
       ],
       "addedAt": "2026-11-26"
+    },
+    {
+      "id": "arxiv-2611.34767",
+      "title": "When to Trust a PFN: Detecting Harmful Shift in Tabular Foundation Models",
+      "date": "2026-11-25",
+      "updated": "2026-11-25",
+      "category": 6,
+      "section": "adaptation-distribution",
+      "topicId": "subpopulation-shift",
+      "related": [
+        1,
+        2
+      ],
+      "status": "published",
+      "venue": "NeurIPS 2026",
+      "summary": "尚未拿到新标签时，CALD 在预测器的副本上制造预测分歧，用已标注旧样本的损失变化判断这批新数据是否值得复查。在两种表格基础模型和 14 个数据集上评估。受控实验能检出伤害预测的严重变化，也会对某些无害的大变化报警。",
+      "url": "https://arxiv.org/abs/2611.34767",
+      "pdf": "https://arxiv.org/pdf/2611.34767",
+      "code": "https://github.com/teivng/cald",
+      "aliases": [
+        "CALD"
+      ],
+      "keywords": [
+        "分布漂移",
+        "风险监测",
+        "TabPFN",
+        "TabICL",
+        "校准"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.34767",
+        "https://arxiv.org/html/2611.34767v1",
+        "https://neurips.cc/virtual/2026/poster/150327",
+        "https://www.cs.toronto.edu/~viet/cald.html"
+      ],
+      "addedAt": "2026-11-27"
+    },
+    {
+      "id": "arxiv-2611.34858",
+      "title": "From Prediction to Decision: Decision-Focused Fine-Tuning of Autoregressive Tabular Transformers for Cost-Sensitive Financial Events",
+      "date": "2026-11-25",
+      "updated": "2026-11-25",
+      "category": 1,
+      "section": "industry-applications",
+      "topicId": "credit-risk",
+      "related": [
+        2,
+        6
+      ],
+      "status": "preprint",
+      "venue": "预印本",
+      "summary": "对模拟支付交易，STEP-D 按误拦和漏拦的代价微调模型。在同一批留出用户的交易上，用原模型按金额设阈值，每千次决策的平均效用为 1.173。先做保序校准再设阈值时为 1.204，按决策效用微调时为 1.257。数值采用作者设定的成本单位。",
+      "url": "https://arxiv.org/abs/2611.34858",
+      "pdf": "https://arxiv.org/pdf/2611.34858",
+      "code": null,
+      "aliases": [
+        "STEP-D"
+      ],
+      "keywords": [
+        "交易风控",
+        "决策效用",
+        "概率校准",
+        "分类阈值",
+        "STEP"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2611.34858",
+        "https://arxiv.org/html/2611.34858"
+      ],
+      "addedAt": "2026-11-27"
+    },
+    {
+      "id": "arxiv-2607.24130",
+      "title": "TEmBed-T: A Multi-Dimensional Benchmark for Table-Level Embeddings",
+      "date": "2026-07-27",
+      "updated": "2026-07-27",
+      "category": 1,
+      "section": "industry-benchmarks",
+      "topicId": "semantic-relational-benchmarks",
+      "related": [
+        4
+      ],
+      "status": "workshop",
+      "venue": "VLDB 2026 Tabular Data Analysis Workshop (TaDA) 短文",
+      "summary": "同一组整表向量被用来检索表、识别被破坏的行列结构，以及在去掉表头后预测表类型。五种表示中，文本模型 GritLM 的检索名次最高，结构编码器 HyTrel 最善于识别结构破坏，词频哈希配合 XGBoost 在表类型识别中居首。",
+      "url": "https://arxiv.org/abs/2607.24130",
+      "pdf": "https://arxiv.org/pdf/2607.24130",
+      "code": "https://github.com/IBM/table-representation-evals",
+      "aliases": [
+        "TEmBed-T"
+      ],
+      "keywords": [
+        "整表嵌入",
+        "结构保真",
+        "检索",
+        "TEmBed"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2607.24130",
+        "https://arxiv.org/html/2607.24130v1",
+        "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_9.pdf",
+        "https://tabular-data-analysis.github.io/tada2026/#papers"
+      ],
+      "addedAt": "2026-11-27"
+    },
+    {
+      "id": "arxiv-2606.25388",
+      "title": "TabClean: Reusable LLM-Synthesized Programs for Tabular Data Cleaning",
+      "date": "2026-06-24",
+      "updated": "2026-06-24",
+      "category": 2,
+      "section": "prediction-quality",
+      "topicId": "missing-noisy-data",
+      "related": [
+        4
+      ],
+      "status": "workshop",
+      "venue": "VLDB 2026 Tabular Data Analysis Workshop (TaDA) 短文",
+      "summary": "TabClean 根据一小批人工标注的脏数据生成修复程序，验证后把程序复用到留出的其他行。Workshop 短文在六张表中的五张取得最高修复 F1，hospital 上为 0.87，低于 IterClean 的 0.95。不同方法所需标注量相差较大。",
+      "url": "https://arxiv.org/abs/2606.25388",
+      "pdf": "https://arxiv.org/pdf/2606.25388",
+      "code": "https://github.com/Wangyibo321/TabClean",
+      "aliases": [
+        "TabClean"
+      ],
+      "keywords": [
+        "表格清洗",
+        "程序合成",
+        "标注预算",
+        "数据修复"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2606.25388",
+        "https://arxiv.org/html/2606.25388v1",
+        "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_2.pdf",
+        "https://tabular-data-analysis.github.io/tada2026/#papers"
+      ],
+      "addedAt": "2026-11-27"
+    },
+    {
+      "id": "tada2026-megnn-join",
+      "title": "Predicting Table Joinability in Data Lakes using a Metadata Knowledge Graph",
+      "date": "2026-08-31",
+      "updated": "2026-08-31",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "data-integration",
+      "related": [
+        1
+      ],
+      "status": "workshop",
+      "venue": "VLDB 2026 Tabular Data Analysis Workshop (TaDA)",
+      "summary": "只读取表名、列名、描述等元数据，MeGNN-Join 把潜在可连接表排在前面。对两张都未参与训练的表，不加入历史连接边的模型平均 MRR 为 0.500，加入连接边后降至 0.427。评测用列值集合重叠定义可连接性。",
+      "url": "https://research.ibm.com/publications/predicting-table-joinability-in-data-lakes-using-a-metadata-knowledge-graph",
+      "pdf": "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_4.pdf",
+      "code": null,
+      "aliases": [
+        "MeGNN-Join"
+      ],
+      "keywords": [
+        "元数据",
+        "表连接",
+        "数据湖",
+        "归纳评估"
+      ],
+      "sources": [
+        "https://research.ibm.com/publications/predicting-table-joinability-in-data-lakes-using-a-metadata-knowledge-graph",
+        "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_4.pdf",
+        "https://tabular-data-analysis.github.io/tada2026/#papers",
+        "https://zenodo.org/records/20143332"
+      ],
+      "addedAt": "2026-11-27"
+    },
+    {
+      "id": "tada2026-cta-failures",
+      "title": "Representation, Retrieval, and Decision Space: A Case Study on Diagnosing LLM Failures in Column Type Annotation",
+      "date": "2026-09-04",
+      "updated": "2026-09-04",
+      "category": 4,
+      "section": "semantic-integration",
+      "topicId": "schema-matching",
+      "related": [
+        1
+      ],
+      "status": "workshop",
+      "venue": "VLDB 2026 Tabular Data Analysis Workshop (TaDA)",
+      "summary": "在 90 张 VizNet 测试表中，作者固定七种列类型标注方法的预测，追查哪些错误来自检索示例、哪些在缩减标签候选后仍存在。示例覆盖全部正确标签的表占 65.6%，该组多列检索方法的 micro-F1 为 97.0%，其余表为 74.3%。",
+      "url": "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_6.pdf",
+      "pdf": "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_6.pdf",
+      "code": "https://github.com/jhcao1024/cta-llm-probe",
+      "aliases": [
+        "Diagnosing LLM Failures in Column Type Annotation"
+      ],
+      "keywords": [
+        "列类型标注",
+        "检索覆盖",
+        "VizNet",
+        "错误诊断"
+      ],
+      "sources": [
+        "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_6.pdf",
+        "https://tabular-data-analysis.github.io/tada2026/#papers",
+        "https://github.com/jhcao1024/cta-llm-probe"
+      ],
+      "addedAt": "2026-11-27"
+    },
+    {
+      "id": "arxiv-2506.16616",
+      "title": "LDI: Localized Data Imputation for Text-Rich Tables",
+      "date": "2025-06-19",
+      "updated": "2026-08-12",
+      "category": 2,
+      "section": "prediction-quality",
+      "topicId": "missing-noisy-data",
+      "related": [
+        4,
+        5
+      ],
+      "status": "workshop",
+      "venue": "VLDB 2026 Tabular Data Analysis Workshop (TaDA)",
+      "summary": "LDI 为含长文本的表格补值，先找出能提示目标列的字段，再挑相似且有差异的完整行作示例。随机遮掉 10% 的值时，Restaurant 上精确匹配率为 0.832，所有字段加随机示例的 FMW 为 0.766。Zomato 上则低于候选排序法 IPM。",
+      "url": "https://arxiv.org/abs/2506.16616",
+      "pdf": "https://arxiv.org/pdf/2506.16616",
+      "code": "https://github.com/soroushomidvar/LDI",
+      "aliases": [
+        "LDI"
+      ],
+      "keywords": [
+        "缺失值插补",
+        "文本字段",
+        "上下文选择",
+        "属性依赖"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2506.16616",
+        "https://arxiv.org/html/2506.16616v4",
+        "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_3.pdf",
+        "https://tabular-data-analysis.github.io/tada2026/#papers"
+      ],
+      "addedAt": "2026-11-27"
+    },
+    {
+      "id": "doi-10.1088-3050-287x-aebee8",
+      "title": "Learning when to use physical relationships in descriptor-based tabular machine learning",
+      "date": "2026-11-25",
+      "updated": "2026-11-25",
+      "category": 4,
+      "section": "semantic-features",
+      "topicId": "knowledge-features",
+      "related": [
+        1,
+        2
+      ],
+      "status": "published",
+      "venue": "AI for Science",
+      "summary": "PhysicsGate 保留直接回归结果，再用训练折外的可靠性信号判断应在多大程度上采用物理关系给出的残差修正。四类材料数据的 16 个预测端点上，平均留出 RMSE 都低于直接回归，降幅和跨切分稳定性差异明显，同一数据集的端点也并非独立证据。",
+      "url": "https://doi.org/10.1088/3050-287X/aebee8",
+      "pdf": null,
+      "code": "https://github.com/hanhanhanhanhanhanhanhanhanhanhan/PhysicsGate",
+      "aliases": [
+        "PhysicsGate"
+      ],
+      "keywords": [
+        "物理关系",
+        "表格回归",
+        "折外预测",
+        "知识特征"
+      ],
+      "sources": [
+        "https://doi.org/10.1088/3050-287X/aebee8",
+        "https://iopscience.iop.org/article/10.1088/3050-287X/aebee8",
+        "https://github.com/hanhanhanhanhanhanhanhanhanhanhan/PhysicsGate"
+      ],
+      "addedAt": "2026-11-27"
     }
   ],
   "collectionUpdates": [
@@ -15384,6 +15660,22 @@
         "arxiv-2608.16429",
         "arxiv-2611.12491",
         "arxiv-2611.23779"
+      ]
+    },
+    {
+      "date": "2026-11-27",
+      "added": [
+        "arxiv-2506.16616",
+        "arxiv-2606.25388",
+        "arxiv-2607.24130",
+        "arxiv-2611.34767",
+        "arxiv-2611.34858",
+        "doi-10.1088-3050-287x-aebee8",
+        "tada2026-cta-failures",
+        "tada2026-megnn-join"
+      ],
+      "updated": [
+        "arxiv-2610.14998"
       ]
     }
   ]

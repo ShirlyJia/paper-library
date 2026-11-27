@@ -16243,5 +16243,401 @@
       "reason": "财务嵌入比较使用同一时期的样本内同业收益。能解释历史公司相似性，尚缺跨期证据来判断实际检索或建模收益。"
     },
     "restoreWhen": "在按时间截断的独立测试中，与相同字段和邻居数量的简单距离比较，检验同业检索或下游预测的增益。"
+  },
+  {
+    "id": "arxiv-2611.34767",
+    "title": "When to Trust a PFN: Detecting Harmful Shift in Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2611.34767",
+    "sourceUpdated": "2026-11-25",
+    "decision": "included",
+    "reviewedAt": "2026-11-27",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "检测尚无新标签时可能损害现有 PFN 预测的分布变化。",
+      "contribution": "从原模型重置解码器副本，拟合已知标签的锚点，同时与原模型对待测样本的伪标签拉开距离。将锚点损失与历史批次的校准分布比较。",
+      "evidence": "TabPFN v2.5、TabICL v2 在 14 个数据集上与多种检测方法比较，其中七个为原始表格，其余使用图像或文本表征。图 2 两组受控实验中，严重有害变化下检测 AUROC 接近 1，无变化时约为 0.5。",
+      "limitations": "缺少新标签时无法判别所有概念或标签变化，较大无害平移也会报警。主表部分学习率用到了已知的分布外样本，附录另列固定学习率结果。",
+      "value": "可用于比较部署监测方法，对照准确率下降和仅特征变化两种报警情形。",
+      "reproducibility": "有公开代码及复现实验说明，数值取自论文，未独立重跑。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.34767",
+        "https://arxiv.org/html/2611.34767v1",
+        "https://neurips.cc/virtual/2026/poster/150327",
+        "https://www.cs.toronto.edu/~viet/cald.html"
+      ],
+      "readScope": "方法第 3 节、图 2、表 1、局限和附录 D.5，另核对 NeurIPS 海报。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "库内分布鲁棒适配和 RAD-TFM 研究怎样改变预测器。本工作单独评估何时值得复查原有预测器，并有无害变化的对照。",
+      "reason": "提供未标注查询到达后可以实施的检测信号，以及可推翻简单报警规则的反例。"
+    }
+  },
+  {
+    "id": "arxiv-2611.34858",
+    "title": "From Prediction to Decision: Decision-Focused Fine-Tuning of Autoregressive Tabular Transformers for Cost-Sensitive Financial Events",
+    "url": "https://arxiv.org/abs/2611.34858",
+    "sourceUpdated": "2026-11-25",
+    "decision": "included",
+    "reviewedAt": "2026-11-27",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在欺诈决策中检验按效用微调是否比按金额设最优阈值和事后校准提供额外收益。",
+      "contribution": "从同一自回归交易表模型出发，用已知成本矩阵的可导期望效用微调，并与固定模型的贝叶斯阈值、温度、Platt 和保序校准比较。",
+      "evidence": "IBM 模拟数据含 2440 万笔交易，按用户划分。同一批测试交易上，阈值基线效用为 1.173，保序校准为 1.204，STEP-D 为 1.257，单位为每千次决策的模拟效用。相对校准的配对差为 0.052，10 个种子方向一致。",
+      "limitations": "效用刻度与误判成本由作者设定。补充的客户流失和贷款违约任务在给定代价下改善空间较小，不能外推为实际利润。",
+      "value": "给风控模型提供较严格的对比方法，先用相同决策样本建立校准和阈值基线，再衡量训练目标的增量。",
+      "reproducibility": "数据和成本设定见正文，论文称代码可依申请获取。核对表格与配对结果，未独立运行。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2611.34858",
+        "https://arxiv.org/html/2611.34858"
+      ],
+      "readScope": "实验设置、主结果表、校准和成本消融、附录 C 的额外任务及代码说明。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "库内 When Do In-Context Tabular Foundation Models Help in Banking? 等评测重在比较预测器。这篇固定测试决策和初始模型，把成本阈值、保序校准、效用微调拆开比较。",
+      "reason": "结论直接影响风控实验中对照的选择。即使预测分数接近，决策收益也要与已校准的策略配对比较。"
+    }
+  },
+  {
+    "id": "arxiv-2607.24130",
+    "title": "TEmBed-T: A Multi-Dimensional Benchmark for Table-Level Embeddings",
+    "url": "https://arxiv.org/abs/2607.24130",
+    "sourceUpdated": "2026-07-27",
+    "decision": "included",
+    "reviewedAt": "2026-11-27",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "整表向量的可用性至少包含检索、结构保真和表类型三个不同问题。",
+      "contribution": "在相同向量上比较七个检索语料库、结构保留与破坏的三元组，以及冻结表示后的无表头类型识别。",
+      "evidence": "五种表示在表 7 三项任务上的领先者分别为 GritLM、HyTrel、词频哈希配合 XGBoost。哈希对词的重排不敏感，在特定结构探针上无法区分正负样本。",
+      "limitations": "结论取决于所测编码器、序列化方式和窗口。没有验证表格预测模型的行置换鲁棒性。",
+      "value": "选整表表示时可分别考察词义信息与结构信息，避免单一检索指标遮住另一个用途。",
+      "reproducibility": "代码与基准在 IBM 的 table-representation-evals 发布，证据为原论文报告。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2607.24130",
+        "https://arxiv.org/html/2607.24130v1",
+        "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_9.pdf",
+        "https://tabular-data-analysis.github.io/tada2026/#papers"
+      ],
+      "readScope": "三项任务定义、图 3、附录表 5 至 7，并核对 Workshop 论文。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "库内 TEmBed 统一多个粒度，ConTextTab-R 检验组合表示。这篇补上整表检索、结构三元组、去表头类型探针之间的同模型反例。",
+      "reason": "三个任务给出不同优胜者，可直接用于制定整表嵌入评估。"
+    }
+  },
+  {
+    "id": "arxiv-2606.25388",
+    "title": "TabClean: Reusable LLM-Synthesized Programs for Tabular Data Cleaning",
+    "url": "https://arxiv.org/abs/2606.25388",
+    "sourceUpdated": "2026-06-24",
+    "decision": "included",
+    "reviewedAt": "2026-11-27",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "检验可重复运行的修复程序能否承担逐单元格调用模型的工作。",
+      "contribution": "先从脏表和标注开发行归纳错误机制，用开发行检查候选程序，将通过检查的程序用于留出行。",
+      "evidence": "Workshop 表 2 的六个数据集上五个修复 F1 最高，hospital 的 F1 为 0.87，IterClean 为 0.95。表 5 的人力估计显示 TabClean 标注约 100 至 400 行，耗时约 1 至 2 小时，Baran 为 20 个元组。",
+      "limitations": "各系统采用其本身所需的人工输入，未匹配标注工时。结果不保证开发行上未出现的新错误机制也能修好。",
+      "value": "适合作为规则可复用时的清洗系统基线，成本估算应同时记录人工标注与执行开销。",
+      "reproducibility": "有公开代码。分别核对预印本的方法及留出设置、TaDA 短文的六表结果和人工成本。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2606.25388",
+        "https://arxiv.org/html/2606.25388v1",
+        "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_2.pdf",
+        "https://tabular-data-analysis.github.io/tada2026/#papers"
+      ],
+      "readScope": "长文的问题设定、留出评估，TaDA 短文表 2 与人工输入对照。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "库内 Model-Aware Data Cleaning 比较预测模型对清洗的反应。本工作关注修复程序跨行复用和人员投入，输出及评估对象不同。",
+      "reason": "将可执行修复的收益和人工标注差异同时列出，支持对表格清洗方案的现实取舍。"
+    }
+  },
+  {
+    "id": "tada2026-megnn-join",
+    "title": "Predicting Table Joinability in Data Lakes using a Metadata Knowledge Graph",
+    "url": "https://research.ibm.com/publications/predicting-table-joinability-in-data-lakes-using-a-metadata-knowledge-graph",
+    "sourceUpdated": "2026-08-31",
+    "decision": "included",
+    "reviewedAt": "2026-11-27",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "仅从表的元数据能否排出有可能连接的表。",
+      "contribution": "将表、列、描述等建成异构图，比较使用或省略训练连接边的两条图网络路线，分别按表或边留出。",
+      "evidence": "三个开放政府数据源的表 2 中，两张表均未见时，无连接边版 MRR 为 0.500，加连接边版为 0.427，普通 GNN 为 0.458。一端已见时加连接边版为 0.671，无边版为 0.591。",
+      "limitations": "评测标签由列值包含比例生成，代表潜在连接，不能验证业务主键或确定语义相同。元数据完整程度也会影响可迁移性。",
+      "value": "查找可复用表时，可按两端是否已见拆分评测，避免把对已有表关系的记忆误算为发现新表的能力。",
+      "reproducibility": "论文列出开放政府数据、代码及数据归档链接。核对表 2 的三种划分，尚未独立运行。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://research.ibm.com/publications/predicting-table-joinability-in-data-lakes-using-a-metadata-knowledge-graph",
+        "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_4.pdf",
+        "https://tabular-data-analysis.github.io/tada2026/#papers",
+        "https://zenodo.org/records/20143332"
+      ],
+      "readScope": "图构建、连接标签生成和消融，表 2 至 5，作者书目页与 TaDA 论文集。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "库内表检索工作多用内容或表向量。此处限制预测输入为元数据，并对是否使用已见连接边给出同类模型的归纳和半归纳对照。",
+      "reason": "适用于只能读目录元数据的场景，且同一历史关系在不同划分下作用方向相反。"
+    }
+  },
+  {
+    "id": "tada2026-cta-failures",
+    "title": "Representation, Retrieval, and Decision Space: A Case Study on Diagnosing LLM Failures in Column Type Annotation",
+    "url": "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_6.pdf",
+    "sourceUpdated": "2026-09-04",
+    "decision": "included",
+    "reviewedAt": "2026-11-27",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "固定预测后究竟能把列类型错误定位到表示、示例检索还是最后的标签选择。",
+      "contribution": "对同一组 300 列保留七种方法的原始预测，按示例中的标签覆盖率分层，再为 132 个曾误判的列设置真标签与常见混淆标签的二选一诊断。",
+      "evidence": "VizNet 的 90 张表中，59 张的检索结果覆盖所有真标签。多列检索方法在覆盖完整和不完整两组上的 micro-F1 为 97.0% 和 74.3%。",
+      "limitations": "按真标签覆盖分组是事后诊断，组间差距本身不能等价为检索改造的因果收益。二选一探针已知真标签，且只针对有错样本。",
+      "value": "字段标注遇到失败时，可先量示例是否覆盖所需类型，再看保留正确候选后还有多少混淆。",
+      "reproducibility": "作者公开了预测文件及诊断代码。本次核对 Workshop 正文与作者仓库。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_6.pdf",
+        "https://tabular-data-analysis.github.io/tada2026/#papers",
+        "https://github.com/jhcao1024/cta-llm-probe"
+      ],
+      "readScope": "第 3 至 7 节，表 2、4、5 与误例二选一设置。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "库内 No Fixed Configuration Is Best 检查字段匹配管线。此文以列类型金标、示例标签覆盖和错误列的二选一探针给出另一组可复用的诊断。",
+      "reason": "能区分示例没带来必要标签与给定真标签仍判错这两个环节，范围仅限所测标签集。"
+    }
+  },
+  {
+    "id": "arxiv-2506.16616",
+    "title": "LDI: Localized Data Imputation for Text-Rich Tables",
+    "url": "https://arxiv.org/abs/2506.16616",
+    "sourceUpdated": "2026-08-12",
+    "decision": "included",
+    "reviewedAt": "2026-11-27",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "在有限提示空间下选哪些字段和行，能帮助补全带文本的表格。",
+      "contribution": "按近似属性依赖筛列，再兼顾与待填行的相似性和示例间差异筛行。以全属性随机行以及只筛属性等变体分解结果。",
+      "evidence": "四个真实表上人工移去 10% 的原始值。Restaurant 的精确匹配率为 0.832，对比 FMW 的 0.766。Zomato 上 LDI 为 0.974，IPM 为 0.995。表 2 另列选列后的提示 token 减少量。",
+      "limitations": "模拟随机缺失，与实际非随机漏报的分布不同。发现依赖和逐行选示例也会消耗时间。",
+      "value": "给长文本字段插补提供可逐步替换的选列、选行对照，还保留传统候选检索较强的条件。",
+      "reproducibility": "作者开放代码与实验设置。核对长文第 6 节表 2、3、5。未独立重跑。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2506.16616",
+        "https://arxiv.org/html/2506.16616v4",
+        "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_3.pdf",
+        "https://tabular-data-analysis.github.io/tada2026/#papers"
+      ],
+      "readScope": "方法、四表人工缺失设置、基线、消融及运行成本，核对 TaDA 正式稿。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "库内 NANO 和任务感知插补研究关注估计误差、下游预测或可替换插补器。这篇补足文本字段中提示选列与选行的成分对照，故作为较早前作补录。",
+      "reason": "能在现有插补实验中直接加入全字段随机行及只筛字段基线，也能核对节省的上下文。"
+    }
+  },
+  {
+    "id": "doi-10.1088-3050-287x-aebee8",
+    "title": "Learning when to use physical relationships in descriptor-based tabular machine learning",
+    "url": "https://doi.org/10.1088/3050-287X/aebee8",
+    "sourceUpdated": "2026-11-25",
+    "decision": "included",
+    "reviewedAt": "2026-11-27",
+    "reason": "阅读相关方法与实验正文后收录；概览保留贡献、证据及使用限制。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "已知物理公式依赖有误差的中间预测时，怎样判断其修正是否值得采用。",
+      "contribution": "以直接预测作锚点，将预测的辅助量送进已知物理关系，用折外残差、分歧等可靠性信号学习有界的混合权重。",
+      "evidence": "在四类材料与器件、16 个目标和路线端点上比较六种结构。PhysicsGate 的平均留出 RMSE 在全部端点低于直接基线，在其中 15 个端点列第一。域级收益与区间大小差异明显。",
+      "limitations": "同域端点共享数据和划分。液态金属电池的不确定区间很宽，外层切分数量有限。仅支持所测物理关系和表征方案。",
+      "value": "当知识特征来自其他模型估计时，可将直接预测、纯公式、残差修正和样本级混合分开比较，避免把目标信息用于学习门控权重。",
+      "reproducibility": "期刊正文列有训练折外流程、外层划分和代码仓库，第三方原数据需从各来源取得。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://doi.org/10.1088/3050-287X/aebee8",
+        "https://iopscience.iop.org/article/10.1088/3050-287X/aebee8",
+        "https://github.com/hanhanhanhanhanhanhanhanhanhanhan/PhysicsGate"
+      ],
+      "readScope": "期刊正文第 2、3 节、域级区间、端点排行和折外可靠性信号构造。"
+    },
+    "valueAssessment": {
+      "decision": "include",
+      "comparison": "库内 Do Tabular Foundation Models Know Physics? 关注模型是否掌握物理规律，本文比较当公式输入本身来自预测值时，各种规则融合方法的误差及不稳定性。",
+      "reason": "相同划分下直接、公式和折外混合的消融，可直接复用为知识特征进入回归模型的对照。"
+    }
+  },
+  {
+    "id": "arxiv-2610.14998",
+    "title": "Tab-Loop: Recurrent In-Context Learning for Tabular Foundation Models",
+    "url": "https://arxiv.org/abs/2610.14998",
+    "sourceUpdated": "2026-11-25",
+    "decision": "existing",
+    "reviewedAt": "2026-11-27",
+    "reason": "11 月 25 日第二版更新题名，增补回归实验，以及匹配训练算力与训练表数的对照。",
+    "qualityReview": {
+      "reviewStatus": "completed",
+      "claim": "循环共享权重在部分预算下接近完整骨干，第二版补齐回归与训练数据量对照。",
+      "contribution": "区分预训练算力相同、完整训练后表数相同，以及推理循环次数与训练深度范围之间的关系。",
+      "evidence": "第二版表 2 中，分类模型为 1040 万与 2760 万参数，回归模型为 1140 万与 2850 万。相同训练计算下汇总表现接近。完整训练并匹配表数后，TALENT 回归基线胜率为 64%，共享块按推理深度为 53% 或 58%。",
+      "limitations": "TabArena 回归仅 13 张表，估计区间较宽。参数量和块调用次数不能替代端到端延迟计时。",
+      "value": "循环架构的评测需覆盖回归，区分参数共享、算力和训练表数。",
+      "reproducibility": "核对两版原稿及第二版表 2，未独立训练。",
+      "conclusion": "证据已支持",
+      "sources": [
+        "https://arxiv.org/abs/2610.14998",
+        "https://arxiv.org/pdf/2610.14998",
+        "https://arxiv.org/html/2610.14998v2",
+        "https://arxiv.org/pdf/2610.14998v1"
+      ],
+      "readScope": "第一版实验，第二版摘要、第 5 节、主对照表、回归结果及附录。"
+    }
+  },
+  {
+    "id": "doi-10.64898-2026.11.23.26368797",
+    "title": "Tabular Foundation AI Models in Healthcare: A WHO-Inspired Benchmark for Responsible AI and Trustworthiness",
+    "url": "https://www.medrxiv.org/content/10.64898/2026.11.23.26368797v1",
+    "sourceUpdated": "2026-11-24",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-27",
+    "reason": "表 1 十个队列中多个经下采样成为 350 比 350。组间误差和校准在当前患病率及切分下测得，需补核自然患病率、版本和外部验证，再比较库内临床校准研究。"
+  },
+  {
+    "id": "arxiv-2608.14186",
+    "title": "Revisiting Energy-based Tabular Anomaly Detection: Energy and Reconstruction are Complementary",
+    "url": "https://arxiv.org/abs/2608.14186",
+    "sourceUpdated": "2026-11-26",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-27",
+    "reason": "正文用正常样本拟合后对全数据打分，且只覆盖两种表格设置。需用独立留出的正常与异常样本同测，才能判断相对现有异常模型的增量。"
+  },
+  {
+    "id": "doi-10.1007-978-3-032-45236-8_9",
+    "title": "Feature-Token Reconstruction for Tabular Anomaly Detection: Locality and Bottleneck Cost",
+    "url": "https://link.springer.com/chapter/10.1007/978-3-032-45236-8_9",
+    "sourceUpdated": "2026-11-26",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-27",
+    "reason": "出版社题录和预览可读，缺少完整方法和主实验。待核对特征局部性、瓶颈开销与同预算基线。"
+  },
+  {
+    "id": "doi-10.1007-978-981-92-8227-2_11",
+    "title": "Adaptive Instance-Graph Learning for GNNs on Tabular Data",
+    "url": "https://link.springer.com/chapter/10.1007/978-981-92-8227-2_11",
+    "sourceUpdated": "2026-11-26",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-27",
+    "reason": "出版社预览不足以核对构图是否使用测试特征，以及样本外预测相对强基线的变化。"
+  },
+  {
+    "id": "arxiv-2611.34584",
+    "title": "Routing and Cache Retention for Multi-Turn LLM Inference: Theory and Implementation",
+    "url": "https://arxiv.org/abs/2611.34584",
+    "sourceUpdated": "2026-11-25",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-27",
+    "reason": "语言模型服务依赖工具调用间隙和同会话前缀再用。对于固定表格上下文，尚缺工作负载映射及相对已有缓存服务方案的独立收益证据。"
+  },
+  {
+    "id": "arxiv-2611.33625",
+    "title": "State Space Attention: Learning Context-Dependent Memory Retention",
+    "url": "https://arxiv.org/abs/2611.33625",
+    "sourceUpdated": "2026-11-24",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-27",
+    "reason": "工作在因果语言序列中学习保留过去表示。与表格行列置换、冻结上下文复用及库内压缩方法之间的可比条件尚未建立。"
+  },
+  {
+    "id": "report-causilo-15",
+    "title": "Causilo 1.5",
+    "url": "https://nums.world/blog/causilo-1-5/",
+    "sourceUpdated": "2026-11-25",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-27",
+    "reason": "公告和权重可核对，模型卡注明 1.5.1 的 TabArena 评测待出，已发图表对应 1.5.0。与既有技术报告分开跟踪，待锁定版本的正文或对照补齐再评审。"
+  },
+  {
+    "id": "tada2026-5",
+    "title": "Understanding Domain-Aware Distribution Alignment in Budgeted Entity Matching",
+    "url": "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_5.pdf",
+    "sourceUpdated": "2026-09-04",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-27",
+    "reason": "需核对标签可见与域无关设置和库内 CaRL-EM 的预算单位、领域切分及可用标签。"
+  },
+  {
+    "id": "tada2026-8",
+    "title": "Hyperdimensional Computing for Structured Querying on Tabular Data Embeddings",
+    "url": "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_8.pdf",
+    "sourceUpdated": "2026-09-04",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-27",
+    "reason": "有行检索和投影的实验。仍需比较零匹配查询和候选规模变化时的误检及索引代价，判断相对普通列索引的用途。"
+  },
+  {
+    "id": "tada2026-11",
+    "title": "Can a Single Tabular Embedding Model Service Different Tasks?",
+    "url": "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_11.pdf",
+    "sourceUpdated": "2026-09-04",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-27",
+    "reason": "定位到跨任务与分类结果，待核对与同团队 TEmBed 在数据、任务和骨干上的重叠。"
+  },
+  {
+    "id": "tada2026-13",
+    "title": "PaperUnPlot: Benchmarking Chart-to-Table in the Wild",
+    "url": "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_13.pdf",
+    "sourceUpdated": "2026-09-04",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-27",
+    "reason": "正式稿使用真实论文图表。需进一步核对数值金标精度、坐标尺度与评估指标，再判断其对表格抽取的独立价值。"
+  },
+  {
+    "id": "tada2026-14",
+    "title": "Towards Budget-Aware Dense Retrieval for Tables: Trade-offs, Alternatives and Future Directions",
+    "url": "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_14.pdf",
+    "sourceUpdated": "2026-09-04",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-27",
+    "reason": "表 2 并列 Recall@10 和建索引时间，需复核离线成本与在线查询的摊销条件，并比较与 TEmBed-T 的新增证据。"
+  },
+  {
+    "id": "tada2026-17",
+    "title": "Diversed Model Discovery via Structured Table Discovery",
+    "url": "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_17.pdf",
+    "sourceUpdated": "2026-09-04",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-27",
+    "reason": "模型卡表格用于模型搜索，待核对多样性增益及相关性取舍对实际选模的参考价值。"
+  },
+  {
+    "id": "tada2026-18",
+    "title": "Speeding Up Transformation Search with Lightweight Statistics",
+    "url": "https://tabular-data-analysis.github.io/tada2026/papers/TaDA26_18.pdf",
+    "sourceUpdated": "2026-09-04",
+    "decision": "deferred",
+    "reviewedAt": "2026-11-27",
+    "reason": "使用轻量统计量加速转换搜索，待核对剪枝速度与错过正确转换的代价。"
   }
 ]
